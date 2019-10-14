@@ -27,6 +27,7 @@ android {
 
     lintOptions {
         checkReleaseBuilds false
+        abortOnError false
     }
 
     // needed to use android.test package (ActivityInstrumentationTestCase2 etc) when targetting sdk 28 (Android 9) -
