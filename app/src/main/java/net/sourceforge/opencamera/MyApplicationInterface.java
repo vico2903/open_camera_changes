@@ -53,6 +53,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 
+import foundation.e.camera.R;
+
 /** Our implementation of ApplicationInterface, see there for details.
  */
 public class MyApplicationInterface extends BasicApplicationInterface {

@@ -55,6 +55,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+import foundation.e.camera.R;
+
 /** Fragment to handle the Settings UI. Note that originally this was a
  *  PreferenceActivity rather than a PreferenceFragment which required all
  *  communication to be via the bundle (since this replaced the MainActivity,

@@ -3,7 +3,7 @@ package net.sourceforge.opencamera.preview;
 import net.sourceforge.opencamera.cameracontroller.RawImage;
 //import net.sourceforge.opencamera.MainActivity;
 import net.sourceforge.opencamera.MyDebug;
-import net.sourceforge.opencamera.R;
+import foundation.e.camera.R;
 import net.sourceforge.opencamera.ScriptC_histogram_compute;
 import net.sourceforge.opencamera.TakePhoto;
 import net.sourceforge.opencamera.ToastBoxer;

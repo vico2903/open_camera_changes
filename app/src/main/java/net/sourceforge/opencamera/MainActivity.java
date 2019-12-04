@@ -85,6 +85,8 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.ZoomControls;
 
+import foundation.e.camera.R;
+
 /** The main Activity for Open Camera.
  */
 public class MainActivity extends Activity {

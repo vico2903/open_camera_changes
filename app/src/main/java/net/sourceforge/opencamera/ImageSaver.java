@@ -53,6 +53,8 @@ import android.util.Xml;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
 
+import foundation.e.camera.R;
+
 /** Handles the saving (and any required processing) of photos.
  */
 public class ImageSaver extends Thread {

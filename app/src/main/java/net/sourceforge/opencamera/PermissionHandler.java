@@ -12,6 +12,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import foundation.e.camera.R;
+
 /** Android 6+ permission handling:
  */
 public class PermissionHandler {

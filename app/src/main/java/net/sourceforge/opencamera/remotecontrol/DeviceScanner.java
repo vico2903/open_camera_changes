@@ -32,7 +32,7 @@ import android.widget.Toast;
 
 import net.sourceforge.opencamera.MyDebug;
 import net.sourceforge.opencamera.PreferenceKeys;
-import net.sourceforge.opencamera.R;
+import foundation.e.camera.R;
 
 import java.util.ArrayList;
 

@@ -7,7 +7,7 @@ import net.sourceforge.opencamera.MyDebug;
 import net.sourceforge.opencamera.PreferenceKeys;
 import net.sourceforge.opencamera.preview.ApplicationInterface;
 import net.sourceforge.opencamera.preview.Preview;
-import net.sourceforge.opencamera.R;
+import foundation.e.camera.R;
 
 import android.app.AlertDialog;
 import android.content.Context;
