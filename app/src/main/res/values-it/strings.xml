@@ -4,7 +4,6 @@
     <string name="app_name">Open Camera</string>
     <string name="action_settings">Impostazioni</string>
     <string name="action_popup">Impostazioni Popup</string>
-    <string name="intro_text">Tocca lo schermo per mettere a fuoco e premi il pulsante blu a forma di fotocamera per scattare fotografie. Per aiuti aggiuntivi, premi Aiuto Online dalle Impostazioni. Open Camera è interamente software libero (Free e Open Source). Se questa app ti piace, considera che puoi anche dare una mano nello sviluppo effettuando una donazione :) (vedi il link nelle Impostazioni o nell\'Aiuto Online).\n\nNote per la privacy: I permessi dell\'applicazione per la Geolocalizzazione sono richiesti esclusivamente per il geotagging, disabilitato di predefinito. Quando invece sono abilitati, la tua posizione è codificata solo nelle foto e nei video salvati (ed è usata solo a questo scopo).</string>
     <string name="intro_ok">OK (Non mostrare più)</string>
 
     <string name="on">On</string> <!-- whether a setting is turned on, e.g., "Auto-stabilise: On" -->
@@ -107,7 +106,6 @@
     <string name="preference_shutter_sound_summary">Emette un suono quando scatta una foto (richiede Android 4.2 o versioni superiori per disabilitarlo)</string>
     <string name="preference_volume_keys">Tasti volume</string>
     <string name="preference_audio_control">Opzioni controllo Audio</string>
-    <string name="preference_audio_control_summary">Scatta foto o registra video non appena viene rilevato un rumore o un comando vocale (\"cheese\"). Se abilitato, usa il bottone del Microfono sullo schermo per iniziare e terminare l\'ascolto.</string>
     <string name="preference_audio_noise_control_sensitivity">Sensibilità controllo Audio</string>
     <string name="preference_audio_noise_control_sensitivity_summary">Opzione per sensibilità del livello di rumore per il controllo audio (forte rumore)</string>
     <string name="preference_save_location">Posizione di salvataggio</string>
