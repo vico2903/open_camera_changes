@@ -4,7 +4,6 @@
     <string name="app_name">Open Camera</string>
     <string name="action_settings">Definições</string>
     <string name="action_popup">Definições rápidas</string>
-    <string name="intro_text">Tocar para focar, pressione o botão de câmara azul para tirar fotografias. Para mais ajuda, clique em Ajuda online nas Definições. O Open Camera é completamente grátis. Se gosta desta aplicação, por favor concidere comprar a minha aplicação de donativo :) (veja o link nas Definições, ou Ajuda online).\n\nPolítica de Privacidade: A permissão de localização é necessária para o geotagging, mas isto encontra-se desativado por predefinição. Se ativado, a sua localização será codificada e guardada nos ficheiros (e apenas será usada para este propósito).</string>
     <string name="intro_ok">OK (Esta mensagem não será mostrada novamente)</string>
 
     <string name="on">Ativar</string> <!-- whether a setting is turned on, e.g., "Auto-stabilise: On" -->
@@ -108,7 +107,6 @@
     <string name="preference_shutter_sound_summary">Reproduzir um som quando for tirada uma fotografia</string>
     <string name="preference_volume_keys">Teclas de volume</string>
     <string name="preference_audio_control">Opções de controlo por áudio</string>
-    <string name="preference_audio_control_summary">Tirar fotografia ou gravar vídeo quando for detetado ruído, ou no comando por voz (\"cheese\"). Quando ativado, utilize o botão de microfone no ecrã para iniciar ou terminar a escuta.</string>
     <string name="preference_audio_noise_control_sensitivity">Sensibilidade do controlo por áudio</string>
     <string name="preference_audio_noise_control_sensitivity_summary">Definir a sensibilidade do nível de ruído do áudio (ruído alto)</string>
     <string name="preference_save_location">Local de armazenamento</string>

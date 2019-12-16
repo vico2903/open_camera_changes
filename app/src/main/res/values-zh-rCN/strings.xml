@@ -4,7 +4,6 @@
     <string name="app_name">Open Camera</string>
     <string name="action_settings">设置</string>    
     <string name="action_popup">弹出设置</string>
-    <string name="intro_text">轻触聚焦，点击蓝色相机按钮来拍照。点击设置中的在线帮助可以获得更多帮助。Open Camera 是完全免费的。如果你喜欢这个 app，请考虑购买我的捐赠 app :)(查看设置中的链接，或者在线帮助)。\n\n隐私政策：必须允许位置许可才能进行地理标记，但默认这是关闭的。如果开启，你的位置被编码在保存的文件中(并且它仅被用于此目的).\n\n(此消息将不会再显示。)</string>
     <string name="intro_ok">好 (此消息将不再显示)</string>
 
     <string name="on">开启</string> <!-- whether a setting is turned on, e.g., "Auto-stabilise: On" -->
@@ -107,7 +106,6 @@
     <string name="preference_shutter_sound_summary">拍照时播放声音(需要 Android 4.2 或更高才能禁用)</string>
     <string name="preference_volume_keys">音量键功能</string>
     <string name="preference_audio_control">语音识别</string>
-    <string name="preference_audio_control_summary">当检测到声音，或者在收到语音命令(\"cheese\")时拍照或录像。启用此功能后，可以通过点击屏幕上的麦克风启动和停止识别语音。</string> <!-- symbol short for megabytes -->
     <string name="preference_audio_noise_control_sensitivity">麦克风灵敏度</string>
     <string name="preference_audio_noise_control_sensitivity_summary">使用语音识别时麦克风过滤噪声的阈值</string>
     <string name="preference_save_location">保存位置</string>
@@ -752,7 +750,6 @@
     <string name="preference_remote_type_kraken">Kraken智能家居</string>
 
     <string name="preference_stamp_geo_address">使用地址</string>
-    <string name="preference_stamp_geo_address_summary">尽可能使用地址来标记GPS位置。这需要访问互联网。\n%s</string>
     <string name="preference_stamp_geo_address_both">尽量显示地址和坐标</string>
     <string name="preference_stamp_geo_address_prefer">GPS坐标优先</string>
     <string name="preference_stamp_geo_address_no">不显示地址</string>

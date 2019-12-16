@@ -4,7 +4,6 @@
     <string name="app_name">Open Camera</string>
     <string name="action_settings">Настройки</string>
     <string name="action_popup">Настройки всплывающих окон</string>
-    <string name="intro_text">Нажмите на экран для фокуса и нажмите синюю кнопку, чтобы сделать фото. В настройках вас ждет очень много плюшек. :)</string>
     <string name="intro_ok">Ок (Это сообщение больше не появится.)</string>
 
     <string name="on">Вкл</string>
@@ -108,7 +107,6 @@
     <string name="preference_shutter_sound_summary">Воспроизведение звука при съемке фотографии (требуется Android 4.2+ для отключения)</string>
     <string name="preference_volume_keys">Клавиши громкости</string>
     <string name="preference_audio_control">Настройки управления звуком</string>
-    <string name="preference_audio_control_summary">Снимать фото или видео при помощи громкого шума или голосовой команды (\"cheese\"). Если включено, используйте кнопку микрофона на экране для включения и выключения управления звуком.</string>
     <string name="preference_audio_noise_control_sensitivity">Чувствительность управления звуком</string>
     <string name="preference_audio_noise_control_sensitivity_summary">Чувствительность уровня шума для управления звуком (опция \"громкий шум\")</string>
     <string name="preference_save_location">Папка сохранения</string>
@@ -802,7 +800,6 @@
     <string name="preference_remote_type_kraken">Kraken Smart Housing</string>
 
     <string name="preference_stamp_geo_address">Использовать адреса</string>
-    <string name="preference_stamp_geo_address_summary">По возможности использовать адрес при выставлении штампа с местоположением по GPS. Для данной настройки требуется подключение к Интернету.\n%s</string>
     <string name="preference_stamp_geo_address_both">По возможности показывать адреса вместе с GPS-координатами</string>
     <string name="preference_stamp_geo_address_prefer">Предпочитать адреса GPS-координатам</string>
     <string name="preference_stamp_geo_address_no">Не показывать адреса</string>

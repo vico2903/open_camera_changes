@@ -3,7 +3,6 @@
     <string name="app_name">Open Camera</string>
     <string name="action_settings">Ustawienia</string>
     <string name="action_popup">Ustawienia</string>
-    <string name="intro_text">Dotknij aby ustawić ostrość a następnie wciśnij niebieski przycisk by zrobić zdjęcie. Jeśli potrzebujesz pomocy kliknij Pomoc online w ustawieniach. Open Camera jest zupełnie za darmo. Jeśli spodobała Ci się ta aplikacja rozważ zakup aplikacji-darowizny :) (sprawdź link w ustawieniach).\n\nPolityka prywatności: Dostęp do lokalizacji jest wymagany do geotagowania ale jest domyślnie wyłączony. Jeśli jest włączony Twoja lokalizacja będzie dodawana do zapisywanych plików i będzie używana wyłącznie w tym celu.</string>
     <string name="intro_ok">OK (Ta wiadomość nie pokaże się ponownie)</string>
     <string name="on">Włączone</string>
     <!-- whether a setting is turned on, e.g., "Auto-level: On" -->
@@ -107,7 +106,6 @@
     <string name="preference_shutter_sound_summary">Odtwarza dźwięk podczas wykonywania zdjęcia</string>
     <string name="preference_volume_keys">Klawisze głośności</string>
     <string name="preference_audio_control">Aktywacja za pomocą dźwięków</string>
-    <string name="preference_audio_control_summary">Wykonuje zdjęcie lub nagrywa film po wykryciu dźwięku lub komendy głosowej (\"cheese\"). Jeśli włączone, użyj ikony mikrofonu w celu rozpoczęcia nasłuchu</string>
     <string name="preference_audio_noise_control_sensitivity">Wrażliwość sterowania dźwiękiem</string>
     <string name="preference_audio_noise_control_sensitivity_summary">Poziom wrażliwości na dźwięki aktywujące aparat</string>
     <string name="preference_save_location">Lokalizacja zapisu</string>

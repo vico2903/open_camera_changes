@@ -24,6 +24,8 @@ import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Set;
 
+import foundation.e.camera.R;
+
 /** Code for options for saving and restoring settings.
  */
 public class SettingsManager {

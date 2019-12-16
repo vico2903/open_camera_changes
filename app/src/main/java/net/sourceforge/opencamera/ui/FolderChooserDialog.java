@@ -1,7 +1,7 @@
 package net.sourceforge.opencamera.ui;
 
 import net.sourceforge.opencamera.MyDebug;
-import net.sourceforge.opencamera.R;
+import foundation.e.camera.R;
 import net.sourceforge.opencamera.StorageUtils;
 
 import java.io.File;
