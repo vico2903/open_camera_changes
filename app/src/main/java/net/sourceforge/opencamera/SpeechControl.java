@@ -14,6 +14,8 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import foundation.e.camera.R;
+
 /** Manages speech recognition for remote control.
  */
 class SpeechControl {

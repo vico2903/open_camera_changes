@@ -9,9 +9,11 @@ import android.hardware.SensorManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import foundation.e.camera.R;
+
 /** Handles magnetic sensor.
  */
-public class MagneticSensor {
+class MagneticSensor {
     private static final String TAG = "MagneticSensor";
 
     private final MainActivity main_activity;

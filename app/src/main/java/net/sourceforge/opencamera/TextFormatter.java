@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import foundation.e.camera.R;
+
 /** Handles various text formatting options, used for photo stamp and video subtitles.
  */
 public class TextFormatter {
