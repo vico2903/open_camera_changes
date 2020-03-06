@@ -474,5 +474,13 @@
 
     <string name="preference_stamp_style_shadowed">Cieniowany tekst</string>
     <string name="preference_stamp_style_plain">Czysty tekst</string>
+    <string name="preferences_about_title">About</string>
+    <string name="preferences_build_version">Wersja kompilacji</string>
+    <string name="preferences_about_app">Kamera jest rozwidlona z OpenCamera</string>
+    <string name="preferences_authors">Autor</string>
+    <string name="preferences_source_code">Kod źródłowy</string>
+    <string name="preferences_licence">Licencja</string>
+    <string name="preferences_app_info_title">Informacje o kamerze</string>
+    <string name="preferences_service_terms">Warunki usługi</string>
 
 </resources>

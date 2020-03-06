@@ -440,5 +440,13 @@
 
     <string name="preference_stamp_style_shadowed">Texte ombré</string>
     <string name="preference_stamp_style_plain">Texte brut</string>
+    <string name="preferences_about_title">About</string>
+    <string name="preferences_build_version">Créer une version</string>
+    <string name="preferences_about_app">La caméra est dérivée d\'OpenCamera</string>
+    <string name="preferences_authors">Auteur</string>
+    <string name="preferences_source_code">Code source</string>
+    <string name="preferences_licence">Licence</string>
+    <string name="preferences_app_info_title">Informations sur la caméra</string>
+    <string name="preferences_service_terms">Conditions d\'utilisation</string>
 
 </resources>

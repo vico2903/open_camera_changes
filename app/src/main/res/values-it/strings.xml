@@ -526,5 +526,13 @@
 
     <string name="preference_stamp_style_shadowed">Testo ombreggiato</string>
     <string name="preference_stamp_style_plain">Testo piano</string>
+    <string name="preferences_about_title">About</string>
+    <string name="preferences_build_version">Versione build</string>
+    <string name="preferences_about_app">La telecamera è biforcuta da OpenCamera</string>
+    <string name="preferences_authors">autore</string>
+    <string name="preferences_source_code">Codice sorgente</string>
+    <string name="preferences_licence">licenza</string>
+    <string name="preferences_app_info_title">Informazioni sulla fotocamera</string>
+    <string name="preferences_service_terms">Termini del servizio</string>
 
 </resources>
