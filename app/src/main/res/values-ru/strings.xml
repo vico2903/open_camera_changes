@@ -877,6 +877,14 @@
     <string name="preference_panorama_save_all">Сохранять оригинальные изображения</string>
     <string name="preference_panorama_save_all_plus_debug">Сохранять оригинальные изображения и файл XML для отладки</string>
 
-    <string name="camera_id">ID</string> <!-- ID as in camera ID -->
+    <string name="camera_id">ID</string>
+    <string name="preferences_about_title">About</string>
+    <string name="preferences_build_version">Версия сборки</string>
+    <string name="preferences_about_app">Камера разветвлена от OpenCamera</string>
+    <string name="preferences_authors">автор</string>
+    <string name="preferences_source_code">Исходный код</string>
+    <string name="preferences_licence">лицензия</string>
+    <string name="preferences_app_info_title">Информация о камере</string>
+    <string name="preferences_service_terms">Условия обслуживания</string> <!-- ID as in camera ID -->
 
 </resources>
