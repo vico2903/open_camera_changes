@@ -861,8 +861,8 @@ public class MainActivity extends Activity {
         editor.apply();
     }
 
-    private static String getOnlineHelpUrl(String append) {
-        if( MyDebug.LOG )
+    static String getOnlineHelpUrl(String append) {
+        if (MyDebug.LOG)
             Log.d(TAG, "getOnlineHelpUrl: " + append);
         // if we change this, remember that any page linked to must abide by Google Play developer policies!
         return "https://opencamera.sourceforge.io/"+ append;
