@@ -496,5 +496,13 @@
 
     <string name="preference_stamp_style_shadowed">Árnyékos szöveg</string>
     <string name="preference_stamp_style_plain">Sima szöveg</string>
+    <string name="preferences_about_title">About</string>
+    <string name="preferences_build_version">Összeállított verzió</string>
+    <string name="preferences_about_app">A fényképezőgép villás az OpenCamera-tól</string>
+    <string name="preferences_authors">szerző</string>
+    <string name="preferences_source_code">Forráskód</string>
+    <string name="preferences_licence">engedély</string>
+    <string name="preferences_app_info_title">Kamera információk</string>
+    <string name="preferences_service_terms">Szolgáltatási feltételek</string>
 
 </resources>

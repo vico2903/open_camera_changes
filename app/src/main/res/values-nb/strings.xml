@@ -546,5 +546,13 @@
 
     <string name="preference_stamp_style_shadowed">Skyggelagt tekst</string>
     <string name="preference_stamp_style_plain">Ren tekst</string>
+    <string name="preferences_about_title">About</string>
+    <string name="preferences_build_version">Bygg versjon</string>
+    <string name="preferences_about_app">Kamera er gaffel fra OpenCamera</string>
+    <string name="preferences_authors">Forfatter</string>
+    <string name="preferences_source_code">Kildekode</string>
+    <string name="preferences_licence">lisens</string>
+    <string name="preferences_app_info_title">Kamerainformasjon</string>
+    <string name="preferences_service_terms">Tjenestevilkår</string>
 
 </resources>
