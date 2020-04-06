@@ -591,5 +591,13 @@
 
     <string name="preference_stamp_style_shadowed">Texto sombreado</string>
     <string name="preference_stamp_style_plain">Texto plano</string>
+    <string name="preferences_about_title">About</string>
+    <string name="preferences_build_version">Versión de compilación</string>
+    <string name="preferences_about_app">La cámara está bifurcada de OpenCamera</string>
+    <string name="preferences_authors">Autor</string>
+    <string name="preferences_source_code">Código fuente</string>
+    <string name="preferences_licence">Licencia</string>
+    <string name="preferences_app_info_title">Información de la cámara</string>
+    <string name="preferences_service_terms">Términos de servicio</string>
 
 </resources>
