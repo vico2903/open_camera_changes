@@ -183,7 +183,7 @@
     <string name="preference_stamp_summary">Tamponner les photos avec la date et l\'heure ; et aussi les informations GPS si les données de localisation/direction sont activées
 \n%s</string>
     <string name="preference_stamp_dateformat">Format de la date</string>
-    <string name="preference_stamp_timeformat">Format de l\'heure</string>
+    <string name="preference_stamp_timeformat">Format de l\'horodatage</string>
     <string name="preference_stamp_gpsformat">Format GPS</string>
     <string name="preference_textstamp">Texte personnalisé</string>
     <string name="preference_textstamp_summary">Incruste un texte personnalisé sur la photo</string>
