@@ -219,7 +219,7 @@
     <string name="preference_about_summary">Informace aplikace a ladění</string>
     <string name="preference_reset">Obnovit nastavení</string>
     <string name="preference_reset_summary">Obnoví všechna nastavení Camera na původní</string>
-    <string name="preference_reset_question">Jste si jist/á, že chcete obnovit všechna nastavení Camera na původní?</string>
+    <string name="preference_reset_question">Jste si jist/á, že chcete obnovit všechna nastavení Open Camera na původní?</string>
 
     <string name="about_available">Dostupné</string>
     <string name="about_not_available">Nedostupné</string>

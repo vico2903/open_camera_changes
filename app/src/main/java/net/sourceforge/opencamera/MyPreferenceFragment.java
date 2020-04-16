@@ -969,14 +969,14 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                                 Log.d(TAG, "NameNotFoundException exception trying to get version number");
                             e.printStackTrace();
                         }
-                        about_string.append("Open Camera v");
+                        about_string.append("Camera v");
                         about_string.append(version);
                         about_string.append("\nCode: ");
                         about_string.append(version_code);
                         about_string.append("\n(c) 2013-2019 Mark Harman");
                         about_string.append("\nReleased under the ");
                         about_string.append(gpl_link);
-                        about_string.append(" (Open Camera also uses additional third party files, see " + online_help_link + " for full licences and attributions.)");
+                        about_string.append(" (Camera also uses additional third party files, see " + online_help_link + " for full licences and attributions.)");
                         about_string.append("\nPackage: ");
                         about_string.append(MyPreferenceFragment.this.getActivity().getPackageName());
                         about_string.append("\nAndroid API version: ");

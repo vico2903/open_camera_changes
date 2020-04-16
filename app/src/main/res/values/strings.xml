@@ -225,7 +225,7 @@
     
     <string name="preference_category_online">Misc</string>
     <string name="preference_online_help">Online help</string>
-    <string name="preference_online_help_summary">Launch the Open Camera website in your browser</string>
+    <string name="preference_online_help_summary">Launch the Camera website in your browser</string>
     <string name="preference_donate">Donate to support development</string>
     <string name="preference_donate_summary">If you like this app, please consider making a donation to support development. You can do this by purchasing my "donation app" - click this option to open up the page for my donation app. Thanks!</string>
     <string name="preference_use_camera2">Use Camera2 API</string>
@@ -935,7 +935,7 @@
 
     <string name="preference_screen_licences">Open Source licences</string>
     <string name="preference_licence_open_camera">Camera</string>
-    <string name="preference_licence_open_camera_text">Open Camera is © 2013–2019 Mark Harman, released under the GPL v3 or later. Tap here for full licence text.</string>
+    <string name="preference_licence_open_camera_text">Camera is © 2013–2019 Mark Harman, released under the GPL v3 or later. Tap here for full licence text.</string>
     <string name="preference_licence_google_icons">Google\'s Material Design icons</string>
     <string name="preference_licence_google_icons_text">Camera uses icons from Google\'s Material Design icons
         (https://developer.android.com/design/downloads/index.html ,
