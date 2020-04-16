@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Open Camera</string>
+    <string name="app_name">Camera</string>
     <string name="action_settings">Paramètres</string>
     <string name="action_popup">Fenêtre de paramètres</string>
     <string name="intro_ok">OK (ce message ne s\'affichera plus)</string>
@@ -117,9 +117,9 @@
     <string name="preference_save_video_prefix">Préfixe du nom de la vidéo</string>
     <string name="preference_save_video_prefix_summary">Le préfixe est utilisé pour le nom de fichier des vidéos</string>
     <string name="preference_show_when_locked">Afficher l\'application appareil verrouillé</string>
-    <string name="preference_show_when_locked_summary">Si activé, Open Camera s\'affichera toujours au-dessus de l\'écran de verrouillage (vous devez déverrouiller pour accéder aux paramètres, galerie, etc.)</string>
+    <string name="preference_show_when_locked_summary">Si activé, Camera s\'affichera toujours au-dessus de l\'écran de verrouillage (vous devez déverrouiller pour accéder aux paramètres, galerie, etc.)</string>
     <string name="preference_startup_focus">Faire un auto-focus au démarrage</string>
-    <string name="preference_startup_focus_summary">Active l\'auto-focus au démarrage de Open Camera. Si vous avez un problème de flash qui s\'allume au démarrage, désactivez cette option</string>
+    <string name="preference_startup_focus_summary">Active l\'auto-focus au démarrage de Camera. Si vous avez un problème de flash qui s\'allume au démarrage, désactivez cette option</string>
     <string name="preference_lock_video">Verrouiller l\'écran lors de l\'enregistrement vidéo</string>
     <string name="preference_lock_video_summary">Lors de l\'enregistrement vidéo, l\'interface graphique sera verrouillée pour éviter d\'arrêter accidentellement l\'enregistrement. Balayez l\'écran pour déverrouiller. Notez que l\'enregistrement vidéo sera toujours arrêté si l\'application passe en arrière-plan ou si l\'écran est occulté.</string>
     <string name="preference_rotate_preview">Pivoter l\'aperçu</string>
