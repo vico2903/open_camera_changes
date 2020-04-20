@@ -3,7 +3,7 @@
     <string name="app_name">Open Camera</string>
     <string name="action_settings">Impostazioni</string>
     <string name="action_popup">Impostazioni Popup</string>
-    <string name="intro_ok">OK (Non mostrare più questo messaggio)</string>
+    <string name="intro_ok">OK (Non mostrare più questo avviso)</string>
     <string name="on">On</string>
     <!-- whether a setting is turned on, e.g., "Auto-stabilise: On" -->
     <string name="off">Off</string>
@@ -16,11 +16,11 @@
     <string name="repeats_to_go">riproduci dall\'inizio</string>
     <!--  intentionally starts lower case -->
     <!-- @TODO PER FAVORE VERIFICARE QUESTA TRADUZIONE! -->
-    <string name="failed_to_reconnect_camera">Non sono riuscito a riconnettere la fotocamera</string>
+    <string name="failed_to_reconnect_camera">non sono riuscito a riconnettere la fotocamera</string>
     <string name="video_may_be_corrupted">Errore, il file video potrebbe essere danneggiato</string>
     <string name="not_supported">non supportato sul tuo dispositivo</string>
     <!--  intentionally starts lower case -->
-    <string name="video_error_unknown">Errore sconosciuto, video interrotto</string>
+    <string name="video_error_unknown">errore sconosciuto, video interrotto</string>
     <string name="video_error_server_died">Il server è morto, video interrotto</string>
     <string name="video_max_duration">Il video ha raggiunto la durata massima</string>
     <string name="video_max_filesize">Il file video ha raggiunto la dimensione massima</string>
@@ -37,9 +37,9 @@
     <string name="cancelled_timer">Timer annullato</string>
     <string name="cancelled_repeat_mode">Scatto a raffica annullato</string>
     <string name="started_timer">Timer avviato</string>
-    <string name="failed_to_save_video">Il salvataggio del file video è fallito</string>
-    <string name="failed_to_record_video">La registrazione video è fallita</string>
-    <string name="started_recording_video">La registrazione video è iniziata</string>
+    <string name="failed_to_save_video">Salvataggio del file video fallito</string>
+    <string name="failed_to_record_video">Registrazione video fallita</string>
+    <string name="started_recording_video">Registrazione video avviata</string>
     <string name="sorry">Mi spiace</string>
     <string name="failed_to_save_photo">Salvataggio foto fallito</string>
     <string name="failed_to_save_photo_raw">Salvataggio foto in formato RAW fallito</string>
@@ -57,12 +57,12 @@
     <string name="audio_disabled">Audio disabilitato</string>
     <string name="max_duration">Durata massima</string>
     <string name="color_effect">Effetto Colore</string>
-    <string name="scene_mode">Modalità scena</string>
+    <string name="scene_mode">Modalità di scena</string>
     <string name="white_balance">Bilanciamento del bianco</string>
     <string name="angle">Angolo</string>
     <string name="direction">Direzione</string>
     <string name="failed_to_open_camera_1">ERRORE APERTURA FOTOCAMERA.</string>
-    <string name="failed_to_open_camera_2">LA FOTOCAMERA POTREBBE GIÀ ESSERE IN USO</string>
+    <string name="failed_to_open_camera_2">LA FOTOCAMERA POTREBBE ESSERE GIA\' IN USO</string>
     <string name="failed_to_open_camera_3">DA UN\'ALTRA APPLICAZIONE?</string>
     <string name="iso">ISO</string>
     <string name="zoom">Zoom</string>
@@ -74,35 +74,35 @@
     <!-- symbol short for metres -->
     <string name="preference_category_camera_effects">Effetti fotocamera</string>
     <string name="preference_auto_stabilise">Auto-stabilizzatore</string>
-    <string name="preference_auto_stabilise_summary">Le immagini saranno ruotate e livellate automaticamente (solo le foto) (è più lento nello scatto e può fallire su dispositivi con poca memoria)</string>
+    <string name="preference_auto_stabilise_summary">Le immagini saranno ruotate per livellarle automaticamente (solo le foto) (è più lento a scattare e può bloccarsi su dispositivi con poca memoria)</string>
     <!-- @TODO PER FAVORE RIGUARDARE "livellate" PERCHÈ SECONDO ME NON HA SENSO! -->
     <string name="preference_color_effect">Applica un effetto colore</string>
-    <string name="preference_color_effect_summary">Applica l\'effetto di colore selezionato alla foto</string>
+    <string name="preference_color_effect_summary">Applica l\'effetto colore selezionato alla foto</string>
     <string name="preference_scene_mode">Applica una modalità scena</string>
     <string name="preference_scene_mode_summary">Ottimizza la foto per scene differenti</string>
     <string name="preference_white_balance">Imposta il bilanciamento del bianco</string>
     <string name="preference_white_balance_summary">Scegli un\'impostazione per regolare il bilanciamento del bianco</string>
     <string name="preference_iso">Imposta ISO</string>
-    <string name="preference_iso_summary">A un valore più alto corrisponde una maggiore sensibilità alla luce (potrebbe non funzionare su certi dispositivi)</string>
+    <string name="preference_iso_summary">A un valore più alto corrisponde una maggiore sensibilità alla luce (potrebbe non funzionare su alcuni dispositivi)</string>
     <string name="preference_exposure">Imposta la compensazione dell\'esposizione</string>
-    <string name="preference_exposure_summary">Imposta a 0 per la compensazione d\'esposizione predefinita</string>
+    <string name="preference_exposure_summary">Imposta a 0 per compensazione d\'esposizione predefinita</string>
     <string name="preference_lock_orientation">Blocco orientamento foto/video</string>
-    <string name="preference_lock_orientation_summary">Se impostato, l\'orientamento del dispositivo verrà ignorato e l\'orientamento della foto/video sarà come quello specificato
+    <string name="preference_lock_orientation_summary">Se impostato, l\'orientamento del dispositivo verrà ignorato e l\'orientamento della foto/video sarà quello prescelto
 \n%s</string>
     <string name="preference_face_detection">Riconoscimento volti</string>
     <string name="preference_face_detection_summary">Usa il riconoscimento volti invece dell\'area di messa a fuoco</string>
     <string name="preference_category_camera_controls">Controlli fotocamera</string>
     <string name="preference_timer">Timer</string>
     <string name="preference_timer_beep">Beep del timer</string>
-    <string name="preference_timer_beep_summary">Emette un beep quando è attivo il countdown o la modalità scatto a raffica ritardato</string>
+    <string name="preference_timer_beep_summary">Emette un beep quando sono attivi il countdown o la modalità scatto a raffica ritardato</string>
     <string name="preference_timer_speak">Conto alla rovescia vocale</string>
-    <string name="preference_timer_speak_summary">Pronuncia il conto alla rovescia se attivi un timer o in modalità ritardo (fino a 60 secondi)</string>
+    <string name="preference_timer_speak_summary">Pronuncia il conto alla rovescia quando si attiva il timer o la modalità scatto ritardato (fino a 60 secondi)</string>
     <string name="preference_burst_mode">Modalità a raffica</string>
     <string name="preference_burst_interval">Intervallo modalità a raffica</string>
     <string name="preference_screen_camera_controls_more">Altri controlli fotocamera…</string>
     <string name="preference_touch_capture">Tocca per acquisire</string>
     <string name="preference_touch_capture_summary">Scatta la foto toccando una o due volte l\'anteprima</string>
-    <string name="preference_pause_preview">Pausa dopo aver scattato la foto</string>
+    <string name="preference_pause_preview">Pausa dopo aver scattato</string>
     <string name="preference_pause_preview_summary">Mette in pausa lo schermo dopo aver scattato, permettendo inoltre di condividere o cancellare la foto</string>
     <string name="preference_shutter_sound">Suono otturatore</string>
     <string name="preference_shutter_sound_summary">Emette un suono mentre scatta la foto</string>
@@ -520,7 +520,7 @@
     <string name="preferences_about_title">About</string>
     <string name="preferences_build_version">Versione build</string>
     <string name="preferences_about_app">La telecamera è biforcuta da OpenCamera</string>
-    <string name="preferences_authors">autore</string>
+    <string name="preferences_authors">Autori</string>
     <string name="preferences_source_code">Codice sorgente</string>
     <string name="preferences_licence">Licenza</string>
     <string name="preferences_app_info_title">Informazioni sulla fotocamera</string>
@@ -726,4 +726,42 @@
     <string name="preference_video_max_filesize_5gb">5GB</string>
     <string name="preference_video_max_filesize_2gb">2GB</string>
     <string name="open_files_saf_exception_ghost">Nessuna scelta disponibile per questo dispositivo, immagine fantasma non è supportata</string>
+    <string name="preference_stamp_geo_address_no">Non mostrare indirizzi</string>
+    <string name="preference_stamp_geo_address_prefer">Preferisci indirizzi alle coordinate GPS</string>
+    <string name="preference_stamp_geo_address_both">Se possibile, mostra l\'indirizzo in aggiunta alle coordinate GPS</string>
+    <string name="preference_stamp_geo_address">Utilizza indirizzi</string>
+    <string name="preference_remote_type_kraken">Kraken Smart Housing</string>
+    <string name="remote_connected">Telecomando connesso</string>
+    <string name="preference_water_type_summary">Nell\'utilizzo subacqueo, migliora l\'accuratezza nel caso in cui sia selezionata la tipologia d\'acqua corretta.</string>
+    <string name="preference_water_type">Utilizza Saltwater per calcoli accurati</string>
+    <string name="preference_remote_disconnect_screen_dim_summary">Suggerimento: imposta la luminosità di default dello schermo al livello più basso prima di lanciare Open Camera.</string>
+    <string name="preference_remote_disconnect_screen_dim">Attenua la luminosità dello schermo se il telecomando si disconnette</string>
+    <string name="unknown_device">Dispositivo sconosciuto</string>
+    <string name="bluetooth_not_supported">Bluetooth non supportato.</string>
+    <string name="scan_ble">Scansione dispositivi BLE</string>
+    <string name="ble_not_supported">BLE non supportato</string>
+    <string name="preference_remote_type">Tipo di telecomando</string>
+    <string name="preference_enable_remote_summary">Abilita telecomandi Bluetooth LE (BLE)</string>
+    <string name="preference_enable_remote">Abilita telecomando Bluetooth LE</string>
+    <string name="preference_screen_remote_control">Telecomando Bluetooth LE…</string>
+    <string name="photo_mode_panorama_full">Panorama</string>
+    <string name="photo_mode_panorama">Panorama</string>
+    <string name="preference_nr_mode_low_light_message">Modalità a bassa luminosità: mantieni ferma la fotocamera</string>
+    <string name="exposure_unlock">Sblocca esposizione</string>
+    <string name="preference_show_exposure_lock_summary">Se mostrare o meno sullo schermo un\'icona per bloccare o sbloccare l\'esposizione</string>
+    <string name="preference_show_exposure_lock">Mostra icona per il blocco esposizione automatica</string>
+    <string name="white_balance_unlocked">Bilanciamento del bianco sbloccato</string>
+    <string name="white_balance_locked">Bilanciamento del bianco bloccato</string>
+    <string name="white_balance_unlock">Sblocca bilanciamento del bianco</string>
+    <string name="white_balance_lock">Blocca bilanciamento del bianco</string>
+    <string name="preference_show_white_balance_lock_summary">Se mostrare o meno sullo schermo un\'icona per bloccare o sbloccare il bilanciamento automatico del bianco</string>
+    <string name="preference_show_white_balance_lock">Mostra icona di blocco del bilanciamento automatico del bianco</string>
+    <string name="preference_show_textstamp_summary">Se mostrare o meno un\'icona sullo schermo per specificare un testo personalizzato da stampare sulla foto</string>
+    <string name="preference_show_textstamp">Icona mostra testo personalizzato su foto</string>
+    <string name="stamp_disabled">Stampa informazioni su foto disabilitata</string>
+    <string name="stamp_enabled">Stampa informazioni su foto abilitata</string>
+    <string name="stamp_disable">Disabilita stampa informazioni su foto</string>
+    <string name="stamp_enable">Abilita stampa informazioni su foto</string>
+    <string name="preference_show_stamp_summary">Se mostrare o meno un\'icona sullo schermo per abilitare o disabilitare la stampa informazioni su foto</string>
+    <string name="preference_show_stamp">Mostra icona stampa informazioni su foto</string>
 </resources>
