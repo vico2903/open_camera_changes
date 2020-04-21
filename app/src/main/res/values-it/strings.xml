@@ -764,4 +764,95 @@
     <string name="stamp_enable">Abilita stampa informazioni su foto</string>
     <string name="preference_show_stamp_summary">Se mostrare o meno un\'icona sullo schermo per abilitare o disabilitare la stampa informazioni su foto</string>
     <string name="preference_show_stamp">Mostra icona stampa informazioni su foto</string>
+    <string name="preference_licence_online_text">Tocca qui per ottenere informazioni complete sulle licenze (si apre nel browser).</string>
+    <string name="preference_licence_online">Licenze online</string>
+    <string name="preference_licence_google_icons">Icone Material Design di Google</string>
+    <string name="preference_licence_open_camera_text">Open Camera © 2013–2019 Mark Harman, rilasciato sotto GPL v3 o successive. Tocca qui per il testo completo della licenza.</string>
+    <string name="preference_licence_open_camera">Open Camera</string>
+    <string name="preference_screen_licences">Licenze Open Source</string>
+    <string name="speech_recognizer_extra_info">(L\'audio verrà inviato da Android
+\n ad un server remoto per il 
+\n riconoscimento vocale.)</string>
+    <string name="preference_privacy_policy_online">Policy Privacy Online</string>
+    <string name="preference_privacy_policy_summary">Premi per visualizzzare la policy sulla Privacy</string>
+    <string name="preference_privacy_policy">Privacy policy</string>
+    <string name="intro_text">Tocca lo schermo per mettere a fuoco e premi il pulsante blu a forma di fotocamera per scattare. 
+\n
+\nPer disabilitare la luminosità massima dello schermo, vai su Impostazioni/On screen GUI/\"Forza massima luminosità\". Per salvare sulla card SD con Android 5+, vai su Impostazioni/Altri controlli fotocamera/\"Utilizza Storage Access Framework\". Se occorre altro aiuto, premi su \"Aiuto Online\" in Impostazioni.</string>
+    <string name="preference_stamp_geo_address_summary">Se possibile, riporta sulla foto l\'indirizzo della località al posto dei dati GPS. Questa scelta richiede una connessione Internet attiva. Se abilitata, richiede al tuo dispositivo di trasmetter i dati tramite Internet ad un servizio terzo per convertire le coordinate GPS in un indirizzo. Informazioni su https://developer.android.com/reference/android/location/Geocoder .
+\n%s</string>
+    <string name="preference_image_format_summary">Scegli in quale formato salvare le foto. Sarà utilizzato per le foto \"standard\" (non RAW). Il formato PNG non è esattamente lossless, dato che viene convertito partendo da un JPEG con qualità al 100%.
+\n%s</string>
+    <string name="preference_audio_control_summary">Scatta una foto/video quando rileva un rumore o un comando vocale. Dopo averlo abilitato, premi il microfono che appare sullo schermo per far partire/fermare l\'ascolto. La scelta comando vocale utilizza il servizio di riconoscimento vocale di Android: utilizzando questa scelta, l\'audio verrà inviato a dei server remoti per eseguirlo.
+\n%s</string>
+    <string name="preference_camera_api_camera2">API Camera2</string>
+    <string name="preference_camera_api_old">API fotocamera originali</string>
+    <string name="preference_camera_api_summary">Scegli le API Camera2 insieme a RAW (se supportato dal dispositivo) per abilitare funzionalità extra come esposizione, messa a fuoco, bilanciamento del bianco manuali, anche se potrebbero non funzionare perfettamente su tutti i dispositivi. Se modifichi le API da utilizzare, il dispositivo verrà riavviato.
+\n%s</string>
+    <string name="preference_camera_api">Camera API</string>
+    <string name="preference_focus_peaking_off">Off</string>
+    <string name="preference_zebra_stripes_off">Off</string>
+    <string name="preference_histogram_off">Off</string>
+    <string name="exposure_compensation_seekbar">Barra di modifica della compensazione dell\'esposizione</string>
+    <string name="camera_id">ID</string>
+    <string name="preference_panorama_save_all_plus_debug">Salva gli originali e il file di debug in formato XML</string>
+    <string name="preference_panorama_save_all">Salva gli originali</string>
+    <string name="preference_panorama_save_no">Non salvare gli originali</string>
+    <string name="preference_panorama_save_summary">Se salvare o meno gli originali in modalità panorama. Ciò rallenterà il processo di salvataggio delle foto panoramiche. Inoltre abilita la scelta per salvare un file XML utile a riportare i problemi rilevati in modalità panorama.
+\n%s</string>
+    <string name="preference_panorama_save">Originali del Panorama</string>
+    <string name="panorama_info">Per scattare una panoramica, mantieni il dispositivo in verticale, e aziona lo scatto per farlo partire. Quindi muovi il dispositivo verso destra o verso sinistra fino a quando il cerchio bianco ricopre il punto blu. Dopo che la foto è stata scattata, ruota ancora una volta il dispositivo fino a coprire i successivi punti blu che appariranno via via.
+\n
+\nAl termine, scegli di salvare il panorama o la X per cancellarlo.
+\n
+\nLe foto panoramiche possono impiegare parecchio tempo per essere processate e salvate.</string>
+    <string name="preference_panorama_crop_summary">In modalità panorama, se rimuovere o meno i bordi mossi
+\n%s</string>
+    <string name="preference_panorama_crop">Ritaglia automaticamente il Panorama</string>
+    <string name="failed_to_process_panorama">Non sono riuscito a creare il Panorama</string>
+    <string name="panorama_cancelled">Panorama eliminato</string>
+    <string name="cancel_panorama">Elimina panorama</string>
+    <string name="finish_panorama">Fine panorama</string>
+    <string name="image_saving_notification">Salvataggio immagini…</string>
+    <string name="preference_stamp_style_background">Testo su sfondo opaco</string>
+    <string name="bluetooth_scan">Cerca</string>
+    <string name="bluetooth_current_remote">Telecomando attuale:</string>
+    <string name="preference_show_cycle_raw_summary">Se mostrare o meno un\'icona sullo schermo che scorre tra le modalità RAW</string>
+    <string name="preference_show_cycle_raw">Mostra icona RAW</string>
+    <string name="cycle_raw">Scorri modalità RAW</string>
+    <string name="preference_raw_expo_bracketing_summary">Se la scelta RAW sia disponibile o meno anche per le foto in modalità braketing esposizione (o in modalità HDR se si abilita \"Salva tutte le immagini in modalità HDR\"). Disabilitando la scelta, le foto in queste modalità verranno salvate solo in formato JPEG.</string>
+    <string name="preference_raw_focus_bracketing_summary">Se la scelta RAW sia disponibile o meno anche per le foto in modalità focus braketing. Disabilitando la scelta, le foto in modalità focus braketing verranno salvate solo in formato JPEG.</string>
+    <string name="preference_raw_focus_bracketing">Permetti RAW in modalità focus braketing</string>
+    <string name="preference_raw_expo_bracketing">Permetti RAW per braketing esposizione</string>
+    <string name="preference_show_cycle_flash_summary">Se mostrare o meno un\'icona sullo schermo che scorre tra le opzioni flash, invece di mostrare un menu a popup con le opzioni stesse</string>
+    <string name="preference_show_cycle_flash">Mostra icona flash</string>
+    <string name="cycle_flash">Scorri opzioni flash</string>
+    <string name="preference_preview">Anteprima foto…</string>
+    <string name="remaining">Rimanenti</string>
+    <string name="preference_focus_peaking_color_summary">Quale colore utilizzare per evidenziare le zone a fuoco
+\n%s</string>
+    <string name="preference_focus_peaking_color">Colore per messa a fuoco</string>
+    <string name="preference_focus_peaking_on">On</string>
+    <string name="preference_focus_peaking">Verifica messa a fuoco</string>
+    <string name="preference_focus_peaking_summary">Selezionando questa scelta, verranno evidenziate le zone (i contorni) a fuoco. Molto utile in modalità fuoco manuale, serve per aiutare a capire quali parti dell\'immagine risultano a fuoco.
+\n%s</string>
+    <string name="preference_zebra_stripes_100pc">100%</string>
+    <string name="preference_zebra_stripes_90pc">90%</string>
+    <string name="preference_zebra_stripes_80pc">80%</string>
+    <string name="preference_zebra_stripes_70pc">70%</string>
+    <string name="preference_zebra_stripes_summary">Selezionando questa scelta, verra disegnato sullo schermo un effetto bianco e nero che mostra quali punti dell\'anteprima della foto sono sovraesposti.
+\n%s</string>
+    <string name="preference_zebra_stripes">Mostra sovraesposizione</string>
+    <string name="preference_histogram_lightness">Luminosità (Media tra minimo-massimo)</string>
+    <string name="preference_histogram_intensity">Intensità (Media)</string>
+    <string name="preference_histogram_value">Valore (Massimo)</string>
+    <string name="preference_histogram_luminance">Luminosità</string>
+    <string name="preference_histogram_rgb">Colori RGB</string>
+    <string name="preference_histogram_summary">Se mostrare o meno l\'istogramma dei colori presenti sullo schermo
+\n%s</string>
+    <string name="preference_histogram">Mostra istogramma</string>
+    <string name="preference_location_disable">Non salvare dati localizzazione</string>
+    <string name="preference_location_enable">Salva dati localizzazione</string>
+    <string name="preference_show_store_location_summary">Se mostrare o meno un\'icona sullo schermo per abilitare o disabilitare la localizzazione (geotagging)</string>
+    <string name="preference_show_store_location">Mostra icona salva dati localizzazione</string>
 </resources>
