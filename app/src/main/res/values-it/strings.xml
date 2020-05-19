@@ -855,4 +855,7 @@
     <string name="preference_location_enable">Salva dati localizzazione</string>
     <string name="preference_show_store_location_summary">Se mostrare o meno un\'icona sullo schermo per abilitare o disabilitare la localizzazione (geotagging)</string>
     <string name="preference_show_store_location">Mostra icona salva dati localizzazione</string>
+    <string name="preference_privacy_policy_text"> whether a setting is turned on, e.g., \"Auto-stabilise: On\" </string>
+    <string name="preference_licence_google_icons_text">In Open Camera utilizziamo icone dal Google\'s Material Design icons (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) rilasciate sotto la licenza Apache versione 2.0. Alcune icone sono state modificate. Tocca qui per il testo completo della licenza.</string>
+    <string name="whats_new_text"> whether a setting is turned on, e.g., \"Auto-stabilise: On\" </string>
 </resources>
