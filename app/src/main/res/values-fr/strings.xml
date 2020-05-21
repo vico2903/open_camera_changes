@@ -115,9 +115,11 @@
     <string name="preference_save_video_prefix">Préfixe du nom de la vidéo</string>
     <string name="preference_save_video_prefix_summary">Le préfixe est utilisé pour le nom de fichier des vidéos</string>
     <string name="preference_show_when_locked">Afficher Camera quand vérouillé</string>
+
     <string name="preference_show_when_locked_summary">Si activé, Camera s\'affichera toujours au-dessus de l\'écran de verrouillage (vous devrez toujours déverrouiller pour accéder aux paramètres, galerie, etc.)</string>
     <string name="preference_startup_focus">Faire un focus auto au démarrage</string>
     <string name="preference_startup_focus_summary">Activer ou non la mise au point automatique au démarrage d\'Camera. Si vous avez un problème de flash qui s\'allume au démarrage, désactivez cette option</string>
+
     <string name="preference_lock_video">Verr. l\'écran lors de l\'enregistrement vidéo</string>
     <string name="preference_lock_video_summary">Lors de l\'enregistrement vidéo, l\'interface graphique sera verrouillée pour éviter d\'arrêter accidentellement l\'enregistrement. Balayez l\'écran pour déverrouiller. Notez que l\'enregistrement vidéo sera toujours arrêté si l\'application passe en arrière-plan ou si l\'écran est occulté.</string>
     <string name="preference_rotate_preview">Pivoter l\'aperçu</string>
@@ -226,6 +228,7 @@
     <string name="preference_category_online">Divers</string>
     <string name="preference_online_help">Aide en ligne</string>
     <string name="preference_online_help_summary">Ouvre le site web d\'Camera dans votre navigateur</string>
+
     <string name="preference_donate">Donner pour soutenir le développement</string>
     <string name="preference_donate_summary">Si vous aimez cette application, n\'hésitez pas à faire un don. Vous pouvez le faire via l\'achat de mon « application de don » - Cliquer sur cette option va ouvrir la page de l\'application de don. Merci !</string>
     <string name="preference_use_camera2">Utiliser l\'API Camera2</string>
@@ -233,8 +236,10 @@
     <string name="preference_about">À propos</string>
     <string name="preference_about_summary">Infos sur l\'appli et de debogage</string>
     <string name="preference_reset">Réinitialiser les paramètres</string>
+
     <string name="preference_reset_summary">Réinitialise tous les paramètres d\'Camera aux valeurs par défaut</string>
     <string name="preference_reset_question">Êtes-vous sûr de vouloir réinitialiser tous les réglages d\'Camera vers ceux par défaut \?</string>
+
     <string name="about_available">Disponible</string>
     <string name="about_not_available">Non disponible</string>
     <string name="about_copy_to_clipboard">Copier dans le presse-papier</string>
@@ -451,6 +456,7 @@
 \n
 \nPour désactiver la luminosité maximale de l\'écran, voir Paramètres/Interface graphique à l\'écran/\"Forcer la luminosité maximale\". Pour enregistrer sur des cartes SD sous Android 5+, voir Paramètres/Plus de contrôles de caméra/\"Utiliser le Storage Access Framework\". Pour plus d\'aide, cliquez sur \"Aide en ligne\" depuis Paramètres.</string>
     <string name="preference_audio_control_summary">Prendre une photo/vidéo lorsqu\'un bruit est détecté, ou sur commande vocale. Lorsque cette fonction est activée, utilisez le bouton du microphone à l\'écran pour démarrer/arrêter l\'écoute. Notez que l\'option de commande vocale utilise le service de reconnaissance vocale Android : lorsque vous utilisez cette option, les données audio sont probablement envoyées à des serveurs distants pour effectuer la reconnaissance vocale.
+
 \n%s</string>
     <string name="preference_camera_api_summary">Sélectionner l\'API Camera2 pour activer des fonctions supplémentaires telles que les modes manuels d\'exposition, de mise au point, de balance des blancs, ainsi que le mode RAW (s\'il est pris en charge par l\'appareil), mais il se peut qu\'il ne fonctionne pas correctement sur tous les appareils. La modification de l\'API entraînera un redémarrage.
 \n%s</string>
@@ -557,7 +563,9 @@
     <string name="preference_licence_online_text">Veuillez cliquer ici pour obtenir des informations complètes sur les licences en ligne (s\'ouvre dans votre navigateur).</string>
     <string name="preference_licence_online">Licences en ligne</string>
     <string name="preference_licence_google_icons">Icônes Material Design de Google</string>
+
     <string name="preference_licence_open_camera_text">Camera est © 2013–2019 Mark Harman, diffusé sous la licence GPL v3 ou ultérieure. Appuyez ici pour voir le texte intégral de la licence.</string>
+
     <string name="preference_screen_licences">Licences Open Source</string>
     <string name="preference_privacy_policy_online">Politique de confidentialité en ligne</string>
     <string name="preference_privacy_policy_summary">Afficher la politique de confidentialité</string>
@@ -596,6 +604,7 @@
     <string name="preference_show_store_location">Afficher icône géolocalisation</string>
     <string name="preference_water_type">Utiliser l\'eau salée pour les calculs de profondeur</string>
     <string name="preference_water_type_summary">Pour les boîtiers sous-marins, améliore la précision si le type d\'eau sélectionné est correct.</string>
+
     <string name="preference_remote_disconnect_screen_dim_summary">Astuce : ajustez le niveau de luminosité au minimum avant de lancer Camera.</string>
     <string name="unknown_device">Dispositif inconnu</string>
     <string name="bluetooth_not_supported">Bluetooth non pris en charge.</string>
@@ -641,7 +650,9 @@
     <string name="preference_restore_settings_summary">Restaure les paramètres précédemment enregistrés. Cela écrasera tous les paramètres actuels avec les paramètres sauvegardés !</string>
     <string name="preference_restore_settings">Restaurer les paramètres</string>
     <string name="preference_save_settings_filename">Nom de la sauvegarde des paramètres</string>
+
     <string name="preference_save_settings_summary">Enregistre tous les réglages d\'Camera dans un fichier</string>
+
     <string name="preference_save_settings">Enregistrer les paramètres</string>
     <string name="preference_screen_settings_manager">Gestionnaire des paramètres</string>
     <string name="preference_video_output_format_default">Par défaut</string>
