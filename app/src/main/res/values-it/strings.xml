@@ -726,6 +726,7 @@
     <string name="preference_video_max_filesize_5gb">5GB</string>
     <string name="preference_video_max_filesize_2gb">2GB</string>
     <string name="open_files_saf_exception_ghost">Nessuna scelta disponibile per questo dispositivo, immagine fantasma non è supportata</string>
+
     <string name="preference_stamp_geo_address_no">Non mostrare indirizzi</string>
     <string name="preference_stamp_geo_address_prefer">Preferisci indirizzi alle coordinate GPS</string>
     <string name="preference_stamp_geo_address_both">Se possibile, mostra l\'indirizzo in aggiunta alle coordinate GPS</string>
