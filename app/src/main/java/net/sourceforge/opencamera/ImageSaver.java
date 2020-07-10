@@ -140,7 +140,7 @@ public class ImageSaver extends Thread {
         ImageFormat image_format;
         int image_quality;
         boolean do_auto_stabilise;
-        final double level_angle;
+        final double level_angle; // in degrees
         final List<float []> gyro_rotation_matrix; // used for panorama (one 3x3 matrix per jpeg_images entry), otherwise can be null
         boolean panorama_dir_left_to_right; // used for panorama
         float camera_view_angle_x; // used for panorama
@@ -166,7 +166,9 @@ public class ImageSaver extends Thread {
         final boolean store_location;
         final Location location;
         final boolean store_geo_direction;
-        final double geo_direction;
+        final double geo_direction; // in radians
+        final boolean store_ypr; // whether to store geo_angle, pitch_angle, level_angle in USER_COMMENT if exif (for JPEGs)
+        final double pitch_angle; // the pitch that the phone is at, in degrees
         final String custom_tag_artist;
         final String custom_tag_copyright;
         final int sample_factor; // sampling factor for thumbnail, higher means lower quality
@@ -192,6 +194,7 @@ public class ImageSaver extends Thread {
                 String preference_stamp, String preference_textstamp, int font_size, int color, String pref_style, String preference_stamp_dateformat, String preference_stamp_timeformat, String preference_stamp_gpsformat, String preference_stamp_geo_address, String preference_units_distance,
                 boolean panorama_crop,
                 boolean store_location, Location location, boolean store_geo_direction, double geo_direction,
+                double pitch_angle, boolean store_ypr,
                 String custom_tag_artist,
                 String custom_tag_copyright,
                 int sample_factor) {
@@ -232,6 +235,8 @@ public class ImageSaver extends Thread {
             this.location = location;
             this.store_geo_direction = store_geo_direction;
             this.geo_direction = geo_direction;
+            this.pitch_angle = pitch_angle;
+            this.store_ypr = store_ypr;
             this.custom_tag_artist = custom_tag_artist;
             this.custom_tag_copyright = custom_tag_copyright;
             this.sample_factor = sample_factor;
@@ -261,6 +266,7 @@ public class ImageSaver extends Thread {
                     this.zoom_factor,
                     this.preference_stamp, this.preference_textstamp, this.font_size, this.color, this.pref_style, this.preference_stamp_dateformat, this.preference_stamp_timeformat, this.preference_stamp_gpsformat, this.preference_stamp_geo_address, this.preference_units_distance,
                     this.panorama_crop, this.store_location, this.location, this.store_geo_direction, this.geo_direction,
+                    this.pitch_angle, this.store_ypr,
                     this.custom_tag_artist,
                     this.custom_tag_copyright,
                     this.sample_factor);
@@ -552,6 +558,7 @@ public class ImageSaver extends Thread {
                           String preference_stamp, String preference_textstamp, int font_size, int color, String pref_style, String preference_stamp_dateformat, String preference_stamp_timeformat, String preference_stamp_gpsformat, String preference_stamp_geo_address, String preference_units_distance,
                           boolean panorama_crop,
                           boolean store_location, Location location, boolean store_geo_direction, double geo_direction,
+                          double pitch_angle, boolean store_ypr,
                           String custom_tag_artist,
                           String custom_tag_copyright,
                           int sample_factor) {
@@ -581,6 +588,7 @@ public class ImageSaver extends Thread {
                 zoom_factor,
                 preference_stamp, preference_textstamp, font_size, color, pref_style, preference_stamp_dateformat, preference_stamp_timeformat, preference_stamp_gpsformat, preference_stamp_geo_address, preference_units_distance,
                 panorama_crop, store_location, location, store_geo_direction, geo_direction,
+                pitch_angle, store_ypr,
                 custom_tag_artist,
                 custom_tag_copyright,
                 sample_factor);
@@ -622,6 +630,7 @@ public class ImageSaver extends Thread {
                 1.0f,
                 null, null, 0, 0, null, null, null, null, null, null,
                 false, false, null, false, 0.0,
+                0.0, false,
                 null, null,
                 1);
     }
@@ -647,6 +656,7 @@ public class ImageSaver extends Thread {
                            String preference_stamp, String preference_textstamp, int font_size, int color, String pref_style, String preference_stamp_dateformat, String preference_stamp_timeformat, String preference_stamp_gpsformat, String preference_stamp_geo_address, String preference_units_distance,
                            boolean panorama_crop,
                            boolean store_location, Location location, boolean store_geo_direction, double geo_direction,
+                           double pitch_angle, boolean store_ypr,
                            String custom_tag_artist,
                            String custom_tag_copyright,
                            int sample_factor) {
@@ -674,6 +684,7 @@ public class ImageSaver extends Thread {
                 zoom_factor,
                 preference_stamp, preference_textstamp, font_size, color, pref_style, preference_stamp_dateformat, preference_stamp_timeformat, preference_stamp_gpsformat, preference_stamp_geo_address, preference_units_distance,
                 panorama_crop, store_location, location, store_geo_direction, geo_direction,
+                pitch_angle, store_ypr,
                 custom_tag_artist,
                 custom_tag_copyright,
                 sample_factor);
@@ -753,6 +764,7 @@ public class ImageSaver extends Thread {
                               String preference_stamp, String preference_textstamp, int font_size, int color, String pref_style, String preference_stamp_dateformat, String preference_stamp_timeformat, String preference_stamp_gpsformat, String preference_stamp_geo_address, String preference_units_distance,
                               boolean panorama_crop,
                               boolean store_location, Location location, boolean store_geo_direction, double geo_direction,
+                              double pitch_angle, boolean store_ypr,
                               String custom_tag_artist,
                               String custom_tag_copyright,
                               int sample_factor) {
@@ -784,6 +796,7 @@ public class ImageSaver extends Thread {
                 zoom_factor,
                 preference_stamp, preference_textstamp, font_size, color, pref_style, preference_stamp_dateformat, preference_stamp_timeformat, preference_stamp_gpsformat, preference_stamp_geo_address, preference_units_distance,
                 panorama_crop, store_location, location, store_geo_direction, geo_direction,
+                pitch_angle, store_ypr,
                 custom_tag_artist,
                 custom_tag_copyright,
                 sample_factor);
@@ -894,6 +907,7 @@ public class ImageSaver extends Thread {
                 1.0f,
                 null, null, 0, 0, null, null, null, null, null, null,
                 false, false, null, false, 0.0,
+                0.0, false,
                 null, null,
                 1);
         if( MyDebug.LOG )
@@ -1163,7 +1177,9 @@ public class ImageSaver extends Thread {
         xmlSerializer.flush();
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static class GyroDebugInfo {
+        @SuppressWarnings("unused")
         public static class GyroImageDebugInfo {
             public float [] vectorRight; // X axis
             public float [] vectorUp; // Y axis
@@ -1236,6 +1252,7 @@ public class ImageSaver extends Thread {
                             Log.d(TAG, "end tag, name: " + name);
                         }
 
+                        //noinspection SwitchStatementWithTooFewBranches
                         switch( name ) {
                             case gyro_info_image_tag:
                                 image_info = null;
@@ -1437,6 +1454,7 @@ public class ImageSaver extends Thread {
                         Log.d(TAG, "*** time for brighten: " + (System.currentTimeMillis() - this_time_s));
                     }
                     avg_data.destroy();
+                    //noinspection UnusedAssignment
                     avg_data = null;
                     if( MyDebug.LOG ) {
                         Log.d(TAG, "*** total time for saving NR image: " + (System.currentTimeMillis() - time_s));
@@ -1617,6 +1635,7 @@ public class ImageSaver extends Thread {
                         outputStream = main_activity.getContentResolver().openOutputStream(saveUri);
                     try {
                         //outputStream.write(gyro_text.toString().getBytes());
+                        //noinspection CharsetObjectCanBeUsed
                         outputStream.write(writer.toString().getBytes(Charset.forName("UTF-8")));
                     }
                     finally {
@@ -1799,6 +1818,67 @@ public class ImageSaver extends Thread {
         }
     }
 
+    /** Computes the width and height of a centred crop region after having rotated an image.
+     * @param result - Array of length 2 which will be filled with the returned width and height.
+     * @param level_angle_rad_abs - Absolute value of angle of rotation, in radians.
+     * @param w0 - Rotated width.
+     * @param h0 - Rotated height.
+     * @param w1 - Original width.
+     * @param h1 - Original height.
+     * @param max_width - Maximum width to return.
+     * @param max_height - Maximum height to return.
+     * @return - Whether a crop region could be successfully calculated.
+     */
+    public static boolean autoStabiliseCrop(int [] result, double level_angle_rad_abs, double w0, double h0, int w1, int h1, int max_width, int max_height) {
+        boolean ok = false;
+        result[0] = 0;
+        result[1] = 0;
+
+        double tan_theta = Math.tan(level_angle_rad_abs);
+        double sin_theta = Math.sin(level_angle_rad_abs);
+        double denom = ( h0/w0 + tan_theta );
+        double alt_denom = ( w0/h0 + tan_theta );
+        if( denom == 0.0 || denom < 1.0e-14 ) {
+            if( MyDebug.LOG )
+                Log.d(TAG, "zero denominator?!");
+        }
+        else if( alt_denom == 0.0 || alt_denom < 1.0e-14 ) {
+            if( MyDebug.LOG )
+                Log.d(TAG, "zero alt denominator?!");
+        }
+        else {
+            int w2 = (int)(( h0 + 2.0*h1*sin_theta*tan_theta - w0*tan_theta ) / denom);
+            int h2 = (int)(w2*h0/w0);
+            int alt_h2 = (int)(( w0 + 2.0*w1*sin_theta*tan_theta - h0*tan_theta ) / alt_denom);
+            int alt_w2 = (int)(alt_h2*w0/h0);
+            if( MyDebug.LOG ) {
+                //Log.d(TAG, "h0 " + h0 + " 2.0*h1*sin_theta*tan_theta " + 2.0*h1*sin_theta*tan_theta + " w0*tan_theta " + w0*tan_theta + " / h0/w0 " + h0/w0 + " tan_theta " + tan_theta);
+                Log.d(TAG, "w2 = " + w2 + " , h2 = " + h2);
+                Log.d(TAG, "alt_w2 = " + alt_w2 + " , alt_h2 = " + alt_h2);
+            }
+            if( alt_w2 < w2 ) {
+                if( MyDebug.LOG ) {
+                    Log.d(TAG, "chose alt!");
+                }
+                w2 = alt_w2;
+                h2 = alt_h2;
+            }
+            if( w2 <= 0 )
+                w2 = 1;
+            else if( w2 > max_width )
+                w2 = max_width;
+            if( h2 <= 0 )
+                h2 = 1;
+            else if( h2 > max_height )
+                h2 = max_height;
+
+            ok = true;
+            result[0] = w2;
+            result[1] = h2;
+        }
+        return ok;
+    }
+
     /** Performs the auto-stabilise algorithm on the image.
      * @param data The jpeg data.
      * @param bitmap Optional argument - the bitmap if already unpacked from the jpeg data.
@@ -1895,43 +1975,11 @@ public class ImageSaver extends Thread {
                 Log.d(TAG, "rotated and scaled bitmap size " + bitmap.getWidth() + ", " + bitmap.getHeight());
                 Log.d(TAG, "rotated and scaled bitmap size: " + bitmap.getWidth()*bitmap.getHeight()*4);
             }
-            double tan_theta = Math.tan(level_angle_rad_abs);
-            double sin_theta = Math.sin(level_angle_rad_abs);
-            double denom = ( h0/w0 + tan_theta );
-            double alt_denom = ( w0/h0 + tan_theta );
-            if( denom == 0.0 || denom < 1.0e-14 ) {
-                if( MyDebug.LOG )
-                    Log.d(TAG, "zero denominator?!");
-            }
-            else if( alt_denom == 0.0 || alt_denom < 1.0e-14 ) {
-                if( MyDebug.LOG )
-                    Log.d(TAG, "zero alt denominator?!");
-            }
-            else {
-                int w2 = (int)(( h0 + 2.0*h1*sin_theta*tan_theta - w0*tan_theta ) / denom);
-                int h2 = (int)(w2*h0/w0);
-                int alt_h2 = (int)(( w0 + 2.0*w1*sin_theta*tan_theta - h0*tan_theta ) / alt_denom);
-                int alt_w2 = (int)(alt_h2*w0/h0);
-                if( MyDebug.LOG ) {
-                    //Log.d(TAG, "h0 " + h0 + " 2.0*h1*sin_theta*tan_theta " + 2.0*h1*sin_theta*tan_theta + " w0*tan_theta " + w0*tan_theta + " / h0/w0 " + h0/w0 + " tan_theta " + tan_theta);
-                    Log.d(TAG, "w2 = " + w2 + " , h2 = " + h2);
-                    Log.d(TAG, "alt_w2 = " + alt_w2 + " , alt_h2 = " + alt_h2);
-                }
-                if( alt_w2 < w2 ) {
-                    if( MyDebug.LOG ) {
-                        Log.d(TAG, "chose alt!");
-                    }
-                    w2 = alt_w2;
-                    h2 = alt_h2;
-                }
-                if( w2 <= 0 )
-                    w2 = 1;
-                else if( w2 >= bitmap.getWidth() )
-                    w2 = bitmap.getWidth()-1;
-                if( h2 <= 0 )
-                    h2 = 1;
-                else if( h2 >= bitmap.getHeight() )
-                    h2 = bitmap.getHeight()-1;
+
+            int [] crop = new int [2];
+            if( autoStabiliseCrop(crop, level_angle_rad_abs, w0, h0, w1, h1, bitmap.getWidth(), bitmap.getHeight()) ) {
+                int w2 = crop[0];
+                int h2 = crop[1];
                 int x0 = (bitmap.getWidth()-w2)/2;
                 int y0 = (bitmap.getHeight()-h2)/2;
                 if( MyDebug.LOG ) {
@@ -2038,7 +2086,7 @@ public class ImageSaver extends Thread {
                 p.setColor(Color.WHITE);
                 // we don't use the density of the screen, because we're stamping to the image, not drawing on the screen (we don't want the font height to depend on the device's resolution)
                 // instead we go by 1 pt == 1/72 inch height, and scale for an image height (or width if in portrait) of 4" (this means the font height is also independent of the photo resolution)
-                int smallest_size = (width<height) ? width : height;
+                int smallest_size = Math.min(width, height);
                 float scale = ((float)smallest_size) / (72.0f*4.0f);
                 int font_size_pixel = (int)(font_size * scale + 0.5f); // convert pt to pixels
                 if( MyDebug.LOG ) {
@@ -2090,8 +2138,7 @@ public class ImageSaver extends Thread {
                     ypos -= diff_y;
                     String gps_stamp = main_activity.getTextFormatter().getGPSString(preference_stamp_gpsformat, request.preference_units_distance, request.store_location, request.location, request.store_geo_direction, request.geo_direction);
                     if( gps_stamp.length() > 0 ) {
-                        if( MyDebug.LOG )
-                            Log.d(TAG, "stamp with location_string: " + gps_stamp);
+                        // don't log gps_stamp, in case of privacy!
 
                         Address address = null;
                         if( request.store_location && !request.preference_stamp_geo_address.equals("preference_stamp_geo_address_no") ) {
@@ -2105,8 +2152,8 @@ public class ImageSaver extends Thread {
                                     List<Address> addresses = geocoder.getFromLocation(request.location.getLatitude(), request.location.getLongitude(), 1);
                                     if( addresses != null && addresses.size() > 0 ) {
                                         address = addresses.get(0);
+                                        // don't log address, in case of privacy!
                                         if( MyDebug.LOG ) {
-                                            Log.d(TAG, "address: " + address);
                                             Log.d(TAG, "max line index: " + address.getMaxAddressLineIndex());
                                         }
                                     }
@@ -2136,8 +2183,7 @@ public class ImageSaver extends Thread {
                             // we are displaying an address instead of GPS coords, but we still need to display the geo direction
                             gps_stamp = main_activity.getTextFormatter().getGPSString(preference_stamp_gpsformat, request.preference_units_distance, false, null, request.store_geo_direction, request.geo_direction);
                             if( gps_stamp.length() > 0 ) {
-                                if( MyDebug.LOG )
-                                    Log.d(TAG, "gps_stamp is now: " + gps_stamp);
+                                // don't log gps_stamp, in case of privacy!
                                 applicationInterface.drawTextWithBackground(canvas, p, gps_stamp, color, Color.BLACK, width - offset_x, ypos, MyApplicationInterface.Alignment.ALIGNMENT_BOTTOM, null, draw_shadowed);
                                 ypos -= diff_y;
                             }
@@ -2157,6 +2203,7 @@ public class ImageSaver extends Thread {
                     if( MyDebug.LOG )
                         Log.d(TAG, "stamp text");
                     applicationInterface.drawTextWithBackground(canvas, p, request.preference_textstamp, color, Color.BLACK, width - offset_x, ypos, MyApplicationInterface.Alignment.ALIGNMENT_BOTTOM, null, draw_shadowed);
+                    //noinspection UnusedAssignment
                     ypos -= diff_y;
                 }
             }
@@ -3050,7 +3097,7 @@ public class ImageSaver extends Thread {
                 exif_new.setAttribute(ExifInterface.TAG_USER_COMMENT, exif_user_comment);
         }
 
-        modifyExif(exif_new, request.type == Request.Type.JPEG, request.using_camera2, request.current_date, request.store_location, request.store_geo_direction, request.geo_direction, request.custom_tag_artist, request.custom_tag_copyright);
+        modifyExif(exif_new, request.type == Request.Type.JPEG, request.using_camera2, request.current_date, request.store_location, request.store_geo_direction, request.geo_direction, request.custom_tag_artist, request.custom_tag_copyright, request.level_angle, request.pitch_angle, request.store_ypr);
         setDateTimeExif(exif_new);
         exif_new.saveAttributes();
     }
@@ -3106,13 +3153,6 @@ public class ImageSaver extends Thread {
             output = null;
             success = true;
 
-    		/*Location location = null;
-    		if( main_activity.getApplicationInterface().getGeotaggingPref() ) {
-    			location = main_activity.getApplicationInterface().getLocation();
-	    		if( MyDebug.LOG )
-	    			Log.d(TAG, "location: " + location);
-    		}*/
-
             // set last image for share/trash options for pause preview
             // Must be done before broadcastFile() (because on Android 7+ with non-SAF, we update
             // the LastImage's uri from the MediaScannerConnection.scanFile() callback from
@@ -3129,8 +3169,6 @@ public class ImageSaver extends Thread {
             }
 
             if( saveUri == null ) {
-                //Uri media_uri = storageUtils.broadcastFileRaw(picFile, current_date, location);
-                //storageUtils.announceUri(media_uri, true, false);
                 storageUtils.broadcastFile(picFile, true, false, false);
             }
             else {
@@ -3269,7 +3307,6 @@ public class ImageSaver extends Thread {
                 catch(IOException e) {
                     e.printStackTrace();
                 }
-                inputStream = null;
             }
         }
         return bitmap;
@@ -3332,14 +3369,14 @@ public class ImageSaver extends Thread {
     private void updateExif(Request request, File picFile, Uri saveUri) throws IOException {
         if( MyDebug.LOG )
             Log.d(TAG, "updateExif: " + picFile);
-        if( request.store_geo_direction || hasCustomExif(request.custom_tag_artist, request.custom_tag_copyright) ) {
+        if( request.store_geo_direction || request.store_ypr || hasCustomExif(request.custom_tag_artist, request.custom_tag_copyright) ) {
             long time_s = System.currentTimeMillis();
             if( MyDebug.LOG )
                 Log.d(TAG, "add additional exif info");
             try {
                 ExifInterface exif = createExifInterface(picFile, saveUri);
                 if( exif != null ) {
-                    modifyExif(exif, request.type == Request.Type.JPEG, request.using_camera2, request.current_date, request.store_location, request.store_geo_direction, request.geo_direction, request.custom_tag_artist, request.custom_tag_copyright);
+                    modifyExif(exif, request.type == Request.Type.JPEG, request.using_camera2, request.current_date, request.store_location, request.store_geo_direction, request.geo_direction, request.custom_tag_artist, request.custom_tag_copyright, request.level_angle, request.pitch_angle, request.store_ypr);
                     exif.saveAttributes();
                 }
             }
@@ -3377,17 +3414,28 @@ public class ImageSaver extends Thread {
 
     /** Makes various modifications to the exif data, if necessary.
      */
-    private void modifyExif(ExifInterface exif, boolean is_jpeg, boolean using_camera2, Date current_date, boolean store_location, boolean store_geo_direction, double geo_direction, String custom_tag_artist, String custom_tag_copyright) {
+    private void modifyExif(ExifInterface exif, boolean is_jpeg, boolean using_camera2, Date current_date, boolean store_location, boolean store_geo_direction, double geo_direction, String custom_tag_artist, String custom_tag_copyright, double level_angle, double pitch_angle, boolean store_ypr) {
         if( MyDebug.LOG )
             Log.d(TAG, "modifyExif");
-        setGPSDirectionExif(exif, store_geo_direction, geo_direction);
+        setGPSDirectionExif(exif, store_geo_direction, geo_direction, level_angle, pitch_angle, store_ypr);
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && store_ypr ){
+            float geo_angle = (float)Math.toDegrees(geo_direction);
+            if( geo_angle < 0.0f ) {
+                geo_angle += 360.0f;
+            }
+            String encoding = "ASCII\0\0\0";
+            //exif.setAttribute(ExifInterface.TAG_USER_COMMENT,"Yaw:" + geo_angle + ",Pitch:" + pitch_angle + ",Roll:" + level_angle);
+            exif.setAttribute(ExifInterface.TAG_USER_COMMENT,encoding + "Yaw:" + geo_angle + ",Pitch:" + pitch_angle + ",Roll:" + level_angle);
+            if( MyDebug.LOG )
+                Log.d(TAG, "UserComment: " + exif.getAttribute(ExifInterface.TAG_USER_COMMENT));
+        }
         setCustomExif(exif, custom_tag_artist, custom_tag_copyright);
         if( needGPSTimestampHack(is_jpeg, using_camera2, store_location) ) {
             fixGPSTimestamp(exif, current_date);
         }
     }
 
-    private void setGPSDirectionExif(ExifInterface exif, boolean store_geo_direction, double geo_direction) {
+    private void setGPSDirectionExif(ExifInterface exif, boolean store_geo_direction, double geo_direction, double level_angle, double pitch_angle, boolean store_ypr) {
         if( MyDebug.LOG )
             Log.d(TAG, "setGPSDirectionExif");
         if( store_geo_direction ) {

@@ -2,6 +2,7 @@ package net.sourceforge.opencamera;
 
 import net.sourceforge.opencamera.cameracontroller.CameraController;
 import net.sourceforge.opencamera.preview.Preview;
+import net.sourceforge.opencamera.ui.ArraySeekBarPreference;
 import net.sourceforge.opencamera.ui.FolderChooserDialog;
 
 import android.app.Activity;
@@ -102,6 +103,8 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
             Log.d(TAG, "nCameras: " + nCameras);
 
         final String camera_api = bundle.getString("camera_api");
+
+        final String photo_mode_string = bundle.getString("photo_mode_string");
 
         final boolean using_android_l = bundle.getBoolean("using_android_l");
         if( MyDebug.LOG )
@@ -288,6 +291,22 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
             lp.setEntryValues(values);
         }
 
+        {
+            final int max_ghost_image_alpha = 80; // limit max to 80% for privacy reasons, so it isn't possible to put in a state where camera is on, but no preview is shown
+            final int ghost_image_alpha_step = 5; // should be exact divisor of max_ghost_image_alpha
+            final int n_ghost_image_alpha = max_ghost_image_alpha/ghost_image_alpha_step;
+            CharSequence [] entries = new CharSequence[n_ghost_image_alpha];
+            CharSequence [] values = new CharSequence[n_ghost_image_alpha];
+            for(int i=0;i<n_ghost_image_alpha;i++) {
+                int alpha = ghost_image_alpha_step*(i+1);
+                entries[i] = "" + alpha + "%";
+                values[i] = "" + alpha;
+            }
+            ArraySeekBarPreference sp = (ArraySeekBarPreference)findPreference("ghost_image_alpha");
+            sp.setEntries(entries);
+            sp.setEntryValues(values);
+        }
+
         final boolean supports_raw = bundle.getBoolean("supports_raw");
         if( MyDebug.LOG )
             Log.d(TAG, "supports_raw: " + supports_raw);
@@ -388,6 +407,10 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
             pg.removePreference(pref);
         }
 
+        final boolean has_gyro_sensors = bundle.getBoolean("has_gyro_sensors");
+        if( MyDebug.LOG )
+            Log.d(TAG, "has_gyro_sensors: " + has_gyro_sensors);
+
         final boolean supports_expo_bracketing = bundle.getBoolean("supports_expo_bracketing");
         if( MyDebug.LOG )
             Log.d(TAG, "supports_expo_bracketing: " + supports_expo_bracketing);
@@ -461,6 +484,10 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
             pg.removePreference(pref);
         }
 
+        final boolean is_multi_cam = bundle.getBoolean("is_multi_cam");
+        if( MyDebug.LOG )
+            Log.d(TAG, "is_multi_cam: " + is_multi_cam);
+
 		/* Set up video resolutions.
 		   Note that this will be the resolutions for either standard or high speed frame rate (where
 		   the latter may also include being in slow motion mode), depending on the current setting when
@@ -526,6 +553,9 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
             pg.removePreference(pref);
         }
 
+        final boolean supports_optical_stabilization = bundle.getBoolean("supports_optical_stabilization");
+        final boolean optical_stabilization_enabled = bundle.getBoolean("optical_stabilization_enabled");
+
         final boolean supports_video_stabilization = bundle.getBoolean("supports_video_stabilization");
         if( MyDebug.LOG )
             Log.d(TAG, "supports_video_stabilization: " + supports_video_stabilization);
@@ -534,6 +564,7 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
             PreferenceGroup pg = (PreferenceGroup)this.findPreference("preference_screen_video_settings");
             pg.removePreference(pref);
         }
+        final boolean video_stabilization_enabled = bundle.getBoolean("video_stabilization_enabled");
 
         if( Build.VERSION.SDK_INT < Build.VERSION_CODES.N ) {
             filterArrayEntry("preference_video_output_format", "preference_video_output_format_mpeg4_hevc");
@@ -587,6 +618,16 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
             pg.removePreference(pref);
         }
 
+        if( !is_multi_cam ) {
+            Preference pref = findPreference("preference_show_camera_id");
+            PreferenceGroup pg = (PreferenceGroup)this.findPreference("preference_preview");
+            pg.removePreference(pref);
+
+            pref = findPreference("preference_multi_cam_button");
+            pg = (PreferenceGroup)this.findPreference("preference_screen_gui");
+            pg.removePreference(pref);
+        }
+
         if( !supports_raw ) {
             Preference pref = findPreference("preference_show_cycle_raw");
             PreferenceGroup pg = (PreferenceGroup)this.findPreference("preference_screen_gui");
@@ -609,6 +650,10 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
             // the required ExifInterface tags requires Android N or greater
             Preference pref = findPreference("preference_category_exif_tags");
             PreferenceGroup pg = (PreferenceGroup)this.findPreference("preference_screen_photo_settings");
+            pg.removePreference(pref);
+
+            pref = findPreference("preference_comment_ypr");
+            pg = (PreferenceGroup)this.findPreference("preference_screen_location_settings");
             pg.removePreference(pref);
         }
         else {
@@ -637,6 +682,12 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
             pg.removePreference(pref);
 
             pref = findPreference("preference_zebra_stripes");
+            pg.removePreference(pref);
+
+            pref = findPreference("preference_zebra_stripes_foreground_color");
+            pg.removePreference(pref);
+
+            pref = findPreference("preference_zebra_stripes_background_color");
             pg.removePreference(pref);
 
             pref = findPreference("preference_focus_peaking");
@@ -680,6 +731,10 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
         if( !supports_tonemap_curve ) {
             Preference pref = findPreference("preference_video_log");
             PreferenceGroup pg = (PreferenceGroup)this.findPreference("preference_screen_video_settings");
+            pg.removePreference(pref);
+
+            pref = findPreference("preference_video_profile_gamma");
+            pg = (PreferenceGroup)this.findPreference("preference_screen_video_settings");
             pg.removePreference(pref);
         }
 
@@ -837,7 +892,7 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                     if( pref.getKey().equals("preference_using_saf") ) {
                         if( MyDebug.LOG )
                             Log.d(TAG, "user clicked saf");
-                        if( sharedPreferences.getBoolean(PreferenceKeys.getUsingSAFPreferenceKey(), false) ) {
+                        if( sharedPreferences.getBoolean(PreferenceKeys.UsingSAFPreferenceKey, false) ) {
                             if( MyDebug.LOG )
                                 Log.d(TAG, "saf is now enabled");
                             // seems better to alway re-show the dialog when the user selects, to make it clear where files will be saved (as the SAF location in general will be different to the non-SAF one)
@@ -1017,8 +1072,12 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                         about_string.append(cameraId);
                         about_string.append("\nNo. of cameras: ");
                         about_string.append(nCameras);
+                        about_string.append("\nMulti-camera?: ");
+                        about_string.append(is_multi_cam);
                         about_string.append("\nCamera API: ");
                         about_string.append(camera_api);
+                        about_string.append("\nPhoto mode: ");
+                        about_string.append(photo_mode_string==null ? "UNKNOWN" : photo_mode_string);
                         {
                             String last_video_error = sharedPreferences.getString("last_video_error", "");
                             if( last_video_error.length() > 0 ) {
@@ -1107,6 +1166,8 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                         about_string.append(getString(supports_hdr ? R.string.about_available : R.string.about_not_available));
                         about_string.append("\nPanorama?: ");
                         about_string.append(getString(supports_panorama ? R.string.about_available : R.string.about_not_available));
+                        about_string.append("\nGyro sensors?: ");
+                        about_string.append(getString(has_gyro_sensors ? R.string.about_available : R.string.about_not_available));
                         about_string.append("\nExpo?: ");
                         about_string.append(getString(supports_expo_bracketing ? R.string.about_available : R.string.about_not_available));
                         about_string.append("\nExpo compensation?: ");
@@ -1141,14 +1202,22 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                             about_string.append(" to ");
                             about_string.append(white_balance_temperature_max);
                         }
+                        about_string.append("\nOptical stabilization?: ");
+                        about_string.append(getString(supports_optical_stabilization ? R.string.about_available : R.string.about_not_available));
+                        about_string.append("\nOptical stabilization enabled?: ");
+                        about_string.append(optical_stabilization_enabled);
                         about_string.append("\nVideo stabilization?: ");
                         about_string.append(getString(supports_video_stabilization ? R.string.about_available : R.string.about_not_available));
+                        about_string.append("\nVideo stabilization enabled?: ");
+                        about_string.append(video_stabilization_enabled);
+                        about_string.append("\nTonemap curve?: ");
+                        about_string.append(getString(supports_tonemap_curve ? R.string.about_available : R.string.about_not_available));
                         about_string.append("\nTonemap max curve points: ");
                         about_string.append(tonemap_max_curve_points);
                         about_string.append("\nCan disable shutter sound?: ");
                         about_string.append(getString(can_disable_shutter_sound ? R.string.about_available : R.string.about_not_available));
 
-                        about_string.append("\nCamera view angle: " + camera_view_angle_x + " , " + camera_view_angle_y);
+                        about_string.append("\nCamera view angle: ").append(camera_view_angle_x).append(" , ").append(camera_view_angle_y);
 
                         about_string.append("\nFlash modes: ");
                         String [] flash_values = bundle.getStringArray("flash_values");
@@ -1240,11 +1309,11 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                         about_string.append(magnetic_accuracy);
 
                         about_string.append("\nUsing SAF?: ");
-                        about_string.append(sharedPreferences.getBoolean(PreferenceKeys.getUsingSAFPreferenceKey(), false));
-                        String save_location = sharedPreferences.getString(PreferenceKeys.getSaveLocationPreferenceKey(), "OpenCamera");
+                        about_string.append(sharedPreferences.getBoolean(PreferenceKeys.UsingSAFPreferenceKey, false));
+                        String save_location = sharedPreferences.getString(PreferenceKeys.SaveLocationPreferenceKey, "OpenCamera");
                         about_string.append("\nSave Location: ");
                         about_string.append(save_location);
-                        String save_location_saf = sharedPreferences.getString(PreferenceKeys.getSaveLocationSAFPreferenceKey(), "");
+                        String save_location_saf = sharedPreferences.getString(PreferenceKeys.SaveLocationSAFPreferenceKey, "");
                         about_string.append("\nSave Location SAF: ");
                         about_string.append(save_location_saf);
 
@@ -1444,6 +1513,61 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                     return false;
                 }
             });
+        }
+
+        setupDependencies();
+    }
+
+    /** Programmatically set up dependencies for preference types (e.g., ListPreference) that don't
+     *  support this in xml (such as SwitchPreference and CheckBoxPreference).
+     */
+    private void setupDependencies() {
+        // set up dependency for preference_audio_noise_control_sensitivity on preference_audio_control
+        ListPreference pref = (ListPreference)findPreference("preference_audio_control");
+        if( pref != null ) { // may be null if preference not supported
+            pref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference arg0, Object newValue) {
+                    String value = newValue.toString();
+                    setAudioNoiseControlSensitivityDependency(value);
+                    return true;
+                }
+            });
+            setAudioNoiseControlSensitivityDependency(pref.getValue()); // ensure dependency is enabled/disabled as required for initial value
+        }
+
+        // set up dependency for preference_video_profile_gamma on preference_video_log
+        pref = (ListPreference)findPreference("preference_video_log");
+        if( pref != null ) { // may be null if preference not supported
+            pref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference arg0, Object newValue) {
+                    String value = newValue.toString();
+                    setVideoProfileGammaDependency(value);
+                    return true;
+                }
+            });
+            setVideoProfileGammaDependency(pref.getValue()); // ensure dependency is enabled/disabled as required for initial value
+        }
+    }
+
+    private void setAudioNoiseControlSensitivityDependency(String newValue) {
+        Preference dependent = findPreference("preference_audio_noise_control_sensitivity");
+        if( dependent != null ) { // just in case
+            boolean enable_dependent = "noise".equals(newValue);
+            if( MyDebug.LOG )
+                Log.d(TAG, "clicked audio control: " + newValue + " enable_dependent: " + enable_dependent);
+            dependent.setEnabled(enable_dependent);
+        }
+    }
+
+    private void setVideoProfileGammaDependency(String newValue) {
+        Preference dependent = findPreference("preference_video_profile_gamma");
+        if( dependent != null ) { // just in case
+            boolean enable_dependent = "gamma".equals(newValue);
+            if( MyDebug.LOG )
+                Log.d(TAG, "clicked video log: " + newValue + " enable_dependent: " + enable_dependent);
+            dependent.setEnabled(enable_dependent);
         }
     }
 

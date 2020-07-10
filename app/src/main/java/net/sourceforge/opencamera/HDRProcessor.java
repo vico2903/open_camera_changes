@@ -49,6 +49,7 @@ public class HDRProcessor {
     // public for access by testing
     public int [] offsets_x = null;
     public int [] offsets_y = null;
+    @SuppressWarnings("CanBeFinal")
     public int sharp_index = 0;
 
     private enum HDRAlgorithm {
@@ -272,14 +273,14 @@ public class HDRProcessor {
                 try {
                     writer = new FileWriter(file);
                     //writer.append("Parameter," + parameter + "\n");
-                    writer.append("Parameters," + parameter_A + "," + parameter_B + "\n");
+                    writer.append("Parameters,").append(String.valueOf(parameter_A)).append(",").append(String.valueOf(parameter_B)).append("\n");
                     writer.append("X,Y,Weight\n");
                     for(int i=0;i<x_samples.size();i++) {
                         //Log.d(TAG, "log: " + i + " / " + x_samples.size());
                         double x = x_samples.get(i);
                         double y = y_samples.get(i);
                         double w = weights.get(i);
-                        writer.append(x + "," + y + "," + w + "\n");
+                        writer.append(String.valueOf(x)).append(",").append(String.valueOf(y)).append(",").append(String.valueOf(w)).append("\n");
                     }
                 }
                 catch (IOException e) {
@@ -301,6 +302,7 @@ public class HDRProcessor {
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     public interface SortCallback {
         /** This is called when the sort order for the input bitmaps is known, from darkest to brightest.
          * @param sort_order A list of length equal to the supplied bitmaps.size(). sort_order.get(i)
@@ -938,7 +940,7 @@ public class HDRProcessor {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void processSingleImage(List<Bitmap> bitmaps, boolean release_bitmaps, Bitmap output_bitmap, float hdr_alpha, int n_tiles, boolean ce_preserve_blacks, DROTonemappingAlgorithm dro_tonemapping_algorithm) throws HDRProcessorException {
+    private void processSingleImage(List<Bitmap> bitmaps, boolean release_bitmaps, Bitmap output_bitmap, float hdr_alpha, int n_tiles, boolean ce_preserve_blacks, DROTonemappingAlgorithm dro_tonemapping_algorithm) {
         if( MyDebug.LOG )
             Log.d(TAG, "processSingleImage");
 
@@ -1263,10 +1265,9 @@ public class HDRProcessor {
      * @param bitmap_avg_align Should be supplied if allocation_avg_align is non-null, and stores
      *                         the bitmap corresponding to the allocation_avg_align.
      * @param time_s         Time, for debugging.
-     * @throws HDRProcessorException
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private AvgData processAvgCore(Allocation allocation_out, Allocation allocation_avg, Bitmap bitmap_avg, Bitmap bitmap_new, int width, int height, float avg_factor, int iso, float zoom_factor, Allocation allocation_avg_align, Bitmap bitmap_avg_align, long time_s) throws HDRProcessorException {
+    private AvgData processAvgCore(Allocation allocation_out, Allocation allocation_avg, Bitmap bitmap_avg, Bitmap bitmap_new, int width, int height, float avg_factor, int iso, float zoom_factor, Allocation allocation_avg_align, Bitmap bitmap_avg_align, long time_s) {
         if( MyDebug.LOG ) {
             Log.d(TAG, "processAvgCore");
             Log.d(TAG, "iso: " + iso);
@@ -1399,10 +1400,12 @@ public class HDRProcessor {
 
             if( bitmap_new_align != null ) {
                 bitmap_new_align.recycle();
+                //noinspection UnusedAssignment
                 bitmap_new_align = null;
             }
             if( allocation_new_align != null ) {
                 allocation_new_align.destroy();
+                //noinspection UnusedAssignment
                 allocation_new_align = null;
             }
 
@@ -1539,12 +1542,14 @@ public class HDRProcessor {
             if( MyDebug.LOG )
                 Log.d(TAG, "release bitmap_avg");
             bitmap_avg.recycle();
+            //noinspection UnusedAssignment
             bitmap_avg = null;
         }
         if( bitmap_new != null ) {
             if( MyDebug.LOG )
                 Log.d(TAG, "release bitmap_new");
             bitmap_new.recycle();
+            //noinspection UnusedAssignment
             bitmap_new = null;
         }
 
@@ -2664,7 +2669,7 @@ public class HDRProcessor {
         int max_brightness = 0;
         for(int i = 0; i < histo.length; i++) {
             count += histo[i];
-            sum_brightness += (double)(histo[i] * i);
+            sum_brightness += (histo[i] * i);
             if( count >= middle && median_brightness == -1 ) {
                 median_brightness = i;
             }
@@ -3026,6 +3031,7 @@ public class HDRProcessor {
      * @param allocation_in The input allocation.
      * @param width         The width of the allocation.
      */
+    @SuppressWarnings("unused")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private float computeSharpness(Allocation allocation_in, int width, long time_s) {
         if( MyDebug.LOG )

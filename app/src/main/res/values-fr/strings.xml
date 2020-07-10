@@ -101,7 +101,7 @@
     <string name="preference_pause_preview">Mettre en pause après la prise de photo</string>
     <string name="preference_pause_preview_summary">Mettre en pause l\'écran après avoir pris une photo, avec la possibilité de partager ou supprimer la photo</string>
     <string name="preference_shutter_sound">Son de l\'obturateur</string>
-    <string name="preference_shutter_sound_summary">Jouer un son lorsque vous prenez une photo (nécessite Android 4.2 ou supérieur pour désactiver)</string>
+    <string name="preference_shutter_sound_summary">Jouer un son lorsque vous prenez une photo</string>
     <string name="preference_volume_keys">Touches de volumes</string>
     <string name="preference_audio_control">Option contrôle audio</string>
     <string name="preference_audio_noise_control_sensitivity">Sensibilité contrôle audio</string>
@@ -375,6 +375,13 @@
     <string name="preference_burst_mode_4x">4x</string>
     <string name="preference_burst_mode_5x">5x</string>
     <string name="preference_burst_mode_10x">10x</string>
+    <string name="preference_burst_mode_20x">20x</string>
+    <string name="preference_burst_mode_30x">30x</string>
+    <string name="preference_burst_mode_40x">40x</string>
+    <string name="preference_burst_mode_50x">50x</string>
+    <string name="preference_burst_mode_100x">100x</string>
+    <string name="preference_burst_mode_200x">200x</string>
+    <string name="preference_burst_mode_500x">500x</string>
     <string name="preference_burst_mode_unlimited">Illimité</string>
     <string name="preference_burst_interval_no_delay">Pas de délai</string>
     <string name="preference_burst_interval_1s">1 s</string>
@@ -421,7 +428,6 @@
     <string name="preference_ui_placement_right">Interface utilisateur pour droitier</string>
     <string name="preference_stamp_style_shadowed">Texte ombragé</string>
     <string name="preference_stamp_style_plain">Texte brut</string>
-    <string name="preferences_about_title">About</string>
     <string name="preferences_build_version">Version</string>
     <string name="preferences_about_app">Camera est dérivée d\'OpenCamera</string>
     <string name="preferences_authors">Auteurs</string>
@@ -657,10 +663,6 @@
     <string name="preference_video_max_filesize_5gb">5 Go</string>
     <string name="preference_video_max_filesize_2gb">2 Go</string>
     <string name="preference_burst_interval_0_5s">0,5 s</string>
-    <string name="preference_burst_mode_50x">50x</string>
-    <string name="preference_burst_mode_40x">40x</string>
-    <string name="preference_burst_mode_30x">30x</string>
-    <string name="preference_burst_mode_20x">20x</string>
     <string name="previous">Précédent</string>
     <string name="preference_focus_assist_4x">4x</string>
     <string name="preference_focus_assist_2x">2x</string>
@@ -856,4 +858,8 @@
     <string name="photo_mode_expo_bracketing">Expo {}</string>
     <string name="saf_permission_failed">Impossible de sauvegarder dans ce dossier</string>
     <string name="next">Suivant</string>
+    <string name="preference_immersive_mode_off">Off</string>
+    <string name="preference_immersive_mode_navigation">Masquer uniquement les boutons de navigation virtuelle de l\'écran</string>
+    <string name="preference_immersive_mode_gui">Masquer l\'interface graphique</string>
+    <string name="preference_immersive_mode_everything">Tout masquer</string>
 </resources>

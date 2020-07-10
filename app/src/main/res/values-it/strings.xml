@@ -105,24 +105,24 @@
     <string name="preference_pause_preview">Pausa dopo aver scattato</string>
     <string name="preference_pause_preview_summary">Mette in pausa lo schermo dopo aver scattato, permettendo inoltre di condividere o cancellare la foto</string>
     <string name="preference_shutter_sound">Suono otturatore</string>
-    <string name="preference_shutter_sound_summary">Emette un suono mentre scatta la foto</string>
+    <string name="preference_shutter_sound_summary">Emette un suono quando scatta una foto</string>
     <string name="preference_volume_keys">Tasti volume</string>
     <string name="preference_audio_control">Opzioni di controllo del suono</string>
     <string name="preference_audio_noise_control_sensitivity">Sensibilità di controllo del suono</string>
     <string name="preference_audio_noise_control_sensitivity_summary">Sensibilità del livello di rumore per l\'opzione di controllo del suono (rumore forte)</string>
     <string name="preference_save_location">Posizione di salvataggio</string>
     <string name="preference_save_location_summary">Cartella in cui salvare foto e video</string>
-    <string name="preference_using_saf">Utilizza lo Storage Access Framework</string>
-    <string name="preference_using_saf_summary">Se utilizzare o meno lo Storage Access Framework per il salvataggio di foto e video. Deve essere abilitato (su Android 5+) per permettere di salvare su schede SD esterne.</string>
-    <string name="preference_save_photo_prefix">Salva il prefisso per le foto</string>
-    <string name="preference_save_photo_prefix_summary">Prefisso da utilizzare come nome file nel salvataggio delle foto</string>
-    <string name="preference_save_video_prefix">Salva il prefisso per i video</string>
-    <string name="preference_save_video_prefix_summary">Prefisso da utilizzare come nome file nel salvataggio dei video</string>
-    <string name="preference_save_zulu_time">Formato TEMPO da utilizzare nel nome file</string>
-    <string name="preference_show_when_locked">Mostra la fotocamera anche se il dispositivo è bloccato</string>
-    <string name="preference_show_when_locked_summary">Se abilitato, Open Camera verrà mostrata anche se in blocco schermo (dovrai comunque sbloccare per avere accesso ad Impostazioni, Galleria, etc.)</string>
-    <string name="preference_lock_video">Blocca lo schermo mentre registri un video</string>
-    <string name="preference_lock_video_summary">Mentre si registra un video l\'interfaccia verrà bloccata per prevenire interruzioni accidentali. Trascina il dito sullo schermo per sbloccare. Infatti la registrazione video viene sempre interrotta nel caso in cui l\'app venga eseguita in background o lo schermo venga spento.</string>
+    <string name="preference_using_saf">Usa Storage Access Framework</string>
+    <string name="preference_using_saf_summary">Quando utilizzare Storage Access Framework per il salvataggio di foto e video</string>
+    <string name="preference_save_photo_prefix">Salva prefisso per foto</string>
+    <string name="preference_save_photo_prefix_summary">Prefisso da usare per il filename di salvataggio delle foto</string>
+    <string name="preference_save_video_prefix">Salva prefisso per video</string>
+    <string name="preference_save_video_prefix_summary">Prefisso da usare per il filename di salvataggio dei video</string>
+    <string name="preference_save_zulu_time">Formato TEMPO da utilizzare nel filename</string>
+    <string name="preference_show_when_locked">Mostra la fotocamera quando dispositivo bloccato</string>
+    <string name="preference_show_when_locked_summary">Se abilitato, Open Camera sarà mostrata sopra il blocco schermo (dovrai comunque sbloccarlo per avere accesso alle Impostazioni, Galleria, ecc.)</string>
+    <string name="preference_lock_video">Blocco schermo nella registrazione video</string>
+    <string name="preference_lock_video_summary">Quando si registra un video l\'interfaccia sarà bloccata per prevenire accidentali interruzioni. Trascina il dito sullo schermo per sbloccare. Nota che la registrazione del video sarà interrotta se l\'app andrà in background o se lo schermo è oscurato.</string>
     <string name="preference_rotate_preview">Ruota anteprima</string>
     <string name="preference_rotate_preview_summary">Opzione per ruotare l\'anteprima (non modificherà foto/video ottenuti)
 \n%s</string>
@@ -236,7 +236,7 @@
     <string name="preference_donate">Dona per aiutare lo sviluppo</string>
     <string name="preference_donate_summary">Se questa app ti piace, puoi sempre considerare di fare una donazione per aiutarne lo sviluppo. Puoi farlo acquistando l\'app my donation - tocca questa scelta per aprire la pagina dell\'app my donation. Grazie mille!</string>
     <string name="preference_use_camera2">Usa le API Camera2</string>
-    <string name="preference_use_camera2_summary">Abilita funzionalità extra, come modalità manuali per esposizione, messa a fuoco, bilanciamento del bianco, e anche RAW (se supportate dal dispositivo), ma potrebbe non funzionare correttamente su tutti i modelli (potrebbe causarne il riavvio)</string>
+    <string name="preference_use_camera2_summary">Abilita API Camera2 - offre caratteristiche extra, ma potrebbe non funzionare correttamente su tutti i modelli (potrebbe causare un riavvio)</string>
     <string name="preference_about">Informazioni</string>
     <string name="preference_about_summary">App e informazioni di debug</string>
     <string name="preference_reset">Ripristina le impostazioni</string>
@@ -471,6 +471,13 @@
     <string name="preference_burst_mode_4x">4x</string>
     <string name="preference_burst_mode_5x">5x</string>
     <string name="preference_burst_mode_10x">10x</string>
+    <string name="preference_burst_mode_20x">20x</string>
+    <string name="preference_burst_mode_30x">30x</string>
+    <string name="preference_burst_mode_40x">40x</string>
+    <string name="preference_burst_mode_50x">50x</string>
+    <string name="preference_burst_mode_100x">100x</string>
+    <string name="preference_burst_mode_200x">200x</string>
+    <string name="preference_burst_mode_500x">500x</string>
     <string name="preference_burst_mode_unlimited">Illimitato</string>
     <string name="preference_burst_interval_no_delay">Nessun intervallo</string>
     <string name="preference_burst_interval_1s">1s</string>
@@ -517,7 +524,6 @@
     <string name="preference_ui_placement_right">Interfaccia utente destrorsi</string>
     <string name="preference_stamp_style_shadowed">Testo ombreggiato</string>
     <string name="preference_stamp_style_plain">Testo piano</string>
-    <string name="preferences_about_title">About</string>
     <string name="preferences_build_version">Versione build</string>
     <string name="preferences_about_app">La telecamera è biforcuta da OpenCamera</string>
     <string name="preferences_authors">Autori</string>
@@ -530,10 +536,6 @@
     <string name="preference_startup_focus_summary">Se eseguire o meno l\'auto-focus all\'avvio di Open Camera. Se riscontri il problema del flash che si accende all\'avvio, disabilita questa opzione</string>
     <string name="preference_nr_save_no">Non salvare le immagini originali</string>
     <string name="preference_burst_interval_0_5s">0.5s</string>
-    <string name="preference_burst_mode_50x">50x</string>
-    <string name="preference_burst_mode_40x">40x</string>
-    <string name="preference_burst_mode_30x">30x</string>
-    <string name="preference_burst_mode_20x">20x</string>
     <string name="previous">Precedente</string>
     <string name="exposure_compensation_zoom">Aumenta o diminuisce la compensazione dell\'esposizione</string>
     <string name="preference_focus_assist_4x">4x</string>
@@ -859,4 +861,9 @@
     <string name="preference_privacy_policy_text"> whether a setting is turned on, e.g., \"Auto-stabilise: On\" </string>
     <string name="preference_licence_google_icons_text">In Open Camera utilizziamo icone dal Google\'s Material Design icons (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) rilasciate sotto la licenza Apache versione 2.0. Alcune icone sono state modificate. Tocca qui per il testo completo della licenza.</string>
     <string name="whats_new_text"> whether a setting is turned on, e.g., \"Auto-stabilise: On\" </string>
+
+    <string name="preference_immersive_mode_off">Off</string>
+    <string name="preference_immersive_mode_navigation">Nascondi solamente i bottoni di navigazione virtuali on-screen</string>
+    <string name="preference_immersive_mode_gui">Nascondi GUI</string>
+    <string name="preference_immersive_mode_everything">Nascondi tutto</string>
 </resources>

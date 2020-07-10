@@ -103,7 +103,7 @@
     <string name="preference_pause_preview">拍照后暂停</string>
     <string name="preference_pause_preview_summary">拍照后暂停屏幕，带有选项分享或删除照片</string>
     <string name="preference_shutter_sound">快门声音</string>
-    <string name="preference_shutter_sound_summary">拍照时播放声音(需要 Android 4.2 或更高才能禁用)</string>
+    <string name="preference_shutter_sound_summary">拍照时播放声音</string>
     <string name="preference_volume_keys">音量键功能</string>
     <string name="preference_audio_control">语音识别</string>
     <string name="preference_audio_noise_control_sensitivity">麦克风灵敏度</string>
@@ -111,7 +111,7 @@
     <string name="preference_save_location">保存位置</string>
     <string name="preference_save_location_summary">用来保存照片/视频文件的文件夹</string>
     <string name="preference_using_saf">使用存储访问架构</string>
-    <string name="preference_using_saf_summary">是否使用 Android 5 的存储访问架构保存照片和视频</string>
+    <string name="preference_using_saf_summary">是否使用存储访问架构保存照片和视频</string>
     <string name="preference_save_photo_prefix">保存照片前缀</string>
     <string name="preference_save_photo_prefix_summary">用于保存照片文件名的前缀</string>
     <string name="preference_save_video_prefix">保存视频前缀</string>
@@ -220,7 +220,7 @@
     <string name="preference_donate">捐赠以支持开发</string>
     <string name="preference_donate_summary">如果您喜欢这个程序，可以通过购买我的“捐助 app”向我捐助。点击此选项将打开我的“捐助 app”页面。谢谢！</string>
     <string name="preference_use_camera2">使用 Camera2 API</string>
-    <string name="preference_use_camera2_summary">启用 Android 5 的 Camera2 API - 提供附加功能，但当前处于实验阶段 (会引起重启)</string>
+    <string name="preference_use_camera2_summary">启用 Camera2 API - 提供附加功能，但当前处于实验阶段 (会引起重启)</string>
     <string name="preference_about">关于</string>
     <string name="preference_about_summary">应用程序和调试信息</string>
     <string name="preference_reset">复位设置</string>
@@ -554,6 +554,13 @@
     <string name="preference_burst_mode_4x">4x</string>
     <string name="preference_burst_mode_5x">5x</string>
     <string name="preference_burst_mode_10x">10x</string>
+    <string name="preference_burst_mode_20x">20x</string>
+    <string name="preference_burst_mode_30x">30x</string>
+    <string name="preference_burst_mode_40x">40x</string>
+    <string name="preference_burst_mode_50x">50x</string>
+    <string name="preference_burst_mode_100x">100x</string>
+    <string name="preference_burst_mode_200x">200x</string>
+    <string name="preference_burst_mode_500x">500x</string>
     <string name="preference_burst_mode_unlimited">无限</string>
 
     <string name="preference_burst_interval_no_delay">无延迟</string>
@@ -614,7 +621,7 @@
     <string name="photo_mode_hdr">HDR</string> <!-- keep short, as this shows in the popup menu -->
     <string name="photo_mode_expo_bracketing">包围曝光</string> <!-- keep short, as this shows in the popup menu -->
     <string name="photo_mode_expo_bracketing_full">包围曝光(Expo)</string>
-    <string name="photo_mode_fast_burst">[]]]</string> <!-- keep short, as this shows in the popup menu; shouldn't be translated -->
+     <!-- keep short, as this shows in the popup menu; shouldn't be translated -->
     <string name="photo_mode_fast_burst_full">快速连拍</string>
     <string name="photo_mode_noise_reduction">NR</string> <!-- keep short, as this shows in the popup menu; probably shouldn't be translated? -->
     <string name="photo_mode_noise_reduction_full">降噪(NR)</string>
@@ -774,6 +781,11 @@
     <string name="preference_zebra_stripes_70pc">70%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
     <string name="preference_zebra_stripes_80pc">80%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
     <string name="preference_zebra_stripes_90pc">90%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_93pc">93%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_95pc">95%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_97pc">97%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_98pc">98%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_99pc">99%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
     <string name="preference_zebra_stripes_100pc">100%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
 
     <string name="preference_focus_peaking">对焦峰值</string>
@@ -834,5 +846,8 @@
     <string name="preferences_app_info_title">相机信息</string>
     <string name="preferences_service_terms">服务条款</string> <!-- ID as in camera ID -->
 
-
+    <string name="preference_immersive_mode_off">关闭</string>
+    <string name="preference_immersive_mode_navigation">只隐藏屏幕上的虚拟导航按钮</string>
+    <string name="preference_immersive_mode_gui">隐藏图形用户界面</string>
+    <string name="preference_immersive_mode_everything">隐藏一切</string>
 </resources>

@@ -104,7 +104,7 @@
     <string name="preference_pause_preview">Pause nach der Fotoaufnahme</string>
     <string name="preference_pause_preview_summary">Nach der Aufnahme pausieren mit der Möglichkeit, das Foto zu teilen oder zu löschen</string>
     <string name="preference_shutter_sound">Auslöseton</string>
-    <string name="preference_shutter_sound_summary">Abspielen eines Tones bei der Aufnahme (benötigt Android 4.2 oder höher zum Deaktivieren)</string>
+    <string name="preference_shutter_sound_summary">Abspielen eines Tones bei der Aufnahme</string>
     <string name="preference_volume_keys">Lautstärketasten</string>
     <string name="preference_audio_control">Audio Steuerungsoptionen</string>
     <string name="preference_audio_noise_control_sensitivity">Audio Steuerung Empfindlichkeit</string>
@@ -228,7 +228,7 @@
     <string name="preference_donate">Spende</string>
     <string name="preference_donate_summary">Wenn Ihnen diese App gefällt, würde ich mich über eine Spende freuen, indem Sie meine Spenden-App kaufen. Dazu brauchen Sie nur diese Option anzuklicken. Danke!</string>
     <string name="preference_use_camera2">Camera2-API verwenden</string>
-    <string name="preference_use_camera2_summary">Aktiviert die Android-5-Camera2-API mit Zusatzfunktionen (experimentell, Neustart erforderlich)</string>
+    <string name="preference_use_camera2_summary">Aktiviert die Camera2-API mit Zusatzfunktionen (experimentell, Neustart erforderlich)</string>
     <string name="preference_about">Über</string>
     <string name="preference_about_summary">Anwendungs- und Debug-Informationen</string>
     <string name="preference_reset">Einstellungen zurücksetzen</string>
@@ -286,7 +286,6 @@
     <string name="photo_mode_expo_bracketing">Expo {}</string>
     <!-- needs to not be too long, so this shows okay on the popup menu's photo mode buttons -->
     <string name="photo_mode_expo_bracketing_full">Belichtungsreihe</string>
-    <string name="photo_mode_fast_burst">[]]]</string>
     <string name="photo_mode_fast_burst_full">Schnelle Fotofolge</string>
     <string name="photo_mode_noise_reduction">NR</string>
     <!-- keep short, as this shows in the popup menu; probably shouldn't be translated? -->
@@ -548,6 +547,13 @@
     <string name="preference_burst_mode_4x">4x</string>
     <string name="preference_burst_mode_5x">5x</string>
     <string name="preference_burst_mode_10x">10x</string>
+    <string name="preference_burst_mode_20x">20x</string>
+    <string name="preference_burst_mode_30x">30x</string>
+    <string name="preference_burst_mode_40x">40x</string>
+    <string name="preference_burst_mode_50x">50x</string>
+    <string name="preference_burst_mode_100x">100x</string>
+    <string name="preference_burst_mode_200x">200x</string>
+    <string name="preference_burst_mode_500x">500x</string>
     <string name="preference_burst_mode_unlimited">Unbegrenzt</string>
     <string name="preference_burst_interval_no_delay">Keine Verzögerung</string>
     <string name="preference_burst_interval_0_5s">0,5 s</string>
@@ -699,14 +705,16 @@
     <string name="preference_zebra_stripes">Zeige Zebrastreifen</string>
     <string name="preference_zebra_stripes_summary">Zeigt in der Vorschau Zebrastreifen in den überbelichteten Stellen der Aufnahme.\n%s</string>
     <string name="preference_zebra_stripes_off">Aus</string>
-    <string name="preference_zebra_stripes_70pc">70%</string>
-    <!-- shouldn't escape %, not needed when shown in ListPreference -->
-    <string name="preference_zebra_stripes_80pc">80%</string>
-    <!-- shouldn't escape %, not needed when shown in ListPreference -->
-    <string name="preference_zebra_stripes_90pc">90%</string>
-    <!-- shouldn't escape %, not needed when shown in ListPreference -->
-    <string name="preference_zebra_stripes_100pc">100%</string>
-    <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_70pc">70%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_80pc">80%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_90pc">90%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_93pc">93%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_95pc">95%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_97pc">97%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_98pc">98%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_99pc">99%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_100pc">100%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
+
     <string name="preference_focus_peaking">Fokus-Peaking</string>
     <string name="preference_focus_peaking_summary">Fokus-Peaking hebt scharf abgebildete Konturen hervor. Das ist vorrangig bei manuellem Fokus nützlich und hilft die scharf eingestellten Bereiche des Bilds zu erkennen.\n%s</string>
     <string name="preference_focus_peaking_off">Aus</string>
@@ -730,7 +738,6 @@
     <string name="bluetooth_scan">Scan</string>
     <string name="preference_stamp_style_shadowed">Schattierter Text</string>
     <string name="preference_stamp_style_plain">Normaler Text</string>
-    <string name="preferences_about_title">About</string>
     <string name="preferences_build_version">Build version</string>
     <string name="preferences_about_app">Die Kamera ist von OpenCamera gespalten</string>
     <string name="preferences_authors">Autoren</string>
@@ -770,10 +777,6 @@
     <string name="finish_panorama">Panorama wird beendet</string>
     <string name="image_saving_notification">Bilder werden gespeichert…</string>
     <string name="preference_stamp_style_background">Text mit getöntem Hintergrund</string>
-    <string name="preference_burst_mode_50x">50x</string>
-    <string name="preference_burst_mode_40x">40x</string>
-    <string name="preference_burst_mode_30x">30x</string>
-    <string name="preference_burst_mode_20x">20x</string>
     <string name="noise_reduction_mode_high_quality">Hohe Qualität</string>
     <string name="noise_reduction_mode_fast">Schnell</string>
     <string name="noise_reduction_mode_minimal">Minimal</string>
@@ -813,4 +816,12 @@
     <string name="preference_fast_burst_n_images_entries_4">4</string>
     <string name="preference_fast_burst_n_images_entries_3">3</string>
     <string name="preference_fast_burst_n_images_entries_2">2</string>
+
+
+    <string name="preference_select_remote">Wähle eine Fernsteuerung</string>
+
+    <string name="preference_immersive_mode_off">Nichts ausblenden</string>
+    <string name="preference_immersive_mode_navigation">Nur Navigationstasten ausblenden</string>
+    <string name="preference_immersive_mode_gui">Alle Einstellelemente ausblenden</string>
+    <string name="preference_immersive_mode_everything">Alles ausblenden</string>
 </resources>

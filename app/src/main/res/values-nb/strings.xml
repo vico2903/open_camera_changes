@@ -112,7 +112,7 @@
     <string name="preference_save_location">Lagringsplasseringen</string>
     <string name="preference_save_location_summary">Mappen som bildene/videoen skal lagres i.</string>
     <string name="preference_using_saf">Bruk lagringstilgangsrammeverket</string>
-    <string name="preference_using_saf_summary">Hvorvidt Android 5.x sin lagringstilgangsrammeverk skal brukes til å lagre bilder og videoer.</string>
+    <string name="preference_using_saf_summary">Hvorvidt lagringstilgangsrammeverk skal brukes til å lagre bilder og videoer.</string>
     <string name="preference_save_photo_prefix">Forstavelsen til fotolagring</string>
     <string name="preference_save_photo_prefix_summary">Forstavelsen som skal brukes til lagringsfilnavnene til bildene.</string>
     <string name="preference_save_video_prefix">Forstavelsen til videolagring</string>
@@ -228,7 +228,7 @@
     <string name="preference_donate">Doner for å støtte utviklingen.</string>
     <string name="preference_donate_summary">Hvis du liker denne appen, så tenk gjerne på om du vil gi meg en donasjon for å støtte utviklingen. Du kan gjøre dette ved å kjøpe min "donasjonsapp" — Klikk på denne innstillingen for å gå til siden for min donasjonsapp. Takk!</string>
     <string name="preference_use_camera2">Bruk Camera2-APIen</string>
-    <string name="preference_use_camera2_summary">Aktiverer Android 5.x sin Camera2-API - Den tilbyr ekstra egenskaper, men kan kanskje ikke virke riktig på alle enheter (Vil føre til en omstart).</string>
+    <string name="preference_use_camera2_summary">Aktiverer Camera2-API - Den tilbyr ekstra egenskaper, men kan kanskje ikke virke riktig på alle enheter (Vil føre til en omstart).</string>
     <string name="preference_about">Om Camera</string>
     <string name="preference_about_summary">App- og avlusings-informasjon</string>
     <string name="preference_reset">Tilbakestill innstillinger</string>
@@ -494,6 +494,13 @@
     <string name="preference_burst_mode_4x">4x</string>
     <string name="preference_burst_mode_5x">5x</string>
     <string name="preference_burst_mode_10x">10x</string>
+    <string name="preference_burst_mode_20x">20x</string>
+    <string name="preference_burst_mode_30x">30x</string>
+    <string name="preference_burst_mode_40x">40x</string>
+    <string name="preference_burst_mode_50x">50x</string>
+    <string name="preference_burst_mode_100x">100x</string>
+    <string name="preference_burst_mode_200x">200x</string>
+    <string name="preference_burst_mode_500x">500x</string>
     <string name="preference_burst_mode_unlimited">Ubegrenset</string>
 
     <string name="preference_burst_interval_no_delay">Ingen forsinkelse</string>
@@ -546,7 +553,6 @@
 
     <string name="preference_stamp_style_shadowed">Skyggelagt tekst</string>
     <string name="preference_stamp_style_plain">Ren tekst</string>
-    <string name="preferences_about_title">About</string>
     <string name="preferences_build_version">Bygg versjon</string>
     <string name="preferences_about_app">Kamera er gaffel fra OpenCamera</string>
     <string name="preferences_authors">Forfatter</string>
@@ -555,4 +561,8 @@
     <string name="preferences_app_info_title">Kamerainformasjon</string>
     <string name="preferences_service_terms">Tjenestevilkår</string>
 
+    <string name="preference_immersive_mode_off">Av</string>
+    <string name="preference_immersive_mode_navigation">Skjul bare de virtuelle navigasjonsknappene</string>
+    <string name="preference_immersive_mode_gui">Skjul grensesnittet</string>
+    <string name="preference_immersive_mode_everything">Skjul alt</string>
 </resources>
