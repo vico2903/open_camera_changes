@@ -112,7 +112,7 @@
     <string name="preference_save_location">Vị trí lưu</string>
     <string name="preference_save_location_summary">Thư mục lưu tệp tin ảnh/video</string>
     <string name="preference_using_saf">Sử dụng Khung Truy cập Lưu trữ</string>
-    <string name="preference_using_saf_summary">Sử dụng Khung Truy cập Lưu trữ để lưu ảnh và video. Nên kích hoạt (từ Android 5 trở lên) để có thể lưu vào thẻ nhớ ngoài.</string>
+    <string name="preference_using_saf_summary">Sử dụng Khung Truy cập Lưu trữ để lưu ảnh và video. Nên kích hoạt để có thể lưu vào thẻ nhớ ngoài.</string>
     <string name="preference_save_photo_prefix">Tiền tố ảnh</string>
     <string name="preference_save_photo_prefix_summary">Đặt tiền tố trong tên tệp khi lưu ảnh</string>
     <string name="preference_save_video_prefix">Tiền tố video</string>
@@ -292,7 +292,7 @@
     <string name="photo_mode_hdr">HDR</string> <!-- keep short, as this shows in the popup menu -->
     <string name="photo_mode_expo_bracketing">EXPO</string> <!-- keep short, as this shows in the popup menu -->
     <string name="photo_mode_expo_bracketing_full">Phơi sáng mở rộng</string>
-    <string name="photo_mode_fast_burst">FB</string> <!-- keep short, as this shows in the popup menu; shouldn't be translated -->
+     <!-- keep short, as this shows in the popup menu; shouldn't be translated -->
     <string name="photo_mode_fast_burst_full">Chụp nhanh</string>
     <string name="photo_mode_noise_reduction">NR</string> <!-- keep short, as this shows in the popup menu; probably shouldn't be translated? -->
     <string name="photo_mode_noise_reduction_full">Giảm nhiễu</string>
@@ -645,6 +645,9 @@
     <string name="preference_burst_mode_30x">30x</string>
     <string name="preference_burst_mode_40x">40x</string>
     <string name="preference_burst_mode_50x">50x</string>
+    <string name="preference_burst_mode_100x">100x</string>
+    <string name="preference_burst_mode_200x">200x</string>
+    <string name="preference_burst_mode_500x">500x</string>
     <string name="preference_burst_mode_unlimited">Không giới hạn</string>
 
     <string name="preference_burst_interval_no_delay">Không</string>
@@ -788,4 +791,8 @@
     <string name="preferences_app_info_title">Thông tin camera</string>
     <string name="preferences_service_terms">Điều khoản dịch vụ</string>
 
+    <string name="preference_immersive_mode_off">Tắt</string>
+    <string name="preference_immersive_mode_navigation">Chỉ ẩn các nút điều hướng</string>
+    <string name="preference_immersive_mode_gui">Ẩn giao diện người dùng</string>
+    <string name="preference_immersive_mode_everything">Ẩn mọi thứ</string>
 </resources>

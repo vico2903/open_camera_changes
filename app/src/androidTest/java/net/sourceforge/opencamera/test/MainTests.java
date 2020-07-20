@@ -14,6 +14,7 @@ public class MainTests {
         TestSuite suite = new TestSuite(MainTests.class.getName());
         // put these tests first as they require various permissions be allowed, that can only be set by user action
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testSwitchVideo"));
+        suite.addTest(TestSuite.createTest(MainActivityTest.class, "testLocationSettings"));
         // other tests:
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testPause"));
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testImmediatelyQuit"));
@@ -29,6 +30,8 @@ public class MainTests {
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testHDRRestart"));
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testPreviewSize"));
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testPreviewSizeWYSIWYG"));
+        suite.addTest(TestSuite.createTest(MainActivityTest.class, "testResolutionMaxMP"));
+        suite.addTest(TestSuite.createTest(MainActivityTest.class, "testResolutionBurst"));
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testAutoFocus"));
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testAutoFocusCorners"));
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testPopup"));
@@ -70,11 +73,14 @@ public class MainTests {
         }
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testSettingsPrivacyPolicy"));
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testPreviewRotation"));
+        suite.addTest(TestSuite.createTest(MainActivityTest.class, "testLayoutNoLimits"));
+        suite.addTest(TestSuite.createTest(MainActivityTest.class, "testLayoutNoLimitsStartup"));
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testCameraModes"));
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testFailOpenCamera"));
         if( !MainActivityTest.test_camera2 ) {
             suite.addTest(TestSuite.createTest(MainActivityTest.class, "testAudioControlIcon"));
         }
+        suite.addTest(TestSuite.createTest(MainActivityTest.class, "testIconsAgainstCameras"));
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testOnError"));
         if( !MainActivityTest.test_camera2 ) {
             suite.addTest(TestSuite.createTest(MainActivityTest.class, "testGPSString"));

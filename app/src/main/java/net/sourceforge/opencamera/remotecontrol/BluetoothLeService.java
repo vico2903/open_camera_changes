@@ -38,15 +38,16 @@ public class BluetoothLeService extends Service {
     private String device_address;
     private BluetoothGatt bluetoothGatt;
     private String remote_device_type;
+    private final Handler bluetoothHandler = new Handler();
     private final HashMap<String, BluetoothGattCharacteristic> subscribed_characteristics = new HashMap<>();
     private final List<BluetoothGattCharacteristic> charsToSubscribe = new ArrayList<>();
 
     private double currentTemp = -1;
     private double currentDepth = -1;
 
-    private static final int STATE_DISCONNECTED = 0;
+    /*private static final int STATE_DISCONNECTED = 0;
     private static final int STATE_CONNECTING = 1;
-    private static final int STATE_CONNECTED = 2;
+    private static final int STATE_CONNECTED = 2;*/
 
     public final static String ACTION_GATT_CONNECTED =
             "net.sourceforge.opencamera.Remotecontrol.ACTION_GATT_CONNECTED";
@@ -72,6 +73,21 @@ public class BluetoothLeService extends Service {
     public final static int COMMAND_AFMF = 97;
     public final static int COMMAND_UP = 64;
     public final static int COMMAND_DOWN = 80;
+
+    /* This forces a gratuitous BLE scan to help the device
+     * connect to the remote faster. This is due to limitations of the
+     * Android BLE stack and API (just knowing the MAC is not enough on
+     * many phones).*/
+    private void triggerScan() {
+        // Stops scanning after a pre-defined scan period.
+        bluetoothHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                bluetoothAdapter.stopLeScan(null);
+            }
+        }, 10000);
+        bluetoothAdapter.startLeScan(null);
+    }
 
     public void setRemoteDeviceType(String remote_device_type) {
         if( MyDebug.LOG )
@@ -160,6 +176,7 @@ public class BluetoothLeService extends Service {
         if (gattServices == null) return;
         List<UUID> mCharacteristicsWanted;
 
+        //noinspection SwitchStatementWithTooFewBranches
         switch( remote_device_type ) {
             case "preference_remote_type_kraken":
                 mCharacteristicsWanted = KrakenGattAttributes.getDesiredCharacteristics();
@@ -325,7 +342,7 @@ public class BluetoothLeService extends Service {
             return false;
         }
 
-        if( device_address != null && address.equals(device_address) && bluetoothGatt != null ) {
+        if( address.equals(device_address) && bluetoothGatt != null ) {
             bluetoothGatt.disconnect();
             bluetoothGatt.close();
             bluetoothGatt = null;
@@ -346,7 +363,13 @@ public class BluetoothLeService extends Service {
             return false;
         }
 
-        bluetoothGatt = device.connectGatt(this, false, mGattCallback);
+        // It looks like Android won't connect to BLE devices properly without scanning
+        // for them first, even when connecting by explicit MAC address. Since we're using
+        // BLE for underwater housings and we want rock solid connectivity, we trigger
+        // a scan for 10 seconds
+        triggerScan();
+
+        bluetoothGatt = device.connectGatt(this, true, mGattCallback);
         device_address = address;
         return true;
 	}

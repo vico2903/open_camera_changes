@@ -2,6 +2,7 @@ package net.sourceforge.opencamera.test;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
+
 public class VideoTests {
     // Tests related to video recording; note that tests to do with video mode that don't record are still part of MainTests
     public static Test suite() {
@@ -52,11 +53,15 @@ public class VideoTests {
         if( !MainActivityTest.test_camera2 ) {
             suite.addTest(TestSuite.createTest(MainActivityTest.class, "testTakeVideoMaxFileSize2"));
             suite.addTest(TestSuite.createTest(MainActivityTest.class, "testTakeVideoMaxFileSize3"));
+            suite.addTest(TestSuite.createTest(MainActivityTest.class, "testTakeVideoMaxFileSize4"));
+            suite.addTest(TestSuite.createTest(MainActivityTest.class, "testTakeVideoMaxFileSize4SAF"));
         }
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testTakeVideoTimeLapse"));
         suite.addTest(TestSuite.createTest(MainActivityTest.class, "testTakeVideoForceFailure"));
         if( MainActivityTest.test_camera2 ) {
             suite.addTest(TestSuite.createTest(MainActivityTest.class, "testVideoLogProfile"));
+            suite.addTest(TestSuite.createTest(MainActivityTest.class, "testVideoJTLogProfile"));
+            suite.addTest(TestSuite.createTest(MainActivityTest.class, "testVideoGammaProfile"));
             suite.addTest(TestSuite.createTest(MainActivityTest.class, "testVideoEdgeModeNoiseReductionMode"));
         }
         // put tests which change bitrate, fps or test 4K at end

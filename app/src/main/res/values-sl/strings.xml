@@ -112,7 +112,7 @@
     <string name="preference_save_location">Mesto za shranjevanje</string>
     <string name="preference_save_location_summary">Mapa za shranjevanje datotek fotografij/videoposnetkov</string>
     <string name="preference_using_saf">Uporabi ogrodje za dostop do pomnilniške naprave</string>
-    <string name="preference_using_saf_summary">Ali naj se uporabi ogrodje za dostop do pomnilniške naprave Androida 5 za shranjevanje fotografij in videoposnetkov</string>
+    <string name="preference_using_saf_summary">Ali naj se uporabi ogrodje za dostop do pomnilniške naprave za shranjevanje fotografij in videoposnetkov</string>
     <string name="preference_save_photo_prefix">Predpona shranjenih fotografij</string>
     <string name="preference_save_photo_prefix_summary">Predpona imena datotek fotografij</string>
     <string name="preference_save_video_prefix">Predpona shranjenih videoposnetkov</string>
@@ -228,7 +228,7 @@
     <string name="preference_donate">Daruj za podporo razvoju</string>
     <string name="preference_donate_summary">Če vam je ta program všeč, razmislite o darovanju, da podprete razvoj. To lahko naredite z nakupom mojega "programa za darovanje" - kliknite na to možnost za odpiranje strani z mojim programom. Hvala!</string>
     <string name="preference_use_camera2">Uporabi API Camera2</string>
-    <string name="preference_use_camera2_summary">Omogoči API Camera2 Androida 5 - ponuja dodatne značilnosti, vendar morda ne bo pravilno deloval na vseh napravah (lahko povzroči ponovni zagon)</string>
+    <string name="preference_use_camera2_summary">Omogoči API Camera2 - ponuja dodatne značilnosti, vendar morda ne bo pravilno deloval na vseh napravah (lahko povzroči ponovni zagon)</string>
     <string name="preference_about">O programu</string>
     <string name="preference_about_summary">Program in podatki za razhroščevanje</string>
     <string name="preference_reset">Ponastavi nastavitve</string>
@@ -499,6 +499,13 @@
     <string name="preference_burst_mode_4x">4x</string>
     <string name="preference_burst_mode_5x">5x</string>
     <string name="preference_burst_mode_10x">10x</string>
+    <string name="preference_burst_mode_20x">20x</string>
+    <string name="preference_burst_mode_30x">30x</string>
+    <string name="preference_burst_mode_40x">40x</string>
+    <string name="preference_burst_mode_50x">50x</string>
+    <string name="preference_burst_mode_100x">100x</string>
+    <string name="preference_burst_mode_200x">200x</string>
+    <string name="preference_burst_mode_500x">500x</string>
     <string name="preference_burst_mode_unlimited">Neomejeno</string>
 
     <string name="preference_burst_interval_no_delay">Brez zakasnitve</string>
@@ -560,4 +567,8 @@
     <string name="preferences_app_info_title">Podatki o fotoaparatu</string>
     <string name="preferences_service_terms">Pogoji storitve</string>
 
+    <string name="preference_immersive_mode_off">Izk.</string>
+    <string name="preference_immersive_mode_navigation">Skrij samo zaslonske gumbe za navidezno krmarjenje</string>
+    <string name="preference_immersive_mode_gui">Skrij gr. up. vmsnik</string>
+    <string name="preference_immersive_mode_everything">Skrij vse</string>
 </resources>

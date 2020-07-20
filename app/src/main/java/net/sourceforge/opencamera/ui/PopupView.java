@@ -8,6 +8,7 @@ import foundation.e.camera.R;
 import net.sourceforge.opencamera.cameracontroller.CameraController;
 import net.sourceforge.opencamera.preview.Preview;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -68,6 +69,9 @@ public class PopupView extends LinearLayout {
     private int timer_index = -1;
     private int repeat_mode_index = -1;
     private int grid_index = -1;
+
+    @SuppressWarnings("FieldCanBeLocal")
+    private final DecimalFormat decimal_format_1dp_force0 = new DecimalFormat("0.0");
 
     public PopupView(Context context) {
         super(context);
@@ -358,8 +362,8 @@ public class PopupView extends LinearLayout {
                 final List<String> picture_size_strings = new ArrayList<>();
                 for(int i=0;i<picture_sizes.size();i++) {
                     CameraController.Size picture_size = picture_sizes.get(i);
-                    // don't display MP here, as call to Preview.getMPString() here would contribute to poor performance!
-                    String size_string = picture_size.width + " x " + picture_size.height;
+                    //String size_string = picture_size.width + " x " + picture_size.height;
+                    String size_string = picture_size.width + " x " + picture_size.height + " (" + Preview.getMPString(picture_size.width, picture_size.height) +")";
                     picture_size_strings.add(size_string);
                     if( picture_size.equals( current_picture_size ) ) {
                         picture_size_index = i;
@@ -501,6 +505,61 @@ public class PopupView extends LinearLayout {
             }
             if( MyDebug.LOG )
                 Log.d(TAG, "PopupView time 10: " + (System.nanoTime() - debug_time));
+
+            if( preview.getSupportedApertures() != null ) {
+                if( MyDebug.LOG )
+                    Log.d(TAG, "add apertures");
+
+                addTitleToPopup(getResources().getString(R.string.aperture));
+
+                final List<Float> apertures = new ArrayList<>();
+                final List<String> apertures_strings = new ArrayList<>();
+                float current_aperture = main_activity.getApplicationInterface().getAperturePref();
+                String prefix = "F/";
+
+                boolean found_default = false;
+                String current_aperture_s = "";
+                for(float aperture : preview.getSupportedApertures()) {
+                    apertures.add(aperture);
+                    String aperture_string = prefix + decimal_format_1dp_force0.format(aperture);
+                    apertures_strings.add(aperture_string);
+                    if( current_aperture == aperture ) {
+                        found_default = true;
+                        current_aperture_s = aperture_string;
+                    }
+                }
+
+                if( !found_default ) {
+                    // read from Camera API
+                    if( preview.getCameraController() != null && preview.getCameraController().captureResultHasAperture() ) {
+                        current_aperture = preview.getCameraController().captureResultAperture();
+                        current_aperture_s = prefix + decimal_format_1dp_force0.format(current_aperture);
+                    }
+                }
+
+                addButtonOptionsToPopup(apertures_strings, -1, -1, "", current_aperture_s, 0, "TEST_APERTURE", new ButtonOptionsPopupListener() {
+                    @Override
+                    public void onClick(String option) {
+                        if( MyDebug.LOG )
+                            Log.d(TAG, "clicked aperture: " + option);
+                        int index = apertures_strings.indexOf(option);
+                        if( index != -1 ) {
+                            float new_aperture = apertures.get(index);
+                            if( MyDebug.LOG )
+                                Log.d(TAG, "new_aperture: " + new_aperture);
+                            preview.showToast(null, getResources().getString(R.string.aperture) + ": " + option);
+                            main_activity.getApplicationInterface().setAperture(new_aperture);
+                            if( preview.getCameraController() != null ) {
+                                preview.getCameraController().setAperture(new_aperture);
+                            }
+                        }
+                        else {
+                            Log.e(TAG, "unknown aperture: " + option);
+                        }
+                        main_activity.getMainUI().destroyPopup(); // need to recreate popup for new selection
+                    }
+                });
+            }
 
             if( !preview.isVideo() && photo_mode == MyApplicationInterface.PhotoMode.FastBurst ) {
                 if( MyDebug.LOG )
@@ -788,7 +847,7 @@ public class PopupView extends LinearLayout {
 
                 final String [] timer_values = getResources().getStringArray(R.array.preference_timer_values);
                 String [] timer_entries = getResources().getStringArray(R.array.preference_timer_entries);
-                String timer_value = sharedPreferences.getString(PreferenceKeys.getTimerPreferenceKey(), "0");
+                String timer_value = sharedPreferences.getString(PreferenceKeys.TimerPreferenceKey, "0");
                 timer_index = Arrays.asList(timer_values).indexOf(timer_value);
                 if( timer_index == -1 ) {
                     if( MyDebug.LOG )
@@ -803,7 +862,7 @@ public class PopupView extends LinearLayout {
                         String new_timer_value = timer_values[timer_index];
                         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(main_activity);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(PreferenceKeys.getTimerPreferenceKey(), new_timer_value);
+                        editor.putString(PreferenceKeys.TimerPreferenceKey, new_timer_value);
                         editor.apply();
                     }
                     @Override
@@ -834,7 +893,7 @@ public class PopupView extends LinearLayout {
 
                 final String [] repeat_mode_values = getResources().getStringArray(R.array.preference_burst_mode_values);
                 String [] repeat_mode_entries = getResources().getStringArray(R.array.preference_burst_mode_entries);
-                String repeat_mode_value = sharedPreferences.getString(PreferenceKeys.getRepeatModePreferenceKey(), "1");
+                String repeat_mode_value = sharedPreferences.getString(PreferenceKeys.RepeatModePreferenceKey, "1");
                 repeat_mode_index = Arrays.asList(repeat_mode_values).indexOf(repeat_mode_value);
                 if( repeat_mode_index == -1 ) {
                     if( MyDebug.LOG )
@@ -850,7 +909,7 @@ public class PopupView extends LinearLayout {
                         String new_repeat_mode_value = repeat_mode_values[repeat_mode_index];
                         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(main_activity);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(PreferenceKeys.getRepeatModePreferenceKey(), new_repeat_mode_value);
+                        editor.putString(PreferenceKeys.RepeatModePreferenceKey, new_repeat_mode_value);
                         editor.apply();
                     }
                     @Override
@@ -1125,6 +1184,11 @@ public class PopupView extends LinearLayout {
                         editor.apply();
                     }
                     // otherwise default to the saved value
+
+                    if( !main_activity.getMainUI().isExposureUIOpen() ) {
+                        // also open the exposure UI, to show the
+                        main_activity.getMainUI().toggleExposureUI();
+                    }
                 }
             }
         }
@@ -1409,10 +1473,11 @@ public class PopupView extends LinearLayout {
         text_view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, title_text_size_dip);
         text_view.setTypeface(null, Typeface.BOLD);
         //text_view.setBackgroundColor(Color.GRAY); // debug
+        text_view.setBackgroundColor(Color.argb(255, 33,  33, 33)); // Grey 900
         this.addView(text_view);
     }
 
-    private abstract class RadioOptionsListener {
+    private abstract static class RadioOptionsListener {
         /** Called when a radio option is selected.
          * @param selected_value The entry in the supplied supported_options_values list (received
          *                       by addRadioOptionsToPopup) that corresponds to the selected radio
@@ -1600,7 +1665,7 @@ public class PopupView extends LinearLayout {
             Log.d(TAG, "addRadioOptionsToGroup time total: " + (System.nanoTime() - debug_time));
     }
 
-    private abstract class ArrayOptionsPopupListener {
+    private abstract static class ArrayOptionsPopupListener {
         protected abstract int onClickPrev();
         protected abstract int onClickNext();
     }
@@ -1642,10 +1707,17 @@ public class PopupView extends LinearLayout {
 
             final TextView text_view = new TextView(this.getContext());
             setArrayOptionsText(supported_options, title, text_view, title_in_options, title_in_options_first_only, current_index);
+            //text_view.setBackgroundColor(Color.GRAY); // debug
             text_view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, standard_text_size_dip);
             text_view.setTextColor(Color.WHITE);
             text_view.setGravity(Gravity.CENTER);
+            text_view.setSingleLine(true); // if text too long for the button, we'd rather not have wordwrap, even if it means cutting some text off
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
+            // Yuck! We want the arrow_button_w to be fairly large so that users can touch the arrow buttons easily, but if
+            // the text is too much for the button size, we'd rather it extend into the arrow buttons (which the user won't see
+            // anyway, since the button backgrounds are transparent).
+            // Needed for OnePlus 3T and Nokia 8, for camera resolution
+            params.setMargins(-arrow_button_w/2, 0, -arrow_button_w/2, 0);
             text_view.setLayoutParams(params);
 
             final float scale = getResources().getDisplayMetrics().density;

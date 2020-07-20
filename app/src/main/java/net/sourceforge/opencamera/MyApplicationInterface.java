@@ -139,8 +139,14 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     private int cameraId = cameraId_default;
     private final static String nr_mode_default = "preference_nr_mode_normal";
     private String nr_mode = nr_mode_default;
+    private final static float aperture_default = -1.0f;
+    private float aperture = aperture_default;
     // camera properties that aren't saved even in the bundle; these should be initialised/reset in reset()
     private int zoom_factor; // don't save zoom, as doing so tends to confuse users; other camera applications don't seem to save zoom when pause/resuming
+
+    // for testing:
+    public volatile int test_n_videos_scanned;
+    public volatile int test_max_mp;
 
     MyApplicationInterface(MainActivity main_activity, Bundle savedInstanceState) {
         long debug_time = 0;
@@ -162,7 +168,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         this.imageSaver = new ImageSaver(main_activity);
         this.imageSaver.start();
 
-        this.reset();
+        this.reset(false);
         if( savedInstanceState != null ) {
             // load the things we saved in onSaveInstanceState().
             if( MyDebug.LOG )
@@ -174,6 +180,9 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             nr_mode = savedInstanceState.getString("nr_mode", nr_mode_default);
             if( MyDebug.LOG )
                 Log.d(TAG, "found nr_mode: " + nr_mode);
+            aperture = savedInstanceState.getFloat("aperture", aperture_default);
+            if( MyDebug.LOG )
+                Log.d(TAG, "found aperture: " + aperture);
         }
 
         if( MyDebug.LOG )
@@ -193,6 +202,9 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         if( MyDebug.LOG )
             Log.d(TAG, "save nr_mode: " + nr_mode);
         state.putString("nr_mode", nr_mode);
+        if( MyDebug.LOG )
+            Log.d(TAG, "save aperture: " + aperture);
+        state.putFloat("aperture", aperture);
     }
 
     void onDestroy() {
@@ -242,9 +254,21 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         return false;
     }
 
+    /** If adding extra calls to this, consider whether explicit user permission is required, and whether
+     *  privacy policy needs updating.
+     *  Returns null if location not available.
+     */
     @Override
     public Location getLocation() {
         return locationSupplier.getLocation();
+    }
+
+    /** If adding extra calls to this, consider whether explicit user permission is required, and whether
+     *  privacy policy needs updating.
+     *  Returns null if location not available.
+     */
+    public Location getLocation(LocationSupplier.LocationInfo locationInfo) {
+        return locationSupplier.getLocation(locationInfo);
     }
 
     @Override
@@ -448,14 +472,17 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     }
 
     @Override
-    public Pair<Integer, Integer> getCameraResolutionPref() {
-        if( getPhotoMode() == PhotoMode.Panorama ) {
+    public Pair<Integer, Integer> getCameraResolutionPref(CameraResolutionConstraints constraints) {
+        PhotoMode photo_mode = getPhotoMode();
+        if( photo_mode == PhotoMode.Panorama ) {
             CameraController.Size best_size = choosePanoramaResolution(main_activity.getPreview().getSupportedPictureSizes(false));
             return new Pair<>(best_size.width, best_size.height);
         }
+
         String resolution_value = sharedPreferences.getString(PreferenceKeys.getResolutionPreferenceKey(cameraId), "");
         if( MyDebug.LOG )
             Log.d(TAG, "resolution_value: " + resolution_value);
+        Pair<Integer, Integer> result = null;
         if( resolution_value.length() > 0 ) {
             // parse the saved size, and make sure it is still valid
             int index = resolution_value.indexOf(' ');
@@ -477,7 +504,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                     int resolution_h = Integer.parseInt(resolution_h_s);
                     if( MyDebug.LOG )
                         Log.d(TAG, "resolution_h: " + resolution_h);
-                    return new Pair<>(resolution_w, resolution_h);
+                    result = new Pair<>(resolution_w, resolution_h);
                 }
                 catch(NumberFormatException exception) {
                     if( MyDebug.LOG )
@@ -485,7 +512,19 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                 }
             }
         }
-        return null;
+
+        if( photo_mode == PhotoMode.NoiseReduction || photo_mode == PhotoMode.HDR ) {
+            // set a maximum resolution for modes that require decompressing multiple images for processing,
+            // due to risk of running out of memory!
+            constraints.has_max_mp = true;
+            constraints.max_mp = 22000000; // max of 22MP
+            //constraints.max_mp = 7800000; // test!
+            if( main_activity.is_test && test_max_mp != 0 ) {
+                constraints.max_mp = test_max_mp;
+            }
+        }
+
+        return result;
     }
 
     /** getImageQualityPref() returns the image quality used for the Camera Controller for taking a
@@ -586,12 +625,12 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
     @Override
     public boolean getVideoStabilizationPref() {
-        return sharedPreferences.getBoolean(PreferenceKeys.getVideoStabilizationPreferenceKey(), false);
+        return sharedPreferences.getBoolean(PreferenceKeys.VideoStabilizationPreferenceKey, false);
     }
 
     @Override
     public boolean getForce4KPref() {
-        return cameraId == 0 && sharedPreferences.getBoolean(PreferenceKeys.getForceVideo4KPreferenceKey(), false) && main_activity.supportsForceVideo4K();
+        return cameraId == 0 && sharedPreferences.getBoolean(PreferenceKeys.ForceVideo4KPreferenceKey, false) && main_activity.supportsForceVideo4K();
     }
 
     @Override
@@ -601,7 +640,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
     @Override
     public String getVideoBitratePref() {
-        return sharedPreferences.getString(PreferenceKeys.getVideoBitratePreferenceKey(), "default");
+        return sharedPreferences.getString(PreferenceKeys.VideoBitratePreferenceKey, "default");
     }
 
     @Override
@@ -720,30 +759,48 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     }
 
     @Override
-    public boolean useVideoLogProfile() {
+    public CameraController.TonemapProfile getVideoTonemapProfile() {
         String video_log = sharedPreferences.getString(PreferenceKeys.VideoLogPreferenceKey, "off");
-        // only return true for values recognised by getVideoLogProfileStrength()
+        // only return TONEMAPPROFILE_LOG for values recognised by getVideoLogProfileStrength()
         switch( video_log ) {
             case "off":
-                return false;
+                return CameraController.TonemapProfile.TONEMAPPROFILE_OFF;
+            case "rec709":
+                return CameraController.TonemapProfile.TONEMAPPROFILE_REC709;
+            case "srgb":
+                return CameraController.TonemapProfile.TONEMAPPROFILE_SRGB;
             case "fine":
             case "low":
             case "medium":
             case "strong":
             case "extra_strong":
-                return true;
+                return CameraController.TonemapProfile.TONEMAPPROFILE_LOG;
+            case "gamma":
+                return CameraController.TonemapProfile.TONEMAPPROFILE_GAMMA;
+            case "jtvideo":
+                return CameraController.TonemapProfile.TONEMAPPROFILE_JTVIDEO;
+            case "jtlog":
+                return CameraController.TonemapProfile.TONEMAPPROFILE_JTLOG;
+            case "jtlog2":
+                return CameraController.TonemapProfile.TONEMAPPROFILE_JTLOG2;
         }
-        return false;
+        return CameraController.TonemapProfile.TONEMAPPROFILE_OFF;
     }
 
     @Override
     public float getVideoLogProfileStrength() {
         String video_log = sharedPreferences.getString(PreferenceKeys.VideoLogPreferenceKey, "off");
-        // remember to update useVideoLogProfile() if adding/changing modes
+        // remember to update getVideoTonemapProfile() if adding/changing modes
         switch( video_log ) {
             case "off":
+            case "rec709":
+            case "srgb":
+            case "gamma":
+            case "jtvideo":
+            case "jtlog":
+            case "jtlog2":
                 return 0.0f;
-            case "fine":
+            /*case "fine":
                 return 1.0f;
             case "low":
                 return 5.0f;
@@ -752,9 +809,39 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             case "strong":
                 return 100.0f;
             case "extra_strong":
+                return 500.0f;*/
+            // need a range of values as behaviour can vary between devices - e.g., "fine" has more effect on Nexus 6 than
+            // other devices such as OnePlus 3T or Galaxy S10e
+            // recalibrated in v1.48 to correspond to improvements made in CameraController2
+            case "fine":
+                return 10.0f;
+            case "low":
+                return 32.0f;
+            case "medium":
+                return 100.0f;
+            case "strong":
+                return 224.0f;
+            case "extra_strong":
                 return 500.0f;
         }
         return 0.0f;
+    }
+
+    @Override
+    public float getVideoProfileGamma() {
+        String gamma_value = sharedPreferences.getString(PreferenceKeys.VideoProfileGammaPreferenceKey, "2.2");
+        float gamma = 0.0f;
+        try {
+            gamma = Float.parseFloat(gamma_value);
+            if( MyDebug.LOG )
+                Log.d(TAG, "gamma: " + gamma);
+        }
+        catch(NumberFormatException e) {
+            if( MyDebug.LOG )
+                Log.e(TAG, "failed to parse gamma value: " + gamma_value);
+            e.printStackTrace();
+        }
+        return gamma;
     }
 
     @Override
@@ -771,7 +858,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             }
         }
 
-        String video_max_duration_value = sharedPreferences.getString(PreferenceKeys.getVideoMaxDurationPreferenceKey(), "0");
+        String video_max_duration_value = sharedPreferences.getString(PreferenceKeys.VideoMaxDurationPreferenceKey, "0");
         long video_max_duration;
         try {
             video_max_duration = (long)Integer.parseInt(video_max_duration_value) * 1000;
@@ -787,7 +874,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
     @Override
     public int getVideoRestartTimesPref() {
-        String restart_value = sharedPreferences.getString(PreferenceKeys.getVideoRestartPreferenceKey(), "0");
+        String restart_value = sharedPreferences.getString(PreferenceKeys.VideoRestartPreferenceKey, "0");
         int remaining_restart_video;
         try {
             remaining_restart_video = Integer.parseInt(restart_value);
@@ -817,7 +904,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             }
         }
 
-        String video_max_filesize_value = sharedPreferences.getString(PreferenceKeys.getVideoMaxFileSizePreferenceKey(), "0");
+        String video_max_filesize_value = sharedPreferences.getString(PreferenceKeys.VideoMaxFileSizePreferenceKey, "0");
         long video_max_filesize;
         try {
             video_max_filesize = Long.parseLong(video_max_filesize_value);
@@ -844,7 +931,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             }
         }
 
-        return sharedPreferences.getBoolean(PreferenceKeys.getVideoRestartMaxFileSizePreferenceKey(), true);
+        return sharedPreferences.getBoolean(PreferenceKeys.VideoRestartMaxFileSizePreferenceKey, true);
     }
 
     @Override
@@ -931,12 +1018,12 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
     @Override
     public boolean getVideoFlashPref() {
-        return sharedPreferences.getBoolean(PreferenceKeys.getVideoFlashPreferenceKey(), false);
+        return sharedPreferences.getBoolean(PreferenceKeys.VideoFlashPreferenceKey, false);
     }
 
     @Override
     public boolean getVideoLowPowerCheckPref() {
-        return sharedPreferences.getBoolean(PreferenceKeys.getVideoLowPowerCheckPreferenceKey(), true);
+        return sharedPreferences.getBoolean(PreferenceKeys.VideoLowPowerCheckPreferenceKey, true);
     }
 
     @Override
@@ -946,14 +1033,14 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
     @Override
     public String getPreviewRotationPref() {
-        return sharedPreferences.getString(PreferenceKeys.getRotatePreviewPreferenceKey(), "0");
+        return sharedPreferences.getString(PreferenceKeys.RotatePreviewPreferenceKey, "0");
     }
 
     @Override
     public String getLockOrientationPref() {
         if( getPhotoMode() == PhotoMode.Panorama )
             return "portrait"; // for now panorama only supports portrait
-        return sharedPreferences.getString(PreferenceKeys.getLockOrientationPreferenceKey(), "none");
+        return sharedPreferences.getString(PreferenceKeys.LockOrientationPreferenceKey, "none");
     }
 
     @Override
@@ -1001,19 +1088,19 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     public boolean getShutterSoundPref() {
         if( getPhotoMode() == PhotoMode.Panorama )
             return false;
-        return sharedPreferences.getBoolean(PreferenceKeys.getShutterSoundPreferenceKey(), true);
+        return sharedPreferences.getBoolean(PreferenceKeys.ShutterSoundPreferenceKey, true);
     }
 
     @Override
     public boolean getStartupFocusPref() {
-        return sharedPreferences.getBoolean(PreferenceKeys.getStartupFocusPreferenceKey(), true);
+        return sharedPreferences.getBoolean(PreferenceKeys.StartupFocusPreferenceKey, true);
     }
 
     @Override
     public long getTimerPref() {
         if( getPhotoMode() == MyApplicationInterface.PhotoMode.Panorama )
             return 0; // don't support timer with panorama
-        String timer_value = sharedPreferences.getString(PreferenceKeys.getTimerPreferenceKey(), "0");
+        String timer_value = sharedPreferences.getString(PreferenceKeys.TimerPreferenceKey, "0");
         long timer_delay;
         try {
             timer_delay = (long)Integer.parseInt(timer_value) * 1000;
@@ -1031,12 +1118,12 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     public String getRepeatPref() {
         if( getPhotoMode() == MyApplicationInterface.PhotoMode.Panorama )
             return "1"; // don't support repeat with panorama
-        return sharedPreferences.getString(PreferenceKeys.getRepeatModePreferenceKey(), "1");
+        return sharedPreferences.getString(PreferenceKeys.RepeatModePreferenceKey, "1");
     }
 
     @Override
     public long getRepeatIntervalPref() {
-        String timer_value = sharedPreferences.getString(PreferenceKeys.getRepeatIntervalPreferenceKey(), "0");
+        String timer_value = sharedPreferences.getString(PreferenceKeys.RepeatIntervalPreferenceKey, "0");
         long timer_delay;
         try {
             float timer_delay_s = Float.parseFloat(timer_value);
@@ -1069,22 +1156,41 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
     @Override
     public boolean getRecordAudioPref() {
-        return sharedPreferences.getBoolean(PreferenceKeys.getRecordAudioPreferenceKey(), true);
+        return sharedPreferences.getBoolean(PreferenceKeys.RecordAudioPreferenceKey, true);
     }
 
     @Override
     public String getRecordAudioChannelsPref() {
-        return sharedPreferences.getString(PreferenceKeys.getRecordAudioChannelsPreferenceKey(), "audio_default");
+        return sharedPreferences.getString(PreferenceKeys.RecordAudioChannelsPreferenceKey, "audio_default");
     }
 
     @Override
     public String getRecordAudioSourcePref() {
-        return sharedPreferences.getString(PreferenceKeys.getRecordAudioSourcePreferenceKey(), "audio_src_camcorder");
+        return sharedPreferences.getString(PreferenceKeys.RecordAudioSourcePreferenceKey, "audio_src_camcorder");
     }
 
     public boolean getAutoStabilisePref() {
         boolean auto_stabilise = sharedPreferences.getBoolean(PreferenceKeys.AutoStabilisePreferenceKey, false);
         return auto_stabilise && main_activity.supportsAutoStabilise();
+    }
+
+    /** Returns the alpha value to use for ghost image, as a number from 0 to 255.
+     *  Note that we store the preference as a percentage from 0 to 100, but scale this to 0 to 255.
+     */
+    public int getGhostImageAlpha() {
+        String ghost_image_alpha_value = sharedPreferences.getString(PreferenceKeys.GhostImageAlphaPreferenceKey, "50");
+        int ghost_image_alpha;
+        try {
+            ghost_image_alpha = Integer.parseInt(ghost_image_alpha_value);
+        }
+        catch(NumberFormatException e) {
+            if( MyDebug.LOG )
+                Log.e(TAG, "failed to parse ghost_image_alpha_value: " + ghost_image_alpha_value);
+            e.printStackTrace();
+            ghost_image_alpha = 50;
+        }
+        ghost_image_alpha = (int)(ghost_image_alpha*2.55f+0.1f);
+        return ghost_image_alpha;
     }
 
     public String getStampPref() {
@@ -1329,11 +1435,21 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     public NRModePref getNRModePref() {
 		/*if( MyDebug.LOG )
 			Log.d(TAG, "nr_mode: " + nr_mode);*/
+        //noinspection SwitchStatementWithTooFewBranches
         switch( nr_mode ) {
             case "preference_nr_mode_low_light":
                 return NRModePref.NRMODE_LOW_LIGHT;
         }
         return NRModePref.NRMODE_NORMAL;
+    }
+
+    public void setAperture(float aperture) {
+        this.aperture = aperture;
+    }
+
+    @Override
+    public float getAperturePref() {
+        return aperture;
     }
 
     @Override
@@ -1523,6 +1639,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
      */
     boolean isRawOnly(PhotoMode photo_mode) {
         if( isRawAllowed(photo_mode) ) {
+            //noinspection SwitchStatementWithTooFewBranches
             switch( sharedPreferences.getString(PreferenceKeys.RawPreferenceKey, "preference_raw_no") ) {
                 case "preference_raw_only":
                     return true;
@@ -1604,7 +1721,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         main_activity.getMainUI().setTakePhotoIcon();
         View cancelPanoramaButton = main_activity.findViewById(R.id.cancel_panorama);
         cancelPanoramaButton.setVisibility(View.VISIBLE);
-        main_activity.getMainUI().clearSeekBar(); // close seekbars if open (popup is already closed when taking a photo)
+        main_activity.getMainUI().closeExposureUI(); // close seekbars if open (popup is already closed when taking a photo)
         // taking the photo will end up calling MainUI.showGUI(), which will hide the other on-screen icons
     }
 
@@ -1737,7 +1854,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
     @Override
     public void touchEvent(MotionEvent event) {
-        main_activity.getMainUI().clearSeekBar();
+        main_activity.getMainUI().closeExposureUI();
         main_activity.getMainUI().closePopup();
         if( main_activity.usingKitKatImmersiveMode() ) {
             main_activity.setImmersiveMode(false);
@@ -1746,7 +1863,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
     @Override
     public void startingVideo() {
-        if( sharedPreferences.getBoolean(PreferenceKeys.getLockVideoPreferenceKey(), false) ) {
+        if( sharedPreferences.getBoolean(PreferenceKeys.LockVideoPreferenceKey, false) ) {
             main_activity.lockScreen();
         }
         main_activity.stopAudioListeners(); // important otherwise MediaRecorder will fail to start() if we have an audiolistener! Also don't want to have the speech recognizer going off
@@ -1842,7 +1959,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                     if( MyDebug.LOG ) {
                         Log.d(TAG, "date_stamp: " + date_stamp);
                         Log.d(TAG, "time_stamp: " + time_stamp);
-                        Log.d(TAG, "gps_stamp: " + gps_stamp);
+                        // don't log gps_stamp, in case of privacy!
                     }
 
                     String datetime_stamp = "";
@@ -1871,8 +1988,8 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                                     List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                                     if( addresses != null && addresses.size() > 0 ) {
                                         address = addresses.get(0);
+                                        // don't log address, in case of privacy!
                                         if( MyDebug.LOG ) {
-                                            Log.d(TAG, "address: " + address);
                                             Log.d(TAG, "max line index: " + address.getMaxAddressLineIndex());
                                         }
                                     }
@@ -1906,8 +2023,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                                 Log.d(TAG, "not displaying gps coords, but need to display geo direction");
                             gps_stamp = main_activity.getTextFormatter().getGPSString(preference_stamp_gpsformat, preference_units_distance, false, null, store_geo_direction && main_activity.getPreview().hasGeoDirection(), geo_direction);
                             if( gps_stamp.length() > 0 ) {
-                                if( MyDebug.LOG )
-                                    Log.d(TAG, "gps_stamp is now: " + gps_stamp);
+                                // don't log gps_stamp, in case of privacy!
                                 subtitles.append(gps_stamp).append("\n");
                             }
                         }
@@ -2028,24 +2144,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             subtitleVideoTimerTask = null;
         }
 
-        boolean done = false;
-        if( video_method == VIDEOMETHOD_FILE ) {
-            if( filename != null ) {
-                File file = new File(filename);
-                storageUtils.broadcastFile(file, false, true, true);
-                done = true;
-            }
-        }
-        else {
-            if( uri != null ) {
-                // see note in onPictureTaken() for where we call broadcastFile for SAF photos
-                File real_file = storageUtils.broadcastUri(uri, false, true, true);
-                if( real_file != null ) {
-                    main_activity.test_last_saved_image = real_file.getAbsolutePath();
-                }
-                done = true;
-            }
-        }
+        boolean done = broadcastVideo(video_method, uri, filename);
         if( MyDebug.LOG )
             Log.d(TAG, "done? " + done);
 
@@ -2131,6 +2230,67 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             if( MyDebug.LOG )
                 Log.d(TAG, "    time to create thumbnail: " + (System.currentTimeMillis() - debug_time));
         }
+    }
+
+    @Override
+    public void restartedVideo(final int video_method, final Uri uri, final String filename) {
+        if( MyDebug.LOG ) {
+            Log.d(TAG, "restartedVideo");
+            Log.d(TAG, "video_method " + video_method);
+            Log.d(TAG, "uri " + uri);
+            Log.d(TAG, "filename " + filename);
+        }
+        broadcastVideo(video_method, uri, filename);
+    }
+
+    private boolean broadcastVideo(final int video_method, final Uri uri, final String filename) {
+        if( MyDebug.LOG ) {
+            Log.d(TAG, "broadcastVideo");
+            Log.d(TAG, "video_method " + video_method);
+            Log.d(TAG, "uri " + uri);
+            Log.d(TAG, "filename " + filename);
+        }
+        boolean done = false;
+        if( video_method == VIDEOMETHOD_FILE ) {
+            if( filename != null ) {
+                File file = new File(filename);
+                storageUtils.broadcastFile(file, false, true, true);
+                done = true;
+            }
+        }
+        else {
+            if( uri != null ) {
+                // see note in onPictureTaken() for where we call broadcastFile for SAF photos
+                File real_file = storageUtils.broadcastUri(uri, false, true, true);
+                if( real_file != null ) {
+                    main_activity.test_last_saved_image = real_file.getAbsolutePath();
+                }
+                done = true;
+            }
+        }
+        if( done ) {
+            test_n_videos_scanned++;
+            if( MyDebug.LOG )
+                Log.d(TAG, "test_n_videos_scanned is now: " + test_n_videos_scanned);
+        }
+        return done;
+    }
+
+    @Override
+    public void deleteUnusedVideo(final int video_method, final Uri uri, final String filename) {
+        if( MyDebug.LOG ) {
+            Log.d(TAG, "deleteUnusedVideo");
+            Log.d(TAG, "video_method " + video_method);
+            Log.d(TAG, "uri " + uri);
+            Log.d(TAG, "filename " + filename);
+        }
+        if( video_method == VIDEOMETHOD_FILE ) {
+            trashImage(false, uri, filename, false);
+        }
+        else if( video_method == VIDEOMETHOD_SAF ) {
+            trashImage(true, uri, filename, false);
+        }
+        // else can't delete Uri
     }
 
     @Override
@@ -2336,7 +2496,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         if( MyDebug.LOG )
             Log.d(TAG, "cameraClosed");
         this.stopPanorama(true);
-        main_activity.getMainUI().clearSeekBar();
+        main_activity.getMainUI().closeExposureUI();
         main_activity.getMainUI().destroyPopup(); // need to close popup - and when camera reopened, it may have different settings
         drawPreview.clearContinuousFocusMove();
     }
@@ -2357,13 +2517,13 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             Log.d(TAG, "timerBeep()");
             Log.d(TAG, "remaining_time: " + remaining_time);
         }
-        if( sharedPreferences.getBoolean(PreferenceKeys.getTimerBeepPreferenceKey(), true) ) {
+        if( sharedPreferences.getBoolean(PreferenceKeys.TimerBeepPreferenceKey, true) ) {
             if( MyDebug.LOG )
                 Log.d(TAG, "play beep!");
             boolean is_last = remaining_time <= 1000;
             main_activity.getSoundPoolManager().playSound(is_last ? R.raw.mybeep_hi : R.raw.mybeep);
         }
-        if( sharedPreferences.getBoolean(PreferenceKeys.getTimerSpeakPreferenceKey(), false) ) {
+        if( sharedPreferences.getBoolean(PreferenceKeys.TimerSpeakPreferenceKey, false) ) {
             if( MyDebug.LOG )
                 Log.d(TAG, "speak countdown!");
             int remaining_time_s = (int)(remaining_time/1000);
@@ -2384,8 +2544,9 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         if( MyDebug.LOG )
             Log.d(TAG, "switchToCamera: " + front_facing);
         int n_cameras = main_activity.getPreview().getCameraControllerManager().getNumberOfCameras();
+        CameraController.Facing want_facing = front_facing ? CameraController.Facing.FACING_FRONT : CameraController.Facing.FACING_BACK;
         for(int i=0;i<n_cameras;i++) {
-            if( main_activity.getPreview().getCameraControllerManager().isFrontFacing(i) == front_facing ) {
+            if( main_activity.getPreview().getCameraControllerManager().getFacing(i) == want_facing ) {
                 if( MyDebug.LOG )
                     Log.d(TAG, "found desired camera: " + i);
                 this.setCameraIdPref(i);
@@ -2592,9 +2753,13 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     /** Should be called to reset parameters which aren't expected to be saved (e.g., resetting zoom when application is paused,
      *  when switching between photo/video modes, or switching cameras).
      */
-    void reset() {
+    void reset(boolean switched_camera) {
         if( MyDebug.LOG )
             Log.d(TAG, "reset");
+        if( switched_camera ) {
+            // aperture is reset when switching camera, but not when application is paused or switching between photo/video etc
+            this.aperture = aperture_default;
+        }
         this.zoom_factor = 0;
     }
 
@@ -2764,17 +2929,28 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
         boolean using_camera2 = main_activity.getPreview().usingCamera2API();
         ImageSaver.Request.ImageFormat image_format = getImageFormatPref();
+        boolean store_ypr = sharedPreferences.getBoolean(PreferenceKeys.AddYPRToComments, false) &&
+                main_activity.getPreview().hasLevelAngle() &&
+                main_activity.getPreview().hasPitchAngle() &&
+                main_activity.getPreview().hasGeoDirection();
+        if( MyDebug.LOG ) {
+            Log.d(TAG, "store_ypr: " + store_ypr);
+            Log.d(TAG, "has level angle: " + main_activity.getPreview().hasLevelAngle());
+            Log.d(TAG, "has pitch angle: " + main_activity.getPreview().hasPitchAngle());
+            Log.d(TAG, "has geo direction: " + main_activity.getPreview().hasGeoDirection());
+        }
         int image_quality = getSaveImageQualityPref();
         if( MyDebug.LOG )
             Log.d(TAG, "image_quality: " + image_quality);
         boolean do_auto_stabilise = getAutoStabilisePref() && main_activity.getPreview().hasLevelAngleStable();
-        double level_angle = do_auto_stabilise ? main_activity.getPreview().getLevelAngle() : 0.0;
+        double level_angle = (main_activity.getPreview().hasLevelAngle()) ? main_activity.getPreview().getLevelAngle() : 0.0;
+        double pitch_angle = (main_activity.getPreview().hasPitchAngle()) ? main_activity.getPreview().getPitchAngle() : 0.0;
         if( do_auto_stabilise && main_activity.test_have_angle )
             level_angle = main_activity.test_angle;
         if( do_auto_stabilise && main_activity.test_low_memory )
             level_angle = 45.0;
         // I have received crashes where camera_controller was null - could perhaps happen if this thread was running just as the camera is closing?
-        boolean is_front_facing = main_activity.getPreview().getCameraController() != null && main_activity.getPreview().getCameraController().isFrontFacing();
+        boolean is_front_facing = main_activity.getPreview().getCameraController() != null && (main_activity.getPreview().getCameraController().getFacing() == CameraController.Facing.FACING_FRONT);
         boolean mirror = is_front_facing && sharedPreferences.getString(PreferenceKeys.FrontCameraMirrorKey, "preference_front_camera_mirror_no").equals("preference_front_camera_mirror_photo");
         String preference_stamp = this.getStampPref();
         String preference_textstamp = this.getTextStampPref();
@@ -2790,7 +2966,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         boolean store_location = getGeotaggingPref() && getLocation() != null;
         Location location = store_location ? getLocation() : null;
         boolean store_geo_direction = main_activity.getPreview().hasGeoDirection() && getGeodirectionPref();
-        double geo_direction = store_geo_direction ? main_activity.getPreview().getGeoDirection() : 0.0;
+        double geo_direction = main_activity.getPreview().hasGeoDirection() ? main_activity.getPreview().getGeoDirection() : 0.0;
         String custom_tag_artist = sharedPreferences.getString(PreferenceKeys.ExifArtistPreferenceKey, "");
         String custom_tag_copyright = sharedPreferences.getString(PreferenceKeys.ExifCopyrightPreferenceKey, "");
         String preference_hdr_contrast_enhancement = sharedPreferences.getString(PreferenceKeys.HDRContrastEnhancementPreferenceKey, "preference_hdr_contrast_enhancement_smart");
@@ -2850,7 +3026,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             success = true; // still treat as success
         }
         else if( photo_mode == PhotoMode.NoiseReduction || photo_mode == PhotoMode.Panorama ) {
-            boolean first_image = false;
+            boolean first_image;
             if( photo_mode == PhotoMode.Panorama ) {
                 panorama_pic_accepted = true;
                 first_image = n_panorama_pics == 0;
@@ -2898,6 +3074,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                         preference_stamp, preference_textstamp, font_size, color, pref_style, preference_stamp_dateformat, preference_stamp_timeformat, preference_stamp_gpsformat, preference_stamp_geo_address, preference_units_distance,
                         panorama_crop,
                         store_location, location, store_geo_direction, geo_direction,
+                        pitch_angle, store_ypr,
                         custom_tag_artist, custom_tag_copyright,
                         sample_factor);
 
@@ -2940,6 +3117,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                     preference_stamp, preference_textstamp, font_size, color, pref_style, preference_stamp_dateformat, preference_stamp_timeformat, preference_stamp_gpsformat, preference_stamp_geo_address, preference_units_distance,
                     false, // panorama doesn't use this codepath
                     store_location, location, store_geo_direction, geo_direction,
+                    pitch_angle, store_ypr,
                     custom_tag_artist, custom_tag_copyright,
                     sample_factor);
         }
@@ -3121,7 +3299,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void trashImage(boolean image_saf, Uri image_uri, String image_name) {
+    private void trashImage(boolean image_saf, Uri image_uri, String image_name, boolean from_user) {
         if( MyDebug.LOG )
             Log.d(TAG, "trashImage");
         Preview preview  = main_activity.getPreview();
@@ -3137,7 +3315,8 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                 else {
                     if( MyDebug.LOG )
                         Log.d(TAG, "successfully deleted " + image_uri);
-                    preview.showToast(null, R.string.photo_deleted);
+                    if( from_user )
+                        preview.showToast(null, R.string.photo_deleted);
                     if( file != null ) {
                         // SAF doesn't broadcast when deleting them
                         storageUtils.broadcastFile(file, false, false, true);
@@ -3163,7 +3342,8 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             else {
                 if( MyDebug.LOG )
                     Log.d(TAG, "successfully deleted " + image_name);
-                preview.showToast(photo_delete_toast, R.string.photo_deleted);
+                if( from_user )
+                    preview.showToast(photo_delete_toast, R.string.photo_deleted);
                 storageUtils.broadcastFile(file, false, false, true);
             }
         }
@@ -3176,7 +3356,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         if( preview.isPreviewPaused() ) {
             for(int i=0;i<last_images.size();i++) {
                 LastImage last_image = last_images.get(i);
-                trashImage(last_images_saf, last_image.uri, last_image.name);
+                trashImage(last_images_saf, last_image.uri, last_image.name, true);
             }
             clearLastImages();
             drawPreview.clearGhostImage(); // doesn't make sense to show the last image as a ghost, if the user has trashed it!

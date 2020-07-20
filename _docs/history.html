@@ -16,7 +16,7 @@
         "message":"This website uses cookies, including for Google Analytics and to display ads",
         "dismiss":"Got it!",
         "learnMore":"More info",
-        "link":"http://opencamera.org.uk/privacy_oc.html",
+        "link":"privacy_oc.html",
         "theme":"dark-bottom"};
 </script>
 
@@ -48,6 +48,93 @@
 <p>&lt; <small><a href="index.html">Main Page.</a></small></p>
 
 <pre>
+Version 1.48.1 (2020/05/02)
+
+FIXED   Crash on devices with Camera2 API where camera reports no picture, video or preview
+        resolutions, instead fail to open camera gracefully instead.
+FIXED   Fix switch camera buttons behaviour if a camera with ID greater than 0 failed to open.
+FIXED   Some devices lost custom video profiles in 1.48.
+ADDED   If camera fails to open, display ID of current camera that we tried to open.
+
+Version 1.48 (2020/04/22)
+
+FIXED   Taking front camera photos with frontscreen torch was slow.
+FIXED   When using "Pause after taking photo", touching to unpause no longer
+        triggers auto focus, or taking another photo for "Touch to capture".
+FIXED   Take photo widget issue.
+FIXED   Camera specific hardware keys such as volume keys shouldn't take effect in settings etc.
+FIXED   Don't set optical image stabilization if video digital stabilization is enabled in video
+        mode.
+FIXED   Seamless video restart on maximum filesize (for Android 8+) wasn't broadcasting video files
+        except the last one, meaning they were taking longer to show up in mediastore gallery.
+FIXED   Recording video on Android 8+ could leave zero-size files if size approached the maximum
+        filesize, but a restart did not occur.
+FIXED   Problem of on-screen level angle overlapping with shutter icon when using a widescreen
+        preview aspect ratio.
+FIXED   Incorrect layout for on-screen text when using "icons along top" with wide-screen aspect
+        ratio and device held in upside-down landscape orientation.
+FIXED   Focus seekbars overlapped with histogram in widescreen aspect ratio when using "Icons along
+        top" UI placement.
+FIXED   Was incorrectly offering manual white balance even if camera didn't support this
+        (inconsistency that the manual white balance option showed, even though the manual white
+        balance temperature seekbar wasn't shown).
+FIXED   Optional on-screen icons (such as flash, RAW) weren't updating correctly if switching to a
+        camera that didn't support that feature.
+FIXED   Don't show on-screen flash icon in video mode (since this icon doesn't support torch, and
+        flash auto/on not supported in video mode).
+FIXED   Preview texture buffer size (for Camera2 API) could be set incorrectly after changing aspect
+        ratios.
+FIXED   Auto-level photos could never be full resolution (for when angle was 0).
+FIXED   Update on-screen time format more often when changing device settings.
+FIXED   USB/bluetooth keyboard control bug when navigating popup menu, if icons were displayed with a
+        horizontal scrollbar.
+ADDED   New icon for switching between multiple cameras. If your device has multiple front and/or
+        back cameras, then the existing icon to switch cameras will switch between the first front
+        and back camera; the new icon will instead cycle between the multiple front or back cameras.
+        If you prefer the old behaviour, then disable
+        Settings/On screen GUI/"Multiple cameras icon".
+ADDED   Current camera ID now displayed on-screen (next to date/time) for devices with multiple
+        front/back cameras. This can be disabled under Settings/Camera preview/"Show camera ID".
+ADDED   Aperture control, for devices that support this. (Camera2 API only.)
+ADDED   Flash on and torch now supported for manual ISO/exposure.
+ADDED   Option to specify REC709 or sRGB profile for video recording.
+ADDED   New custom gamma profile option for video recording.
+ADDED   New video profiles JTVideo, JTLog and JTLog2 (thanks to JT Haapala).
+ADDED   New option for alpha value to use for ghost image option.
+ADDED   More zebra stripe values 93-99%.
+ADDED   Options to control zebra stripe colours.
+ADDED   Option for storing device's current yaw/pitch/roll in Exif user comment for photos (thanks
+        to Joshua).
+ADDED   New option Settings/More camera controls/"Allow long press actions" to disable long press
+        actions.
+UPDATED Auto-level feature now shows on-screen rectangle to show the frame of the resultant photo.
+UPDATED Improvements for log profiles for video recording. Please note that this means the behaviour
+        of these profiles has changed!
+UPDATED On devices with on-screen navigation buttons, camera preview can now display under these
+        buttons if required for wide aspect ratio (requires Android 5+).
+UPDATED New immersive mode option to hide navigation buttons only when in immersive mode; existing
+        option for hiding navigation buttons now renamed to say "dim".
+UPDATED Show toast with camera id on startup if camera isn't set to the default camera for front or
+        back facing. Toast for cameras also displays whether ultra-wide, when using Camera2 API.
+UPDATED HDR and NR photo modes now limited to maximum resolution of 22 megapixels (to avoid risk of
+        running out of memory on devices with large camera resolutions).
+UPDATED Improved performance when displaying ghost image larger than device's resolution.
+UPDATED Popup menu now displays extra information for resolutions (MP for photos, descriptive name
+        like FullHD, VGA etc for video).
+UPDATED Don't set video digital stabilization when in photo mode.
+UPDATED Some preferences are now showed disabled if only relevant for another nearby option that
+        isn't currently enabled.
+UPDATED Moved video bitrate and frame rate options to debugging section.
+UPDATED Improved UI support for "external" cameras (if detected/supported with Camera2 API).
+UPDATED Improved placement of on-screen text (zoom, video recording time etc) to avoid focus
+        seekbars in landscape mode.
+UPDATED Improved look of on-screen text for manual/exposure sliders.
+UPDATED Exposure icon now highlights red when exposure UI is open.
+UPDATED Exposure UI now auto-opens when switching to manual white balance (as exposure UI contains
+        the manual white balance temperature seekbar).
+UPDATED More repeat mode options (100x, 200x, 500x).
+UPDATED Optimisation for reading most recent photo/video for thumbnail.
+
 Version 1.47.3 (2019/10/20)
 
 FIXED   Grids were being drawing too faintly.
@@ -1523,7 +1610,6 @@ First release.
 <p><a href="privacy_oc.html">Open Camera Privacy Policy.</a></p>
 <p>This website uses icons from third party sources, see <a href="index.html#licence">licences.</a></p>
 <p><a href="http://sourceforge.net/p/opencamera/">Open Camera on Sourceforge.</a></p>
-<p><a href="http://mark-h.users.sourceforge.net/">More of my Free software.</a></p>
 <hr>
 
 </body>

@@ -292,7 +292,7 @@ public class StorageUtils {
         // check Android version just to be safe
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-            if( sharedPreferences.getBoolean(PreferenceKeys.getUsingSAFPreferenceKey(), false) ) {
+            if( sharedPreferences.getBoolean(PreferenceKeys.UsingSAFPreferenceKey, false) ) {
                 return true;
             }
         }
@@ -302,13 +302,13 @@ public class StorageUtils {
     // only valid if !isUsingSAF()
     String getSaveLocation() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getString(PreferenceKeys.getSaveLocationPreferenceKey(), "OpenCamera");
+        return sharedPreferences.getString(PreferenceKeys.SaveLocationPreferenceKey, "OpenCamera");
     }
 
     // only valid if isUsingSAF()
     String getSaveLocationSAF() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getString(PreferenceKeys.getSaveLocationSAFPreferenceKey(), "");
+        return sharedPreferences.getString(PreferenceKeys.SaveLocationSAFPreferenceKey, "");
     }
 
     // only valid if isUsingSAF()
@@ -367,7 +367,7 @@ public class StorageUtils {
      *  See:
             http://stackoverflow.com/questions/21605493/storage-access-framework-does-not-update-mediascanner-mtp
             http://stackoverflow.com/questions/20067508/get-real-path-from-uri-android-kitkat-new-storage-access-framework/
-        Also note that this will always return null with Android Q's scoped storage: https://developer.android.com/preview/privacy/scoped-storage
+        Also note that this will return null for media store Uris with Android Q's scoped storage: https://developer.android.com/preview/privacy/scoped-storage
         "The DATA column is redacted for each file in the media store."
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -390,9 +390,9 @@ public class StorageUtils {
             if( MyDebug.LOG )
                 Log.d(TAG, "id: " + id);
             String [] split = id.split(":");
-            if( split.length >= 2 ) {
+            if( split.length >= 1 ) {
                 String type = split[0];
-                String path = split[1];
+                String path = split.length >= 2 ? split[1] : "";
 				/*if( MyDebug.LOG ) {
 					Log.d(TAG, "type: " + type);
 					Log.d(TAG, "path: " + path);
@@ -520,14 +520,16 @@ public class StorageUtils {
      * See https://developer.android.com/guide/topics/providers/document-provider.html and
      * http://stackoverflow.com/questions/5568874/how-to-extract-the-file-name-from-uri-returned-from-intent-action-get-content .
      */
-    public String getFileName(Uri uri) {
+    String getFileName(Uri uri) {
         if( MyDebug.LOG ) {
             Log.d(TAG, "getFileName: " + uri);
             Log.d(TAG, "uri has path: " + uri.getPath());
         }
         String result = null;
         if( uri.getScheme() != null && uri.getScheme().equals("content") ) {
-            try( Cursor cursor = context.getContentResolver().query(uri, null, null, null, null) ) {
+            Cursor cursor = null;
+            try {
+                cursor = context.getContentResolver().query(uri, null, null, null, null);
                 if( cursor != null && cursor.moveToFirst() ) {
                     final int column_index = cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME);
                     result = cursor.getString(column_index);
@@ -539,6 +541,10 @@ public class StorageUtils {
                 if( MyDebug.LOG )
                     Log.e(TAG, "Exception trying to find filename");
                 e.printStackTrace();
+            }
+            finally {
+                if (cursor != null)
+                    cursor.close();
             }
         }
         if( result == null ) {
@@ -561,7 +567,7 @@ public class StorageUtils {
             index = "_" + count; // try to find a unique filename
         }
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean useZuluTime = sharedPreferences.getString(PreferenceKeys.getSaveZuluTimePreferenceKey(), "local").equals("zulu");
+        boolean useZuluTime = sharedPreferences.getString(PreferenceKeys.SaveZuluTimePreferenceKey, "local").equals("zulu");
         String timeStamp;
         if( useZuluTime ) {
             SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd_HHmmss'Z'", Locale.US);
@@ -575,12 +581,12 @@ public class StorageUtils {
         switch (type) {
             case MEDIA_TYPE_GYRO_INFO: // gyro info files have same name as the photo (but different extension)
             case MEDIA_TYPE_IMAGE: {
-                String prefix = sharedPreferences.getString(PreferenceKeys.getSavePhotoPrefixPreferenceKey(), "IMG_");
+                String prefix = sharedPreferences.getString(PreferenceKeys.SavePhotoPrefixPreferenceKey, "IMG_");
                 mediaFilename = prefix + timeStamp + suffix + index + extension;
                 break;
             }
             case MEDIA_TYPE_VIDEO: {
-                String prefix = sharedPreferences.getString(PreferenceKeys.getSaveVideoPrefixPreferenceKey(), "VID_");
+                String prefix = sharedPreferences.getString(PreferenceKeys.SaveVideoPrefixPreferenceKey, "VID_");
                 mediaFilename = prefix + timeStamp + suffix + index + extension;
                 break;
             }
@@ -744,8 +750,6 @@ public class StorageUtils {
                 }
                 break;
             case MEDIA_TYPE_PREFS:
-                mimeType = "text/xml";
-                break;
             case MEDIA_TYPE_GYRO_INFO:
                 mimeType = "text/xml";
                 break;
@@ -766,52 +770,80 @@ public class StorageUtils {
         final Uri uri;
         final long date;
         final int orientation;
-        final String path;
+        final String filename; // this should correspond to DISPLAY_NAME (so available with scoped storage) - so this includes file extension, but not full path
 
-        Media(long id, boolean video, Uri uri, long date, int orientation, String path) {
+        Media(long id, boolean video, Uri uri, long date, int orientation, String filename) {
             this.id = id;
             this.video = video;
             this.uri = uri;
             this.date = date;
             this.orientation = orientation;
-            this.path = path;
+            this.filename = filename;
         }
     }
 
-    private Media getLatestMedia(boolean video) {
-        if( MyDebug.LOG )
-            Log.d(TAG, "getLatestMedia: " + (video ? "video" : "images"));
-        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ) {
-            // needed for Android 6, in case users deny storage permission, otherwise we get java.lang.SecurityException from ContentResolver.query()
-            // see https://developer.android.com/training/permissions/requesting.html
-            // we now request storage permission before opening the camera, but keep this here just in case
-            // we restrict check to Android 6 or later just in case, see note in LocationSupplier.setupLocationListener()
-            if( MyDebug.LOG )
-                Log.e(TAG, "don't have READ_EXTERNAL_STORAGE permission");
-            return null;
+    private Media getLatestMediaCore(Uri baseUri, String bucket_id, boolean video) {
+        if( MyDebug.LOG ) {
+            Log.d(TAG, "getLatestMediaCore");
+            Log.d(TAG, "baseUri: " + baseUri);
+            Log.d(TAG, "bucket_id: " + bucket_id);
+            Log.d(TAG, "video: " + video);
         }
         Media media = null;
-        Uri baseUri = video ? Video.Media.EXTERNAL_CONTENT_URI : MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+
         final int column_id_c = 0;
         final int column_date_taken_c = 1;
-        final int column_data_c = 2; // full path and filename, including extension
+        /*final int column_data_c = 2; // full path and filename, including extension
+        final int column_name_c = 3; // filename (without path), including extension
+        final int column_orientation_c = 4; // for images only*/
+        final int column_name_c = 2; // filename (without path), including extension
         final int column_orientation_c = 3; // for images only
-        String [] projection = video ? new String[] {VideoColumns._ID, VideoColumns.DATE_TAKEN, VideoColumns.DATA} : new String[] {ImageColumns._ID, ImageColumns.DATE_TAKEN, ImageColumns.DATA, ImageColumns.ORIENTATION};
+        String [] projection = video ?
+                new String[] {VideoColumns._ID, VideoColumns.DATE_TAKEN, VideoColumns.DISPLAY_NAME} :
+                new String[] {ImageColumns._ID, ImageColumns.DATE_TAKEN, ImageColumns.DISPLAY_NAME, ImageColumns.ORIENTATION};
         // for images, we need to search for JPEG/etc and RAW, to support RAW only mode (even if we're not currently in that mode, it may be that previously the user did take photos in RAW only mode)
-        String selection = video ? "" : ImageColumns.MIME_TYPE + "='image/jpeg' OR " +
+        /*String selection = video ? "" : ImageColumns.MIME_TYPE + "='image/jpeg' OR " +
                 ImageColumns.MIME_TYPE + "='image/webp' OR " +
                 ImageColumns.MIME_TYPE + "='image/png' OR " +
-                ImageColumns.MIME_TYPE + "='image/x-adobe-dng'";
+                ImageColumns.MIME_TYPE + "='image/x-adobe-dng'";*/
+        String selection = "";
+        if( bucket_id != null )
+            selection = (video ? VideoColumns.BUCKET_ID : ImageColumns.BUCKET_ID) + " = " + bucket_id;
+        if( !video ) {
+            boolean and = selection.length() > 0;
+            if( and )
+                selection += " AND ( ";
+            selection += ImageColumns.MIME_TYPE + "='image/jpeg' OR " +
+                    ImageColumns.MIME_TYPE + "='image/webp' OR " +
+                    ImageColumns.MIME_TYPE + "='image/png' OR " +
+                    ImageColumns.MIME_TYPE + "='image/x-adobe-dng'";
+            if( and )
+                selection += " )";
+        }
+        if( MyDebug.LOG )
+            Log.d(TAG, "selection: " + selection);
         String order = video ? VideoColumns.DATE_TAKEN + " DESC," + VideoColumns._ID + " DESC" : ImageColumns.DATE_TAKEN + " DESC," + ImageColumns._ID + " DESC";
         Cursor cursor = null;
+
+        // we know we only want the most recent image - however we may need to scan forward if we find a RAW, to see if there's
+        // an equivalent non-RAW image
+        // request 3, just in case
+        Uri queryUri = baseUri.buildUpon().appendQueryParameter("limit", "3").build();
+        if( MyDebug.LOG )
+            Log.d(TAG, "queryUri: " + queryUri);
+
         try {
-            cursor = context.getContentResolver().query(baseUri, projection, selection, null, order);
+            cursor = context.getContentResolver().query(queryUri, projection, selection, null, order);
             if( cursor != null && cursor.moveToFirst() ) {
                 if( MyDebug.LOG )
                     Log.d(TAG, "found: " + cursor.getCount());
+
+                // now sorted in order of date - so just pick the most recent one
+
+                /*
                 // now sorted in order of date - scan to most recent one in the Open Camera save folder
                 boolean found = false;
-                File save_folder = getImageFolder(); // may be null if using SAF
+                //File save_folder = getImageFolder(); // may be null if using SAF
                 String save_folder_string = save_folder == null ? null : save_folder.getAbsolutePath() + File.separator;
                 if( MyDebug.LOG )
                     Log.d(TAG, "save_folder_string: " + save_folder_string);
@@ -838,50 +870,66 @@ public class StorageUtils {
                     }
                 }
                 while( cursor.moveToNext() );
-                if( found ) {
+
+                if( !found ) {
+                    if( MyDebug.LOG )
+                        Log.d(TAG, "can't find suitable in Open Camera folder, so just go with most recent");
+                    cursor.moveToFirst();
+                }
+                */
+
+                {
                     // make sure we prefer JPEG/etc (non RAW) if there's a JPEG/etc version of this image
                     // this is because we want to support RAW only and JPEG+RAW modes
-                    String path = cursor.getString(column_data_c);
-                    if( MyDebug.LOG )
-                        Log.d(TAG, "path: " + path);
-                    // path may be null on Android 4.4, see above!
-                    if( path != null && path.toLowerCase(Locale.US).endsWith(".dng") ) {
+                    String filename = cursor.getString(column_name_c);
+                    if( MyDebug.LOG ) {
+                        Log.d(TAG, "filename: " + filename);
+                    }
+                    // in theory now that we use DISPLAY_NAME instead of DATA (for path), this should always be non-null, but check just in case
+                    if( filename != null && filename.toLowerCase(Locale.US).endsWith(".dng") ) {
                         if( MyDebug.LOG )
                             Log.d(TAG, "try to find a non-RAW version of the DNG");
                         int dng_pos = cursor.getPosition();
                         boolean found_non_raw = false;
-                        String path_without_ext = path.toLowerCase(Locale.US);
-                        if( path_without_ext.indexOf(".") > 0 )
-                            path_without_ext = path_without_ext.substring(0, path_without_ext.lastIndexOf("."));
+                        String filename_without_ext = filename.toLowerCase(Locale.US);
+                        if( filename_without_ext.indexOf(".") > 0 )
+                            filename_without_ext = filename_without_ext.substring(0, filename_without_ext.lastIndexOf("."));
                         if( MyDebug.LOG )
-                            Log.d(TAG, "path_without_ext: " + path_without_ext);
+                            Log.d(TAG, "filename_without_ext: " + filename_without_ext);
                         while( cursor.moveToNext() ) {
-                            String next_path = cursor.getString(column_data_c);
+                            String next_filename = cursor.getString(column_name_c);
                             if( MyDebug.LOG )
-                                Log.d(TAG, "next_path: " + next_path);
-                            if( next_path == null )
+                                Log.d(TAG, "next_filename: " + next_filename);
+                            if( next_filename == null ) {
+                                if( MyDebug.LOG )
+                                    Log.d(TAG, "done scanning, couldn't find filename");
                                 break;
-                            String next_path_without_ext = next_path.toLowerCase(Locale.US);
-                            if( next_path_without_ext.indexOf(".") > 0 )
-                                next_path_without_ext = next_path_without_ext.substring(0, next_path_without_ext.lastIndexOf("."));
+                            }
+                            String next_filename_without_ext = next_filename.toLowerCase(Locale.US);
+                            if( next_filename_without_ext.indexOf(".") > 0 )
+                                next_filename_without_ext = next_filename_without_ext.substring(0, next_filename_without_ext.lastIndexOf("."));
                             if( MyDebug.LOG )
-                                Log.d(TAG, "next_path_without_ext: " + next_path_without_ext);
-                            if( !path_without_ext.equals(next_path_without_ext) )
+                                Log.d(TAG, "next_filename_without_ext: " + next_filename_without_ext);
+                            if( !filename_without_ext.equals(next_filename_without_ext) ) {
+                                // no point scanning any further as sorted by date - and we don't want to read through the entire set!
+                                if( MyDebug.LOG )
+                                    Log.d(TAG, "done scanning");
                                 break;
+                            }
                             // so we've found another file with matching filename - is it a JPEG/etc?
-                            if( next_path.toLowerCase(Locale.US).endsWith(".jpg") ) {
+                            if( next_filename.toLowerCase(Locale.US).endsWith(".jpg") ) {
                                 if( MyDebug.LOG )
                                     Log.d(TAG, "found equivalent jpeg");
                                 found_non_raw = true;
                                 break;
                             }
-                            else if( next_path.toLowerCase(Locale.US).endsWith(".webp") ) {
+                            else if( next_filename.toLowerCase(Locale.US).endsWith(".webp") ) {
                                 if( MyDebug.LOG )
                                     Log.d(TAG, "found equivalent webp");
                                 found_non_raw = true;
                                 break;
                             }
-                            else if( next_path.toLowerCase(Locale.US).endsWith(".png") ) {
+                            else if( next_filename.toLowerCase(Locale.US).endsWith(".png") ) {
                                 if( MyDebug.LOG )
                                     Log.d(TAG, "found equivalent png");
                                 found_non_raw = true;
@@ -895,19 +943,19 @@ public class StorageUtils {
                         }
                     }
                 }
-                if( !found ) {
-                    if( MyDebug.LOG )
-                        Log.d(TAG, "can't find suitable in Open Camera folder, so just go with most recent");
-                    cursor.moveToFirst();
-                }
+
                 long id = cursor.getLong(column_id_c);
                 long date = cursor.getLong(column_date_taken_c);
                 int orientation = video ? 0 : cursor.getInt(column_orientation_c);
                 Uri uri = ContentUris.withAppendedId(baseUri, id);
-                String path = cursor.getString(column_data_c);
+                String filename = cursor.getString(column_name_c);
                 if( MyDebug.LOG )
                     Log.d(TAG, "found most recent uri for " + (video ? "video" : "images") + ": " + uri);
-                media = new Media(id, video, uri, date, orientation, path);
+                media = new Media(id, video, uri, date, orientation, filename);
+            }
+            else {
+                if( MyDebug.LOG )
+                    Log.d(TAG, "mediastore returned no media");
             }
         }
         catch(Exception e) {
@@ -921,6 +969,41 @@ public class StorageUtils {
                 cursor.close();
             }
         }
+
+        return media;
+    }
+
+    private Media getLatestMedia(boolean video) {
+        if( MyDebug.LOG )
+            Log.d(TAG, "getLatestMedia: " + (video ? "video" : "images"));
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ) {
+            // needed for Android 6, in case users deny storage permission, otherwise we get java.lang.SecurityException from ContentResolver.query()
+            // see https://developer.android.com/training/permissions/requesting.html
+            // we now request storage permission before opening the camera, but keep this here just in case
+            // we restrict check to Android 6 or later just in case, see note in LocationSupplier.setupLocationListener()
+            if( MyDebug.LOG )
+                Log.e(TAG, "don't have READ_EXTERNAL_STORAGE permission");
+            return null;
+        }
+
+        File save_folder = getImageFolder(); // may be null if using SAF
+        if( MyDebug.LOG )
+            Log.d(TAG, "save_folder: " + save_folder);
+        String bucket_id = null;
+        if( save_folder != null ) {
+            bucket_id = String.valueOf(save_folder.getAbsolutePath().toLowerCase().hashCode());
+        }
+        if( MyDebug.LOG )
+            Log.d(TAG, "bucket_id: " + bucket_id);
+
+        Uri baseUri = video ? Video.Media.EXTERNAL_CONTENT_URI : MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        Media media = getLatestMediaCore(baseUri, bucket_id, video);
+        if( media == null && bucket_id != null ) {
+            if( MyDebug.LOG )
+                Log.d(TAG, "fall back to checking any folder");
+            media = getLatestMediaCore(baseUri, null, video);
+        }
+
         return media;
     }
 
