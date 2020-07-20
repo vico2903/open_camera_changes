@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Open Camera</string>
+    <string name="app_name">Fotocamera</string>
     <string name="action_settings">Impostazioni</string>
     <string name="action_popup">Impostazioni Popup</string>
     <string name="intro_ok">OK (Non mostrare più questo avviso)</string>
@@ -112,17 +112,17 @@
     <string name="preference_audio_noise_control_sensitivity_summary">Sensibilità del livello di rumore per l\'opzione di controllo del suono (rumore forte)</string>
     <string name="preference_save_location">Posizione di salvataggio</string>
     <string name="preference_save_location_summary">Cartella in cui salvare foto e video</string>
-    <string name="preference_using_saf">Usa Storage Access Framework</string>
-    <string name="preference_using_saf_summary">Quando utilizzare Storage Access Framework per il salvataggio di foto e video</string>
-    <string name="preference_save_photo_prefix">Salva prefisso per foto</string>
-    <string name="preference_save_photo_prefix_summary">Prefisso da usare per il filename di salvataggio delle foto</string>
-    <string name="preference_save_video_prefix">Salva prefisso per video</string>
-    <string name="preference_save_video_prefix_summary">Prefisso da usare per il filename di salvataggio dei video</string>
-    <string name="preference_save_zulu_time">Formato TEMPO da utilizzare nel filename</string>
-    <string name="preference_show_when_locked">Mostra la fotocamera quando dispositivo bloccato</string>
-    <string name="preference_show_when_locked_summary">Se abilitato, Open Camera sarà mostrata sopra il blocco schermo (dovrai comunque sbloccarlo per avere accesso alle Impostazioni, Galleria, ecc.)</string>
-    <string name="preference_lock_video">Blocco schermo nella registrazione video</string>
-    <string name="preference_lock_video_summary">Quando si registra un video l\'interfaccia sarà bloccata per prevenire accidentali interruzioni. Trascina il dito sullo schermo per sbloccare. Nota che la registrazione del video sarà interrotta se l\'app andrà in background o se lo schermo è oscurato.</string>
+    <string name="preference_using_saf">Utilizza lo Storage Access Framework</string>
+    <string name="preference_using_saf_summary">Se utilizzare o meno lo Storage Access Framework per il salvataggio di foto e video. Deve essere abilitato (su Android 5+) per permettere di salvare su schede SD esterne.</string>
+    <string name="preference_save_photo_prefix">Salva il prefisso per le foto</string>
+    <string name="preference_save_photo_prefix_summary">Prefisso da utilizzare come nome file nel salvataggio delle foto</string>
+    <string name="preference_save_video_prefix">Salva il prefisso per i video</string>
+    <string name="preference_save_video_prefix_summary">Prefisso da utilizzare come nome file nel salvataggio dei video</string>
+    <string name="preference_save_zulu_time">Formato TEMPO da utilizzare nel nome file</string>
+    <string name="preference_show_when_locked">Mostra la fotocamera anche se il dispositivo è bloccato</string>
+    <string name="preference_show_when_locked_summary">Se abilitato, la Fotocamera verrà mostrata anche se in blocco schermo (dovrai comunque sbloccare per avere accesso ad Impostazioni, Galleria, etc.)</string>
+    <string name="preference_lock_video">Blocca lo schermo mentre registri un video</string>
+    <string name="preference_lock_video_summary">Mentre si registra un video l\'interfaccia verrà bloccata per prevenire interruzioni accidentali. Trascina il dito sullo schermo per sbloccare. Infatti la registrazione video viene sempre interrotta nel caso in cui l\'app venga eseguita in background o lo schermo venga spento.</string>
     <string name="preference_rotate_preview">Ruota anteprima</string>
     <string name="preference_rotate_preview_summary">Opzione per ruotare l\'anteprima (non modificherà foto/video ottenuti)
 \n%s</string>
@@ -161,7 +161,7 @@
     <string name="preference_take_photo_border">Visualizza un bordo mentre si scatta la foto</string>
     <string name="preference_take_photo_border_summary">Visualizza un bordo sul display per indicare che si sta scattando una foto</string>
     <string name="preference_keep_display_on">Mantieni display attivo</string>
-    <string name="preference_keep_display_on_summary">Se abilitato, il display non viene spento se la UI principale di Open Camera è attiva</string>
+    <string name="preference_keep_display_on_summary">Se abilitato, il display non viene spento se la UI principale di Fotocamera è attiva</string>
     <string name="preference_thumbnail_animation">Mostra animazione miniatura</string>
     <string name="preference_thumbnail_animation_summary">Mostra un\'animazione della miniatura in movimento mentre si scatta una fotografia</string>
     <string name="preference_max_brightness">Forza luminosità massima</string>
@@ -232,7 +232,7 @@
     <string name="preference_video_flash_summary">Se abilitato, il flash sarà acceso/spento mentre si registra il video (può essere utilizzato per segnalare a distanza che la camera sta ancora registrando)</string>
     <string name="preference_category_online">Varie</string>
     <string name="preference_online_help">Aiuto Online</string>
-    <string name="preference_online_help_summary">Apre il sito web di Open Camera nel browser</string>
+    <string name="preference_online_help_summary">Apre il sito web di Fotocamera nel browser</string>
     <string name="preference_donate">Dona per aiutare lo sviluppo</string>
     <string name="preference_donate_summary">Se questa app ti piace, puoi sempre considerare di fare una donazione per aiutarne lo sviluppo. Puoi farlo acquistando l\'app my donation - tocca questa scelta per aprire la pagina dell\'app my donation. Grazie mille!</string>
     <string name="preference_use_camera2">Usa le API Camera2</string>
@@ -240,8 +240,8 @@
     <string name="preference_about">Informazioni</string>
     <string name="preference_about_summary">App e informazioni di debug</string>
     <string name="preference_reset">Ripristina le impostazioni</string>
-    <string name="preference_reset_summary">Riporta tutte le impostazioni di Open Camera ai valori predefiniti</string>
-    <string name="preference_reset_question">Sei sicuro di voler resettare tutte le impostazioni di Open Camera ai valori predefiniti?</string>
+    <string name="preference_reset_summary">Riporta tutte le impostazioni di Fotocamera ai valori predefiniti</string>
+    <string name="preference_reset_question">Sei sicuro di voler resettare tutte le impostazioni di Fotocamera ai valori predefiniti\?</string>
     <string name="about_available">Disponibile</string>
     <string name="about_not_available">Non disponibile</string>
     <string name="about_copy_to_clipboard">Copia negli appunti</string>
@@ -533,7 +533,7 @@
     <string name="preferences_service_terms">Termini di servizio</string>
     <string name="next">Successivo</string>
     <string name="processing">In lavorazione…</string>
-    <string name="preference_startup_focus_summary">Se eseguire o meno l\'auto-focus all\'avvio di Open Camera. Se riscontri il problema del flash che si accende all\'avvio, disabilita questa opzione</string>
+    <string name="preference_startup_focus_summary">Se eseguire o meno l\'auto-focus all\'avvio di Fotocamera. Se riscontri il problema del flash che si accende all\'avvio, disabilita questa opzione</string>
     <string name="preference_nr_save_no">Non salvare le immagini originali</string>
     <string name="preference_burst_interval_0_5s">0.5s</string>
     <string name="previous">Precedente</string>
@@ -705,7 +705,7 @@
     <string name="preference_restore_settings_summary">Ripristina le impostazioni salvate precedentemente. Va a sovrascrivere tutte le impostazioni attuali con quelle salvate!</string>
     <string name="preference_restore_settings">Ripristina impostazioni</string>
     <string name="preference_save_settings_filename">Valore impostazioni salvato</string>
-    <string name="preference_save_settings_summary">Salva tutte le impostazioni di Open Camera in un file</string>
+    <string name="preference_save_settings_summary">Salva tutte le impostazioni di Fotocamera in un file</string>
     <string name="preference_save_settings">Salva impostazioni</string>
     <string name="preference_screen_settings_manager">Gestore impostazioni</string>
     <string name="preference_video_output_format_webm">WebM (audio non supportato)</string>
@@ -728,7 +728,6 @@
     <string name="preference_video_max_filesize_5gb">5GB</string>
     <string name="preference_video_max_filesize_2gb">2GB</string>
     <string name="open_files_saf_exception_ghost">Nessuna scelta disponibile per questo dispositivo, immagine fantasma non è supportata</string>
-
     <string name="preference_stamp_geo_address_no">Non mostrare indirizzi</string>
     <string name="preference_stamp_geo_address_prefer">Preferisci indirizzi alle coordinate GPS</string>
     <string name="preference_stamp_geo_address_both">Se possibile, mostra l\'indirizzo in aggiunta alle coordinate GPS</string>
@@ -737,7 +736,7 @@
     <string name="remote_connected">Telecomando connesso</string>
     <string name="preference_water_type_summary">Nell\'utilizzo subacqueo, migliora l\'accuratezza nel caso in cui sia selezionata la tipologia d\'acqua corretta.</string>
     <string name="preference_water_type">Utilizza Saltwater per calcoli accurati</string>
-    <string name="preference_remote_disconnect_screen_dim_summary">Suggerimento: imposta la luminosità di default dello schermo al livello più basso prima di lanciare Open Camera.</string>
+    <string name="preference_remote_disconnect_screen_dim_summary">Suggerimento: imposta la luminosità di default dello schermo al livello più basso prima di lanciare Fotocamera.</string>
     <string name="preference_remote_disconnect_screen_dim">Attenua la luminosità dello schermo se il telecomando si disconnette</string>
     <string name="unknown_device">Dispositivo sconosciuto</string>
     <string name="bluetooth_not_supported">Bluetooth non supportato.</string>
@@ -770,8 +769,8 @@
     <string name="preference_licence_online_text">Tocca qui per ottenere informazioni complete sulle licenze (si apre nel browser).</string>
     <string name="preference_licence_online">Licenze online</string>
     <string name="preference_licence_google_icons">Icone Material Design di Google</string>
-    <string name="preference_licence_open_camera_text">Open Camera © 2013–2019 Mark Harman, rilasciato sotto GPL v3 o successive. Tocca qui per il testo completo della licenza.</string>
-    <string name="preference_licence_open_camera">Open Camera</string>
+    <string name="preference_licence_open_camera_text">Fotocamera © 2013–2019 Mark Harman, rilasciato sotto GPL v3 o successive. Tocca qui per il testo completo della licenza.</string>
+    <string name="preference_licence_open_camera">Fotocamera</string>
     <string name="preference_screen_licences">Licenze Open Source</string>
     <string name="speech_recognizer_extra_info">(L\'audio verrà inviato da Android
 \n ad un server remoto per il 
@@ -859,7 +858,7 @@
     <string name="preference_show_store_location_summary">Se mostrare o meno un\'icona sullo schermo per abilitare o disabilitare la localizzazione (geotagging)</string>
     <string name="preference_show_store_location">Mostra icona salva dati localizzazione</string>
     <string name="preference_privacy_policy_text"> whether a setting is turned on, e.g., \"Auto-stabilise: On\" </string>
-    <string name="preference_licence_google_icons_text">In Open Camera utilizziamo icone dal Google\'s Material Design icons (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) rilasciate sotto la licenza Apache versione 2.0. Alcune icone sono state modificate. Tocca qui per il testo completo della licenza.</string>
+    <string name="preference_licence_google_icons_text">Fotocamera utilizza icone dal Google\'s Material Design icons (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) rilasciate sotto la licenza Apache versione 2.0. Alcune icone sono state modificate. Tocca qui per il testo completo della licenza.</string>
     <string name="whats_new_text"> whether a setting is turned on, e.g., \"Auto-stabilise: On\" </string>
 
     <string name="preference_immersive_mode_off">Off</string>
