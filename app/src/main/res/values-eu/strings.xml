@@ -45,4 +45,6 @@
     <string name="action_popup">Laster-menuaren ezarpenak</string>
     <string name="action_settings">Ezarpenak</string>
     <string name="app_name">Kamera</string>
+    <string name="no_gallery_app">Ez dago galeria aplikaziorik</string>
+    <string name="infinite">Mugagabea</string>
 </resources>
