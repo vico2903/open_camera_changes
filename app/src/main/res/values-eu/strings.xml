@@ -1,2 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="auto_stabilise_not_supported">Auto-egonkorgailua ez da
+\nonartzen gailu honetan</string>
+    <string name="unlocked">Desblokeatuta</string>
+    <string name="screen_is_locked">Pantaila blokeatuta dago
+\npasatu hatza desblokeatzeko</string>
+    <string name="photo_deleted">Argazkia ezabatuta</string>
+    <string name="location_not_available">GPS kokalekua ez dago erabilgarri</string>
+    <string name="failed_to_take_picture">Argazkia ateratzeak huts egin du</string>
+    <string name="taking_photo">Argazkia ateratzen</string>
+    <string name="failed_to_start_camera_preview">Kameraren aurrebista hasteak huts egin du</string>
+    <string name="failed_to_auto_stabilise">Auto-egonkortzeak huts egin du</string>
+    <string name="failed_to_save_photo_raw">RAW argazkia gordetzeak huts egin du</string>
+    <string name="failed_to_save_photo">Argazkia gordetzeak huts egin du</string>
+    <string name="sorry">Barkatu</string>
+    <string name="started_recording_video">Grabatzen</string>
+    <string name="failed_to_record_video">Bideoa grabatzeak huts egin du</string>
+    <string name="failed_to_save_video">Bideo-fitxategia gordetzeak huts egin du</string>
+    <string name="started_timer">Tenporizadorea hasi da</string>
+    <string name="cancelled_timer">Tenporizadorea bertan behera utzi da</string>
+    <string name="exposure_unlocked">Esposizioa desblokeatuta</string>
+    <string name="exposure_locked">Esposizioa blokeatuta</string>
+    <string name="video">Bideoa</string>
+    <string name="photo">Argazkia</string>
+    <string name="back_camera">Atzeko kamera</string>
+    <string name="front_camera">Aurreko kamera</string>
+    <string name="focus_distance">Foku-distantzia</string>
+    <string name="fps">FPS</string>
+    <string name="video_max_filesize">Bideoa gehienezko tamainara iritsi da</string>
+    <string name="video_max_duration">Bideoa gehienezko iraupenera iritsi da</string>
+    <string name="video_error_server_died">Zerbitzaria hil da, bideoa geldituta</string>
+    <string name="video_error_unknown">Errore ezezaguna, bideoa geldituta</string>
+    <string name="not_supported">ez da onartzen zure gailuan</string>
+    <string name="video_may_be_corrupted">Errorea, bideo-fitxategia hondatuta egon daiteke</string>
+    <string name="failed_to_reconnect_camera">Kamerara birkonektatzeak huts egin du</string>
+    <string name="stopped_recording_video">Bideoaren grabaketa eten da</string>
+    <string name="choose_another_folder">Aukeratu beste karpeta bat</string>
+    <string name="clear_folder_history_question">Garbitu karpetaren historia\?</string>
+    <string name="clear_folder_history">Garbitu karpetaren historia</string>
+    <string name="choose_save_location">Gorde hemen:</string>
+    <string name="off">Desaktibatuta</string>
+    <string name="on">Aktibatuta</string>
+    <string name="intro_ok">Ados (Mezu hau ez da gehiago erakutsiko)</string>
+    <string name="action_popup">Laster-menuaren ezarpenak</string>
+    <string name="action_settings">Ezarpenak</string>
+    <string name="app_name">Kamera</string>
+</resources>
