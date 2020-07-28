@@ -82,4 +82,18 @@
     <string name="preference_color_effect_summary">Hautatuko kolore-efektua argazkian aplikatzen du</string>
     <string name="preference_color_effect">Aplikatu kolore-efektua</string>
     <string name="preference_auto_stabilise_summary">Irudiak biratuko dira automatikoki egonkortzeko (argazkiak soilik) (argazkiak motelago aterako dira, eta memoria gutxi duten gailuetan huts egin dezake)</string>
+    <string name="preference_save_location_summary">Argazkiak/bideoak gordeko diren karpeta</string>
+    <string name="preference_save_location">Gordetzeko kokalekua</string>
+    <string name="preference_audio_noise_control_sensitivity_summary">Zarata-mailaren sentikortasuna audioaren aukerarako (zarata handia)</string>
+    <string name="preference_audio_noise_control_sensitivity">Audio-kontrolaren sentikortasuna</string>
+    <string name="preference_audio_control">Audio-kontrolaren aukerak</string>
+    <string name="preference_volume_keys">Bolumen-teklak</string>
+    <string name="preference_shutter_sound_summary">Erreproduzitu soinua argazkia ateratzean</string>
+    <string name="preference_shutter_sound">Obturadorearen soinua</string>
+    <string name="preference_pause_preview_summary">Gelditu pantaila argazkia atera ondoren, argazkia partekatzeko edo ezabatzeko aukerarekin</string>
+    <string name="preference_pause_preview">Gelditu argazkia atera ondoren</string>
+    <string name="preference_touch_capture_summary">Atera argazkia aurrebista ukituz edo birritan sakatuz</string>
+    <string name="preference_touch_capture">Ukitu kapturatzeko</string>
+    <string name="preference_screen_camera_controls_more">Kamera-kontrol gehiago...</string>
+    <string name="preference_timer_speak">Ahots bidezko tenporizadorearen atzerako kontakteta</string>
 </resources>
