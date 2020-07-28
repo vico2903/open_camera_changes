@@ -96,4 +96,13 @@
     <string name="preference_touch_capture">Ukitu kapturatzeko</string>
     <string name="preference_screen_camera_controls_more">Kamera-kontrol gehiago...</string>
     <string name="preference_timer_speak">Ahots bidezko tenporizadorearen atzerako kontakteta</string>
+    <string name="start_video">Hasi bideoa grabatzen</string>
+    <string name="permission_location_not_available">Kokalekuaren baimena ez dago eskuragarri</string>
+    <string name="permission_record_audio_not_available">Mikrofonoaren baimena ez dago eskuragarri</string>
+    <string name="saf_permission_failed">Karpeta hau gordetzeko ezgai</string>
+    <string name="saf_select_save_location">Hautatu gordetzeko kokalekua</string>
+    <string name="folder_exists">Karpeta badago</string>
+    <string name="failed_create_folder">Karpeta sortzeak huts egin du</string>
+    <string name="enter_new_folder">Jarri izen berria karpetari</string>
+    <string name="cant_access_folder">Ezin da karpeta honetan sartu</string>
 </resources>
