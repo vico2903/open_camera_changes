@@ -66,7 +66,7 @@
     <string name="color_effect">Kolore-efektua</string>
     <string name="max_duration">Gehienezko iraupena</string>
     <string name="audio_disabled">Audioa desgaituta</string>
-    <string name="preference_timer_beep">Tenorizadorearen soinua</string>
+    <string name="preference_timer_beep">Tenporizadorearen soinua</string>
     <string name="preference_timer">Tenporizadorea</string>
     <string name="preference_category_camera_controls">Kamera-kontrolak</string>
     <string name="preference_face_detection">Aurpegi-hautematea</string>
