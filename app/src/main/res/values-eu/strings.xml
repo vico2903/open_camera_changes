@@ -47,7 +47,7 @@
     <string name="app_name">Kamera</string>
     <string name="no_gallery_app">Ez dago galeria aplikaziorik</string>
     <string name="infinite">Mugagabea</string>
-    <string name="preference_auto_stabilise">Auto-egonkorgailua</string>
+    <string name="preference_auto_stabilise">Auto-egonkortzea</string>
     <string name="preference_category_camera_effects">Kamera-efektuak</string>
     <string name="metres_abbreviation">m</string>
     <string name="failed_to_stamp">Informazioa argazkian zigilatzeak huts egin du</string>
