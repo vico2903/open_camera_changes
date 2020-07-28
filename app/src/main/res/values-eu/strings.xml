@@ -47,4 +47,23 @@
     <string name="app_name">Kamera</string>
     <string name="no_gallery_app">Ez dago galeria aplikaziorik</string>
     <string name="infinite">Mugagabea</string>
+    <string name="preference_auto_stabilise">Auto-egonkorgailua</string>
+    <string name="preference_category_camera_effects">Kamera-efektuak</string>
+    <string name="metres_abbreviation">m</string>
+    <string name="failed_to_stamp">Informazioa argazkian zigilatzeak huts egin du</string>
+    <string name="screen_lock_message_2">Hatza pasa desblokeatzeko]</string>
+    <string name="screen_lock_message_1">[BLOKEATUTA:</string>
+    <string name="free_memory">Libre</string>
+    <string name="zoom">Zoom</string>
+    <string name="iso">ISO</string>
+    <string name="failed_to_open_camera_3">BESTE APLIKAZIO BATEAN\?</string>
+    <string name="failed_to_open_camera_2">KAMERA MARTXAN EGON DAITEKE</string>
+    <string name="failed_to_open_camera_1">KAMERA IREKITZEAK HUTS EGIN DU.</string>
+    <string name="direction">Norabidea</string>
+    <string name="angle">Angelua</string>
+    <string name="white_balance">Zuri-balantzea</string>
+    <string name="scene_mode">Eszena modua</string>
+    <string name="color_effect">Kolore-efektua</string>
+    <string name="max_duration">Gehienezko iraupena</string>
+    <string name="audio_disabled">Audioa desgaituta</string>
 </resources>
