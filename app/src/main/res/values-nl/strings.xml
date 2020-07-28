@@ -230,4 +230,5 @@
     <string name="video_may_be_corrupted">Fout, het video bestand kan beschadigd zijn</string>
     <string name="repeats_to_go">herhalingen te gaan</string>
     <string name="action_popup">Popup instellingen</string>
+    <string name="preferences_build_version">Build-versie</string>
 </resources>
