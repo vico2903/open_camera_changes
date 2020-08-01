@@ -131,7 +131,7 @@
     <string name="share">Partekatu argazkia</string>
     <string name="trash">Ezabatu azkeneko argazkia</string>
     <string name="cant_write_folder">Ezin da karpeta honetan idatzi</string>
-    <string name="preference_video_max_filesize_summary">Bideoaren grabazioa gelditu eta/edo berrabiarazi egingo da (ikus beheko aukera) fitxategiaren gehienezko tamaina iristen denean (gutxi gorabehera). Kontuan izan Android gailu askok bideoetarako gehienezko tamaina dutela (normalean 2 GB edo 4 GB inguru), baina aukera honek balio jakin bat ezartzeko aukera ematen du. Kontuan izan aukera hau ezin dela erabili gailu baten barneko gehienezko memoria handitzeko.
+    <string name="preference_video_max_filesize_summary">Bideoaren grabazioa gelditu edota berrabiarazi egingo da (ikus beheko aukera) fitxategiaren gehienezko tamaina iristen denean (gutxi gorabehera). Kontutan izan Android gailu askok bideoetarako gehienezko tamaina dutela (normalean 2 GB edo 4 GB inguru), baina aukera honek balio jakin bat ezartzeko aukera ematen du. Kontutan izan aukera hau ezin dela erabili gailu baten barneko gehienezko memoria handitzeko.
 \n%s</string>
     <string name="preference_record_audio_summary">Grabatu audioa bideoa grabatzean</string>
     <string name="preference_record_audio">Grabatu audioa</string>
