@@ -159,4 +159,13 @@
 \n%s</string>
     <string name="preference_video_restart">Berrabiarazi bideoa gehienezko iraupenaren ondoren</string>
     <string name="preference_video_restart_max_filesize">Berrabiarazi gehienezko tamainan</string>
+    <string name="preference_video_subtitle_summary">Sortu azpititulu-fitxategia (.SRT) data eta ordua gordez; eta GPS informazioa kokaleku- edo norabide-datuak gaituta badaude
+\n%s</string>
+    <string name="preference_video_subtitle">Bideoaren azpitituluak</string>
+    <string name="preference_video_stabilization">Gaitu bideo-egonkortzea</string>
+    <string name="video_quality">Bideo-bereizmena</string>
+    <string name="preference_background_photo_saving_summary">Gorde argazkiak atzeko planoko harian (eragiketa azkarragorako)</string>
+    <string name="preference_background_photo_saving">Erabili atzeko planoko haria</string>
+    <string name="preference_stamp_fontsize_summary">Erabili beharreko letra-tamaina argazkiaetan testua zigilatzerakoan</string>
+    <string name="preference_stamp_fontsize">Letra-tamaina</string>
 </resources>
