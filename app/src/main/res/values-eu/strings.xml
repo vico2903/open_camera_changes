@@ -268,4 +268,9 @@
     <string name="preference_stamp_summary">Zigilatu argazkiak data eta denborarekin; baita GPS informazioarekin ere, kokapen-datuak gaituta badaude
 \n%s</string>
     <string name="preference_stamp">Zigilatu argazkiak</string>
+    <string name="hdr_info">"HDR modua erabilgarria da distira asko aldatzen duten argazkietarako. Esposizio ezberdinetan argazkiak ateratzen ditu, eta azken irudia sortzeko  hauek konbinatzen ditu.
+\n
+\nKontuan izan HDR ez dela egokia mugimendu azkarreko eszenetarako, eta kolore-erreprodukzioak zehaztasuna galdu dezakeela.
+\n
+\nHDR moduan argazkiak ateratzea motelagoa izango da."</string>
 </resources>
