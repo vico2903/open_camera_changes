@@ -94,7 +94,7 @@
     <string name="preference_pause_preview">Gelditu argazkia atera ondoren</string>
     <string name="preference_touch_capture_summary">Atera argazkia aurrebista ukituz edo birritan sakatuz</string>
     <string name="preference_touch_capture">Ukitu kapturatzeko</string>
-    <string name="preference_screen_camera_controls_more">Kamera-kontrol gehiago...</string>
+    <string name="preference_screen_camera_controls_more">Kamera-kontrol gehiago…</string>
     <string name="preference_timer_speak">Ahots bidezko tenporizadorearen atzerako kontakteta</string>
     <string name="start_video">Hasi bideoa grabatzen</string>
     <string name="permission_location_not_available">Kokalekuaren baimena ez dago eskuragarri</string>
@@ -268,9 +268,14 @@
     <string name="preference_stamp_summary">Zigilatu argazkiak data eta denborarekin; baita GPS informazioarekin ere, kokapen-datuak gaituta badaude
 \n%s</string>
     <string name="preference_stamp">Zigilatu argazkiak</string>
-    <string name="hdr_info">"HDR modua erabilgarria da distira asko aldatzen duten argazkietarako. Esposizio ezberdinetan argazkiak ateratzen ditu, eta azken irudia sortzeko  hauek konbinatzen ditu.
+    <string name="hdr_info">HDR modua erabilgarria da distira asko aldatzen duten argazkietarako. Esposizio ezberdinetan argazkiak ateratzen ditu, eta azken irudia sortzeko hauek konbinatzen ditu.
 \n
 \nKontuan izan HDR ez dela egokia mugimendu azkarreko eszenetarako, eta kolore-erreprodukzioak zehaztasuna galdu dezakeela.
 \n
-\nHDR moduan argazkiak ateratzea motelagoa izango da."</string>
+\nHDR moduan argazkiak ateratzea motelagoa izango da.</string>
+    <string name="preference_face_detection_summary">Erabili aurpegiko detekzioa fokatze-eremuen ordez</string>
+    <string name="preference_exposure_summary">Ezarri 0 gisa lehenetsitako esposizioaren konpentsaziorako</string>
+    <string name="preference_exposure">Ezarri esposizioaren konpentsazioa</string>
+    <string name="exposure_compensation">Esposizioaren konpentsazioa</string>
+    <string name="preference_video_log_off">Lehenetsia</string>
 </resources>
