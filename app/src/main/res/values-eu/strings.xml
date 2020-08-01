@@ -131,4 +131,17 @@
     <string name="share">Partekatu argazkia</string>
     <string name="trash">Ezabatu azkeneko argazkia</string>
     <string name="cant_write_folder">Ezin da karpeta honetan idatzi</string>
+    <string name="preference_video_max_filesize_summary">Bideoaren grabazioa gelditu eta/edo berrabiarazi egingo da (ikus beheko aukera) fitxategiaren gehienezko tamaina iristen denean (gutxi gorabehera). Kontuan izan Android gailu askok bideoetarako gehienezko tamaina dutela (normalean 2 GB edo 4 GB inguru), baina aukera honek balio jakin bat ezartzeko aukera ematen du. Kontuan izan aukera hau ezin dela erabili gailu baten barneko gehienezko memoria handitzeko.
+\n%s</string>
+    <string name="preference_record_audio_summary">Grabatu audioa bideoa grabatzean</string>
+    <string name="preference_record_audio">Grabatu audioa</string>
+    <string name="preference_record_audio_channels">Audio-kanalak</string>
+    <string name="preference_record_audio_src_summary">Audioa grabatzeko erabiliko den mikrofonoa
+\n%s</string>
+    <string name="preference_record_audio_src">Audio-iturburua</string>
+    <string name="preference_video_flash">Flasha grabatu bitartean</string>
+    <string name="preference_record_audio_channels_summary">Zehaztu mono edo estereo audioa grabatzeko (estereo gailu batzuetan soilik onartzen da)</string>
+    <string name="preference_online_help">Lineako laguntza</string>
+    <string name="preference_category_online">Bestelakoak</string>
+    <string name="preference_video_flash_summary">Gaituta baldin badago, flasha piztuko/itzaliko da bideoa grabatzean (kamera urrunetik grabatzen ari den jakiteko erabilgarria)</string>
 </resources>
