@@ -168,7 +168,7 @@
     <string name="preference_background_photo_saving">Erabili atzeko planoko haria</string>
     <string name="preference_stamp_fontsize_summary">Erabili beharreko letra-tamaina argazkiaetan testua zigilatzerakoan</string>
     <string name="preference_stamp_fontsize">Letra-tamaina</string>
-    <string name="capturing">Kapturatzen...</string>
+    <string name="capturing">Kapturatzen…</string>
     <string name="video_pause">Bideoa pausatuta</string>
     <string name="preference_show_take_photo_summary">Argazkiak ateratzeko eta bideoak grabatzeko ikonoa erakutsi. Desautatu argazkiak beste metodo batzuen bidez egin nahi badituzu (adibidez, zure gailuak hardwarea obturatzeko botoia badu edo bolumen-teklak erabiltzen baditu).</string>
     <string name="preference_show_take_photo">Erakutsi \"Atera argazkia\" ikonoa</string>
