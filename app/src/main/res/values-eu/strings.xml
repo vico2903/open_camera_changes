@@ -225,7 +225,7 @@
     <string name="white_balance_daylight">Egun-argia</string>
     <string name="white_balance_auto">Auto</string>
     <string name="failed_to_process_hdr">HDR irudia sortzeak huts egin du</string>
-    <string name="preference_stamp_dateformat_yyyymmdd">yyyy-mm-dd (ISO 8601)</string>
+    <string name="preference_stamp_dateformat_yyyymmdd">uuuu-hh-ee (ISO 8601)</string>
     <string name="preference_stamp_dateformat_default">Lehenetsita</string>
     <string name="preference_raw_only">DNG (RAW) soilik</string>
     <string name="preference_raw_yes">Estandarra eta DNG (RAW)</string>
@@ -246,4 +246,5 @@
     <string name="donate">Dohaintza egin</string>
     <string name="whats_new">Zer berri:</string>
     <string name="color_effect_whiteboard">Arbel zuria</string>
+    <string name="changed_save_location">Gordetzeko kokalekua hona aldatu da:</string>
 </resources>
