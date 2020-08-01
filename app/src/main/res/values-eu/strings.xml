@@ -144,4 +144,19 @@
     <string name="preference_online_help">Lineako laguntza</string>
     <string name="preference_category_online">Bestelakoak</string>
     <string name="preference_video_flash_summary">Gaituta baldin badago, flasha piztuko/itzaliko da bideoa grabatzean (kamera urrunetik grabatzen ari den jakiteko erabilgarria)</string>
+    <string name="preference_stamp_style_summary">Erabili beharreko estiloa argazkietan testua zigilatzerakoan
+\n%s</string>
+    <string name="preference_force_video_4k">Behartu 4K UHD bideoa (gailu batzuetan soilik funtzionatzen du)</string>
+    <string name="preference_video_bitrate">Bideoaren bit-emaria (g.g.b)</string>
+    <string name="preference_video_max_duration">Bideoaren gehienezko iraupena</string>
+    <string name="preference_video_fps">Bideoaren fotograma-abiadura (g.g.b.)</string>
+    <string name="preference_video_bitrate_summary">Ezarri bideoen gutxi gorabeherako bit-emaria (emari altuagoak kalitate hobea esan nahi du, baina diskoan leku gehiago hartzen du; bideo-grabazioak huts egin dezake bit-emaria onartzen ez bada)
+\n%s</string>
+    <string name="preference_video_max_duration_summary">Bideo-grabazioa zehaztutako iraupenaren ondoren geldituko da
+\n%s</string>
+    <string name="preference_video_max_filesize">Bideoaren gehienezko tamaina</string>
+    <string name="preference_video_restart_summary">Bideoa gehienezko iraupenera iritsi ondoren gelditu bada (ezarri bada), aukera honen bidez bideoa berrabiaraziko da, adierazitako zenbakiraino.
+\n%s</string>
+    <string name="preference_video_restart">Berrabiarazi bideoa gehienezko iraupenaren ondoren</string>
+    <string name="preference_video_restart_max_filesize">Berrabiarazi gehienezko tamainan</string>
 </resources>
