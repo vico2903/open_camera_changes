@@ -278,4 +278,48 @@
     <string name="preference_exposure">Ezarri esposizioaren konpentsazioa</string>
     <string name="exposure_compensation">Esposizioaren konpentsazioa</string>
     <string name="preference_video_log_off">Lehenetsia</string>
+    <string name="preference_nr_save_no">Ez gorde jatorrizko irudiak</string>
+    <string name="seconds_abbreviation">s</string>
+    <string name="preference_nr_save_all">Gorde jatorrizko irudi guztiak (motela)</string>
+    <string name="preference_nr_save_single">Gorde jatorrizko irudi bakarra</string>
+    <string name="video_power_critical">Bideoa gelditu da
+\nBateria-maila baxuegia da</string>
+    <string name="video_no_free_space">Leku libre nahikorik ez bideoa grabatzeko</string>
+    <string name="dark">Iluna</string>
+    <string name="camera_error">Kameraren errore larria</string>
+    <string name="exposure_shutter_speed">Obturazio-abiadura</string>
+    <string name="bright">Argia</string>
+    <string name="preference_camera2_fast_burst_summary">HDR/espo argazkiak azkarrago ateratzeko aukera ematen du. Desgaitu hau zure gailuak HDR edo Espo moduekin argazkiak ateratzean arazoak baditu.</string>
+    <string name="selfie">Autoargazkia</string>
+    <string name="record_video">Grabatu bideoa</string>
+    <string name="auto_stabilise_info">Auto-egonkortzeak automatikoki biratuko ditu argazkiak, maila berean ager daitezen.
+\n
+\nKontuan izan honek irudiek bereizmen txikiagoa izango dutela esan nahi duela (behar den biraketaren eta ebakiduraren eraginez).</string>
+    <string name="audio_listener_started">Egin soinu ozena</string>
+    <string name="speech_recognizer_started">Esan \"cheese\"</string>
+    <string name="audio_control_stop">Gelditu audio-entzutea</string>
+    <string name="audio_control_start">Hasi audio-entzutea</string>
+    <string name="preference_camera2_photo_video_recording">Baimendu argazkiak bideoa grabatzean</string>
+    <string name="saf_permission_failed_open_image">Irudi hau irekitzeko ezgai</string>
+    <string name="preference_ghost_image_selected">Hautatutako irudia</string>
+    <string name="preference_ghost_image_last">Ateratako azkeneko argazkia</string>
+    <string name="preference_ghost_image_off">Desaktibatuta</string>
+    <string name="anti_banding_auto">Auto</string>
+    <string name="anti_banding_off">Desaktibatuta</string>
+    <string name="anti_banding_60hz">60Hz</string>
+    <string name="anti_banding_50hz">50Hz</string>
+    <string name="preference_show_geo_direction_lines_summary">Bistaratu iparrorratzaren norabide-lerroak</string>
+    <string name="preference_show_geo_direction_lines">Erakutsi iparrorratzaren norabide-lerroak</string>
+    <string name="preference_calibrate_level_calibration_reset">Egonkorgailuaren kalibrazioa berrezarri da</string>
+    <string name="preference_calibrate_level_calibrated">Egonkorgailua kalibratuta</string>
+    <string name="preference_calibrate_level_reset">Berrezarri</string>
+    <string name="preference_calibrate_level_calibrate">Kalibratu</string>
+    <string name="photo_mode_dro">DRO</string>
+    <string name="photo_mode_expo_bracketing_full">Esposizio-urkila</string>
+    <string name="photo_mode_expo_bracketing">Espo {}</string>
+    <string name="photo_mode_hdr">HDR</string>
+    <string name="photo_mode_standard_full">Estandar</string>
+    <string name="photo_mode_standard">Est</string>
+    <string name="photo_mode">Argazki modua</string>
+    <string name="dont_show_again">Ez erakutsi berriro</string>
 </resources>
