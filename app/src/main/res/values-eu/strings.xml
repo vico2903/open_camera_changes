@@ -249,9 +249,9 @@
     <string name="changed_save_location">Gordetzeko kokalekua hona aldatu da:</string>
     <string name="raw_info">DNG fitxategiek kameraren konprimitu eta prozesatu gabeko informazio guztia dute.
 \n
-\nKontuan izan galeriako aplikazio batzuek ez dituztela DNG fitxategiak ezagutzen. DNG irudiak Snapseed edo Lightroom bezalako irudi-editore espezializatuekin erabil daitezke.
+\nKontutan izan galeriako aplikazio batzuk ez dituztela DNG fitxategiak ezagutzen. DNG irudiak Snapseed edo Lightroom bezalako irudi-editore espezializatuekin erabil daitezke.
 \n
-\nKontuan izan zenbait prozesatze-aukera, hala nola Zigilatu argazkiak eta Auto-egonkortzea, DNG (JPEG/etab.) ez diren irudiei soilik aplikatuko zaizkiela, eta ez DNG irudiei.</string>
+\nKontutan izan zenbait prozesatze-aukera, hala nola Zigilatu argazkiak eta Auto-egonkortzea, DNG ez diren (JPEG/etab.) irudiei soilik aplikatuko zaizkiela, eta ez DNG irudiei.</string>
     <string name="preference_show_when_locked_summary">Gaituta badago, kamera blokeatutako pantailaren gainetik agertuko da (oraindik desblokeatu beharko duzu Ezarpenak, Galeria, eta abarretara sartzeko)</string>
     <string name="preference_show_when_locked">Erakutsi kamera blokeatuta dagoenean</string>
     <string name="preference_save_zulu_time">Fitxategi-izenerako ordu-formatua</string>
