@@ -225,4 +225,25 @@
     <string name="white_balance_daylight">Egun-argia</string>
     <string name="white_balance_auto">Auto</string>
     <string name="failed_to_process_hdr">HDR irudia sortzeak huts egin du</string>
+    <string name="preference_stamp_dateformat_yyyymmdd">yyyy-mm-dd (ISO 8601)</string>
+    <string name="preference_stamp_dateformat_default">Lehenetsita</string>
+    <string name="preference_raw_only">DNG (RAW) soilik</string>
+    <string name="preference_raw_yes">Estandarra eta DNG (RAW)</string>
+    <string name="preference_raw_no">Ez</string>
+    <string name="processing">Prozesatzen…</string>
+    <string name="preference_exif_copyright">Copyright</string>
+    <string name="preference_exif_artist_summary">Irudiaren artista-etiketaren metadatuetan gordeko den testua (JPEG formatua soilik). (Utzi hutsik ezer ez agertzeko.)</string>
+    <string name="preference_exif_artist">Artista</string>
+    <string name="preference_video_fps_default">Lehenetsita</string>
+    <string name="high_speed">Abiadura azkarra</string>
+    <string name="centre_of_screen">erdialdean</string>
+    <string name="bottom_of_screen">pantailaren behealdean</string>
+    <string name="top_of_screen">pantailaren goialdean</string>
+    <string name="right_of_screen">pantailaren eskuinaldean</string>
+    <string name="left_of_screen">pantailaren ezkerraldean</string>
+    <string name="faces_detected">aurpegiak</string>
+    <string name="face_detected">aurpegia</string>
+    <string name="donate">Dohaintza egin</string>
+    <string name="whats_new">Zer berri:</string>
+    <string name="color_effect_whiteboard">Arbel zuria</string>
 </resources>
