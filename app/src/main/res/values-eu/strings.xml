@@ -247,4 +247,25 @@
     <string name="whats_new">Zer berri:</string>
     <string name="color_effect_whiteboard">Arbel zuria</string>
     <string name="changed_save_location">Gordetzeko kokalekua hona aldatu da:</string>
+    <string name="raw_info">DNG fitxategiek kameraren konprimitu eta prozesatu gabeko informazio guztia dute.
+\n
+\nKontuan izan galeriako aplikazio batzuek ez dituztela DNG fitxategiak ezagutzen. DNG irudiak Snapseed edo Lightroom bezalako irudi-editore espezializatuekin erabil daitezke.
+\n
+\nKontuan izan zenbait prozesatze-aukera, hala nola Zigilatu argazkiak eta Auto-egonkortzea, DNG (JPEG/etab.) ez diren irudiei soilik aplikatuko zaizkiela, eta ez DNG irudiei.</string>
+    <string name="preference_show_when_locked_summary">Gaituta badago, kamera blokeatutako pantailaren gainetik agertuko da (oraindik desblokeatu beharko duzu Ezarpenak, Galeria, eta abarretara sartzeko)</string>
+    <string name="preference_show_when_locked">Erakutsi kamera blokeatuta dagoenean</string>
+    <string name="preference_save_zulu_time">Fitxategi-izenerako ordu-formatua</string>
+    <string name="preference_save_video_prefix_summary">Bideoen fitxategi-izenak gordetzeko erabiliko den aurrizkia</string>
+    <string name="preference_startup_focus">Burutu auto-fokatzea hasterakoan</string>
+    <string name="preference_stamp_style">Testu-estiloa</string>
+    <string name="preference_stamp_font_color_summary">Erabili beharreko letra-kolorea argazkietan testua zigilatzerakoan</string>
+    <string name="preference_stamp_font_color">Letra-kolorea</string>
+    <string name="preference_textstamp_summary">Zigilatu argazkiak pertsonalizatutako testuarekin</string>
+    <string name="preference_textstamp">Pertsonalizatutako testua</string>
+    <string name="preference_stamp_gpsformat">GPS zigilatze formatua</string>
+    <string name="preference_stamp_timeformat">Ordu-zigilatze formatua</string>
+    <string name="preference_stamp_dateformat">Data-zigilatze formatua</string>
+    <string name="preference_stamp_summary">Zigilatu argazkiak data eta denborarekin; baita GPS informazioarekin ere, kokapen-datuak gaituta badaude
+\n%s</string>
+    <string name="preference_stamp">Zigilatu argazkiak</string>
 </resources>
