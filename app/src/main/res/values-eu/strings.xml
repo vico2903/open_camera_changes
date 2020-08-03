@@ -323,4 +323,8 @@
     <string name="photo_mode">Argazki modua</string>
     <string name="dont_show_again">Ez erakutsi berriro</string>
     <string name="preference_save_photo_prefix_summary">Argazkien fitxategi-izenak gordetzeko erabiliko den aurrizkia</string>
+    <string name="preferences_source_code">Iturburu-kodea</string>
+    <string name="preferences_licence">Lizentzia</string>
+    <string name="preferences_service_terms">Zerbitzu-baldintzak</string>
+    <string name="preferences_authors">Egileak</string>
 </resources>
