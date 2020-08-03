@@ -322,4 +322,5 @@
     <string name="photo_mode_standard">Est</string>
     <string name="photo_mode">Argazki modua</string>
     <string name="dont_show_again">Ez erakutsi berriro</string>
+    <string name="preference_save_photo_prefix_summary">Argazkien fitxategi-izenak gordetzeko erabiliko den aurrizkia</string>
 </resources>
