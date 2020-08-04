@@ -198,7 +198,7 @@
     <string name="duration_unlimited">Mugagabea</string>
     <string name="color_effect_sepia">Sepia</string>
     <string name="color_effect_posterize">Posterizatu</string>
-    <string name="color_effect_none">Ezer ez</string>
+    <string name="color_effect_none">Bat ere ez</string>
     <string name="color_effect_negative">Negatiboa</string>
     <string name="color_effect_mono">Mono</string>
     <string name="color_effect_blackboard">Arbel beltza</string>
@@ -394,7 +394,7 @@
     <string name="preference_require_location">Eskatu kokapen-datuak</string>
     <string name="preference_gps_direction_summary">Gorde GPSaren iparrorratzaren norabidea argazkietan (JPEG formatua soilik)</string>
     <string name="preference_gps_direction">Gorde iparrorratzaren norabidea</string>
-    <string name="preference_expo_bracketing_n_images_summary">Esposizio-urkila moduaren irudi zenbakia
+    <string name="preference_expo_bracketing_n_images_summary">Esposizio-urkila moduaren irudi kopurua
 \n%s</string>
     <string name="preference_expo_bracketing_n_images">Esposizio-urkila</string>
     <string name="preference_category_video_debugging">Arazketa aukerak</string>
@@ -403,4 +403,7 @@
     <string name="permission_rationale_record_audio">Mikrofonoaren baimena beharrezkoa da bideoa audioarekin grabatzeko, baita \"Audio-kontrola\" aukerak erabiltzeko ere</string>
     <string name="permission_rationale_storage">Biltegiratzearen irakurketa/idazketa baimena beharrezkoa da argazkiak gordetzeko</string>
     <string name="permission_rationale_camera">Kameraren baimena beharrezkoa da kamera gaitzeko</string>
+    <string name="preference_stamp_dateformat_none">Bat ere ez</string>
+    <string name="preference_stamp_dateformat_mmddyyyy">hh/ee/uuuu</string>
+    <string name="preference_stamp_dateformat_ddmmyyyy">ee/hh/uuuu</string>
 </resources>
