@@ -349,4 +349,5 @@
     <string name="preference_show_angle_summary">Bistaratu gailuaren uneko orientazio-angelua pantailan</string>
     <string name="preference_show_angle">Erakutsi angelua</string>
     <string name="preference_free_memory">Erakutsi memoria librea</string>
+    <string name="preference_angle_highlight_color">Angeluaren/altitudearen kolore nabarmendua</string>
 </resources>
