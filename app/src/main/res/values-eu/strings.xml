@@ -477,6 +477,9 @@
     <string name="magnetic_accuracy_title">Iparrorratzaren norabidea</string>
     <string name="accuracy_high">Altua</string>
     <string name="accuracy_medium">Ertaina</string>
-    <string name="accuracy_low">Txikia</string>
+    <string name="accuracy_low">Baxua</string>
     <string name="accuracy_unreliable">Ez fidagarria</string>
+    <string name="preferences_build_version">Konpilazio-bertsioa</string>
+    <string name="noise_reduction_mode_off">Desaktibatuta</string>
+    <string name="noise_reduction_mode_default">Lehenetsia</string>
 </resources>
