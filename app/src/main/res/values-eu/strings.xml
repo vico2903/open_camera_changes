@@ -368,7 +368,7 @@
     <string name="preference_take_photo_border">Erakutsi ertza argazkia ateratzean</string>
     <string name="preference_thumbnail_animation_summary">Bistaratu mugitzen den miniatura-animazioa argazkia ateratzean</string>
     <string name="preference_thumbnail_animation">Erakutsi miniatura-animazioa</string>
-    <string name="preference_quality_summary">Ezarri gordetako JPEG edo WebP argazkiaren irudiaren kalitatea (lehenetsitako balioa 90%% da). Ez du eraginik PNG irudi-formatuan.</string>
+    <string name="preference_quality_summary">Ezarri gordetako JPEG edo WebP argazkien irudiaren kalitatea (lehenetsitako balioa 90%% da). Ez du eraginik PNG irudi-formatuan.</string>
     <string name="preference_quality">Irudiaren kalitatea</string>
     <string name="preference_resolution">Kamera-bereizmena</string>
     <string name="preference_screen_location_settings">Kokapenaren ezarpenak...</string>
