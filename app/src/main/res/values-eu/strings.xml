@@ -344,7 +344,7 @@
     <string name="preference_show_zoom_controls">Erakutsi zoomaren -/+ kontrolak</string>
     <string name="preference_show_zoom">Erakutsi zooma</string>
     <string name="preference_immersive_mode">Murgiltze modua</string>
-    <string name="preference_show_angle_line_summary">Bistaratu maila-lerro horizontala</string>
+    <string name="preference_show_angle_line_summary">Bistaratu maila-horizontal lerroa</string>
     <string name="preference_show_angle_line">Erakutsi angelu-lerroa</string>
     <string name="preference_show_angle_summary">Bistaratu gailuaren uneko orientazio-angelua pantailan</string>
     <string name="preference_show_angle">Erakutsi angelua</string>
