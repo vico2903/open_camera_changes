@@ -350,4 +350,5 @@
     <string name="preference_show_angle">Erakutsi angelua</string>
     <string name="preference_free_memory">Erakutsi memoria librea</string>
     <string name="preference_angle_highlight_color">Angelua/altitudea nabarmentzeko kolorea</string>
+    <string name="preference_angle_highlight_color_summary">Kamera ia nibelatuta dagoenerako kolore nabarmendua</string>
 </resources>
