@@ -330,4 +330,8 @@
     <string name="preference_lock_video_summary">Bideoa grabatzean, interfazea blokeatuta egongo da grabazioa ustekabean ez gelditzeko. Pasatu hatza pantaila desblokeatzeko. Kontutan izan bideo-grabazioa beti geldituko dela aplikazioa bigarren mailan sartu edo pantaila ezabatzen bada.</string>
     <string name="preference_lock_video">Blokeatu pantaila bideoa grabatzean</string>
     <string name="preference_save_video_prefix">Gorde bideo-aurrizkia</string>
+    <string name="preference_screen_gui">Pantailaren GUIa</string>
+    <string name="preference_rotate_preview_summary">Aurrebista biratzeko aukera (ez du eraginik izango ateratako argazkietan/bideoetan)
+\n%s</string>
+    <string name="preference_rotate_preview">Biratu aurrebista</string>
 </resources>
