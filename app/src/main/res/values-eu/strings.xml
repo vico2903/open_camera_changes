@@ -380,7 +380,7 @@
     <string name="preference_location_summary">Gorde GPS kokapen-datuak argazkietan/bideoetan (argazkietan, kokapen-datuak JPEG eta DNG formatuetan soilik gorde daitezke)</string>
     <string name="preference_location">Gorde kokapen-datuak (Geoetiketatzea)</string>
     <string name="preference_raw">RAW</string>
-    <string name="permission_rationale_title">Baimena beharrezkoa</string>
+    <string name="permission_rationale_title">Baimena behar da</string>
     <string name="no_permission">BAIMENAK EZ ERABILGARRI</string>
     <string name="preference_hdr_save_expo_summary">Gaituta badago, HDR argazki-modua erabiltzean, oinarrizko esposizioko hiru irudiak eta amaierako HDR argazkia gordeko dira. Kontuan izan horrek gordetzea motelduko duela, batez ere \"Zigilatu argazkiak\" edo Auto-egonkortzea bezalako aukerak erabiltzen badira.</string>
     <string name="preference_hdr_save_expo">Gorde HDR moduko argazki guztiak</string>
