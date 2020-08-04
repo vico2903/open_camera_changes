@@ -336,7 +336,7 @@
     <string name="preference_rotate_preview">Biratu aurrebista</string>
     <string name="preference_ui_placement">Interfazearen kokapena</string>
     <string name="preference_preview_size">Aurrebistaren tamaina</string>
-    <string name="preference_show_iso_summary">Uneko ISO maila erakutsi. Flash automatiko moduan, flash-ikur batek adieraziko du noiz abiaraziko den flasha. (Camera2 API eskatzen du.)</string>
+    <string name="preference_show_iso_summary">Uneko ISO maila erakusten du. Flash automatiko moduan, flash-ikur batek adieraziko du noiz abiaraziko den flasha. (Camera2 API behar du.)</string>
     <string name="preference_show_iso">Erakutsi ISOa</string>
     <string name="preference_show_zoom_slider_controls_summary">Erakutsi zoom-kontrolaren graduatzailea</string>
     <string name="preference_show_zoom_slider_controls">Erakutsi zoom-graduatzailearen kontrola</string>
