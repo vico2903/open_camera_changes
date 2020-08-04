@@ -410,7 +410,7 @@
     <string name="camera">Kamera</string>
     <string name="preference_video_capture_rate_normal">Arrunta</string>
     <string name="preference_focus_bracketing_n_images">Argazki kopurua</string>
-    <string name="focus_bracketing_add_infinity">Gehitu distantzia infinitua</string>
+    <string name="focus_bracketing_add_infinity">Gehitu distantzia mugagabea</string>
     <string name="preference_video_bitrate_200000000">200Mbps</string>
     <string name="preference_video_bitrate_150000000">150Mbps</string>
     <string name="preference_video_bitrate_100000000">100Mbps</string>
