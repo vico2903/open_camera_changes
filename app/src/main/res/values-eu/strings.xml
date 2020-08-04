@@ -351,7 +351,7 @@
     <string name="preference_free_memory">Erakutsi memoria librea</string>
     <string name="preference_angle_highlight_color">Angelua/altitudea nabarmentzeko kolorea</string>
     <string name="preference_angle_highlight_color_summary">Kamera ia nibelatuta dagoenean nabarmentzeko kolorea</string>
-    <string name="preference_crop_guide_summary">Ebakitzeko gida batek zehaztutako aspektu-erlazioa adierazten duen laukizuzena erakusten du. Argazkia/bideoa aspektu-erlazio ezberdinarekin ebakitzeko asmoa baduzu erabilgarria da. WYSIWYG argazki-moduan edo bideo-moduan egotea eskatzen du.
+    <string name="preference_crop_guide_summary">Ebakitzeko gida batek zehaztutako aspektu-erlazioak adierazten duen laukizuzena erakusten du. Argazkia/bideoa aspektu-erlazio ezberdinarekin ebakitzeko asmoa baduzu erabilgarria da. WYSIWYG argazki-moduan edo bideo-moduan egotea eskatzen du.
 \n%s</string>
     <string name="preference_crop_guide">Erakutsi mozketa-gida</string>
     <string name="grid">Sareta</string>
