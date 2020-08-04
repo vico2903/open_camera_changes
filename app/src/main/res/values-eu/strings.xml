@@ -376,4 +376,7 @@
     <string name="preference_screen_photo_settings">Argazkien ezarpenak...</string>
     <string name="preference_category_camera_quality">Argazki eta bideoen ezarpenak</string>
     <string name="preference_max_brightness">Behartu gehienezko distira</string>
+    <string name="preference_location_summary">Gorde GPS kokapen-datuak argazkietan/bideoetan (argazkietan, kokapen-datuak JPEG eta DNG formatuetan soilik gorde daiteke)</string>
+    <string name="preference_location">Gorde kokapen-datuak (Geoetiketatzea)</string>
+    <string name="preference_raw">RAW</string>
 </resources>
