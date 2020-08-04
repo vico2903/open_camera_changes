@@ -479,7 +479,7 @@
     <string name="accuracy_medium">Ertaina</string>
     <string name="accuracy_low">Baxua</string>
     <string name="accuracy_unreliable">Ez fidagarria</string>
-    <string name="preferences_build_version">Konpilazio-bertsioa</string>
+    <string name="preferences_build_version">Konpilatze-bertsioa</string>
     <string name="noise_reduction_mode_off">Desaktibatuta</string>
     <string name="noise_reduction_mode_default">Lehenetsia</string>
     <string name="preference_focus_assist_4x">4x</string>
