@@ -471,4 +471,8 @@
     <string name="preference_fast_burst_n_images_entries_4">4</string>
     <string name="preference_fast_burst_n_images_entries_3">3</string>
     <string name="preference_fast_burst_n_images_entries_2">2</string>
+    <string name="magnetic_accuracy_info">Zure gailuko iparrorratzak kalibratu egin behar du doitasuna hobetzeko. Horretarako, 8 mugimenduko irudi batean mugi daiteke gailua.
+\n
+\nUneko zehaztasuna:</string>
+    <string name="magnetic_accuracy_title">Iparrorratzaren norabidea</string>
 </resources>
