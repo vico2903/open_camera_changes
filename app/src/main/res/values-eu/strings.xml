@@ -406,4 +406,6 @@
     <string name="preference_stamp_dateformat_none">Bat ere ez</string>
     <string name="preference_stamp_dateformat_mmddyyyy">hh/ee/uuuu</string>
     <string name="preference_stamp_dateformat_ddmmyyyy">ee/hh/uuuu</string>
+    <string name="preference_fast_burst_n_images">Argazki zenbakia</string>
+    <string name="camera">Kamera</string>
 </resources>
