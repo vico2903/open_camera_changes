@@ -334,4 +334,6 @@
     <string name="preference_rotate_preview_summary">Aurrebista biratzeko aukera (ez du eraginik izango ateratako argazkietan/bideoetan)
 \n%s</string>
     <string name="preference_rotate_preview">Biratu aurrebista</string>
+    <string name="preference_ui_placement">EIaren kokapena</string>
+    <string name="preference_preview_size">Aurrebistaren tamaina</string>
 </resources>
