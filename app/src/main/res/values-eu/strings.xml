@@ -482,4 +482,15 @@
     <string name="preferences_build_version">Konpilazio-bertsioa</string>
     <string name="noise_reduction_mode_off">Desaktibatuta</string>
     <string name="noise_reduction_mode_default">Lehenetsia</string>
+    <string name="preference_focus_assist_4x">4x</string>
+    <string name="preference_focus_assist_2x">2x</string>
+    <string name="preference_focus_assist_off">Desaktibatuta</string>
+    <string name="noise_reduction_mode_fast">Bizkorra</string>
+    <string name="preference_screen_processing_settings">Ezarpenak prozesatzen…</string>
+    <string name="preference_show_whats_new">Zer Berri elkarrizketa-koadroa erakusten du</string>
+    <string name="feet_abbreviation">ft</string>
+    <string name="preference_units_distance_ft">Oinak</string>
+    <string name="preference_units_distance_m">Metroak</string>
+    <string name="preference_units_distance">Distantzia-unitatea</string>
+    <string name="accuracy_unknown">Ezezaguna</string>
 </resources>
