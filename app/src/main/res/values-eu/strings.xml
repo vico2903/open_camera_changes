@@ -362,4 +362,10 @@
     <string name="preference_show_time">Erakutsi ordua</string>
     <string name="preference_show_geo_direction_summary">Bistaratu gailuaren iparrorratzaren norabidea pantailan</string>
     <string name="preference_show_geo_direction">Erakutsi iparrorratzaren norabidea</string>
+    <string name="preference_keep_display_on_summary">Gaituta badago, pantaila ez da itzaliko kameraren EI nagusia aktibo dagoen bitartean</string>
+    <string name="preference_keep_display_on">Mantendu pantaila piztuta</string>
+    <string name="preference_take_photo_border_summary">Bistaratu ertza pantailan argazkia atera dela adierazteko</string>
+    <string name="preference_take_photo_border">Erakutsi ertza argazkia ateratzean</string>
+    <string name="preference_thumbnail_animation_summary">Bistaratu mugitzen den miniatura-animazioa argazkia ateratzean</string>
+    <string name="preference_thumbnail_animation">Erakutsi miniatura-animazioa</string>
 </resources>
