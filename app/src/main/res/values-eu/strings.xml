@@ -475,4 +475,5 @@
 \n
 \nUneko zehaztasuna:</string>
     <string name="magnetic_accuracy_title">Iparrorratzaren norabidea</string>
+    <string name="accuracy_high">Altua</string>
 </resources>
