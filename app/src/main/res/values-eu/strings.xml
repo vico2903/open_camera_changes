@@ -394,4 +394,13 @@
     <string name="preference_require_location">Eskatu kokapen-datuak</string>
     <string name="preference_gps_direction_summary">Gorde GPSaren iparrorratzaren norabidea argazkietan (JPEG formatua soilik)</string>
     <string name="preference_gps_direction">Gorde iparrorratzaren norabidea</string>
+    <string name="preference_expo_bracketing_n_images_summary">Esposizio-urkila moduaren irudi zenbakia
+\n%s</string>
+    <string name="preference_expo_bracketing_n_images">Esposizio-urkila</string>
+    <string name="preference_category_video_debugging">Arazketa aukerak</string>
+    <string name="preference_category_photo_debugging">Arazketa aukerak</string>
+    <string name="permission_rationale_location">Kokapen-baimena behar da geoetiketatzerako (kokapen-datuak argazkietan eta bideoetan gordetzeko). Bluetooth LE urruneko kontroleko gailuetara konektatzeko ere kokapen-baimena behar da.</string>
+    <string name="permission_rationale_record_audio">Mikrofonoaren baimena beharrezkoa da bideoa audioarekin grabatzeko, baita \"Audio-kontrola\" aukerak erabiltzeko ere</string>
+    <string name="permission_rationale_storage">Biltegiratzearen irakurketa/idazketa baimena beharrezkoa da argazkiak gordetzeko</string>
+    <string name="permission_rationale_camera">Kameraren baimena beharrezkoa da kamera gaitzeko</string>
 </resources>
