@@ -327,7 +327,7 @@
     <string name="preferences_licence">Lizentzia</string>
     <string name="preferences_service_terms">Zerbitzu-baldintzak</string>
     <string name="preferences_authors">Egileak</string>
-    <string name="preference_lock_video_summary">Bideoa grabatzean, GUIa blokeatuta egongo da grabazioa ustekabean ez gelditzeko. Pasatu hatza pantaila desblokeatzeko. Kontuan izan bideo-grabazioa beti geldituko dela aplikazioa bigarren mailan sartzen bada edo pantaila zurituta badago.</string>
+    <string name="preference_lock_video_summary">Bideoa grabatzean, interfazea blokeatuta egongo da grabazioa ustekabean ez gelditzeko. Pasatu hatza pantaila desblokeatzeko. Kontutan izan bideo-grabazioa beti geldituko dela aplikazioa bigarren mailan sartu edo pantaila ezabatzen bada.</string>
     <string name="preference_lock_video">Blokeatu pantaila bideoa grabatzean</string>
     <string name="preference_save_video_prefix">Gorde bideo-aurrizkia</string>
 </resources>
