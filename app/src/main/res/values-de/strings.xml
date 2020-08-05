@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-
-    <string name="app_name">Camera</string> <!-- shouldn't be translated -->
+    <string name="app_name">Camera</string>
+    <!-- shouldn't be translated -->
     <string name="action_settings">Einstellungen</string>
     <string name="action_popup">Popup-Einstellungen</string>
     <string name="intro_ok">OK (Diese Nachricht wird nicht wieder angezeigt.)</string>
@@ -234,7 +233,6 @@
     <string name="preference_reset">Einstellungen zurücksetzen</string>
     <string name="preference_reset_summary">Standard-Einstellungen von Camera wiederherstellen</string>
     <string name="preference_reset_question">Sind Sie sich sicher, alle Einstellungen von Camera auf die Standardwerte zurückzusetzen?</string>
-
     <string name="about_available">verfügbar</string>
     <string name="about_not_available">nicht verfügbar</string>
     <string name="about_copy_to_clipboard">In die Zwischenablage kopieren</string>
@@ -705,16 +703,24 @@
     <string name="preference_zebra_stripes">Zeige Zebrastreifen</string>
     <string name="preference_zebra_stripes_summary">Zeigt in der Vorschau Zebrastreifen in den überbelichteten Stellen der Aufnahme.\n%s</string>
     <string name="preference_zebra_stripes_off">Aus</string>
-    <string name="preference_zebra_stripes_70pc">70%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
-    <string name="preference_zebra_stripes_80pc">80%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
-    <string name="preference_zebra_stripes_90pc">90%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
-    <string name="preference_zebra_stripes_93pc">93%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
-    <string name="preference_zebra_stripes_95pc">95%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
-    <string name="preference_zebra_stripes_97pc">97%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
-    <string name="preference_zebra_stripes_98pc">98%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
-    <string name="preference_zebra_stripes_99pc">99%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
-    <string name="preference_zebra_stripes_100pc">100%</string> <!-- shouldn't escape %, not needed when shown in ListPreference -->
-
+    <string name="preference_zebra_stripes_70pc">70%</string>
+    <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_80pc">80%</string>
+    <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_90pc">90%</string>
+    <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_93pc">93%</string>
+    <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_95pc">95%</string>
+    <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_97pc">97%</string>
+    <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_98pc">98%</string>
+    <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_99pc">99%</string>
+    <!-- shouldn't escape %, not needed when shown in ListPreference -->
+    <string name="preference_zebra_stripes_100pc">100%</string>
+    <!-- shouldn't escape %, not needed when shown in ListPreference -->
     <string name="preference_focus_peaking">Fokus-Peaking</string>
     <string name="preference_focus_peaking_summary">Fokus-Peaking hebt scharf abgebildete Konturen hervor. Das ist vorrangig bei manuellem Fokus nützlich und hilft die scharf eingestellten Bereiche des Bilds zu erkennen.\n%s</string>
     <string name="preference_focus_peaking_off">Aus</string>
@@ -816,12 +822,10 @@
     <string name="preference_fast_burst_n_images_entries_4">4</string>
     <string name="preference_fast_burst_n_images_entries_3">3</string>
     <string name="preference_fast_burst_n_images_entries_2">2</string>
-
-
     <string name="preference_select_remote">Wähle eine Fernsteuerung</string>
-
     <string name="preference_immersive_mode_off">Nichts ausblenden</string>
     <string name="preference_immersive_mode_navigation">Nur Navigationstasten ausblenden</string>
     <string name="preference_immersive_mode_gui">Alle Einstellelemente ausblenden</string>
     <string name="preference_immersive_mode_everything">Alles ausblenden</string>
+    <string name="aperture">Blende</string>
 </resources>
