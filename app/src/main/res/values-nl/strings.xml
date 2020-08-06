@@ -29,7 +29,7 @@
     <string name="preference_auto_stabilise">Auto-level</string>
     <string name="preference_category_camera_effects">Camera effecten</string>
     <string name="metres_abbreviation">m</string>
-    <string name="failed_to_stamp">Fout bij opslagen van info bij de foto</string>
+    <string name="failed_to_stamp">Opslaan van foto informatie mislukt.</string>
     <string name="screen_lock_message_2">Swipe om te ontgrendelen]</string>
     <string name="screen_lock_message_1">[VERGRENDELD:</string>
     <string name="free_memory">Vrij</string>
@@ -206,19 +206,19 @@
     <string name="preference_touch_capture_summary">Neem een foto door het voorbeeld aan te raken of te dubbelklikken</string>
     <string name="preference_touch_capture">Raak aan op vast te leggen</string>
     <string name="preference_timer_speak">Stem aftel timer</string>
-    <string name="preference_timer_beep_summary">Geef een signaal tijdens het aftellen van de timer of voor de herhaal modus vertraging</string>
+    <string name="preference_timer_beep_summary">Geef signaal wanneer de timer aan het aftellen is of tijdens de vertraging bij serie opnames</string>
     <string name="preference_timer_beep">Timer signaal</string>
     <string name="preference_category_camera_controls">Camera Bediening</string>
     <string name="preference_white_balance_summary">Kies een instelling om de witbalans aan te passen</string>
     <string name="audio_disabled">Geluid uitgeschakeld</string>
-    <string name="auto_stabilise_not_supported">Sorry, auto-level is niet ondersteund
+    <string name="auto_stabilise_not_supported">Sorry, auto-level wordt niet ondersteund
 \nop dit apparaat</string>
     <string name="screen_is_locked">Scherm is vergrendeld
 \nveeg over het scherm om te ontgrendelen</string>
-    <string name="failed_to_take_picture">Foto nemen is mislukt</string>
+    <string name="failed_to_take_picture">Foto nemen mislukt</string>
     <string name="taking_photo">Foto genomen</string>
-    <string name="failed_to_start_camera_preview">Het starten van het camera voorbeeld is mislukt</string>
-    <string name="failed_to_auto_stabilise">Auto-level is mislukt</string>
+    <string name="failed_to_start_camera_preview">Starten van camera voorbeeld mislukt</string>
+    <string name="failed_to_auto_stabilise">Auto-level mislukt</string>
     <string name="failed_to_save_photo_raw">Opslaan van RAW foto is mislukt</string>
     <string name="failed_to_save_photo">Opslaan foto mislukt</string>
     <string name="failed_to_record_video">Video opname mislukt</string>
