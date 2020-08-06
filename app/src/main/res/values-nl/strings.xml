@@ -14,7 +14,7 @@
     <string name="preference_timer">Timer</string>
     <string name="preference_face_detection_summary">Gebruik gezichtsherkenning in plaats van focus punten</string>
     <string name="preference_face_detection">Gezichtsherkenning</string>
-    <string name="preference_lock_orientation_summary">Wanneer ingeschakeld wordt de oriëntatie van het toestel genegeerd en is de oriëntatie van foto/video opnames zoals die is ingesteld
+    <string name="preference_lock_orientation_summary">Indien ingesteld wordt de oriëntatie van het toestel genegeerd en is de oriëntatie van foto/video opnames zoals die is ingesteld
 \n%s</string>
     <string name="preference_lock_orientation">Vergrendel foto/video oriëntatie</string>
     <string name="preference_exposure_summary">Zet op 0 voor de standaard belichtingscompensatie</string>
