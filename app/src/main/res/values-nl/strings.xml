@@ -50,7 +50,7 @@
     <string name="location_not_available">GPS locatie niet beschikbaar</string>
     <string name="sorry">Sorry</string>
     <string name="started_recording_video">Video opname gestart</string>
-    <string name="failed_to_save_video">Video bestand opslaan mislukt.</string>
+    <string name="failed_to_save_video">Video bestand opslaan mislukt</string>
     <string name="started_timer">Timer gestart</string>
     <string name="cancelled_timer">Timer geannuleerd</string>
     <string name="video">Video</string>
@@ -105,13 +105,13 @@
     <string name="permission_rationale_title">Machtiging vereist</string>
     <string name="no_permission">MACHTIGINGEN NIET BESCHIKBAAR</string>
     <string name="preference_hdr_save_expo">Sla alle foto\'s op voor HDR modus</string>
-    <string name="preference_category_stamp">Foto stempel</string>
+    <string name="preference_category_stamp">Foto Stempel</string>
     <string name="photo_mode_noise_reduction_full">Ruis Onderdrukking</string>
     <string name="photo_mode_noise_reduction">RO</string>
     <string name="photo_mode_fast_burst_full">Snelle serie</string>
     <string name="photo_mode_fast_burst">[]]]</string>
-    <string name="photo_mode">Foto modus</string>
-    <string name="dont_show_again">Toon niet opnieuw</string>
+    <string name="photo_mode">Foto Modus</string>
+    <string name="dont_show_again">Niet opnieuw weergeven</string>
     <string name="max_filesize">Maximale bestandsgrootte</string>
     <string name="stop_video">Stop opnemen video</string>
     <string name="start_video">Start opnemen video</string>
@@ -720,4 +720,7 @@
     <string name="preference_show_video_max_amp">Toon audio indicatie</string>
     <string name="preference_camera2_photo_video_recording">Sta foto\'s toe tijdens video opname</string>
     <string name="preferences_app_info_title">Camera informatie</string>
+    <string name="preference_screen_licences">Open Source licenties</string>
+    <string name="preference_image_format_summary">Selecteer het bestandsformaat om foto\'s op te slagen. Dit is van toepassing op \"standaard\" (niet RAW) foto\'s. Merk op dat het PNG niet werkelijk lossless is, maar in plaats daarvan geconverteerd is van JPEG aan 100%% kwaliteit.
+\n%s</string>
 </resources>
