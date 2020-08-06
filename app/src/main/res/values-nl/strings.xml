@@ -225,11 +225,11 @@
     <string name="cancelled_repeat_mode">Herhaal modus geannuleerd</string>
     <string name="exposure_unlocked">Belichting ontgrendeld</string>
     <string name="exposure_locked">Belichting vergrendeld</string>
-    <string name="back_camera">Achterste Camera</string>
-    <string name="front_camera">Voorste Camera</string>
+    <string name="back_camera">Camera achter</string>
+    <string name="front_camera">Camera voor</string>
     <string name="video_may_be_corrupted">Fout, het video bestand kan beschadigd zijn</string>
     <string name="repeats_to_go">herhalingen te gaan</string>
-    <string name="action_popup">Popup instellingen</string>
+    <string name="action_popup">Pop-up instellingen</string>
     <string name="preferences_build_version">Build-versie</string>
     <string name="preferences_licence">Licentie</string>
     <string name="preferences_authors">Auteurs</string>
