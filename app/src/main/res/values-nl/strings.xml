@@ -7,7 +7,7 @@
     <string name="preference_shutter_sound">Sluiter geluid</string>
     <string name="preference_pause_preview_summary">Pauzeer het scherm na het nemen van een foto met de mogelijkheid die te delen of verwijderen</string>
     <string name="preference_pause_preview">Pauzeer na foto-opname</string>
-    <string name="preference_screen_camera_controls_more">Meer camera instellingen...</string>
+    <string name="preference_screen_camera_controls_more">Meer camera instellingen…</string>
     <string name="preference_burst_interval">Interval serie opname</string>
     <string name="preference_burst_mode">Serie opname</string>
     <string name="preference_timer_speak_summary">Gesproken aftellen bij de timer of tijdens vertraging bij serie opnames (vanaf 60 seconden)</string>
@@ -29,7 +29,7 @@
     <string name="preference_auto_stabilise">Auto-level</string>
     <string name="preference_category_camera_effects">Camera effecten</string>
     <string name="metres_abbreviation">m</string>
-    <string name="failed_to_stamp">Opslaan van foto informatie mislukt.</string>
+    <string name="failed_to_stamp">Opslaan van foto informatie mislukt</string>
     <string name="screen_lock_message_2">Swipe om te ontgrendelen]</string>
     <string name="screen_lock_message_1">[VERGRENDELD:</string>
     <string name="free_memory">Vrij</string>
@@ -140,7 +140,7 @@
     <string name="preference_donate">Doneer om verdere ontwikkeling te ondersteunen</string>
     <string name="preference_online_help_summary">Surf naar de Camera website in je browser</string>
     <string name="preference_record_audio_channels">Audio kanalen</string>
-    <string name="preference_record_audio_src">"Audio bron "</string>
+    <string name="preference_record_audio_src">Audio bron</string>
     <string name="preference_record_audio_summary">Neem audio op tijdens video opname</string>
     <string name="preference_record_audio">Audio opnemen</string>
     <string name="preference_video_restart_max_filesize">Herstart op maximum bestandsgrootte</string>
@@ -161,7 +161,7 @@
     <string name="preference_stamp_summary">Voeg aan foto\'s een stempel toe met datum en tijd; en ook met gps locatie indien locatie/richting data ingeschakeld
 \n%s</string>
     <string name="preference_stamp">Voeg stempel toe op foto\'s</string>
-    <string name="preference_require_location_summary">Als locatie data ingeschakeld is, neem alleen foto\'s/video\'s wanneer locatie data beschikbaar is.</string>
+    <string name="preference_require_location_summary">Als locatie data ingeschakeld is, neem alleen foto\'s/video\'s wanneer locatie data beschikbaar is</string>
     <string name="preference_require_location">Verplicht locatie data</string>
     <string name="preference_gps_direction_summary">Sla GPS kompas richting op in foto\'s (alleen voor JPEG formaat)</string>
     <string name="preference_gps_direction">Sla kompas richting op</string>
@@ -169,8 +169,8 @@
     <string name="preference_quality_summary">Stel de beeldkwaliteit van opgeslagen JPEG of WebP afbeeldigen in (standaard waarde is 90%%). Dit heeft geen invloed op het PNG foto formaat.
 \n%s</string>
     <string name="preference_quality">Foto kwaliteit</string>
-    <string name="preference_screen_location_settings">Locatie instellingen...</string>
-    <string name="preference_screen_video_settings">Video instellingen...</string>
+    <string name="preference_screen_location_settings">Locatie instellingen…</string>
+    <string name="preference_screen_video_settings">Video instellingen…</string>
     <string name="preference_screen_photo_settings">Foto instellingen…</string>
     <string name="preference_category_camera_quality">Foto en Video instellingen</string>
     <string name="preference_max_brightness_summary">Zet scherm helderheid op maximaal, ongeacht de instellingen van het apparaat</string>
@@ -190,7 +190,7 @@
     <string name="preference_show_zoom_summary">Toon het zoom niveau op het scherm (wanneer ingezoomd)</string>
     <string name="preference_show_zoom">Toon zoom</string>
     <string name="preference_preview_size">Voorbeeld grootte</string>
-    <string name="preference_screen_gui">Gebruikersinterface...</string>
+    <string name="preference_screen_gui">Gebruikersinterface…</string>
     <string name="preference_rotate_preview">Draai voorbeeld</string>
     <string name="preference_lock_video_summary">Tijdens het opnemen van video zal de GUI vergrendeld zijn om te voorkomen dat de opname per ongeluk wordt gestopt. Veeg over het scherm om te ontgrendelen. De video opname zal altijd gestopt worden wanneer de app op de achtergrond draai of wanneer de app afgesloten wordt.</string>
     <string name="preference_lock_video">Vergrendelingsscherm actief tijdens het opnemen van video</string>
@@ -202,7 +202,7 @@
     <string name="preference_save_video_prefix">Sla video voorvoegsel op</string>
     <string name="preference_save_photo_prefix_summary">Het voorvoegsel om te gebruiken om bestandsnamen voor foto\'s op te slaan</string>
     <string name="preference_save_photo_prefix">Foto voorvoegsel opslaan</string>
-    <string name="preference_using_saf">"Gebruik  Storage Access Framework"</string>
+    <string name="preference_using_saf">Gebruik Storage Access Framework</string>
     <string name="preference_save_location_summary">Map om foto/video bestanden in op te slaan</string>
     <string name="preference_save_location">Sla locatie op</string>
     <string name="preference_touch_capture_summary">Neem een foto door het voorbeeld aan te raken of te dubbelklikken</string>
@@ -242,16 +242,16 @@
     <string name="preference_record_audio_src_summary">Gebruikte microfoon voor audio opname
 \n%s</string>
     <string name="preference_video_restart_max_filesize_summary">Herstart automatisch wanneer de maximum bestand grootte is bereikt</string>
-    <string name="preference_video_max_filesize_summary">De video opnam zal stoppen en/of herstarten (zie volgende optie) wanneer de maximum bestand grootte is bereikt. Merk op dat vele Android toestellen zelf een maximum bestand grootte hanteren
-\n(meestal rond 2GB of 4GB), maar deze optie geeft de mogelijkheid zelf een waarde te kiezen.
+    <string name="preference_video_max_filesize_summary">De video opnam zal stoppen en/of herstarten (zie volgende optie) wanneer de maximum bestand grootte is bereikt. Merk op dat vele Android toestellen zelf een maximum bestand grootte hanteren (meestal rond 2GB of 4GB), maar deze optie geeft de mogelijkheid zelf een waarde te kiezen.
 \n%s</string>
-    <string name="preference_video_restart_summary">Wanneer de video opname is gestopt bij het bereiken van de max tijdsduur (wanneer ingesteld) zal deze optie een nieuwe opname starten, voor een gespecificeerd aantal keer.</string>
+    <string name="preference_video_restart_summary">Wanneer de video opname is gestopt bij het bereiken van de max tijdsduur (wanneer ingesteld), zal deze optie een nieuwe opname starten, voor een gespecificeerd aantal keer
+\n%s</string>
     <string name="preference_video_restart">Herstart na max tijdsduur</string>
     <string name="preference_video_max_duration_summary">De video opname zal stoppen na de gespecificeerde tijdsduur
 \n%s</string>
     <string name="preference_video_fps_summary">Stel de beeldfrequentie (FPS) van video\'s in (Dit is bij benadering en niet gegarandeerd. De opname kan mislukken als de beeldfrequentie niet wordt ondersteund). Merk op dat deze optie wordt genegeerd bij slow moti­on video\'s.
 \n%s</string>
-    <string name="preference_video_fps">"Video beeldfrequentie  (bij benadering)"</string>
+    <string name="preference_video_fps">Video beeldfrequentie (bij benadering)</string>
     <string name="preference_video_bitrate_summary">Stel de bitrate van video\'s in (hoger betekend betere kwaliteit, maar neemt meer opslagruimte in; video opname kan mislukken als de bitrate niet wordt ondersteund)
 \n%s</string>
     <string name="preference_video_stabilization_summary">Video stabilisering reduceert het bewegen van de camera zowel in de preview als in de opnames.</string>
@@ -278,7 +278,7 @@
     <string name="preference_rotate_preview_summary">Optie om de voorbeeld weergave te draaien (heeft geen invloed op het resultaat van de opname)
 \n%s</string>
     <string name="preference_startup_focus_summary">Of de camera automatisch scherp stelt bij het opstarten van de app. Wanneer de flash ongevraagd aan gaat, schakel deze optie uit</string>
-    <string name="preference_using_saf_summary">"Maak gebruik van  Storage Access Framework om foto\'s en video\'s op te slaan. Vink dit aan (vanaf Android 5) om te kunnen opslaan op externe SD-cards."</string>
+    <string name="preference_using_saf_summary">Maak gebruik van Storage Access Framework om foto\'s en video\'s op te slaan. Vink dit aan (vanaf Android 5) om te kunnen opslaan op externe SD-cards.</string>
     <string name="preference_audio_noise_control_sensitivity_summary">Niveau van gevoeligheid voor audio besturing</string>
     <string name="preference_zebra_stripes_100pc">100%</string>
     <string name="preference_burst_mode_40x">40x</string>
@@ -305,7 +305,7 @@
     <string name="panorama_cancelled">Panorama geannuleerd</string>
     <string name="cancel_panorama">Annuleer panorama</string>
     <string name="finish_panorama">Panorama voltooien</string>
-    <string name="image_saving_notification">Afbeeldingen aan het opslagen...</string>
+    <string name="image_saving_notification">Afbeeldingen aan het opslagen…</string>
     <string name="bluetooth_scan">Scannen</string>
     <string name="bluetooth_current_remote">Huidige afstandbediening:</string>
     <string name="preference_show_cycle_raw_summary">Geeft een icoon weer op het scherm om de verschillende RAW modi te kunnen selecteren</string>
@@ -358,15 +358,15 @@
     <string name="preference_remote_disconnect_screen_dim_summary">Hint: zet de standaard helderheid van het scherm op de minimum stand voor dat je Open Camera start.</string>
     <string name="preference_remote_disconnect_screen_dim">Scherm dimmen bij verbreken van verbinding met afstandsbediening</string>
     <string name="unknown_device">Onbekend apparaat</string>
-    <string name="bluetooth_not_supported">Bluetooth wordt niet ondersteund</string>
+    <string name="bluetooth_not_supported">Bluetooth wordt niet ondersteund.</string>
     <string name="scan_ble">BLE Apparaat Scan</string>
     <string name="ble_not_supported">BLE wordt niet ondersteund</string>
     <string name="preference_remote_type">Type extern apparaat</string>
     <string name="preference_enable_remote_summary">Inschakelen van Bluetooth LE (BLE) besturingsapparaten</string>
-    <string name="preference_enable_remote">"Inschakelen van  Bluetooth LE afstandsbediening"</string>
-    <string name="preference_screen_remote_control">Bluetooth LE afstandsbediening...</string>
+    <string name="preference_enable_remote">Inschakelen van Bluetooth LE afstandsbediening</string>
+    <string name="preference_screen_remote_control">Bluetooth LE afstandsbediening…</string>
     <string name="photo_mode_panorama_full">Panorama</string>
-    <string name="photo_mode_panorama">" Pano"</string>
+    <string name="photo_mode_panorama">Pano</string>
     <string name="white_balance_unlocked">Witbalans ontgrendeld</string>
     <string name="white_balance_locked">Witbalans vergrendeld</string>
     <string name="white_balance_unlock">Witbalans ontgrendelen</string>
@@ -474,7 +474,7 @@
     <string name="preference_use_camera2_summary">Schakeld extra mogelijkheden in zoals manuele modus voor belichting, focus, witbalans en ook RAW (Indien het ondersteund wordt door het toestel). Dit werkt mogelijk niet correct op alle toestellen</string>
     <string name="preference_use_camera2">Gebruik Camera2 API</string>
     <string name="preference_donate_summary">Als je tevreden bent over deze app, overweeg a.u.b. een donatie te doen om de softwareontwikkelaars te ondersteunen. Je kan dit doen door mijn donatie app te kopen - klik op deze optie om de webpagina voor de donatie app te openen. Alvast bedankt!</string>
-    <string name="open_files_saf_exception_generic">Geen bestand dialoogvenster gevonden. Deze optie wordt niet ondersteund op dit toestel.</string>
+    <string name="open_files_saf_exception_generic">Geen bestand dialoogvenster gevonden. Deze optie wordt niet ondersteund op dit toestel</string>
     <string name="previous">Vorige</string>
     <string name="exposure_compensation_zoom">Vermeer of verminder belichting compensatie</string>
     <string name="preference_focus_assist_4x">4x</string>
@@ -547,10 +547,10 @@
     <string name="preference_raw_only">Enkel DNG (RAW)</string>
     <string name="preference_raw_yes">Standaard en DNG (RAW)</string>
     <string name="preference_raw_no">Neen</string>
-    <string name="processing">Verwerken...</string>
-    <string name="preference_exif_copyright_summary">Tekst op te slagen in de afbeelding metadata, copyright tag (enkel JPEG formaat, laat leeg indien niet gebruikt).</string>
+    <string name="processing">Verwerken…</string>
+    <string name="preference_exif_copyright_summary">Tekst op te slagen in de afbeelding metadata, copyright tag (enkel JPEG formaat, laat leeg indien niet gebruikt)</string>
     <string name="preference_exif_copyright">Copyright</string>
-    <string name="preference_exif_artist_summary">Tekst op te slagen in de afbeelding metadata, artiest tag (enkel JPEG formaat, laat leeg indien niet gebruikt).</string>
+    <string name="preference_exif_artist_summary">Tekst op te slagen in de afbeelding metadata, artiest tag (enkel JPEG formaat, laat leeg indien niet gebruikt)</string>
     <string name="preference_exif_artist">Artiest</string>
     <string name="preference_category_exif_tags">Specifieke EXIF-tags</string>
     <string name="preference_video_fps_default">Standaard</string>
@@ -599,7 +599,7 @@
     <string name="white_balance_auto">Auto</string>
     <string name="failed_to_process_hdr">HDR afbeelding kon niet gemaakt worden</string>
     <string name="audio_listener_failed">Initialisatie audio opname mislukt</string>
-    <string name="capturing">Opname bezig...</string>
+    <string name="capturing">Opname bezig…</string>
     <string name="resume_video">Hervat video opname</string>
     <string name="pause_video">Pauzeer video opname</string>
     <string name="video_resume">Video hervat</string>
@@ -633,7 +633,7 @@
     <string name="preference_video_subtitle_summary">Maak een ondertitel (.SRT) bestand dat de datum en tijd bevat; en ook GSP info indien locatie/kompas data is ingeschakeld
 \n%s</string>
     <string name="preference_video_subtitle">Video ondertitels</string>
-    <string name="preference_show_geo_direction_lines_summary">" Toon kompas richting lijnen"</string>
+    <string name="preference_show_geo_direction_lines_summary">Toon kompas richting lijnen</string>
     <string name="preference_show_geo_direction_lines">Toon kompas richting lijnen</string>
     <string name="photo_mode_dro">DRO</string>
     <string name="preference_calibrate_level_reset">Reset</string>
@@ -643,7 +643,7 @@
     <string name="selfie">Selfie</string>
     <string name="record_video">Video opnemen</string>
     <string name="camera">Camera</string>
-    <string name="preference_camera2_fast_burst_summary">"Maakt snellere opnames mogelijk voor HDR/expo shots. Schakel dit uit wanneer je toestel problemen heeft met HDR of Expo modus.   "</string>
+    <string name="preference_camera2_fast_burst_summary">Maakt snellere opnames mogelijk voor HDR/expo shots. Schakel dit uit wanneer je toestel problemen heeft met HDR of Expo modus.</string>
     <string name="preference_camera2_fast_burst">Activeer snelle HDR/expo-Burst</string>
     <string name="camera_error">Ernstige camera fout</string>
     <string name="exposure_shutter_speed">Sluitertijd</string>
@@ -665,7 +665,7 @@
     <string name="permission_rationale_location">Locatie toegang is vereist voor geo­tag­ging (Opslaan van locatie data in foto\'s en video\'s).</string>
     <string name="permission_rationale_storage">Opslag lees/schrijf toestemming is vereist om foto\'s op te slagen</string>
     <string name="permission_rationale_camera">Camera toestemming is vereist om de camera te activeren</string>
-    <string name="preference_hdr_save_expo_summary">"Wanneer ingeschakeld, dan zullen in HDR modus de drie basis-belichting afbeelding samen met de uiteindelijke HDR foto opgeslagen worden. Merk op dat het opslagen langer duurt, zeker in combinatie met opties zoals \"Foto Stempel\" of \"Auto-level\".  "</string>
+    <string name="preference_hdr_save_expo_summary">Wanneer ingeschakeld, dan zullen in HDR modus de drie basis-belichting afbeelding samen met de uiteindelijke HDR foto opgeslagen worden. Merk op dat het opslagen langer duurt, zeker in combinatie met opties zoals \"Foto Stempel\" of \"Auto-level\".</string>
     <string name="hdr_info">HDR modus is handig voor shots met een grote variatie van lichtinval. Het werkt door verschillende shots met verschillende belichtingen te nemen, en die dan samenvoegen tot de uiteindelijke foto.
 \n
 \nMerk op dat HDR is niet geschikt for scènes met snelle beweging, en kan resulteren in minder accurate kleurweergave.
@@ -685,12 +685,12 @@
     <string name="preference_video_bitrate_15000000">15 Mbps</string>
     <string name="preference_video_bitrate_10000000">10 Mbps</string>
     <string name="preference_video_bitrate_9000000">9 Mbps</string>
-    <string name="preference_video_bitrate_8000000">" 8 Mbps"</string>
+    <string name="preference_video_bitrate_8000000">8 Mbps</string>
     <string name="preference_video_bitrate_7000000">7 Mbps</string>
     <string name="preference_video_bitrate_6000000">6 Mbps</string>
     <string name="preference_video_bitrate_5000000">5 Mbps</string>
-    <string name="preference_video_bitrate_4000000">" 4 Mbps"</string>
-    <string name="preference_video_bitrate_3000000">" 3 Mbps"</string>
+    <string name="preference_video_bitrate_4000000">4 Mbps</string>
+    <string name="preference_video_bitrate_3000000">3 Mbps</string>
     <string name="preference_video_bitrate_2000000">2 Mbps</string>
     <string name="preference_video_bitrate_1000000">1 Mbps</string>
     <string name="preference_focus_assist">Focus ondersteuning</string>
@@ -700,7 +700,7 @@
     <string name="noise_reduction_mode_off">Uit</string>
     <string name="noise_reduction_mode_default">Standaard</string>
     <string name="preference_noise_reduction_mode">Ruisonderdrukking algoritme</string>
-    <string name="preference_screen_processing_settings">Verwerking instellingen...</string>
+    <string name="preference_screen_processing_settings">Verwerking instellingen…</string>
     <string name="feet_abbreviation">ft</string>
     <string name="preference_units_distance_ft">Voet</string>
     <string name="preference_units_distance_m">Meter</string>
@@ -723,4 +723,10 @@
     <string name="preference_screen_licences">Open Source licenties</string>
     <string name="preference_image_format_summary">Selecteer het bestandsformaat om foto\'s op te slagen. Dit is van toepassing op \"standaard\" (niet RAW) foto\'s. Merk op dat het PNG niet werkelijk lossless is, maar in plaats daarvan geconverteerd is van JPEG aan 100%% kwaliteit.
 \n%s</string>
+    <string name="aperture">Diafragma</string>
+    <string name="preferences_about_app">Camera is afgeleid van OpenCamera</string>
+    <string name="preference_licence_google_icons_text">Camera gebruikt pictogrammen van Google\'s Material Design icons (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) onder de Apache licentie versie 2.0. Sommige pictogrammen zijn aangepast. Tik hier voor de volledige licentie tekst.</string>
+    <string name="preference_licence_google_icons">Google Material Design pictogrammen</string>
+    <string name="preference_licence_open_camera_text">Camera is © 2013–2019 Mark Harman, uitgebracht onder de GPL v3 of later. Tik hier voor de volledige licentie tekst.</string>
+    <string name="preference_licence_open_camera">Camera</string>
 </resources>
