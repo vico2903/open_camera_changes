@@ -219,9 +219,9 @@
     <string name="taking_photo">Foto genomen</string>
     <string name="failed_to_start_camera_preview">Het starten van het camera voorbeeld is mislukt</string>
     <string name="failed_to_auto_stabilise">Auto-level is mislukt</string>
-    <string name="failed_to_save_photo_raw">Opslaan van RAW foto is mislukt</string>
-    <string name="failed_to_save_photo">Opslaan van foto is mislukt</string>
-    <string name="failed_to_record_video">Opnemen van video is mislukt</string>
+    <string name="failed_to_save_photo_raw">Opslaan van RAW foto is mislukt.</string>
+    <string name="failed_to_save_photo">Opslaan foto mislukt</string>
+    <string name="failed_to_record_video">Video opname mislukt</string>
     <string name="cancelled_repeat_mode">Herhaal modus geannuleerd</string>
     <string name="exposure_unlocked">Belichting ontgrendeld</string>
     <string name="exposure_locked">Belichting vergrendeld</string>
