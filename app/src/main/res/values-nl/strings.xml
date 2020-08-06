@@ -691,4 +691,30 @@
     <string name="preference_video_bitrate_3000000">" 3 Mbps"</string>
     <string name="preference_video_bitrate_2000000">2 Mbps</string>
     <string name="preference_video_bitrate_1000000">1 Mbps</string>
+    <string name="preference_focus_assist">Focus ondersteuning</string>
+    <string name="noise_reduction_mode_high_quality">Hoge kwaliteit</string>
+    <string name="noise_reduction_mode_fast">Snel</string>
+    <string name="noise_reduction_mode_minimal">Minimaal</string>
+    <string name="noise_reduction_mode_off">Uit</string>
+    <string name="noise_reduction_mode_default">Standaard</string>
+    <string name="preference_noise_reduction_mode">Ruisonderdrukking algoritme</string>
+    <string name="preference_screen_processing_settings">Verwerking instellingen...</string>
+    <string name="feet_abbreviation">ft</string>
+    <string name="preference_units_distance_ft">Voet</string>
+    <string name="preference_units_distance_m">Meter</string>
+    <string name="preference_units_distance_summary">Gebruikt voor GPS hoogte voor foto stempels en video ondertitels.
+\n%s</string>
+    <string name="preference_units_distance">Afstand eenheid</string>
+    <string name="accuracy_unknown">Onbekend</string>
+    <string name="accuracy_high">Hoog</string>
+    <string name="accuracy_medium">Medium</string>
+    <string name="accuracy_low">Laag</string>
+    <string name="accuracy_unreliable">Onbetrouwbaar</string>
+    <string name="magnetic_accuracy_info">Het kompas van je toestel moet gekalibreerd worden om de precisie te verbeteren. Dit kan je doen door je toestel te bewegen in een 8 figuur.
+\n
+\nHuidige precisie:</string>
+    <string name="magnetic_accuracy_title">Kompas richting</string>
+    <string name="preference_show_video_max_amp_summary">Geeft de geluidssterkte op het scherm weer tijdens video-opnames</string>
+    <string name="preference_show_video_max_amp">Toon audio indicatie</string>
+    <string name="preference_camera2_photo_video_recording">Sta foto\'s toe tijdens video opname</string>
 </resources>
