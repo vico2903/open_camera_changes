@@ -50,7 +50,7 @@
     <string name="location_not_available">GPS locatie niet beschikbaar</string>
     <string name="sorry">Sorry</string>
     <string name="started_recording_video">Video opname gestart</string>
-    <string name="failed_to_save_video">Fout tijdens opslagen Video</string>
+    <string name="failed_to_save_video">Video bestand opslaan mislukt.</string>
     <string name="started_timer">Timer gestart</string>
     <string name="cancelled_timer">Timer geannuleerd</string>
     <string name="video">Video</string>
@@ -206,7 +206,7 @@
     <string name="preference_save_location_summary">Map om foto/video bestanden in op te slaan</string>
     <string name="preference_save_location">Sla locatie op</string>
     <string name="preference_touch_capture_summary">Neem een foto door het voorbeeld aan te raken of te dubbelklikken</string>
-    <string name="preference_touch_capture">Raak aan op vast te leggen</string>
+    <string name="preference_touch_capture">Vastleggen bij aanraking</string>
     <string name="preference_timer_speak">Timer met spraakgeluid</string>
     <string name="preference_timer_beep_summary">Geef signaal wanneer de timer aan het aftellen is of tijdens de vertraging bij serie opnames</string>
     <string name="preference_timer_beep">Timer signaal</string>
