@@ -231,4 +231,8 @@
     <string name="repeats_to_go">herhalingen te gaan</string>
     <string name="action_popup">Popup instellingen</string>
     <string name="preferences_build_version">Build-versie</string>
+    <string name="preferences_licence">Licentie</string>
+    <string name="preferences_authors">Auteurs</string>
+    <string name="preferences_service_terms">Servicevoorwaarden</string>
+    <string name="preferences_source_code">Broncode</string>
 </resources>
