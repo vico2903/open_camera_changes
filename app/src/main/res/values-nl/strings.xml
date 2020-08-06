@@ -134,7 +134,7 @@
     <string name="flash_mode">Flits modus</string>
     <string name="focus_mode">Focus modus</string>
     <string name="take_photo">Neem foto</string>
-    <string name="preference_reset_question">Weet je zeker dat je alle instellingen wil herstellen naar de standaard instellingen van Open Camera\?</string>
+    <string name="preference_reset_question">Ben je zeker dat je alle Open Camera instellingen wil resetten\?</string>
     <string name="preference_reset_summary">Reset alle Camera instellingen naar de standaard waarden</string>
     <string name="preference_about_summary">App en debug informatie</string>
     <string name="preference_donate">Doneer om ontwikkeling te steunen</string>
