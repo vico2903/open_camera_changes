@@ -135,7 +135,7 @@
     <string name="focus_mode">Focus modus</string>
     <string name="take_photo">Neem foto</string>
     <string name="preference_reset_question">Weet je zeker dat je alle instellingen wil herstellen naar de standaard instellingen van Open Camera\?</string>
-    <string name="preference_reset_summary">Reset alle Open Camera instellingen naar de standaard waarden</string>
+    <string name="preference_reset_summary">Reset alle Camera instellingen naar de standaard waarden</string>
     <string name="preference_about_summary">App en debug informatie</string>
     <string name="preference_donate">Doneer om ontwikkeling te steunen</string>
     <string name="preference_online_help_summary">Surf naar de Camera website in je browser</string>
