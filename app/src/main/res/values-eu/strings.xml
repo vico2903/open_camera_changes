@@ -493,4 +493,5 @@
     <string name="preference_units_distance_m">Metroak</string>
     <string name="preference_units_distance">Distantzia-unitatea</string>
     <string name="accuracy_unknown">Ezezaguna</string>
+    <string name="flash_torch">Linterna</string>
 </resources>
