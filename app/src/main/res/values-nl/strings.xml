@@ -216,7 +216,7 @@
     <string name="auto_stabilise_not_supported">Sorry, auto-level wordt niet ondersteund
 \nop dit apparaat</string>
     <string name="screen_is_locked">Scherm is vergrendeld
-\nveeg over het scherm om te ontgrendelen</string>
+\nVeeg over het scherm om te ontgrendelen.</string>
     <string name="failed_to_take_picture">Foto nemen mislukt</string>
     <string name="taking_photo">Foto genomen</string>
     <string name="failed_to_start_camera_preview">Starten van camera voorbeeld mislukt</string>
