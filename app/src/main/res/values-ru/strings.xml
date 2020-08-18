@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Camera</string>
+    <string name="app_name">Камера</string>
     <string name="action_settings">Настройки</string>
     <string name="action_popup">Настройки всплывающих окон</string>
     <string name="intro_ok">Ок (Это сообщение больше не появится.)</string>
@@ -106,7 +106,7 @@
     <string name="preference_save_location">Папка сохранения</string>
     <string name="preference_save_location_summary">Имя папки для сохранения фото и видео (также может быть полный путь)</string>
     <string name="preference_using_saf">Использовать Storage Access Framework</string>
-    <string name="preference_using_saf_summary">Использовать  Storage Access Framework для сохранения фото и видео</string>
+    <string name="preference_using_saf_summary">Использовать Storage Access Framework для сохранения фото и видео.</string>
     <string name="preference_save_photo_prefix">Префикс для фото</string>
     <string name="preference_save_photo_prefix_summary">Префикс имен файлов для сохраняемых фото</string>
     <string name="preference_save_video_prefix">Префикс для видео</string>
@@ -192,9 +192,9 @@
     <string name="preference_background_photo_saving_summary">Сохранять фото в фоновом потоке (для ускорения работы)</string>
     <string name="video_quality">Разрешение видео</string>
     <string name="preference_force_video_4k">Качество видео 4K UHD (экспериментально)</string>
-    <string name="preference_force_video_4k_summary">При выборе разрешения (3840х2160) для записи через заднюю камеру она будет работать только, если ваше устройство поддерживает данный формат!</string>
+    <string name="preference_force_video_4k_summary">При выборе разрешения (3840х2160) для записи через заднюю камеру она будет работать только, если ваше устройство поддерживает данный формат.</string>
     <string name="preference_video_stabilization">Включить стабилизацию видео</string>
-    <string name="preference_video_stabilization_summary">Стабилизация видео уменьшает тряску в связи с движением камеры</string>
+    <string name="preference_video_stabilization_summary">Стабилизация видео уменьшает тряску в связи с движением камеры.</string>
     <string name="preference_video_bitrate">Битрейт видео (примерно)</string>
     <string name="preference_video_bitrate_summary">Выбор битрейта видео. (чем выше, тем лучше качество, но файл будет занимать больше места на диске. Неподдерживаемый битрейт может стать причиной ошибки при записи видео).\n%s</string>
     <string name="preference_video_fps">Частота кадров видео (примерно)</string>
@@ -267,7 +267,11 @@
     <string name="speech_recognizer_started">Скажите \"cheese\"</string>
     <string name="audio_listener_started">Создайте громкий шум</string>
     <string name="auto_stabilise_info">Автоматическая стабилизация будет поворачивать фотографии для их выравнивания.\n\nВажно: разрешение полученных фото слегка уменьшится из-за поворота и обрезки.</string>
-    <string name="raw_info">Файлы DNG содержат несжатую и необработанную информацию с вашей камеры.\n\nБольшинство программ для просмотра изображений не поддерживают DNG. Их нужно открывать специальными программами наподобие Snapseed или Lightroom.\n\nВажно: различные опции наподобие "Штамп на фото" или "Автоматическая стабилизация" работают только для изображений формата JPEG, а не DNG.\n\nФайлы DNG имеют большой объем. Для их копирования или удаления может быть полезен файловый менеджер.\n\nФайлы DNG сохраняются только в режиме фото "Стандарт".</string>
+    <string name="raw_info">Файлы DNG содержат несжатую и необработанную информацию с вашей камеры.
+\n
+\nБольшинство программ для просмотра изображений не поддерживают DNG. Их нужно открывать специальными программами наподобие Snapseed или Lightroom.
+\n
+\nВажно: различные опции наподобие Штамп на фото или Автоматическая стабилизация работают только для изображений формата JPEG, а не DNG. Файлы DNG имеют большой объем. Для их копирования или удаления может быть полезен файловый менеджер. Файлы DNG сохраняются только в режиме фото Стандарт.</string>
     <string name="hdr_info">Режим HDR полезен для фото с большой разницей яркости. В нем делается несколько фото с различной экспозицией, которые объединяются в окончательное фото.\n\nВажно: HDR не рекомендуется для съемки кадров с быстрым движением, это может привести к менее корректной цветопередаче.\n\nСъемка фото в режиме HDR будет гораздо медленнее, чем в обычном режиме.</string>
     <string name="dont_show_again">Больше не показывать</string>
     <string name="photo_mode">Режим фото</string>
@@ -323,7 +327,7 @@
     <string name="preference_front_camera_mirror">Зеркалить фронтальную камеру</string>
     <string name="preference_front_camera_mirror_summary">Отражать изображения зеркально при использовании фронтальной камеры\n%s</string>
     <string name="preference_calibrate_level">Калибровать уровень угла</string>
-    <string name="preference_calibrate_level_summary">Эта настройка калибрует акселерометр вашего устройства для корректной работы автоматической стабилизации и настроек наэкранного уровня/угла.</string>
+    <string name="preference_calibrate_level_summary">Эта настройка калибрует акселерометр вашего устройства для корректной работы автоматической стабилизации и настроек наэкранного уровня/угла</string>
     <string name="preference_calibrate_level_dialog">Поместите ваше устройство на ровную горизонтальную поверхность для установки уровня (в портретной или ландшафтной ориентации), затем выберите "Откалибровать".\n\nНажмите "Сбросить" для удаления калибровки с вашего устройства.\n\nНажмите "Назад" для отмены.</string>
     <string name="preference_calibrate_level_calibrate">Откалибровать</string>
     <string name="preference_calibrate_level_reset">Сбросить</string>
@@ -488,7 +492,7 @@
     <string name="preference_camera2_photo_video_recording_summary">Разрешает снимать фото во время записи видео. Отключите при возникновении проблем с записью видео с включенным Camera2 API.</string>
     <string name="preference_video_log">Плоский профиль видео (log)</string>
     <string name="preference_video_log_summary">Включить плоский профиль (log) для режима записи видео\n%s</string>
-    <string name="preference_video_log_off">Выкл.</string>
+    <string name="preference_video_log_off">По умолчанию</string>
     <string name="preference_video_log_fine">Очень низкий</string>
     <string name="preference_video_log_low">Низкий</string>
     <string name="preference_video_log_medium">Средний</string>
@@ -527,7 +531,7 @@
     <string name="preference_video_bitrate_100000000">100 Mbps</string>
     <string name="preference_video_bitrate_150000000">150 Mbps</string>
     <string name="preference_video_bitrate_200000000">200 Mbps</string>
-    <string name="no_burst">no burst</string>
+    <string name="no_burst">Без ускорения</string>
     <!-- string for burst mode not being supported for a resolution -->
     <string name="preference_show_video_max_amp">Показывать измеритель уровня звука</string>
     <string name="preference_show_video_max_amp_summary">Показывать измеритель уровня звука на экране при записи видео</string>
@@ -823,4 +827,12 @@
     <string name="preference_immersive_mode_everything">Скрыть все</string>
     <string name="preferences_authors">Авторы</string>
     <string name="preferences_service_terms">Условия обслуживания</string>
+    <string name="preference_video_srgb">sRGB</string>
+    <string name="preference_video_profile_gamma">Значение гаммы видео</string>
+    <string name="preference_video_gamma">Гамма</string>
+    <string name="preference_video_rec709">REC709</string>
+    <string name="aperture">Апертура</string>
+    <string name="preferences_source_code">Исходный код</string>
+    <string name="preferences_licence">Лицензия</string>
+    <string name="preferences_build_version">Версия сборки</string>
 </resources>
