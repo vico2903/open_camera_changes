@@ -108,7 +108,7 @@
     <string name="preference_category_stamp">Foto Stempel</string>
     <string name="photo_mode_noise_reduction_full">Ruis Onderdrukking</string>
     <string name="photo_mode_noise_reduction">RO</string>
-    <string name="photo_mode_fast_burst_full">Snelle serie</string>
+    <string name="photo_mode_fast_burst_full">Snelle Fotoreeks</string>
     <string name="photo_mode_fast_burst">[]]]</string>
     <string name="photo_mode">Foto Modus</string>
     <string name="dont_show_again">Niet opnieuw weergeven</string>
@@ -118,7 +118,7 @@
     <string name="permission_location_not_available">Geen machtiging voor locatie toegang</string>
     <string name="permission_record_audio_not_available">Geen machtiging voor microfoon toegang</string>
     <string name="saf_permission_failed">Kan niet opslaan naar deze map</string>
-    <string name="saf_cancelled">Opslag Toegang Framework geannuleerd</string>
+    <string name="saf_cancelled">Storage Access Framework geannuleerd</string>
     <string name="saf_select_save_location">Selecteer opslag locatie</string>
     <string name="failed_create_folder">Probleem met het aanmaken van map</string>
     <string name="enter_new_folder">Geef naam voor nieuwe map</string>
@@ -192,7 +192,7 @@
     <string name="preference_preview_size">Voorbeeld grootte</string>
     <string name="preference_screen_gui">Gebruikersinterface…</string>
     <string name="preference_rotate_preview">Draai voorbeeld</string>
-    <string name="preference_lock_video_summary">Tijdens het opnemen van video zal de GUI vergrendeld zijn om te voorkomen dat de opname per ongeluk wordt gestopt. Veeg over het scherm om te ontgrendelen. De video opname zal altijd gestopt worden wanneer de app op de achtergrond draai of wanneer de app afgesloten wordt.</string>
+    <string name="preference_lock_video_summary">Tijdens het opnemen van video zal de gebruikersinterface geblokkeerd worden om te vermijden dat een opname per ongeluk wordt gestopt. Swipe over het scherm om te deblokkeren. Let wel dat een video-opname altijd stopt wanneer de app op de achtergrond wordt gezet of het scherm leeg is.</string>
     <string name="preference_lock_video">Vergrendelingsscherm actief tijdens het opnemen van video</string>
     <string name="preference_startup_focus">Voer auto-focus uit tijdens het opstarten</string>
     <string name="preference_show_when_locked_summary">Wanneer ingeschakeld zal Camera op het vergrendelingsscherm worden afgebeeld (Je moet wel nog deblokkeren voor toegang tot Instellingen, Galerij enz)</string>
@@ -216,7 +216,7 @@
     <string name="auto_stabilise_not_supported">Sorry, auto-level wordt niet ondersteund
 \nop dit apparaat</string>
     <string name="screen_is_locked">Scherm is vergrendeld
-\nVeeg over het scherm om te ontgrendelen.</string>
+\nVeeg over het scherm om te ontgrendelen</string>
     <string name="failed_to_take_picture">Foto nemen mislukt</string>
     <string name="taking_photo">Foto genomen</string>
     <string name="failed_to_start_camera_preview">Starten van camera voorbeeld mislukt</string>
