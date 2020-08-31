@@ -131,7 +131,7 @@
     <string name="share">Partekatu argazkia</string>
     <string name="trash">Ezabatu azkeneko argazkia</string>
     <string name="cant_write_folder">Ezin da karpeta honetan idatzi</string>
-    <string name="preference_video_max_filesize_summary">Bideoaren grabazioa gelditu edota berrabiarazi egingo da (ikus beheko aukera) fitxategiaren gehienezko tamaina iristen denean (gutxi gorabehera). Kontutan izan Android gailu askok bideoetarako gehienezko tamaina dutela (normalean 2 GB edo 4 GB inguru), baina aukera honek balio jakin bat ezartzeko aukera ematen du. Kontutan izan aukera hau ezin dela erabili gailu baten barneko gehienezko memoria handitzeko.
+    <string name="preference_video_max_filesize_summary">Bideoaren grabazioa gelditu edota berrabiarazi egingo da (ikus beheko aukera) fitxategiaren gehienezko tamaina iristen denean (gutxi gorabehera). Kontuan izan Android gailu askok bideoetarako gehienezko tamaina dutela (normalean 2 GB edo 4 GB inguru), baina aukera honek balio jakin bat ezartzeko aukera ematen du. Kontuan izan aukera hau ezin dela erabili gailu baten barneko gehienezko memoria handitzeko.
 \n%s</string>
     <string name="preference_record_audio_summary">Grabatu audioa bideoa grabatzean</string>
     <string name="preference_record_audio">Grabatu audioa</string>
@@ -249,9 +249,9 @@
     <string name="changed_save_location">Gordetzeko kokalekua hona aldatu da:</string>
     <string name="raw_info">DNG fitxategiek kameraren konprimitu eta prozesatu gabeko informazio guztia dute.
 \n
-\nKontutan izan galeriako aplikazio batzuk ez dituztela DNG fitxategiak ezagutzen. DNG irudiak Snapseed edo Lightroom bezalako irudi-editore espezializatuekin erabil daitezke.
+\nKontuan izan galeriako aplikazio batzuk ez dituztela DNG fitxategiak ezagutzen. DNG irudiak Snapseed edo Lightroom bezalako irudi-editore espezializatuekin erabil daitezke.
 \n
-\nKontutan izan zenbait prozesatze-aukera, hala nola Zigilatu argazkiak eta Auto-egonkortzea, DNG ez diren (JPEG/etab.) irudiei soilik aplikatuko zaizkiela, eta ez DNG irudiei.</string>
+\nKontuan izan zenbait prozesatze-aukera, hala nola Zigilatu argazkiak eta Auto-egonkortzea, DNG ez diren (JPEG/etab.) irudiei soilik aplikatuko zaizkiela, eta ez DNG irudiei.</string>
     <string name="preference_show_when_locked_summary">Gaituta badago, kamera blokeatutako pantailaren gainetik agertuko da (oraindik desblokeatu beharko duzu Ezarpenak, Galeria, eta abarretara sartzeko)</string>
     <string name="preference_show_when_locked">Erakutsi kamera blokeatuta dagoenean</string>
     <string name="preference_save_zulu_time">Fitxategi-izenerako ordu-formatua</string>
@@ -327,7 +327,7 @@
     <string name="preferences_licence">Lizentzia</string>
     <string name="preferences_service_terms">Zerbitzu-baldintzak</string>
     <string name="preferences_authors">Egileak</string>
-    <string name="preference_lock_video_summary">Bideoa grabatzean, interfazea blokeatuta egongo da grabazioa ustekabean ez gelditzeko. Pasatu hatza pantaila desblokeatzeko. Kontutan izan bideo-grabazioa beti geldituko dela aplikazioa bigarren mailan sartu edo pantaila ezabatzen bada.</string>
+    <string name="preference_lock_video_summary">Bideoa grabatzean, interfazea blokeatuta egongo da grabazioa ustekabean ez gelditzeko. Pasatu hatza pantaila desblokeatzeko. Kontuan izan bideo-grabazioa beti geldituko dela aplikazioa bigarren mailan sartu edo pantaila ezabatzen bada.</string>
     <string name="preference_lock_video">Blokeatu pantaila bideoa grabatzean</string>
     <string name="preference_save_video_prefix">Gorde bideo-aurrizkia</string>
     <string name="preference_screen_gui">Pantailaren interfazea…</string>
