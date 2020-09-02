@@ -729,4 +729,11 @@
     <string name="preference_licence_google_icons">Google Material Design pictogrammen</string>
     <string name="preference_licence_open_camera_text">Camera is © 2013–2019 Mark Harman, uitgebracht onder de GPL v3 of later. Tik hier voor de volledige licentie tekst.</string>
     <string name="preference_licence_open_camera">Camera</string>
+    <string name="preference_privacy_policy_text" translatable="false"> <!-- if changing this, remember to consider if the online privacy policy needs updating --> Open Camera maakt gebruik van de camera sensor en microfoon om te kunnen werken. De microfoon wordt ook gebruikt voor de optionele \"Audio besturing\".
+\nMachtiging voor opslagruimte is nodig om foto\'s en video\'s op te slagen op je toestel.
+\nLocatie machtiging is vereist voor de optionele geotagging functies (voor foto\'s en video\'s, inclusief stempel en ondertitel opties). Wanneer relevante optie(s) zijn ingeschakeld zal de locatie opgeslagen worden in foto/video/ondertitel bestanden. Locatie toegang is ook vereist om verbinding te maken met een Bluetooth afstandsbediening.
+\nOmdat Open Camera ook gebruikt maakt maakt besturingssysteem API\'s, zou je ook het bijhorende privacybeleid moeten doornemen voor, onder andere, je toestel, fabrikant, besturingssysteem en/of Google Accounts. Bijvoorbeeld:
+\n*De optionele stem besturing maakt gebruik van de Android spraak herkenning service. Wanneer ingeschakeld zal audio data waarschijnlijk verzonden worden naar externe servers om spraakherkenning uit te voeren.
+\n*De \"Addressen\" optie voor foto stempels of video ondertitels maakt gebruik van Android Geocoder API. Wanneer ingeschakeld is het nodig om locatie data over internet te versturen naar een derde partij (Dit hangt af van welke backend service geïnstalleerd zijn op je toestel).
+\n*Apps/services zoals cloud services kunnen de foto\'s en video\'s op je toestel automatisch uploaden. </string>
 </resources>
