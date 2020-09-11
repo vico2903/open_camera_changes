@@ -28,6 +28,7 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -65,9 +66,12 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.renderscript.RenderScript;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -83,6 +87,7 @@ import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.ZoomControls;
@@ -192,6 +197,8 @@ public class MainActivity extends Activity {
     private static final float WATER_DENSITY_FRESHWATER = 1.0f;
     private static final float WATER_DENSITY_SALTWATER = 1.03f;
     private float mWaterDensity = 1.0f;
+    private int accentColor;
+    private ImageButton switchVideoButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,6 +221,7 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false); // initialise any unset preferences to their default values
+
         if( MyDebug.LOG )
             Log.d(TAG, "onCreate: time after setting default preference values: " + (System.currentTimeMillis() - debug_time));
 
@@ -238,7 +246,7 @@ public class MainActivity extends Activity {
                 Log.d(TAG, "shortcut: " + getIntent().getAction());
         }
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
+        accentColor=fetchAccentColor(this);
         // determine whether we should support "auto stabilise" feature
         // risk of running out of memory on lower end devices, due to manipulation of large bitmaps
         ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
@@ -374,7 +382,8 @@ public class MainActivity extends Activity {
         }
 
         // initialise on-screen button visibility
-        View switchCameraButton = findViewById(R.id.switch_camera);
+        ImageButton switchCameraButton = findViewById(R.id.switch_camera);
+  //      switchCameraButton.setImageTintList(ColorStateList.valueOf(accentColor));
         switchCameraButton.setVisibility(n_cameras > 1 ? View.VISIBLE : View.GONE);
         // switchMultiCameraButton visibility updated below in mainUI.updateOnScreenIcons(), as it also depends on user preference
         View speechRecognizerButton = findViewById(R.id.audio_control);
@@ -383,7 +392,13 @@ public class MainActivity extends Activity {
             Log.d(TAG, "onCreate: time after setting button visibility: " + (System.currentTimeMillis() - debug_time));
         View pauseVideoButton = findViewById(R.id.pause_video);
         pauseVideoButton.setVisibility(View.GONE);
-        View takePhotoVideoButton = findViewById(R.id.take_photo_when_video_recording);
+        ImageButton takePhotoVideoButton = findViewById(R.id.take_photo_when_video_recording);
+        takePhotoVideoButton.setImageTintList(ColorStateList.valueOf(accentColor));
+
+        switchVideoButton = (ImageButton) findViewById(R.id.switch_video);
+        switchVideoButton.setImageTintList(ColorStateList.valueOf(accentColor));
+
+
         takePhotoVideoButton.setVisibility(View.GONE);
         View cancelPanoramaButton = findViewById(R.id.cancel_panorama);
         cancelPanoramaButton.setVisibility(View.GONE);
@@ -676,6 +691,8 @@ public class MainActivity extends Activity {
 
         if( MyDebug.LOG )
             Log.d(TAG, "onCreate: total time for Activity startup: " + (System.currentTimeMillis() - debug_time));
+
+
     }
 
     public int getNavigationGap() {
@@ -1818,7 +1835,7 @@ public class MainActivity extends Activity {
         // safe.
         applicationInterface.stopPanorama(true);
 
-        View switchVideoButton = findViewById(R.id.switch_video);
+
         switchVideoButton.setEnabled(false); // prevent slowdown if user repeatedly clicks
         applicationInterface.reset(false);
         this.preview.switchVideo(false, true);
@@ -4085,7 +4102,9 @@ public class MainActivity extends Activity {
             if( MyDebug.LOG )
                 Log.d(TAG, "cameraSetup: time after setting up zoom: " + (System.currentTimeMillis() - debug_time));
 
-            View takePhotoButton = findViewById(R.id.take_photo);
+            ImageButton takePhotoButton = (ImageButton) findViewById(R.id.take_photo);
+            takePhotoButton.setImageTintList(ColorStateList.valueOf(accentColor));
+
             if( sharedPreferences.getBoolean(PreferenceKeys.ShowTakePhotoPreferenceKey, true) ) {
                 if( !mainUI.inImmersiveMode() ) {
                     takePhotoButton.setVisibility(View.VISIBLE);
@@ -4994,4 +5013,24 @@ public class MainActivity extends Activity {
     public boolean testHasNotification() {
         return has_notification;
     }
+
+    /*
+     * get Accent color from OS
+     * */
+    private int fetchAccentColor(Context context) {
+
+        TypedValue typedValue = new TypedValue();
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(this,
+                android.R.style.Theme_DeviceDefault);
+        contextThemeWrapper.getTheme().resolveAttribute(android.R.attr.colorAccent,
+                typedValue, true);
+        int color_accent = typedValue.data;
+        Log.e("TAG", "accent Colour  #"+Integer.toHexString(color_accent));
+
+        return color_accent;
+    }
+
+
 }
+
+
