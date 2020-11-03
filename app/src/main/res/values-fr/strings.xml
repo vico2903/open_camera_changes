@@ -903,4 +903,5 @@
     <string name="ultrawide">Grand-angle</string>
     <string name="switch_to_external_camera">Basculer sur la caméra externe</string>
     <string name="switch_to_unknown_camera">Changer de caméra</string>
+    <string name="switch_multi_camera">Basculer entre plusieurs caméras</string>
 </resources>
