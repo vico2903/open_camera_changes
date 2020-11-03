@@ -109,7 +109,7 @@
     <string name="preference_save_location">Dossier de stockage</string>
     <string name="preference_save_location_summary">Dossier où sont stockés les fichiers photo/vidéo</string>
     <string name="preference_using_saf">Utiliser le Storage Access Framework</string>
-    <string name="preference_using_saf_summary">Utiliser ou non le Storage Access Framework pour sauvegarder des photos et des vidéos. Ceci devrait être activé (sur Android 5+) pour permettre d\'enregistrer sur des cartes SD externes.</string>
+    <string name="preference_using_saf_summary">Utiliser ou non le Storage Access Framework pour sauvegarder des photos et des vidéos. Ceci devrait être activé pour permettre d\'enregistrer sur des cartes SD externes.</string>
     <string name="preference_save_photo_prefix">Préfixe du nom de photo</string>
     <string name="preference_save_photo_prefix_summary">Le préfixe est utilisé pour le nom de fichier des photos</string>
     <string name="preference_save_video_prefix">Préfixe du nom de la vidéo</string>
@@ -155,8 +155,8 @@
     <string name="preference_crop_guide">Afficher un guide de recadrage</string>
     <string name="preference_crop_guide_summary">Un guide de recadrage affiche un rectangle montrant à quoi ressemble le ratio spécifié - utile si vous prévoyez de recadrer la photo/vidéo par la suite à un ratio différent. Nécessite le mode photo WYSIWYG (Ce que Vous Voyez C\'est Ce que Vous Obtenez) ou être en mode vidéo.
 \n%s</string>
-    <string name="preference_show_toasts">Afficher les messages d\'info. (toast)</string>
-    <string name="preference_show_toasts_summary">Afficher ou non les messages popup « toast »</string>
+    <string name="preference_show_toasts">Afficher les messages d\'info</string>
+    <string name="preference_show_toasts_summary">Afficher ou non les messages d\'info temporaires</string>
     <string name="preference_thumbnail_animation">Voir l\'animation des vignettes</string>
     <string name="preference_thumbnail_animation_summary">Affiche une animation de vignette en mouvement lors de la prise d\'une photo</string>
     <string name="preference_take_photo_border">Afficher une bordure lors prise photo</string>
