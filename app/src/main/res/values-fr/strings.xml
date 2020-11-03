@@ -493,9 +493,9 @@
     <string name="preference_show_video_max_amp">Afficher l\'indicateur niveau audio</string>
     <string name="preference_record_audio_src_unprocessed">Non traité</string>
     <string name="video_log">Profil logarithmique</string>
-    <string name="preference_video_log_summary">Activer un profil logarithmique pour le mode vidéo
+    <string name="preference_video_log_summary">Définir un profil d\'image standard ou plat pour le mode vidéo
 \n%s</string>
-    <string name="preference_video_log">Profil vidéo</string>
+    <string name="preference_video_log">Profils d\'image vidéo</string>
     <string name="preference_camera2_fast_burst_summary">Permet une capture plus rapide des prises de vue du HDR/expo. Désactivez cette fonction si votre appareil a des problèmes pour prendre des photos en mode HDR ou Expo.</string>
     <string name="preference_camera2_fast_burst">Activer la rafale rapide de HDR/expo</string>
     <string name="preference_camera_api_camera2">API Camera2</string>
@@ -793,7 +793,7 @@
     <string name="preference_video_bitrate_200000000">200 Mbps</string>
     <string name="preference_video_bitrate_150000000">150 Mbps</string>
     <string name="preference_record_audio_src_voice_recognition">Optimisé pour la reconnaissance vocale</string>
-    <string name="preference_video_log_off">Désactivé</string>
+    <string name="preference_video_log_off">Défaut</string>
     <string name="preference_camera2_photo_video_recording_summary">Autorise la prise de photos pendant l\'enregistrement vidéo. À désactiver si des problèmes se manifestent lors de l\'enregistrement vidéo avec l\'API Camera2 activée.</string>
     <string name="preference_camera2_photo_video_recording">Autoriser les photos pendant l\'enregistrement vidéo</string>
     <string name="saf_permission_failed_open_image">Impossible d\'ouvrir cette image</string>
