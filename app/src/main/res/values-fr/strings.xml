@@ -869,4 +869,5 @@
     <string name="preference_zebra_stripes_99pc">99 %</string>
     <string name="preference_select_remote">Choisir une télécommande</string>
     <string name="preference_video_rec709">REC709</string>
+    <string name="preference_video_srgb">sRGB</string>
 </resources>
