@@ -888,4 +888,7 @@
     <string name="preference_ghost_image_alpha">Opacité de l\'image fantôme</string>
     <string name="preference_ghost_image_alpha_summary">Valeur alpha des images fantômes. Une valeur plus faible signifie plus transparent, plus élevée signifie plus opaque.
 \n%s</string>
+    <string name="preference_zebra_stripes_foreground_color_summary">Couleur à utiliser pour la bande en premier plan quand les bandes zébra sont affichées.
+\n%s</string>
+    <string name="preference_zebra_stripes_foreground_color">Couleur des bandes zébra au premier plan</string>
 </resources>
