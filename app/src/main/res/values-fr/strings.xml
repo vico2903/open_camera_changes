@@ -884,5 +884,5 @@
     <string name="preference_video_profile_gamma_2_0">2,0</string>
     <string name="preference_video_profile_gamma_1_9">1,9</string>
     <string name="preference_video_profile_gamma_1_8">1,8</string>
-    <string name="preference_immersive_mode_low_profile">Atténuer seulement les boutons de navigation virtuelle sur l\'écran</string>
+    <string name="preference_immersive_mode_low_profile">Atténuer seulement les boutons de navigation virtuelle à l\'écran</string>
 </resources>
