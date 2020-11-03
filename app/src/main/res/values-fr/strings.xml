@@ -891,4 +891,5 @@
     <string name="preference_zebra_stripes_foreground_color_summary">Couleur à utiliser pour la bande en premier plan quand les bandes zébra sont affichées.
 \n%s</string>
     <string name="preference_zebra_stripes_foreground_color">Couleur des bandes zébra au premier plan</string>
+    <string name="preference_zebra_stripes_background_color">Couleur des bandes zébra d\'arrière-plan</string>
 </resources>
