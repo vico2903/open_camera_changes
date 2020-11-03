@@ -793,7 +793,7 @@
     <string name="preference_video_bitrate_200000000">200 Mbps</string>
     <string name="preference_video_bitrate_150000000">150 Mbps</string>
     <string name="preference_record_audio_src_voice_recognition">Optimisé pour la reconnaissance vocale</string>
-    <string name="preference_video_log_off">Défaut</string>
+    <string name="preference_video_log_off">Par défaut</string>
     <string name="preference_camera2_photo_video_recording_summary">Autorise la prise de photos pendant l\'enregistrement vidéo. À désactiver si des problèmes se manifestent lors de l\'enregistrement vidéo avec l\'API Camera2 activée.</string>
     <string name="preference_camera2_photo_video_recording">Autoriser les photos pendant l\'enregistrement vidéo</string>
     <string name="saf_permission_failed_open_image">Impossible d\'ouvrir cette image</string>
