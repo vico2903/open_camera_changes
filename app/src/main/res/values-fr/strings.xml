@@ -527,7 +527,7 @@
     <string name="focus_bracketing_add_infinity">Ajouter une distance infinie</string>
     <string name="photo_mode_focus_bracketing_full">Bracketing de mise au point</string>
     <string name="photo_mode_focus_bracketing">Focus {}</string>
-    <string name="preference_video_log_extra_strong">Très fort</string>
+    <string name="preference_video_log_extra_strong">Log (Très fort)</string>
     <string name="preference_video_log_strong">Log (Fort)</string>
     <string name="preference_video_log_medium">Log (Moyen)</string>
     <string name="preference_video_log_low">Log (Faible)</string>
