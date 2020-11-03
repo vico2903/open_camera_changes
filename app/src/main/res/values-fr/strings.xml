@@ -862,4 +862,5 @@
     <string name="preference_immersive_mode_navigation">Masquer uniquement les boutons de navigation virtuelle de l\'écran</string>
     <string name="preference_immersive_mode_gui">Masquer l\'interface graphique</string>
     <string name="preference_immersive_mode_everything">Tout masquer</string>
+    <string name="preference_zebra_stripes_93pc">93 %</string>
 </resources>
