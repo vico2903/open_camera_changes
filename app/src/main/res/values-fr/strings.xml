@@ -900,4 +900,5 @@
     <string name="preference_zebra_stripes_color_orange">Orange</string>
     <string name="preference_zebra_stripes_color_red">Rouge</string>
     <string name="external_camera">Caméra externe</string>
+    <string name="ultrawide">Grand-angle</string>
 </resources>
