@@ -198,7 +198,7 @@
     <string name="preference_force_video_4k">Forcer la vidéo 4K UHD (ne fonctionne que sur certains appareils)</string>
     <string name="preference_force_video_4k_summary">Activer la définition 3840x2160 pour l\'enregistrement vidéo avec la caméra arrière - cette option est un bidouillage qui peut permettre aux appareils 4K sur les caméras 4K qui n\'exposent pas l\'option à des applications de caméra tierces. Le fonctionnement de cette option n\'est pas garanti, veuillez la tester avant de travailler.</string>
     <string name="preference_video_stabilization">Activer la stabilisation vidéo numérique</string>
-    <string name="preference_video_stabilization_summary">La stabilisation vidéo réduit les tremblements dûent aux mouvements de la caméra à la fois dans l\'aperçu et dans les vidéos enregistrées</string>
+    <string name="preference_video_stabilization_summary">La stabilisation vidéo réduit les tremblements dus aux mouvements de la caméra à la fois dans l\'aperçu et dans les vidéos enregistrées. Cela peut être inutile si votre appareil prend en charge la stabilisation optique de l\'image (OIS).</string>
     <string name="preference_video_bitrate">Débit des vidéos (environ)</string>
     <string name="preference_video_bitrate_summary">Définir le débit approximatif des vidéos (plus élevé signifie une meilleure qualité, mais prend plus d\'espace disque ; et peut entraîner un échec de l\'enregistrement vidéo si le débit n\'est pas pris en charge)
 \n%s</string>
