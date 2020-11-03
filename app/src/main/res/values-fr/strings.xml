@@ -904,4 +904,5 @@
     <string name="switch_to_external_camera">Basculer sur la caméra externe</string>
     <string name="switch_to_unknown_camera">Changer de caméra</string>
     <string name="switch_multi_camera">Basculer entre plusieurs caméras</string>
+    <string name="preference_multi_cam_button">Icône des caméras multiples</string>
 </resources>
