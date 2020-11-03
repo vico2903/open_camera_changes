@@ -915,4 +915,6 @@
     <string name="error_features_bitrate">Bitrate</string>
     <string name="error_features_frame_rate">Fréquence d\'images</string>
     <string name="error_features_slow_motion">Ralenti</string>
+    <string name="preference_comment_ypr_summary">Sauvegarder le lacet, le tangage et le roulis de l\'appareil dans le commentaire utilisateur Exif (format JPEG seulement)</string>
+    <string name="preference_comment_ypr">Sauvegarder le lacet, le tangage et le roulis</string>
 </resources>
