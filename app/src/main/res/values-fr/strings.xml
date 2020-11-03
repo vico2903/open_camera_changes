@@ -495,7 +495,7 @@
     <string name="video_log">Profil logarithmique</string>
     <string name="preference_video_log_summary">Activer un profil logarithmique pour le mode vidéo
 \n%s</string>
-    <string name="preference_video_log">Profil vidéo logarithmique</string>
+    <string name="preference_video_log">Profil vidéo</string>
     <string name="preference_camera2_fast_burst_summary">Permet une capture plus rapide des prises de vue du HDR/expo. Désactivez cette fonction si votre appareil a des problèmes pour prendre des photos en mode HDR ou Expo.</string>
     <string name="preference_camera2_fast_burst">Activer la rafale rapide de HDR/expo</string>
     <string name="preference_camera_api_camera2">API Camera2</string>
