@@ -217,7 +217,7 @@
     <string name="preference_record_audio">Enregistrer l\'audio</string>
     <string name="preference_record_audio_summary">Enregistre l\'audio lors de l\'enregistrement vidéo</string>
     <string name="preference_record_audio_src">Source audio</string>
-    <string name="preference_record_audio_src_summary">Microphone à utiliser pour l\'enregistrement audio. Notez que le comportement de l\'option dépend de comment l\'option est implémentée sur votre appareil.
+    <string name="preference_record_audio_src_summary">Microphone à utiliser pour l\'enregistrement audio. Notez que le comportement des options dépend de comment l\'option est implémentée sur votre appareil.
 \n%s</string>
     <string name="preference_record_audio_channels">Canaux audio</string>
     <string name="preference_record_audio_channels_summary">Spécifier mono ou stéréo pour l\'enregistrement audio (stéréo uniquement pris en charge sur certains appareils)</string>
