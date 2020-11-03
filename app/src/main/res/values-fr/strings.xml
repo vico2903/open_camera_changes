@@ -203,7 +203,7 @@
     <string name="preference_video_bitrate_summary">Définir le débit approximatif des vidéos (plus élevé signifie une meilleure qualité, mais prend plus d\'espace disque ; et peut entraîner un échec de l\'enregistrement vidéo si le débit n\'est pas pris en charge)
 \n%s</string>
     <string name="preference_video_fps">Fréquence d\'images vidéo (environ)</string>
-    <string name="preference_video_fps_summary">Définir la fréquence d\'images (FPS) des vidéos (peut être approximative, non garantie, et peut entraîner l\'échec de l\'enregistrement vidéo si la fréquence d\'images n\'est pas prise en charge). Notez que ce paramètre est ignoré pour les vidéos au ralenti.
+    <string name="preference_video_fps_summary">Définir la fréquence d\'images (FPS) des vidéos (peut être approximative, non garantie, et peut entraîner l\'échec de l\'enregistrement vidéo si la fréquence d\'images n\'est pas prise en charge). Veuillez vérifier les vidéos produites pour déterminer la bonne fréquence d\'images. Notez que ce paramètre est ignoré pour les vidéos au ralenti. 
 \n%s</string>
     <string name="preference_video_max_duration">Durée maximale de la vidéo</string>
     <string name="preference_video_max_duration_summary">L\'enregistrement vidéo s\'arrêtera après la durée spécifiée\n%s</string>
