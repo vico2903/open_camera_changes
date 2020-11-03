@@ -875,4 +875,13 @@
 \n%s</string>
     <string name="preference_video_profile_gamma">Valeur du gamma vidéo</string>
     <string name="preference_video_profile_gamma_1_6">1,6</string>
+    <string name="preference_video_profile_gamma_2_8">2,8</string>
+    <string name="preference_video_profile_gamma_2_6">2,6</string>
+    <string name="preference_video_profile_gamma_2_4">2,4</string>
+    <string name="preference_video_profile_gamma_2_3">2,3</string>
+    <string name="preference_video_profile_gamma_2_2">2,2</string>
+    <string name="preference_video_profile_gamma_2_1">2,1</string>
+    <string name="preference_video_profile_gamma_2_0">2,0</string>
+    <string name="preference_video_profile_gamma_1_9">1,9</string>
+    <string name="preference_video_profile_gamma_1_8">1,8</string>
 </resources>
