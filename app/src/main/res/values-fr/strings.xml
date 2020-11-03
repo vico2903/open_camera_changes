@@ -871,4 +871,7 @@
     <string name="preference_video_rec709">REC709</string>
     <string name="preference_video_srgb">sRGB</string>
     <string name="preference_video_gamma">Gamma</string>
+    <string name="preference_video_profile_gamma_summary">Valeur gamma à utiliser pour la vidéo si le profil de l\'image vidéo est défini sur Gamma
+\n%s</string>
+    <string name="preference_video_profile_gamma">Valeur du gamma vidéo</string>
 </resources>
