@@ -909,4 +909,5 @@
     <string name="preference_show_camera_id">Afficher l\'identifiant de la caméra</string>
     <string name="preference_show_camera_id_summary">Afficher le numéro d\'identification de la caméra actuelle à l\'écran</string>
     <string name="preference_allow_long_press">Permettre des actions de pression longue</string>
+    <string name="preference_allow_long_press_summary">Permettre ou non les actions de pression longue (ex. : une pression longue sur la galerie pour changer la sauvegarde de localisation).</string>
 </resources>
