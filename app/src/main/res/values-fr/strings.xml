@@ -459,7 +459,7 @@
     <string name="preference_audio_control_summary">Prendre une photo/vidéo lorsqu\'un bruit est détecté, ou sur commande vocale. Lorsque cette fonction est activée, utilisez le bouton du microphone à l\'écran pour démarrer/arrêter l\'écoute. Notez que l\'option de commande vocale utilise le service de reconnaissance vocale Android : lorsque vous utilisez cette option, les données audio sont probablement envoyées à des serveurs distants pour effectuer la reconnaissance vocale.
 
 \n%s</string>
-    <string name="preference_camera_api_summary">Sélectionner l\'API Camera2 pour activer des fonctions supplémentaires telles que les modes manuels d\'exposition, de mise au point, de balance des blancs, ainsi que le mode RAW (s\'il est pris en charge par l\'appareil), mais il se peut qu\'il ne fonctionne pas correctement sur tous les appareils. La modification de l\'API entraînera un redémarrage.
+    <string name="preference_camera_api_summary">Sélectionner l\'API Camera2 pour activer des fonctions supplémentaires telles que les modes manuels d\'exposition, de mise au point, de balance des blancs, ainsi que le mode RAW (s\'il est pris en charge par l\'appareil). La modification de l\'API entraînera un redémarrage. 
 \n%s</string>
     <string name="preference_image_format_summary">Sélectionner le format de fichier utilisé pour l\'enregistrement des photos. Cela concerne les photos \"standard\" (pas RAW). Notez que le format PNG n\'est pas vraiment sans perte, il est plutôt converti à partir d\'un JPEG avec une qualité de 100 %%.
 \n%s</string>
