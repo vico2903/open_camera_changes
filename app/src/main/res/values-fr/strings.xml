@@ -912,4 +912,5 @@
     <string name="preference_allow_long_press_summary">Permettre ou non les actions de pression longue (ex. : une pression longue sur la galerie pour changer la localisation de l\'enregistrement).</string>
     <string name="aperture">Ouverture</string>
     <string name="error_features_4k">4K UHD</string>
+    <string name="error_features_bitrate">Bitrate</string>
 </resources>
