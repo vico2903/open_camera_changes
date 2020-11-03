@@ -863,4 +863,5 @@
     <string name="preference_immersive_mode_gui">Masquer l\'interface graphique</string>
     <string name="preference_immersive_mode_everything">Tout masquer</string>
     <string name="preference_zebra_stripes_93pc">93 %</string>
+    <string name="preference_zebra_stripes_95pc">95 %</string>
 </resources>
