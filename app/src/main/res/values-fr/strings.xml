@@ -895,4 +895,8 @@
     <string name="preference_zebra_stripes_background_color_summary">Couleur à utiliser pour la bande en arrière plan quand les rayures sont affichées.
 \n%s</string>
     <string name="preference_zebra_stripes_color_black">Noir</string>
+    <string name="preference_zebra_stripes_color_white">Blanc</string>
+    <string name="preference_zebra_stripes_color_transparent">Transparent</string>
+    <string name="preference_zebra_stripes_color_orange">Orange</string>
+    <string name="preference_zebra_stripes_color_red">Rouge</string>
 </resources>
