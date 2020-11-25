@@ -13,30 +13,33 @@
     
     <ImageButton
         android:id="@+id/take_photo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:padding="10dp"
         android:scaleType="fitCenter"
         android:contentDescription="@string/take_photo"
-        android:src="@drawable/take_photo_selector"
+        android:src="@lineageos.platform:drawable/ic_camera_shutter"
         android:onClick="clickedTakePhoto"
         android:layout_centerVertical="true"
         android:background="@null"
         />
 
+
+
     <ImageButton
         android:id="@+id/switch_camera"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:padding="5dp"
+        android:padding="10dp"
         android:scaleType="fitCenter"
         android:contentDescription="@string/switch_to_front_camera"
-        android:src="@drawable/switch_camera"
+        android:src="@lineageos.platform:drawable/ic_camera_toggle"
         android:onClick="clickedSwitchCamera"
         android:layout_above="@+id/take_photo"
         android:background="@drawable/circle_background"
         android:backgroundTint="@color/icons_background_tint"
         android:backgroundTintMode="src_in"
+        android:tint="@color/color_default_foreground"
         />
 
     <ImageButton
@@ -60,6 +63,7 @@
         android:backgroundTint="@color/icons_background_tint"
         android:backgroundTintMode="src_in"
         android:visibility="gone"
+
         />
 
     <ImageButton
@@ -98,8 +102,8 @@
         android:padding="10dp"
         android:scaleType="fitCenter"
         android:contentDescription="@string/switch_to_video"
-        android:src="@drawable/take_video"
-        android:alpha="0.55"
+        android:src="@lineageos.platform:drawable/ic_camera_video"
+        android:tint="@color/color_default_foreground"
         android:onClick="clickedSwitchVideo"
         android:layout_below="@+id/take_photo"
         android:background="@null"
@@ -120,6 +124,7 @@
         />
 
     <ZoomControls
+
         android:id="@+id/zoom"
         android:contentDescription="@string/zoom"
         android:layout_width="wrap_content"
@@ -127,17 +132,20 @@
         android:alpha="0.5"
         />
 
-    <SeekBar
-        android:id="@+id/zoom_seekbar"
-        android:contentDescription="@string/zoom"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="0dp"
-        android:background="@color/seekbar_background"
-        />
+    <LinearLayout
+        android:layout_marginRight="50dp"
+        android:gravity="center|right"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <SeekBar
+            android:rotation="90"
+            android:id="@+id/zoom_seekbar"
+            android:contentDescription="@string/zoom"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+             android:background="@color/seekbar_background"
+            />
+    </LinearLayout>
 
     <!-- n.b., layout_marginLeft set programmatically in DrawPreview -->
     <SeekBar
@@ -155,6 +163,7 @@
 
     <!-- n.b., layout_marginLeft set programmatically in DrawPreview -->
     <SeekBar
+
         android:id="@+id/focus_bracketing_target_seekbar"
         android:contentDescription="@string/focus_bracketing_target_distance"
         android:layout_width="150dp"
@@ -176,7 +185,7 @@
         android:visibility="invisible"
         />
 
-    <ImageButton
+  <!--  <ImageButton
         android:id="@+id/gallery"
         android:layout_width="@dimen/onscreen_button_size"
         android:layout_height="@dimen/onscreen_button_size"
@@ -187,6 +196,17 @@
         android:background="@color/icons_background"
         android:backgroundTint="@color/icons_background_tint"
         android:backgroundTintMode="src_in"
+
+        />-->
+
+    <net.sourceforge.opencamera.ui.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/gallery"
+        android:layout_width="@dimen/onscreen_button_size"
+        android:layout_height="@dimen/onscreen_button_size"
+        android:src="@drawable/baseline_photo_library_white_48"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#ffffff"
         android:onClick="clickedGallery"
         />
 

@@ -19,6 +19,7 @@ import net.sourceforge.opencamera.preview.ApplicationInterface;
 import net.sourceforge.opencamera.preview.BasicApplicationInterface;
 import net.sourceforge.opencamera.preview.Preview;
 import net.sourceforge.opencamera.preview.VideoProfile;
+import net.sourceforge.opencamera.ui.CircleImageView;
 import net.sourceforge.opencamera.ui.DrawPreview;
 
 import android.annotation.TargetApi;
@@ -2202,7 +2203,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                 }
             }
             if( thumbnail != null ) {
-                ImageButton galleryButton = main_activity.findViewById(R.id.gallery);
+                CircleImageView galleryButton = main_activity.findViewById(R.id.gallery);
                 int width = thumbnail.getWidth();
                 int height = thumbnail.getHeight();
                 if( MyDebug.LOG )
