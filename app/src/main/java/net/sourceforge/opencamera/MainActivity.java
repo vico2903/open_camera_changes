@@ -6,6 +6,7 @@ import net.sourceforge.opencamera.cameracontroller.CameraControllerManager2;
 import net.sourceforge.opencamera.preview.Preview;
 import net.sourceforge.opencamera.preview.VideoProfile;
 import net.sourceforge.opencamera.remotecontrol.BluetoothRemoteControl;
+import net.sourceforge.opencamera.ui.CircleImageView;
 import net.sourceforge.opencamera.ui.FolderChooserDialog;
 import net.sourceforge.opencamera.ui.MainUI;
 import net.sourceforge.opencamera.ui.ManualSeekbars;
@@ -35,6 +36,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.GradientDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -383,7 +385,7 @@ public class MainActivity extends Activity {
 
         // initialise on-screen button visibility
         ImageButton switchCameraButton = findViewById(R.id.switch_camera);
-  //      switchCameraButton.setImageTintList(ColorStateList.valueOf(accentColor));
+
         switchCameraButton.setVisibility(n_cameras > 1 ? View.VISIBLE : View.GONE);
         // switchMultiCameraButton visibility updated below in mainUI.updateOnScreenIcons(), as it also depends on user preference
         View speechRecognizerButton = findViewById(R.id.audio_control);
@@ -396,7 +398,7 @@ public class MainActivity extends Activity {
         takePhotoVideoButton.setImageTintList(ColorStateList.valueOf(accentColor));
 
         switchVideoButton = (ImageButton) findViewById(R.id.switch_video);
-        switchVideoButton.setImageTintList(ColorStateList.valueOf(accentColor));
+        //switchVideoButton.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.color_default_foreground)));
 
 
         takePhotoVideoButton.setVisibility(View.GONE);
@@ -2958,7 +2960,7 @@ public class MainActivity extends Activity {
     private void updateGalleryIconToBlank() {
         if( MyDebug.LOG )
             Log.d(TAG, "updateGalleryIconToBlank");
-        ImageButton galleryButton = this.findViewById(R.id.gallery);
+        CircleImageView galleryButton = this.findViewById(R.id.gallery);
         int bottom = galleryButton.getPaddingBottom();
         int top = galleryButton.getPaddingTop();
         int right = galleryButton.getPaddingRight();
@@ -2973,13 +2975,15 @@ public class MainActivity extends Activity {
     }
 
     /** Shows a thumbnail for the gallery icon.
+    /** Shows a thumbnail for the gallery icon.
      */
     void updateGalleryIcon(Bitmap thumbnail) {
         if( MyDebug.LOG )
             Log.d(TAG, "updateGalleryIcon: " + thumbnail);
-        ImageButton galleryButton = this.findViewById(R.id.gallery);
-        galleryButton.setImageBitmap(thumbnail);
-        gallery_bitmap = thumbnail;
+           CircleImageView galleryButton = this.findViewById(R.id.gallery);
+            galleryButton.setImageBitmap(thumbnail);
+            gallery_bitmap = thumbnail;
+
     }
 
     /** Updates the gallery icon by searching for the most recent photo.
@@ -3153,7 +3157,7 @@ public class MainActivity extends Activity {
 
         this.runOnUiThread(new Runnable() {
             public void run() {
-                final ImageButton galleryButton = findViewById(R.id.gallery);
+                final CircleImageView galleryButton = findViewById(R.id.gallery);
                 if( started ) {
                     //galleryButton.setColorFilter(0x80ffffff, PorterDuff.Mode.MULTIPLY);
                     if( gallery_save_anim == null ) {
@@ -4075,6 +4079,7 @@ public class MainActivity extends Activity {
                         // note we zoom even if !fromUser, as various other UI controls (multitouch, volume key zoom, -/+ zoomcontrol)
                         // indirectly set zoom via this method, from setting the zoom slider
                         preview.zoomTo(preview.getMaxZoom() - progress);
+
                     }
 
                     @Override
@@ -5019,15 +5024,7 @@ public class MainActivity extends Activity {
      * */
     private int fetchAccentColor(Context context) {
 
-        TypedValue typedValue = new TypedValue();
-        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(this,
-                android.R.style.Theme_DeviceDefault);
-        contextThemeWrapper.getTheme().resolveAttribute(android.R.attr.colorAccent,
-                typedValue, true);
-        int color_accent = typedValue.data;
-        Log.e("TAG", "accent Colour  #"+Integer.toHexString(color_accent));
-
-        return color_accent;
+        return context.getResources().getColor(R.color.color_default_blue1);
     }
 
 

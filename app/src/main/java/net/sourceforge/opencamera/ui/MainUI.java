@@ -309,7 +309,7 @@ public class MainUI {
                 layoutParams.addRule(below, 0);
                 layoutParams.addRule(left_of, 0);
                 layoutParams.addRule(right_of, 0);
-                layoutParams.setMargins(0, 0, navigation_gap, 0);
+                layoutParams.setMargins(20, 20, navigation_gap, 20);
                 view.setLayoutParams(layoutParams);
                 setViewRotation(view, ui_rotation);
             }
@@ -502,7 +502,7 @@ public class MainUI {
             view.setLayoutParams(layoutParams);
             view.setRotation(180.0f); // should always match the zoom_seekbar, so that zoom in and out are in the same directions
 
-            view = main_activity.findViewById(R.id.zoom_seekbar);
+          //  view = main_activity.findViewById(R.id.zoom_seekbar);
             layoutParams = (RelativeLayout.LayoutParams)view.getLayoutParams();
             // if we are showing the zoom control, the align next to that; otherwise have it aligned close to the edge of screen
             if( sharedPreferences.getBoolean(PreferenceKeys.ShowZoomControlsPreferenceKey, false) ) {
@@ -535,7 +535,7 @@ public class MainUI {
             layoutParams = (RelativeLayout.LayoutParams)view.getLayoutParams();
             layoutParams.addRule(align_left, R.id.preview);
             layoutParams.addRule(align_right, 0);
-            layoutParams.addRule(left_of, R.id.zoom_seekbar);
+           // layoutParams.addRule(left_of, R.id.zoom_seekbar);
             layoutParams.addRule(right_of, 0);
             layoutParams.addRule(align_parent_top, 0);
             layoutParams.addRule(align_parent_bottom, RelativeLayout.TRUE);
@@ -545,7 +545,7 @@ public class MainUI {
             layoutParams = (RelativeLayout.LayoutParams)view.getLayoutParams();
             layoutParams.addRule(align_left, R.id.preview);
             layoutParams.addRule(align_right, 0);
-            layoutParams.addRule(left_of, R.id.zoom_seekbar);
+            //layoutParams.addRule(left_of, R.id.zoom_seekbar);
             layoutParams.addRule(right_of, 0);
             layoutParams.addRule(above, R.id.focus_seekbar);
             layoutParams.addRule(below, 0);
@@ -848,7 +848,7 @@ public class MainUI {
 
             view = main_activity.findViewById(R.id.switch_video);
             view.setContentDescription( main_activity.getResources().getString(switch_video_content_description) );
-            resource = main_activity.getPreview().isVideo() ? R.drawable.take_photo : R.drawable.take_video;
+            resource = main_activity.getPreview().isVideo() ? lineageos.platform.R.drawable.ic_camera_photo : lineageos.platform.R.drawable.ic_camera_video;
             view.setImageResource(resource);
             view.setTag(resource); // for testing
         }
