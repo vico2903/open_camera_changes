@@ -2,7 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+
+    >
 
     <FrameLayout
         android:id="@+id/preview"
@@ -10,12 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         />
-    
+    <!--center-->
     <ImageButton
         android:id="@+id/take_photo"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:padding="10dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:padding="5dp"
         android:scaleType="fitCenter"
         android:contentDescription="@string/take_photo"
         android:src="@lineageos.platform:drawable/ic_camera_shutter"
@@ -28,8 +30,8 @@
 
     <ImageButton
         android:id="@+id/switch_camera"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:padding="10dp"
         android:scaleType="fitCenter"
         android:contentDescription="@string/switch_to_front_camera"
@@ -96,9 +98,10 @@
 
     <!-- alpha of 0.5 flags up Google Play prelaunch warning about contrast ratio too low (2.92; should be at least 3)-->
     <ImageButton
+
         android:id="@+id/switch_video"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:padding="10dp"
         android:scaleType="fitCenter"
         android:contentDescription="@string/switch_to_video"
@@ -202,12 +205,13 @@
     <net.sourceforge.opencamera.ui.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/gallery"
-        android:layout_width="@dimen/onscreen_button_size"
-        android:layout_height="@dimen/onscreen_button_size"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:src="@drawable/baseline_photo_library_white_48"
         app:civ_border_width="2dp"
         app:civ_border_color="#ffffff"
         android:onClick="clickedGallery"
+        android:padding="10dp"
         />
 
     <ImageButton
