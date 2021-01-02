@@ -325,7 +325,7 @@
     <string name="preference_save_photo_prefix_summary">Argazkien fitxategi-izenak gordetzeko erabiliko den aurrizkia</string>
     <string name="preferences_source_code">Iturburu-kodea</string>
     <string name="preferences_licence">Lizentzia</string>
-    <string name="preferences_service_terms">Zerbitzu-baldintzak</string>
+    <string name="preferences_service_terms">Erabilera baldintzak</string>
     <string name="preferences_authors">Egileak</string>
     <string name="preference_lock_video_summary">Bideoa grabatzean, interfazea blokeatuta egongo da grabazioa ustekabean ez gelditzeko. Pasatu hatza pantaila desblokeatzeko. Kontuan izan bideo-grabazioa beti geldituko dela aplikazioa bigarren mailan sartu edo pantaila ezabatzen bada.</string>
     <string name="preference_lock_video">Blokeatu pantaila bideoa grabatzean</string>
