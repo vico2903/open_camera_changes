@@ -495,4 +495,18 @@
     <string name="accuracy_unknown">Ezezaguna</string>
     <string name="flash_torch">Linterna</string>
     <string name="no_burst">segidarik ez</string>
+    <string name="preference_focus_peaking_on">Aktibatuta</string>
+    <string name="preference_focus_peaking_off">Desaktibatuta</string>
+    <string name="preference_zebra_stripes_100pc">%100</string>
+    <string name="preference_zebra_stripes_99pc">%99</string>
+    <string name="preference_zebra_stripes_98pc">%98</string>
+    <string name="preference_zebra_stripes_97pc">%97</string>
+    <string name="preference_zebra_stripes_95pc">%95</string>
+    <string name="preference_zebra_stripes_93pc">%93</string>
+    <string name="preference_zebra_stripes_90pc">%90</string>
+    <string name="preference_zebra_stripes_80pc">%80</string>
+    <string name="preference_zebra_stripes_70pc">%70</string>
+    <string name="preference_zebra_stripes_off">Desaktibatuta</string>
+    <string name="preference_histogram_off">Desaktibatuta</string>
+    <string name="preference_histogram_rgb">RGB koloreak</string>
 </resources>
