@@ -5,5 +5,5 @@
             <solid android:color="#FF2E9CF4"/>
        </shape>
     </item>
-    <item android:drawable="@drawable/settings"/>
+    <item android:drawable="@lineageos.platform:drawable/ic_settings"/>
 </layer-list>

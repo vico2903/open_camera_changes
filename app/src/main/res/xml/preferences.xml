@@ -596,7 +596,7 @@
                 android:key="preference_show_cycle_flash"
                 android:title="@string/preference_show_cycle_flash"
                 android:summary="@string/preference_show_cycle_flash_summary"
-                android:icon="@drawable/flash_on"
+                android:icon="@lineageos.platform:drawable/ic_camera_flash_on"
                 android:defaultValue="false"
                 />
 
@@ -656,7 +656,7 @@
                 android:key="preference_show_exposure_lock"
                 android:title="@string/preference_show_exposure_lock"
                 android:summary="@string/preference_show_exposure_lock_summary"
-                android:icon="@drawable/exposure_unlocked"
+                android:icon="@lineageos.platform:drawable/ic_camera_exposure_unlocked"
                 android:defaultValue="true"
                 />
 

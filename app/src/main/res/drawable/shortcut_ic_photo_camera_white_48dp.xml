@@ -5,5 +5,5 @@
             <solid android:color="#FF2E9CF4"/>
        </shape>
     </item>
-    <item android:drawable="@drawable/ic_photo_camera_white_48dp"/>
+    <item android:drawable="@lineageos.platform:drawable/ic_camera_photo"/>
 </layer-list>

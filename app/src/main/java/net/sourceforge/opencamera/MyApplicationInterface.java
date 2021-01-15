@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -1899,6 +1900,9 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             // ability to switch between auto and manual
             main_activity.getMainUI().setupExposureUI();
         }
+
+        ImageButton view = main_activity.findViewById(R.id.take_photo);
+        view.setImageTintList(ColorStateList.valueOf(main_activity.getResources().getColor(lineageos.platform.R.color.color_default_red1)));
         final int video_method = this.createOutputVideoMethod();
         boolean dategeo_subtitles = getVideoSubtitlePref().equals("preference_video_subtitle_yes");
         if( dategeo_subtitles && video_method != ApplicationInterface.VIDEOMETHOD_URI ) {
