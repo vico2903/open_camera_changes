@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
@@ -132,7 +133,7 @@ public class MainActivity extends Activity {
     private boolean camera_in_background; // whether the camera is covered by a fragment/dialog (such as settings or folder picker)
     private GestureDetector gestureDetector;
     private boolean screen_is_locked; // whether screen is "locked" - this is Open Camera's own lock to guard against accidental presses, not the standard Android lock
-    private final Map<Integer, Bitmap> preloaded_bitmap_resources = new Hashtable<>();
+    private final Map<Integer, Bitmap> preloaded_bitmap_resources = new HashMap<>();
     private ValueAnimator gallery_save_anim;
     private boolean last_continuous_fast_burst; // whether the last photo operation was a continuous_fast_burst
 
@@ -199,7 +200,6 @@ public class MainActivity extends Activity {
     private static final float WATER_DENSITY_FRESHWATER = 1.0f;
     private static final float WATER_DENSITY_SALTWATER = 1.03f;
     private float mWaterDensity = 1.0f;
-    private int accentColor;
     private ImageButton switchVideoButton;
 
     @Override
@@ -248,7 +248,6 @@ public class MainActivity extends Activity {
                 Log.d(TAG, "shortcut: " + getIntent().getAction());
         }
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        accentColor=fetchAccentColor(this);
         // determine whether we should support "auto stabilise" feature
         // risk of running out of memory on lower end devices, due to manipulation of large bitmaps
         ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
@@ -395,8 +394,6 @@ public class MainActivity extends Activity {
         View pauseVideoButton = findViewById(R.id.pause_video);
         pauseVideoButton.setVisibility(View.GONE);
         ImageButton takePhotoVideoButton = findViewById(R.id.take_photo_when_video_recording);
-        takePhotoVideoButton.setImageTintList(ColorStateList.valueOf(accentColor));
-
         switchVideoButton = (ImageButton) findViewById(R.id.switch_video);
         //switchVideoButton.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.color_default_foreground)));
 
@@ -1039,7 +1036,9 @@ public class MainActivity extends Activity {
         for(Map.Entry<Integer, Bitmap> entry : preloaded_bitmap_resources.entrySet()) {
             if( MyDebug.LOG )
                 Log.d(TAG, "recycle: " + entry.getKey());
-            entry.getValue().recycle();
+            if(entry.getValue() != null) {
+                entry.getValue().recycle();
+            }
         }
         preloaded_bitmap_resources.clear();
         if( textToSpeech != null ) {
@@ -2968,7 +2967,7 @@ public class MainActivity extends Activity {
 	    /*if( MyDebug.LOG )
 			Log.d(TAG, "padding: " + bottom);*/
         galleryButton.setImageBitmap(null);
-        galleryButton.setImageResource(R.drawable.baseline_photo_library_white_48);
+        galleryButton.setImageResource(lineageos.platform.R.drawable.ic_album);
         // workaround for setImageResource also resetting padding, Android bug
         galleryButton.setPadding(left, top, right, bottom);
         gallery_bitmap = null;
@@ -4107,9 +4106,7 @@ public class MainActivity extends Activity {
             if( MyDebug.LOG )
                 Log.d(TAG, "cameraSetup: time after setting up zoom: " + (System.currentTimeMillis() - debug_time));
 
-            ImageButton takePhotoButton = (ImageButton) findViewById(R.id.take_photo);
-            takePhotoButton.setImageTintList(ColorStateList.valueOf(accentColor));
-
+            ImageButton takePhotoButton = findViewById(R.id.take_photo);
             if( sharedPreferences.getBoolean(PreferenceKeys.ShowTakePhotoPreferenceKey, true) ) {
                 if( !mainUI.inImmersiveMode() ) {
                     takePhotoButton.setVisibility(View.VISIBLE);
@@ -5018,16 +5015,6 @@ public class MainActivity extends Activity {
     public boolean testHasNotification() {
         return has_notification;
     }
-
-    /*
-     * get Accent color from OS
-     * */
-    private int fetchAccentColor(Context context) {
-
-        return context.getResources().getColor(R.color.color_default_blue1);
-    }
-
-
 }
 
 

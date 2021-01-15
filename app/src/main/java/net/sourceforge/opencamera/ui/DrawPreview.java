@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -40,6 +41,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.media.ExifInterface;
 import android.net.Uri;
@@ -171,7 +173,7 @@ public class DrawPreview {
     private Bitmap burst_bitmap;
     private Bitmap nr_bitmap;
     private Bitmap photostamp_bitmap;
-    private Bitmap flash_bitmap;
+    private Drawable flash_bitmap;
     private Bitmap face_detection_bitmap;
     private Bitmap audio_disabled_bitmap;
     private Bitmap high_speed_fps_bitmap;
@@ -263,7 +265,11 @@ public class DrawPreview {
         burst_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_burst_mode_white_48dp);
         nr_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.nr_icon);
         photostamp_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_text_format_white_48dp);
-        flash_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.flash_on);
+        try {
+            flash_bitmap = getContext().getPackageManager().getResourcesForApplication("lineageos.platform").getDrawable(lineageos.platform.R.drawable.ic_camera_flash_on);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         face_detection_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_face_white_48dp);
         audio_disabled_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_mic_off_white_48dp);
         high_speed_fps_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_fast_forward_white_48dp);
@@ -330,10 +336,6 @@ public class DrawPreview {
         if( photostamp_bitmap != null ) {
             photostamp_bitmap.recycle();
             photostamp_bitmap = null;
-        }
-        if( flash_bitmap != null ) {
-            flash_bitmap.recycle();
-            flash_bitmap = null;
         }
         if( face_detection_bitmap != null ) {
             face_detection_bitmap.recycle();
@@ -1528,7 +1530,8 @@ public class DrawPreview {
                     p.setAlpha((int)(64*alpha));
                     canvas.drawRect(icon_dest, p);
                     p.setAlpha((int)(255*alpha));
-                    canvas.drawBitmap(flash_bitmap, null, icon_dest, p);
+                    flash_bitmap.draw(canvas);
+                    //canvas.drawBitmap(flash_bitmap, null, icon_dest, p);
                     p.setAlpha(255);
                 }
                 else {
@@ -2043,12 +2046,12 @@ public class DrawPreview {
                 preview.getView().getLocationOnScreen(gui_location);
                 int preview_left = gui_location[0];
                 this.top_icon_shift = top_margin - preview_left;
-                /*if( MyDebug.LOG ) {
+                if( MyDebug.LOG ) {
                     Log.d(TAG, "top_icon.getRotation(): " + top_icon.getRotation());
                     Log.d(TAG, "preview_left: " + preview_left);
                     Log.d(TAG, "top_margin: " + top_margin);
                     Log.d(TAG, "top_icon_shift: " + top_icon_shift);
-                }*/
+                }
 
                 last_top_icon_shift_time = time_ms;
             }

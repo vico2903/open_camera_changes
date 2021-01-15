@@ -1358,6 +1358,7 @@ public class PopupView extends LinearLayout {
                     if( bm != null )
                         image_button.setImageBitmap(bm);
                     else {
+                        image_button.setImageResource(resource);
                         if( MyDebug.LOG )
                             Log.d(TAG, "failed to find bitmap for resource " + resource + "!");
                     }

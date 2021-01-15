@@ -498,13 +498,13 @@
         <item>200</item>
     </string-array>
     <string-array name="flash_icons">
-        <item>drawable/flash_off</item>
-        <item>drawable/flash_auto</item>
-        <item>drawable/flash_on</item>
+        <item>lineageos.platform:drawable/ic_camera_flash_off</item>
+        <item>lineageos.platform:drawable/ic_camera_flash_auto</item>
+        <item>lineageos.platform:drawable/ic_camera_flash_on</item>
         <item>drawable/baseline_highlight_white_48</item>
         <item>drawable/baseline_remove_red_eye_white_48</item>
-        <item>drawable/flash_auto</item>
-        <item>drawable/flash_on</item>
+        <item>lineageos.platform:drawable/ic_camera_flash_auto</item>
+        <item>lineageos.platform:drawable/ic_camera_flash_on</item>
         <item>drawable/baseline_highlight_white_48</item>
     </string-array>
     <string-array name="flash_entries">
