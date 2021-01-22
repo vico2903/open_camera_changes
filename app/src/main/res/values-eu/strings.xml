@@ -217,7 +217,7 @@
     <string name="scene_mode_beach">Hondartza</string>
     <string name="scene_mode_barcode">Barra-kodea</string>
     <string name="scene_mode_action">Jarduera</string>
-    <string name="white_balance_manual">Eskuzkoa</string>
+    <string name="white_balance_manual">Eskuz</string>
     <string name="white_balance_warm">Epela</string>
     <string name="white_balance_twilight">Ilunabarra</string>
     <string name="white_balance_shade">Itzala</string>
@@ -475,7 +475,7 @@
 \n
 \nUneko zehaztasuna:</string>
     <string name="magnetic_accuracy_title">Iparrorratzaren norabidea</string>
-    <string name="accuracy_high">Altua</string>
+    <string name="accuracy_high">Handia</string>
     <string name="accuracy_medium">Ertaina</string>
     <string name="accuracy_low">Baxua</string>
     <string name="accuracy_unreliable">Ez fidagarria</string>
@@ -509,4 +509,5 @@
     <string name="preference_zebra_stripes_off">Desaktibatuta</string>
     <string name="preference_histogram_off">Desaktibatuta</string>
     <string name="preference_histogram_rgb">RGB koloreak</string>
+    <string name="aperture">Irekidura</string>
 </resources>
