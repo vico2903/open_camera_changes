@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="preference_audio_noise_control_sensitivity">Gevoeligheid audio besturing</string>
-    <string name="preference_audio_control">Audio besturing opties</string>
+    <string name="preference_audio_control">Audio besturingsopties</string>
     <string name="preference_volume_keys">Volume knoppen</string>
     <string name="preference_shutter_sound_summary">Laat een sluiter toon horen bij het nemen van een foto</string>
     <string name="preference_shutter_sound">Sluiter geluid</string>
@@ -68,7 +68,7 @@
     <string name="stopped_recording_video">Video-opname gestopt</string>
     <string name="changed_save_location">Opslag locatie gewijzigd naar:</string>
     <string name="choose_another_folder">Kies een andere map</string>
-    <string name="clear_folder_history_question">Map geschiedenis wissen\?</string>
+    <string name="clear_folder_history_question">Wis map geschiedenis\?</string>
     <string name="clear_folder_history">Wis map geschiedenis</string>
     <string name="choose_save_location">Kies opslag locatie:</string>
     <string name="off">Uit</string>
@@ -184,7 +184,7 @@
     <string name="preference_show_time">Toon tijd</string>
     <string name="preference_show_geo_direction_summary">Toon de kompas richting van het apparaat op het scherm</string>
     <string name="preference_show_geo_direction">Toon kom­pas ­rich­ting</string>
-    <string name="preference_show_angle_line_summary">Toon horizontaal level lijn</string>
+    <string name="preference_show_angle_line_summary">Toon horizontale level lijn</string>
     <string name="preference_show_angle_line">Toon hoek lijn</string>
     <string name="preference_free_memory">Toon vrij geheugen</string>
     <string name="preference_show_zoom_summary">Toon het zoom niveau op het scherm (wanneer ingezoomd)</string>
@@ -267,19 +267,19 @@
     <string name="preference_show_toasts">Toon berichten op het scherm</string>
     <string name="preference_crop_guide_summary">Geeft een rechthoek weer om te zien hoe een andere beeldverhouding er uit kan zien - handig als je van plan bent om later de foto/video beeldverhouding aan te passen. Vereist WYSIWYG foto modus of video modus
 \n%s</string>
-    <string name="preference_crop_guide">Bijsnijden hulplijnen</string>
+    <string name="preference_crop_guide">Toon hulplijnen voor bijsnijden</string>
     <string name="preference_free_memory_summary">Toon de resterende opslag ruimte van het toestel op het scherm</string>
-    <string name="preference_show_iso_summary">Geeft de huidige ISO waarde weer. In auto flash modus, een flash symbool zal ook aangeven wanneer de flash zal af gaan. (Vereist Camera2 API)</string>
-    <string name="preference_show_zoom_slider_controls_summary">Geeft de slider om de zoom te regelen weer</string>
+    <string name="preference_show_iso_summary">Geeft de huidige ISO waarde weer. In auto flits modus, een flits symbool zal ook aangeven wanneer de flits zal af gaan. (Vereist Camera2 API)</string>
+    <string name="preference_show_zoom_slider_controls_summary">Toon de slider om de zoom te regelen</string>
     <string name="preference_show_zoom_slider_controls">Toon zoom slider</string>
     <string name="preference_show_zoom_controls_summary">Geeft -/+ knoppen om de zoom te regelen weer</string>
     <string name="preference_show_zoom_controls">Toon zoom -/+ knoppen</string>
     <string name="preference_ui_placement">Plaatsing van gebruikersinterface</string>
     <string name="preference_rotate_preview_summary">Optie om de voorbeeld weergave te draaien (heeft geen invloed op het resultaat van de opname)
 \n%s</string>
-    <string name="preference_startup_focus_summary">Of de camera automatisch scherp stelt bij het opstarten van de app. Wanneer de flash ongevraagd aan gaat, schakel deze optie uit</string>
+    <string name="preference_startup_focus_summary">Of de camera automatisch scherp stelt bij het opstarten van de app. Wanneer je een probleem hebt waardoor de flits ongevraagd aan gaat bij het starten, schakel je deze optie uit</string>
     <string name="preference_using_saf_summary">Maak gebruik van Storage Access Framework om foto\'s en video\'s op te slaan. Vink dit aan (vanaf Android 5) om te kunnen opslaan op externe SD-cards.</string>
-    <string name="preference_audio_noise_control_sensitivity_summary">Niveau van gevoeligheid voor audio besturing</string>
+    <string name="preference_audio_noise_control_sensitivity_summary">Geluidniveau gevoeligheid voor harde geluiden</string>
     <string name="preference_zebra_stripes_100pc">100%</string>
     <string name="preference_burst_mode_40x">40x</string>
     <string name="preference_burst_mode_30x">30x</string>
