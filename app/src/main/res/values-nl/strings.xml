@@ -736,4 +736,17 @@
 \n*De optionele stem besturing maakt gebruik van de Android spraak herkenning service. Wanneer ingeschakeld zal audio data waarschijnlijk verzonden worden naar externe servers om spraakherkenning uit te voeren.
 \n*De \"Addressen\" optie voor foto stempels of video ondertitels maakt gebruik van Android Geocoder API. Wanneer ingeschakeld is het nodig om locatie data over internet te versturen naar een derde partij (Dit hangt af van welke backend service geïnstalleerd zijn op je toestel).
 \n*Apps/services zoals cloud services kunnen de foto\'s en video\'s op je toestel automatisch uploaden. </string>
+    <string name="preference_camera2_fake_flash_summary">Schakel dit in als je apparaat onvolmaakte flits gedrag heeft met Camera2 API</string>
+    <string name="permission_rationale_record_audio">Microfoon permissie is nodig om video met geluid op te nemen, en ook om de \"Audio beheer\" opties te kunnen gebruiken.</string>
+    <string name="photo_mode_expo_bracketing_full">Blootstelling Bracketing</string>
+    <string name="auto_stabilise_info">"Auto-level zal automatisch foto\'s roteren, zodat ze waterpas staan.
+\n
+\nLet op dat dit betekent dat foto\'s een kleinere resolutie zullen hebben (door het roteren en bijsnijden dat benodigd is). "</string>
+    <string name="audio_control_stop">Stop beluisteren van geluid</string>
+    <string name="audio_control_start">Start beluisteren van geluid</string>
+    <string name="preference_video_flash_summary">"Indien ingeschakeld, flits zal ingeschakeld of uitgeschakeld worden tijdens het opnemen van video (kan gebruikt worden om aan te geven dat de camera nog steeds aan het opnemen is, vanaf een afstand) "</string>
+    <string name="preference_video_flash">Flits tijdens het opnemen van een video</string>
+    <string name="preference_angle_highlight_color_summary">Markeer met kleur wanneer camera waterpas staat.</string>
+    <string name="preference_show_angle_summary">"Toon de huidige apparaat oriëntatie hoek op het scherm "</string>
+    <string name="preference_immersive_mode">Meeslepende modus</string>
 </resources>
