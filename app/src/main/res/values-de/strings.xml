@@ -878,4 +878,8 @@
     <string name="preference_comment_ypr_summary">Roll-Nick-Gier-Winkel des Geräts in den Exif-Daten des Fotos speichern (nur JPEG)</string>
     <string name="preference_comment_ypr">Roll-Nick-Gier-Winkel speichern</string>
     <string name="error_features_slow_motion">Zeitlupe</string>
+    <string name="preference_licence_google_icons_text">Kamera verwendet Symbole von Googles Material Design Icons (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) unter der Apache-Lizenz Version 2.0. Einige Symbole enthalten Modifikationen. Tippen Sie hier für den vollständigen Lizenztext.</string>
+    <string name="preference_licence_open_camera_text">Kamera ist urheberrechtlich geschützt © 2013-2019 Mark Harman, veröffentlicht unter der GPL v3 oder neuer. Tippen Sie hier für den vollständigen Lizenztext.</string>
+    <string name="preference_screen_licences">Open-Source-Lizenzen</string>
+    <string name="preference_privacy_policy_text" translatable="false"> shouldn\'t be translated </string>
 </resources>
