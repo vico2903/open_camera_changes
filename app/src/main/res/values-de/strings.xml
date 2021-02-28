@@ -843,7 +843,7 @@
     <string name="preference_audio_control_summary">Foto-/Video per Geräuscherkennung oder Sprachbefehl aufnehmen. Wenn diese Funktion aktiviert ist, können Sie mit der Mikrofontaste auf dem Bildschirm die Aufnahmebereitschaft starten/stoppen. Beachten Sie, dass die Sprachbefehlsoption den Android-Spracherkennungsdienst verwendet: Wenn diese Option verwendet wird, werden Audiodaten wahrscheinlich an entfernte Server gesendet, um die Spracherkennung durchzuführen.
 \n
 \n%s</string>
-    <string name="preference_show_camera_id">Kamera ID anzeigen</string>
+    <string name="preference_show_camera_id">Kamera-ID anzeigen</string>
     <string name="switch_to_external_camera">Wechsle zu externer Kamera</string>
     <string name="external_camera">Externe Kamera</string>
     <string name="preference_zebra_stripes_color_white">Weiß</string>
