@@ -757,9 +757,9 @@
     <string name="preference_camera_api_old">Originale Kamera-API</string>
     <string name="preference_camera_api_summary">Wählen Sie Kamera 2 API aus, um Zusatzfunktionen wie manueller Modus für die Belichtungszeit, Fokus, Weißabgleich, sowie RAW (sofern vom Gerät unterstützt) zu aktivieren, die unter Umständen nicht auf allen Geräten einwandfrei funktionieren. Eine Änderung der API führt zu einem Neustart.
 \n%s</string>
-    <string name="preference_privacy_policy_online">Datenschutzrichtlinie im Netz</string>
+    <string name="preference_privacy_policy_online">Datenschutzerklärung im Netz</string>
     <string name="preference_privacy_policy_summary">Drücken, um die Datenschutzrichtlinie anzuzeigen</string>
-    <string name="preference_privacy_policy">Datenschutzrichtlinie</string>
+    <string name="preference_privacy_policy">Datenschutzerklärung</string>
     <string name="preference_camera_api_camera2">Kamera 2 API</string>
     <string name="preference_camera_api">Kamera API</string>
     <string name="preference_image_format_summary">Wählen Sie das Dateiformat für Fotospeicherung aus. Dies betrifft Standard-Fotos (keine RAW). Bemerkung: PNG ist nicht wirklich verlustfrei, denn es ist von JPEG mit 100%%-iger Qualität konvertiert.
@@ -870,7 +870,9 @@
     <string name="preference_show_camera_id_summary">Aktuelle Kamer- ID auf dem Bildschirm anzeigen</string>
     <string name="preference_allow_long_press">Erlaube Aktionen bei langem Drücken</string>
     <string name="preference_allow_long_press_summary">Aktionen bei langem Drücken erlauben (z.B. langes Drücken auf die Foto-Galerie, um den Speicherort zu ändern).</string>
-    <string name="error_features_frame_rate">"Bildwiederholrate "</string>
+    <string name="error_features_frame_rate">Bildwiederholrate</string>
     <string name="error_features_bitrate">Bitrate</string>
     <string name="error_features_4k">4K UHD</string>
+    <string name="preference_licence_google_icons">Material-Design-Symbole von Google</string>
+    <string name="preference_licence_open_camera">Kamera</string>
 </resources>
