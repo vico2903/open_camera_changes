@@ -755,8 +755,8 @@
     <string name="preferences_app_info_title">Kamerainformationen</string>
     <string name="preferences_service_terms">Nutzungsbedingungen</string>
     <string name="preference_camera_api_old">Originale Kamera-API</string>
-    <string name="preference_camera_api_summary">"Wählen Sie Kamera 2 API aus um zusätzliche Features wie manueller Modus für die Belichtungszeit, Fokus, Weißlichtabgleich,  samt RAW (wenn von dem Gerät unterstützt), funktioniert unter Umständen jedoch nicht auf allen Geräten. Die API zu ändern verursacht einen Neustart.
-\n%s"</string>
+    <string name="preference_camera_api_summary">Wählen Sie Kamera 2 API aus, um Zusatzfunktionen wie manueller Modus für die Belichtungszeit, Fokus, Weißabgleich, sowie RAW (sofern vom Gerät unterstützt) zu aktivieren, die unter Umständen nicht auf allen Geräten einwandfrei funktionieren. Eine Änderung der API führt zu einem Neustart.
+\n%s</string>
     <string name="preference_privacy_policy_online">Datenschutzrichtlinie im Netz</string>
     <string name="preference_privacy_policy_summary">Drücken, um die Datenschutzrichtlinie anzuzeigen</string>
     <string name="preference_privacy_policy">Datenschutzrichtlinie</string>
@@ -838,4 +838,9 @@
     <string name="intro_text">Tippe um zu fokussieren, und drücke das blaue Kamerasymbol um Fotos aufzunehmen.
 \n
 \nUm die maximale Bildschirmhelligkeit zu deaktivieren, gehe zu Einstellungen/Benutzeroberfläche/„Maximale Helligkeit erzwingen“. Um ab Android 5 oder höher auf der SD-Karte zu speichern, gehe zu Einstellungen/Mehr Kamera-Einstellungen.../„Benutze Storage Access Framework“. Für weitere Hilfe tippe auf „Online-Hilfe“ in den Einstellungen.</string>
+    <string name="preference_stamp_geo_address_summary">Falls möglich, eine Adresse beim Stempeln von GPS-Standorten verwenden. Diese Option erfordert eine Internetverbindung. Falls diese Option aktiviert ist, ist es erforderlich, dass Ihr Gerät Standortdaten über das Internet an einen Dritten überträgt, um die GPS-Koordinaten in eine Adresse umzuwandeln. Siehe https://developer.android.com/reference/android/location/Geocoder.
+\n%s</string>
+    <string name="preference_audio_control_summary">Foto-/Video per Geräuscherkennung oder Sprachbefehl aufnehmen. Wenn diese Funktion aktiviert ist, können Sie mit der Mikrofontaste auf dem Bildschirm die Aufnahmebereitschaft starten/stoppen. Beachten Sie, dass die Sprachbefehlsoption den Android-Spracherkennungsdienst verwendet: Wenn diese Option verwendet wird, werden Audiodaten wahrscheinlich an entfernte Server gesendet, um die Spracherkennung durchzuführen.
+\n
+\n%s</string>
 </resources>
