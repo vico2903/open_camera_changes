@@ -869,4 +869,5 @@
     <string name="preference_video_srgb">sRGB</string>
     <string name="preference_show_camera_id_summary">Aktuelle Kamer- ID auf dem Bildschirm anzeigen</string>
     <string name="preference_allow_long_press">Erlaube Aktionen bei langem Drücken</string>
+    <string name="preference_allow_long_press_summary">Drücken-und-Halten Funktionen erlauben (z.B. Drücken-und-Halten in Galerie, um Speicherort zu ändern).</string>
 </resources>
