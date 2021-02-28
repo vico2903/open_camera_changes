@@ -843,4 +843,28 @@
     <string name="preference_audio_control_summary">Foto-/Video per Geräuscherkennung oder Sprachbefehl aufnehmen. Wenn diese Funktion aktiviert ist, können Sie mit der Mikrofontaste auf dem Bildschirm die Aufnahmebereitschaft starten/stoppen. Beachten Sie, dass die Sprachbefehlsoption den Android-Spracherkennungsdienst verwendet: Wenn diese Option verwendet wird, werden Audiodaten wahrscheinlich an entfernte Server gesendet, um die Spracherkennung durchzuführen.
 \n
 \n%s</string>
+    <string name="preference_show_camera_id">Kamera ID anzeigen</string>
+    <string name="switch_to_external_camera">Wechsle zu externer Kamera</string>
+    <string name="external_camera">Externe Kamera</string>
+    <string name="preference_zebra_stripes_color_white">Weiß</string>
+    <string name="preference_zebra_stripes_color_transparent">Transparent</string>
+    <string name="preference_zebra_stripes_color_orange">Orange</string>
+    <string name="preference_zebra_stripes_color_red">Rot</string>
+    <string name="preference_zebra_stripes_color_black">Schwarz</string>
+    <string name="preference_ghost_image_alpha">Ghost image Transparenz</string>
+    <string name="preference_video_profile_gamma_2_8">2.8</string>
+    <string name="preference_video_profile_gamma_2_6">2.6</string>
+    <string name="preference_video_profile_gamma_2_4">2.4</string>
+    <string name="preference_video_profile_gamma_2_3">2.3</string>
+    <string name="preference_video_profile_gamma_2_2">2.2</string>
+    <string name="preference_video_profile_gamma_2_1">2.1</string>
+    <string name="preference_video_profile_gamma_2_0">2.0</string>
+    <string name="preference_video_profile_gamma_1_9">1.9</string>
+    <string name="preference_video_profile_gamma_1_8">1.8</string>
+    <string name="preference_video_profile_gamma_1_6">1.6</string>
+    <string name="preference_video_profile_gamma_summary">Gamma-Wert für Video, falls Video-Bildprofil auf Gamma gestellt ist
+\n%s</string>
+    <string name="preference_video_profile_gamma">Video Gamma-Wert</string>
+    <string name="preference_video_gamma">Gamma</string>
+    <string name="preference_video_srgb">sRGB</string>
 </resources>
