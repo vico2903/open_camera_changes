@@ -111,7 +111,7 @@
     <string name="preference_save_location">Speicherort</string>
     <string name="preference_save_location_summary">Ordner, wo die Fotos/Videos gespeichert werden</string>
     <string name="preference_using_saf">Benutze Storage Access Framework</string>
-    <string name="preference_using_saf_summary">Für das Speichern der Fotos/Videos Storage Access Framework verwenden</string>
+    <string name="preference_using_saf_summary">Für das Speichern der Fotos/Videos Storage Access Framework verwenden. Dies sollte aktiviert werden, um das Speichern auf externen SD-Karten zu ermöglichen.</string>
     <string name="preference_save_photo_prefix">Foto-Präfix</string>
     <string name="preference_save_photo_prefix_summary">Den Präfix für die Dateinamen der Fotos einstellen</string>
     <string name="preference_save_video_prefix">Video-Präfix</string>
@@ -156,7 +156,7 @@
     <!-- short form of Show a grid -->
     <string name="preference_crop_guide">Beschnitt-Hilfslinien</string>
     <string name="preference_crop_guide_summary">Anzeige einer rechteckigen Hilfslinie entsprechend dem gewählten Seitenverhältnis (nützlich, wenn ein Beschnitt geplant ist). Nur in der WYSIWYG-Vorschau oder bei Videoaufnahme möglich\n%s</string>
-    <string name="preference_show_toasts">Toast-Benachrichtigungen</string>
+    <string name="preference_show_toasts">Bildschirmbenachrichtigungen anzeigen</string>
     <string name="preference_show_toasts_summary">Anzeige von Popup-Meldungen aktivieren/deaktivieren</string>
     <string name="preference_thumbnail_animation">Vorschau-Animation</string>
     <string name="preference_thumbnail_animation_summary">Zeigt eine Vorschaubildanimation bei der Fotoaufnahme</string>
@@ -199,12 +199,13 @@
     <string name="preference_force_video_4k">Erzwinge UHD/4K (experimentell)</string>
     <string name="preference_force_video_4k_summary">Aktiviert die Auflösung von 3840x2160 für die Videoaufnahme der Hauptkam
         era. Funktioniert jedoch nur, wenn es vom Gerät unterstützt wird</string>
-    <string name="preference_video_stabilization">Video-Stabilisierung</string>
-    <string name="preference_video_stabilization_summary">Die Video-Stabilisierung reduziert das Bildwackeln in der Vorschau und der Aufnahme</string>
+    <string name="preference_video_stabilization">Digitale Video-Stabilisierung aktivieren</string>
+    <string name="preference_video_stabilization_summary">Die Video-Stabilisierung reduziert Bildwackeln in der Vorschau und der Aufnahme. Dies ist eventuell nicht erforderlich, wenn das Gerät optische Bildstabilisierung (OIS) unterstützt.</string>
     <string name="preference_video_bitrate">Video-Bitrate (durchschnittlich)</string>
     <string name="preference_video_bitrate_summary">Einstellung der durchschnittlichen Bitrate der Videoaufnahme (je höher umso besser die Qualität und höher die Dateigröße). Nicht alle Geräte unterstützen alle Bitraten\n%s</string>
     <string name="preference_video_fps">Bildwiederholfrequenz</string>
-    <string name="preference_video_fps_summary">Einstellung der Bildwiederholrate (FPS) der Videoaufnahme. Dieser Wert kann nicht immer garantiert werden. Nicht alle Geräte unterstützen alle Raten\n%s</string>
+    <string name="preference_video_fps_summary">Einstellung der Bildwiederholrate (FPS) der Videoaufnahme. Dieser Wert kann nicht immer garantiert werden. Die Videoaufnahme kann fehlschlagen, wenn die Bildrate nicht unterstützt wird. Bitte prüfen Sie die erzeugten Videos, um die tatsächliche Bildrate zu ermitteln. Diese Einstellung wird nicht bei Slow-Motion-Videos berücksichtigt.
+\n%s</string>
     <string name="preference_video_max_duration">Maximaldauer</string>
     <string name="preference_video_max_duration_summary">Die Videoaufnahme wird nach dieser Zeit abgebrochen.\n%s</string>
     <string name="preference_video_restart">Neustart der Aufnahme nach Maximaldauer</string>
@@ -216,7 +217,8 @@
     <string name="preference_record_audio">Ton aufzeichnen</string>
     <string name="preference_record_audio_summary">Wenn aktiviert, wird das Video mit Ton aufgenommen.</string>
     <string name="preference_record_audio_src">Audio-Quelle</string>
-    <string name="preference_record_audio_src_summary">Einstellung der Mikrofonquelle für die Tonaufnahme\n%s</string>
+    <string name="preference_record_audio_src_summary">Einstellung der Mikrofonquelle für die Tonaufnahme. Die exakte Auswirkung der Einstellungen ist abhängig vom Gerät.
+\n%s</string>
     <string name="preference_record_audio_channels">Audio-Kanäle</string>
     <string name="preference_record_audio_channels_summary">Mono- oder Stereo-Aufnahme (Stereo wird nur von einigen Geräten unterstützt)</string>
     <string name="preference_video_flash">Blitzlicht während der Videoaufnahme</string>
@@ -465,13 +467,14 @@
     <string name="saf_permission_failed_open_image">Bild kann nicht geöffnet werden</string>
     <string name="preference_camera2_photo_video_recording">Ermögliche Fotos während der Videoaufnahme</string>
     <string name="preference_camera2_photo_video_recording_summary">Ermögliche Fotos während der Videoaudnahme. Diese Option ausschalten, falls Probleme mit dem Camera-2-API auftreten.</string>
-    <string name="preference_video_log">Flaches (Log-) Video-Profil</string>
-    <string name="preference_video_log_summary">Aktiviere ein flaches (Log-) Profil für den Video-Modus\n%s</string>
-    <string name="preference_video_log_off">Aus</string>
-    <string name="preference_video_log_low">Schwach</string>
-    <string name="preference_video_log_medium">Mittel</string>
-    <string name="preference_video_log_strong">Stark</string>
-    <string name="preference_video_log_extra_strong">Extra stark</string>
+    <string name="preference_video_log">Video-Bildprofile</string>
+    <string name="preference_video_log_summary">Aktiviere Standard- oder flaches Bildprofil für den Video-Modus
+\n%s</string>
+    <string name="preference_video_log_off">Standard</string>
+    <string name="preference_video_log_low">Log (Niedrig)</string>
+    <string name="preference_video_log_medium">Log (Mittel)</string>
+    <string name="preference_video_log_strong">Log (Stark)</string>
+    <string name="preference_video_log_extra_strong">Log (Extra stark)</string>
     <string name="video_log">Log-Profil</string>
     <string name="preference_record_audio_src_camcorder">Camcorder</string>
     <string name="preference_record_audio_src_mic">Externes Mikrofon</string>
@@ -528,7 +531,7 @@
     <string name="preference_units_distance_summary">Verwendet für GPS-Höhe, Fotostempel und Video-Untertitel\n%s</string>
     <string name="preference_show_whats_new">Zeige den What\'s-New-Dialog</string>
     <string name="preference_show_whats_new_summary">Zeigt Info zu neuen Features und Verbesserungen wenn die App upgedatet wurde</string>
-    <string name="preference_video_log_fine">Fein</string>
+    <string name="preference_video_log_fine">Log (Fein)</string>
     <string name="preference_focus_assist">Fokus-Assistenz</string>
     <string name="preference_focus_assist_summary">Zoomt näher bei manueller Fokussierung\n%s</string>
     <string name="preference_focus_assist_off">Aus</string>
