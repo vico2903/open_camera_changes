@@ -474,7 +474,7 @@
     <string name="preference_video_log_low">Log (Niedrig)</string>
     <string name="preference_video_log_medium">Log (Mittel)</string>
     <string name="preference_video_log_strong">Log (Stark)</string>
-    <string name="preference_video_log_extra_strong">Log (Extra stark)</string>
+    <string name="preference_video_log_extra_strong">Log (Extrastark)</string>
     <string name="video_log">Log-Profil</string>
     <string name="preference_record_audio_src_camcorder">Camcorder</string>
     <string name="preference_record_audio_src_mic">Externes Mikrofon</string>
@@ -540,7 +540,7 @@
     <string name="exposure_compensation_zoom">Erhöhe oder vermindere die Belichtungskorrektur</string>
     <string name="previous">Vorheriges</string>
     <!-- for "ContentDescription" (used for accessibility, e.g., Google Talkback) for "<" button on popup menu -->
-    <string name="next">Nächstes</string>
+    <string name="next">Weiter</string>
     <!-- for "ContentDescription" (used for accessibility, e.g., Google Talkback) for ">" button on popup menu -->
     <string name="preference_burst_mode_off">Aus</string>
     <string name="preference_burst_mode_2x">2x</string>
@@ -754,7 +754,7 @@
     <string name="preferences_licence">Lizenz</string>
     <string name="preferences_app_info_title">Kamerainformationen</string>
     <string name="preferences_service_terms">Nutzungsbedingungen</string>
-    <string name="preference_camera_api_old">Orginale Kamera API</string>
+    <string name="preference_camera_api_old">Originale Kamera-API</string>
     <string name="preference_camera_api_summary">"Wählen Sie Kamera 2 API aus um zusätzliche Features wie manueller Modus für die Belichtungszeit, Fokus, Weißlichtabgleich,  samt RAW (wenn von dem Gerät unterstützt), funktioniert unter Umständen jedoch nicht auf allen Geräten. Die API zu ändern verursacht einen Neustart.
 \n%s"</string>
     <string name="preference_privacy_policy_online">Datenschutzrichtlinie im Netz</string>
@@ -794,7 +794,7 @@
     <string name="preference_noise_reduction_mode_summary">Der Algorithmus, den der Kameratreiber für Rauschreduzierung benutzen soll. Der Rauschreduzierungs-Algorithmus versucht die Bildqualität zu verbessern, indem er überschüssiges Rauschen entfernt, das beim Aufnehmen entsteht, vor allem in dunklen Bedingungen. (Das ist nicht wegen des Rauschreduzierungs-Fotomodus, und diese Einstellung wird im NR-Fotomodus ignoriert.)</string>
     <string name="preference_noise_reduction_mode">Rauschreduzierung-Algorithmus</string>
     <string name="preference_screen_processing_settings">Einstellungen werden verarbeitet…</string>
-    <string name="preference_edge_mode_summary">Der Algorithmus, den der Kameratreiber für Kantenglättung benutzen soll. Kantenglättung verbessert Schärfe und Details im aufgenommen Bild. (Diese Einstellung wird im Rauschreduzierungs-Modus ignoriert.)
+    <string name="preference_edge_mode_summary">Der Algorithmus, den der Kameratreiber für Kantenglättung benutzen soll. Kantenglättung verbessert Schärfe und Details im aufgenommen Bild. (Diese Einstellung wird im NR Foto Modus ignoriert.)
 \n%s</string>
     <string name="preference_edge_mode">Kantenglättung-Algorithmus</string>
     <string name="feet_abbreviation">Fuß</string>
@@ -831,4 +831,11 @@
     <string name="preference_immersive_mode_gui">Alle Einstellelemente ausblenden</string>
     <string name="preference_immersive_mode_everything">Alles ausblenden</string>
     <string name="aperture">Blende</string>
+    <string name="preference_multi_cam_button">Symbol für mehrere Kameras</string>
+    <string name="switch_multi_camera">Zwischen mehreren Kameras wechseln</string>
+    <string name="switch_to_unknown_camera">Kamera wechseln</string>
+    <string name="ultrawide">Ultraweit</string>
+    <string name="intro_text">Tippe um zu fokussieren, und drücke das blaue Kamerasymbol um Fotos aufzunehmen.
+\n
+\nUm die maximale Bildschirmhelligkeit zu deaktivieren, gehe zu Einstellungen/Benutzeroberfläche/„Maximale Helligkeit erzwingen“. Um ab Android 5 oder höher auf der SD-Karte zu speichern, gehe zu Einstellungen/Mehr Kamera-Einstellungen.../„Benutze Storage Access Framework“. Für weitere Hilfe tippe auf „Online-Hilfe“ in den Einstellungen.</string>
 </resources>
