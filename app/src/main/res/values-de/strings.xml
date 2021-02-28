@@ -875,4 +875,7 @@
     <string name="error_features_4k">4K UHD</string>
     <string name="preference_licence_google_icons">Material-Design-Symbole von Google</string>
     <string name="preference_licence_open_camera">Kamera</string>
+    <string name="preference_comment_ypr_summary">Roll-Nick-Gier-Winkel des Geräts in den Exif-Daten des Fotos speichern (nur JPEG)</string>
+    <string name="preference_comment_ypr">Roll-Nick-Gier-Winkel speichern</string>
+    <string name="error_features_slow_motion">Zeitlupe</string>
 </resources>
