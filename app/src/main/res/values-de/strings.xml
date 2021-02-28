@@ -870,4 +870,7 @@
     <string name="preference_show_camera_id_summary">Aktuelle Kamer- ID auf dem Bildschirm anzeigen</string>
     <string name="preference_allow_long_press">Erlaube Aktionen bei langem Drücken</string>
     <string name="preference_allow_long_press_summary">Aktionen bei langem Drücken erlauben (z.B. langes Drücken auf die Foto-Galerie, um den Speicherort zu ändern).</string>
+    <string name="error_features_frame_rate">"Bildwiederholrate "</string>
+    <string name="error_features_bitrate">Bitrate</string>
+    <string name="error_features_4k">4K UHD</string>
 </resources>
