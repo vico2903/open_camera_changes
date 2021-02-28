@@ -867,5 +867,6 @@
     <string name="preference_video_profile_gamma">Video Gamma-Wert</string>
     <string name="preference_video_gamma">Gamma</string>
     <string name="preference_video_srgb">sRGB</string>
-    <string name="preference_show_camera_id_summary">Aktuelle Kamera ID auf dem Bildschirm anzeigen</string>
+    <string name="preference_show_camera_id_summary">Aktuelle Kamer- ID auf dem Bildschirm anzeigen</string>
+    <string name="preference_allow_long_press">Erlaube Aktionen bei langem Drücken</string>
 </resources>
