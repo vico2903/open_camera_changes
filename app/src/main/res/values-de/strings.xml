@@ -747,7 +747,7 @@
     <string name="bluetooth_scan">Scan</string>
     <string name="preference_stamp_style_shadowed">Schattierter Text</string>
     <string name="preference_stamp_style_plain">Normaler Text</string>
-    <string name="preferences_build_version">Build version</string>
+    <string name="preferences_build_version">Build Version</string>
     <string name="preferences_about_app">Kamera ist eine Anpassung von OpenCamera</string>
     <string name="preferences_authors">Autoren</string>
     <string name="preferences_source_code">Quellcode</string>
@@ -841,7 +841,6 @@
     <string name="preference_stamp_geo_address_summary">Falls möglich, eine Adresse beim Stempeln von GPS-Standorten verwenden. Diese Option erfordert eine Internetverbindung. Falls diese Option aktiviert ist, ist es erforderlich, dass Ihr Gerät Standortdaten über das Internet an einen Dritten überträgt, um die GPS-Koordinaten in eine Adresse umzuwandeln. Siehe https://developer.android.com/reference/android/location/Geocoder.
 \n%s</string>
     <string name="preference_audio_control_summary">Foto-/Video per Geräuscherkennung oder Sprachbefehl aufnehmen. Wenn diese Funktion aktiviert ist, können Sie mit der Mikrofontaste auf dem Bildschirm die Aufnahmebereitschaft starten/stoppen. Beachten Sie, dass die Sprachbefehlsoption den Android-Spracherkennungsdienst verwendet: Wenn diese Option verwendet wird, werden Audiodaten wahrscheinlich an entfernte Server gesendet, um die Spracherkennung durchzuführen.
-\n
 \n%s</string>
     <string name="preference_show_camera_id">Kamera-ID anzeigen</string>
     <string name="switch_to_external_camera">Wechsle zu externer Kamera</string>
@@ -882,4 +881,15 @@
     <string name="preference_licence_open_camera_text">Kamera ist urheberrechtlich geschützt © 2013-2019 Mark Harman, veröffentlicht unter der GPL v3 oder neuer. Tippen Sie hier für den vollständigen Lizenztext.</string>
     <string name="preference_screen_licences">Open-Source-Lizenzen</string>
     <string name="preference_privacy_policy_text" translatable="false"> shouldn\'t be translated </string>
+    <string name="preference_multi_cam_button_summary">Wenn aktiviert, werden unterschiedliche Tasten benutzt, um zwischen Vorder- und Rückkameras zu wechseln. Wenn deaktiviert, werden mit dem Kamera-Wechselsymbol alle Kameras durchgelaufen.</string>
+    <string name="preference_zebra_stripes_background_color_summary">Streifenfarbe für den Hintergrund, wenn Zebrastreifen angezeigt werden
+\n%s</string>
+    <string name="preference_zebra_stripes_background_color">Zebrastreifen-Hintergrundfarbe</string>
+    <string name="preference_zebra_stripes_foreground_color_summary">Streifenfarbe für den Vordergrund, wenn Zebrastreifen angezeigt werden
+\n%s</string>
+    <string name="preference_zebra_stripes_foreground_color">Zebrastreifen-Vordergrundfarbe</string>
+    <string name="preference_ghost_image_alpha_summary">Alphawert, der für Doppelbelichtungen benutzt wird. Ein niedriger Wert erzeugt mehr Transparenz, ein höherer mehr Opazität.
+\n%s</string>
+    <string name="preference_immersive_mode_low_profile">Nur die virtuellen Bildschirmtasten dimmen</string>
+    <string name="preference_video_rec709">REC709</string>
 </resources>
