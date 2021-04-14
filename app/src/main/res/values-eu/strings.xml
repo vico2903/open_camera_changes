@@ -591,4 +591,11 @@
     <string name="preference_burst_mode_10x">10x</string>
     <string name="preference_burst_mode">Errepikatu</string>
     <string name="next">Hurrengoa</string>
+    <string name="preference_privacy_policy_text" translatable="false"> <!-- hau aldatzen baduzu, pentsatu lineako pribatutasun-politika eguneratu behar den --> Open Camera kamera-sentsorearen eta mikrofonoaren datuetara sartzen da, kamera gisa duen asmoa betetzeko. Mikrofonoa aukerako \"audio-kontrolerako\" ere erabiltzen da. 
+\nFitxategietarako sarbidea sortutako fitxategiak (argazkiak eta bideoak) gailuan gordetzeko behar da. 
+\nKokapen-baimena aukerako geoetiketen ezaugarrietarako behar da (argazki eta bideoetarako, zigilu-aukerak eta azpitituluak barne). Dagozkion aukerak gaitzen direnean, gailuaren kokapena argazki-/bideo-/azpititulu-fitxategietan gordeko da. Bluetooth urruneko kontroleko gailuetara konektatzeko ere kokapen-baimena behar da. 
+\nOpen Camerak sistema eragilearen API ere erabiltzen duenez, pribatutasun-politika garrantzitsuak berrikusi behar dituzu, hala nola zure gailuarentzat, fabrikatzailearentzat, sistema eragilearentzat edota beste kontuentzat. Adibidez: 
+\n*Ahotsa kontrolatzeko aukerako aukerak Android-en ahotsa ulertzeko zerbitzua erabiltzen du. Aktibatuta dagoenean, baliteke audio-datuak Android-ek urruneko zerbitzarietara bidaltzea ahotsa ezagutzeko. 
+\n*Argazki-zigilurako edo bideo-azpitituluetarako \"helbideak\" aukerak Android Geocoder-en APIa erabiltzen du. Gaituta dagoenean, gailuak kokapen-datuak Internet bidez hirugarren bati transmititu behar dizkio (zure gailuan instalatutako backend zerbitzuen arabera). 
+\n*Zure gailuan hodeiko zerbitzuak bezalako aplikazioek/zerbitzuek automatikoki kargatu ditzakete zure gailuan gordetzen diren argazkiak eta bideoak. </string>
 </resources>
