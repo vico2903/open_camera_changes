@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="choose_another_folder">Elixir outro cartafol</string>
+    <string name="clear_folder_history_question">Eliminar o historial do cartafol\?</string>
+    <string name="clear_folder_history">Eliminar historial do cartafol</string>
+    <string name="choose_save_location">Elixir localización para gardar:</string>
+    <string name="off">Apagado</string>
+    <string name="on">Acendido</string>
+    <string name="intro_ok">ACEPTAR (Esta mensaxe non se amosará de novo)</string>
+    <string name="action_popup">Configuración dos elementos emerxentes</string>
+    <string name="action_settings">Configuración</string>
+    <string name="app_name">Cámara</string>
+</resources>
