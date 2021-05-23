@@ -767,4 +767,145 @@
     <string name="duration_10m">10 minutos</string>
     <string name="duration_9m">9 minutos</string>
     <string name="duration_8m">8 minutos</string>
+    <string name="preferences_app_info_title">Información da cámara</string>
+    <string name="preferences_about_app">Cámara está bifurcada de OpenCamara</string>
+    <string name="whats_new_text"> <small> [Este diálogo móstrase cando se actualiza a cámara. Podes desactivalo en Configuración / GUI na pantalla / Mostrar o diálogo Novidades.] </small>
+\n
+\n<b> v1.48: </b>
+\n <ul> <li> Nova icona para varias cámaras. Se o dispositivo ten varias cámaras dianteiras/traseiras, a icona existente para cambiar de cámara cambiará entre a cámara frontal e a traseira; a nova icona circulará entre as múltiples cámaras dianteiras ou traseiras. Se prefires o comportamento anterior, desactiva Configuración / GUI en pantalla / \"Icona de varias cámaras\". (Nota, só é compatible con dispositivos que expoñen varias cámaras a aplicativos de terceiros.)
+\n</li> <li> A función de nivel automático agora mostra un rectángulo en pantalla para amosar o marco da foto resultante.
+\n</li> <li> Control de apertura, para dispositivos que soportan isto. (Só API Camera2).
+\n</li> <li> Máis perfís de vídeo personalizados.
+\n</li> <li> Nova opción para o valor alfa para a imaxe fantasma.
+\n</li> <li> Opcións para as cores da raia cebra.
+\n</li> <li> Opción para almacenar o desvío/ton/roll actual do dispositivo no comentario do usuario Exif.
+\n</li> <li> Opción para desactivar as accións de premer longo.
+\n</li> <li> Mellor uso da pantalla completa con amplas relacións de aspecto en dispositivos con botóns de navegación en pantalla.
+\n</li> <li> Corrección de erros e melloras na interface de usuario.
+\n</li> </ul> </string>
+    <string name="preference_licence_google_icons_text">A cámara usa iconas das iconas de Material Design de Google (https://developer.android.com/design/downloads/index.html, https://design.google.com/icons/, https://github.com/google/ material-design-icons /, https://google.github.io/material-design-icons/) baixo a licenza Apache versión 2.0. Algúns iconas inclúen modificacións. Preme aquí para ver o texto completo da licenza.</string>
+    <string name="preference_licence_google_icons">Iconas de Material Design de Google</string>
+    <string name="preference_licence_open_camera_text">A cámara é © 2013–2019 Mark Harman, publicada baixo a GPL v3 ou posterior. Preme aquí para ver o texto completo da licenza.</string>
+    <string name="preference_licence_open_camera">Cámara</string>
+    <string name="preference_screen_licences">Licenza de Código Aberto</string>
+    <string name="preference_comment_ypr_summary">Almacene a guiñada, o cabeceo e o balanceo do dispositivo no comentario de usuario Exif da foto (só en formato JPEG)</string>
+    <string name="preference_comment_ypr">Almacena a guiñada, cabeceo e balanceo</string>
+    <string name="error_features_slow_motion">Movemento lento</string>
+    <string name="error_features_frame_rate">Taxa de cadros</string>
+    <string name="error_features_bitrate">Taxa de bits</string>
+    <string name="error_features_4k">4K UHD</string>
+    <string name="preference_allow_long_press_summary">Se son permitidas accións de premer longo (por exemplo, premer longo na galería para cambiar a situación de gardado).</string>
+    <string name="preference_allow_long_press">Permitir accións de premer longo</string>
+    <string name="preference_show_camera_id_summary">Mostrar o número de identificación da cámara actual na pantalla</string>
+    <string name="preference_show_camera_id">Amosar cámara ID</string>
+    <string name="preference_multi_cam_button_summary">Se está activado, use botóns separados para cambiar entre cámaras dianteiras/traseiras e para cambiar entre varias cámaras fronte/atrás. Se está desactivada, a icona Cambiar cámara percorrerá todas as cámaras.</string>
+    <string name="preference_multi_cam_button">Icona de cámaras múltiples</string>
+    <string name="switch_multi_camera">Cambiar entre cámaras múltiples</string>
+    <string name="switch_to_unknown_camera">Cambiar cámara</string>
+    <string name="switch_to_external_camera">Cambiar á cámara externa</string>
+    <string name="ultrawide">Ultra-ancho</string>
+    <string name="external_camera">Cámara externa</string>
+    <string name="preference_zebra_stripes_color_white">Branco</string>
+    <string name="preference_zebra_stripes_color_transparent">Transparente</string>
+    <string name="preference_zebra_stripes_color_orange">Laranxa</string>
+    <string name="preference_zebra_stripes_color_red">Vermello</string>
+    <string name="preference_zebra_stripes_color_black">Negro</string>
+    <string name="preference_zebra_stripes_background_color_summary">Cor para empregar na franxa de fondo cando se mostran raias de cebra.
+\n%s</string>
+    <string name="preference_zebra_stripes_background_color">Cor de fondo de raias de cebra</string>
+    <string name="preference_zebra_stripes_foreground_color_summary">Cor para empregar na raia de primeiro plano cando se mostran raias de cebra.
+\n%s</string>
+    <string name="preference_zebra_stripes_foreground_color">Cor de raias de cebra en primeiro plano</string>
+    <string name="preference_ghost_image_alpha_summary">Valor alfa para usar nas imaxes pantasmas. Un valor inferior significa máis transparente, maior significa máis opaco.
+\n%s</string>
+    <string name="preference_ghost_image_alpha">Opacidade da imaxe pantasma</string>
+    <string name="preference_immersive_mode_everything">Agochar todo</string>
+    <string name="preference_immersive_mode_gui">Agochar GUI</string>
+    <string name="preference_immersive_mode_navigation">Agochar os botóns de navegación virtual na pantalla</string>
+    <string name="preference_immersive_mode_low_profile">Só diminuír os botóns de navegación virtual na pantalla</string>
+    <string name="preference_immersive_mode_off">Apagado</string>
+    <string name="preference_video_profile_gamma_2_8">2,8</string>
+    <string name="preference_video_profile_gamma_2_6">2,6</string>
+    <string name="preference_video_profile_gamma_2_4">2,4</string>
+    <string name="preference_video_profile_gamma_2_3">2,3</string>
+    <string name="preference_video_profile_gamma_2_2">2,2</string>
+    <string name="preference_video_profile_gamma_2_1">2,1</string>
+    <string name="preference_video_profile_gamma_2_0">2,0</string>
+    <string name="preference_video_profile_gamma_1_9">1,9</string>
+    <string name="preference_video_profile_gamma_1_8">1,8</string>
+    <string name="preference_focus_peaking_color_summary">Que cor usar para resaltar os bordos enfocados
+\n%s</string>
+    <string name="preference_video_profile_gamma_1_6">1,6</string>
+    <string name="preference_video_profile_gamma_summary">Valor gamma que se usará no vídeo se o perfil da imaxe de vídeo está configurado en Gamma
+\n%s</string>
+    <string name="preference_video_profile_gamma">Valor gamma vídeo</string>
+    <string name="preference_video_gamma">Gamma</string>
+    <string name="preference_video_srgb">sRGB</string>
+    <string name="preference_video_rec709">REC709</string>
+    <string name="preference_select_remote">Seleccionar dispositivo remoto</string>
+    <string name="intro_text">Preme para focar e preme o botón azul da cámara para facer fotos.
+\n
+\nPara desactivar o brillo máximo da pantalla, consulte Configuración / GUI na pantalla / \"Forzar o brillo máximo\". Para gardar en tarxetas SD en Android 5+, consulte Configuración / Máis controis da cámara / \"Use Storage Access Framework\". Para obter máis axuda, preme en \"Axuda en liña\" en Configuración.</string>
+    <string name="preference_stamp_geo_address_summary">Se é posible, use un enderezo cando seleccione localizacións GPS. Esta opción require unha conexión a Internet. Teña en conta que, se está activado, é necesario que o dispositivo transmita datos de localización a través de Internet a un terceiro para converter as coordenadas GPS a un enderezo. Vexa https://developer.android.com/reference/android/location/Geocoder.
+\n%s</string>
+    <string name="preference_audio_control_summary">Tire fotos/vídeos cando se detecte un ruído ou por comando de voz. Cando estea activado, use o botón de micrófono en pantalla para iniciar/deixar de escoitar. Teña en conta que a opción de comando de voz utiliza o servizo de recoñecemento de voz de Android: cando se usa esta opción, é probable que os datos de audio se envíen a servidores remotos para realizar o recoñecemento de voz.
+\n%s</string>
+    <string name="preference_camera_api_camera2">API Camera2</string>
+    <string name="preference_camera_api_old">Cámara API orixinal</string>
+    <string name="preference_camera_api_summary">Seleccione a API Camera2 para habilitar funcións adicionais, como modos manuais de exposición, enfoque, balance de branco, xunto con RAW (se o dispositivo o admite). Cambiar a API provocará un reinicio.
+\n%s</string>
+    <string name="preference_camera_api">Cámara API</string>
+    <string name="preference_image_format_summary">Seleccione o formato de ficheiro usado para gardar fotos. Isto afecta ás fotos \"estándar\" (non RAW). Teña en conta que o formato PNG non é realmente sen perdas, senón que se converte desde un formato JPEG con calidade 100 %%.
+\n%s</string>
+    <string name="exposure_compensation_seekbar">Barra de busca para cambiar a compensación de exposición</string>
+    <string name="camera_id">ID</string>
+    <string name="preference_panorama_save_all_plus_debug">Garda imaxes orixinais e depura XML</string>
+    <string name="preference_panorama_save_all">Gardar imaxes orixinais</string>
+    <string name="preference_panorama_save_no">Non gardar imaxes orixinais</string>
+    <string name="preference_panorama_save_summary">Indica se se gardan as imaxes orixinais no modo panorámico. Teña en conta que isto gardará as fotos panorámicas máis lentamente. Permite tamén a opción de gardar un ficheiro XML que pode ser útil para informar de problemas con panorama.
+\n%s</string>
+    <string name="preference_panorama_save">Imaxes orixinais panorámicas</string>
+    <string name="panorama_info">Para facer unha imaxe panorámica, manteña o dispositivo en orientación vertical e preme para tirar unha foto para iniciar a panorámica. A continuación, xira o dispositivo á esquerda ou á dereita para mover o círculo branco centrado sobre o punto azul. Despois de capturar cada nova imaxe, siga xirando o dispositivo para cubrir cada novo punto azul que aparece á súa vez.
+\n
+\nPreme na icona de marca para gardar a panorámica ou na icona cruzada para cancelar.
+\n
+\nTen en conta que as fotos panorámicas poden levar tempo para procesarse e gardarse.</string>
+    <string name="preference_panorama_crop_summary">Para o modo panorámico, se están eliminados os límites ondulados
+\n%s</string>
+    <string name="preference_panorama_crop">Panorámica auto-recortada</string>
+    <string name="failed_to_process_panorama">Erro ao crear imaxe Panorámica</string>
+    <string name="panorama_cancelled">Panorámica cancelada</string>
+    <string name="cancel_panorama">Cancelar panorámica</string>
+    <string name="finish_panorama">Finalizar panorámica</string>
+    <string name="image_saving_notification">Gardando imaxes…</string>
+    <string name="preference_stamp_style_background">Texto con fondo sombreado</string>
+    <string name="preference_stamp_style_plain">Texto plano</string>
+    <string name="preference_stamp_style_shadowed">Texto sombreado</string>
+    <string name="bluetooth_scan">Buscar</string>
+    <string name="bluetooth_current_remote">Telecomando actual:</string>
+    <string name="preference_show_cycle_raw_summary">Indica se é amosada unha icona na pantalla para circular polos modos RAW</string>
+    <string name="preference_show_cycle_raw">Amosar icona RAW</string>
+    <string name="cycle_raw">Cicla modos RAW</string>
+    <string name="preference_raw_focus_bracketing_summary">Indica se a opción RAW tamén se debe aplicar ao modo de foto entre parénteses de foco. Se esta opción está desactivada, só se gardarán os JPEG nos modos de foto entre parénteses de foco.</string>
+    <string name="preference_raw_focus_bracketing">Permitir RAW para o focus bracketing</string>
+    <string name="preference_raw_expo_bracketing_summary">Indica se a opción RAW tamén se debe aplicar ao modo de foto de bracketing expo (ou ao modo HDR cando está activado \"Gardar todas as imaxes para o modo HDR\"). Se esta opción está desactivada, só se gardarán JPEG neses modos de foto.</string>
+    <string name="preference_raw_expo_bracketing">Permitir RAW para o bracketing expo</string>
+    <string name="preference_show_cycle_flash_summary">Indica se é amosada unha icona na pantalla para circular polas opcións de escintileo no canto de mostrar as opcións de escintileo no menú emerxente</string>
+    <string name="preference_show_cycle_flash">Amosar icona do escintileo</string>
+    <string name="cycle_flash">Escintileo circular</string>
+    <string name="preference_preview">Previsualizar cámara…</string>
+    <string name="remaining">Restante</string>
+    <string name="preference_focus_peaking_color">Foco de cor máxima</string>
+    <string name="preference_focus_peaking_on">Activado</string>
+    <string name="preference_focus_peaking_off">Desactivado</string>
+    <string name="preference_focus_peaking_summary">Se esta opción está activada, os resaltados mostraranse nos bordos enfocados (contornos). Isto é principalmente útil para o foco manual e pode usarse para determinar que rexións da imaxe están focadas.
+\n%s</string>
+    <string name="preference_focus_peaking">Foco máximo</string>
+    <string name="preference_zebra_stripes_100pc">100%</string>
+    <string name="preference_zebra_stripes_99pc">99%</string>
+    <string name="preference_zebra_stripes_98pc">98%</string>
+    <string name="preference_zebra_stripes_97pc">97%</string>
+    <string name="preference_zebra_stripes_95pc">95%</string>
+    <string name="preference_zebra_stripes_93pc">93%</string>
+    <string name="preference_zebra_stripes_90pc">90%</string>
 </resources>
