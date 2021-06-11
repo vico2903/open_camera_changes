@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Camera</string>
+    <string name="app_name">Kamera</string>
     <!-- shouldn't be translated -->
     <string name="action_settings">Einstellungen</string>
     <string name="action_popup">Popup-Einstellungen</string>
     <string name="intro_ok">OK (Diese Nachricht wird nicht wieder angezeigt.)</string>
-    <string name="on">Ein</string>
+    <string name="on">An</string>
     <!-- whether a setting is turned on, e.g., "Auto-stabilise: On" -->
     <string name="off">Aus</string>
     <!-- whether a setting is turned off, e.g., "Auto-stabilise: Off" -->
