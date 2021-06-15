@@ -36,7 +36,7 @@
     <string name="failed_to_save_video">Не удалось сохранить видеофайл</string>
     <string name="failed_to_record_video">Не удалось записать видео</string>
     <string name="started_recording_video">Запись видео</string>
-    <string name="sorry">К сожалению</string>
+    <string name="sorry">Простите</string>
     <string name="failed_to_save_photo">Не удалось сохранить фото</string>
     <string name="failed_to_save_photo_raw">Не удалось сохранить фото RAW</string>
     <string name="failed_to_auto_stabilise">Не удалось стабилизировать</string>
@@ -120,7 +120,7 @@
     <string name="preference_lock_video_summary">При записи видео графический интерфейс будет заблокирован для предотвращения случайной остановки записи. Проведите по экрану, чтобы разблокировать. Обратите внимание, что запись видео остановится, если приложение перейдет в фоновый режим или погаснет экран.</string>
     <string name="preference_rotate_preview">Поворот предпросмотра</string>
     <string name="preference_rotate_preview_summary">Возможность поворота предпросмотра (не повлияет на фото/видео)\n%s</string>
-    <string name="preference_screen_gui">Настройки интерфейса…</string>
+    <string name="preference_screen_gui">Экранный интерфейс…</string>
     <string name="preference_preview_size">Размер предпросмотра</string>
     <string name="preference_ui_placement">Расположение интерфейса</string>
     <string name="preference_immersive_mode">Режим погружения</string>
@@ -242,7 +242,7 @@
     <string name="switch_to_video">Переключиться в режим видео</string>
     <string name="switch_to_photo">Переключиться в режим фото</string>
     <string name="trash">Удалить последний снимок</string>
-    <string name="share">Поделиться</string>
+    <string name="share">Поделиться фото</string>
     <string name="parent_folder">Родительская папка</string>
     <string name="new_folder">Новая папка</string>
     <string name="cant_write_folder">Невозможно записать в эту папку</string>
@@ -276,11 +276,11 @@
     <string name="hdr_info">Режим HDR полезен для фото с большой разницей яркости. В нем делается несколько фото с различной экспозицией, которые объединяются в окончательное фото.\n\nВажно: HDR не рекомендуется для съемки кадров с быстрым движением, это может привести к менее корректной цветопередаче.\n\nСъемка фото в режиме HDR будет гораздо медленнее, чем в обычном режиме.</string>
     <string name="dont_show_again">Больше не показывать</string>
     <string name="photo_mode">Режим фото</string>
-    <string name="photo_mode_standard">Std</string>
+    <string name="photo_mode_standard">Стд</string>
     <!-- keep short, as this shows in the popup menu -->
     <string name="photo_mode_standard_full">Стандартный</string>
     <string name="photo_mode_hdr">HDR</string>
-    <string name="photo_mode_expo_bracketing">Expo {}</string>
+    <string name="photo_mode_expo_bracketing">Экспо {}</string>
     <string name="photo_mode_expo_bracketing_full">Брекетинг экспозиции</string>
     <string name="photo_mode_fast_burst_full">Серийная съемка</string>
     <string name="photo_mode_noise_reduction">NR</string>
@@ -468,9 +468,9 @@
     <string name="preference_video_capture_rate_normal">Нормальная</string>
     <string name="slow_motion_enabled">Замедление движения включено</string>
     <string name="slow_motion_disabled">Замедление движения отключено</string>
-    <string name="flash_off">Вспышка Выкл</string>
+    <string name="flash_off">Вспышка выключена</string>
     <string name="flash_auto">Вспышка Авто</string>
-    <string name="flash_on">Вспышка Вкл</string>
+    <string name="flash_on">Вспышка включена</string>
     <string name="flash_torch">Фонарик</string>
     <string name="flash_red_eye">Красные глаза</string>
     <string name="flash_frontscreen_auto">Экранная вспышка: автоматически</string>
@@ -818,10 +818,8 @@
         для преобразования координат GPS в адрес. Смотрите https://developer.android.com/reference/android/location/Geocoder .
         \n%s</string>
     <string name="intro_text">Коснитесь для фокуса и нажмите синюю кнопку камеры, чтобы сделать фото.
-        \n\nДля отключения максимальной яркости экрана перейдите в Настройки/Настройки интерфейса…/\"Максимальная яркость\".
-        Для сохранения на SD-карту на Android 5+ перейдите в Настройки/Дополнительные настройки…/\"Использовать Storage Access Framework\".
-        Для получения подробностей нажмите \"Помощь в Интернете\" в меню Настройки.
-    </string>
+\n
+\nДля отключения максимальной яркости экрана перейдите в Настройки/Экранный интерфейс…/\"Максимальная яркость\". Для сохранения на SD-карту на Android 5+ перейдите в Настройки/Дополнительные настройки…/\"Использовать Storage Access Framework\". Для получения подробностей нажмите \"Помощь в Интернете\" в меню Настройки.</string>
     <string name="preference_select_remote">Выбрать удаленное устройство</string>
     <string name="preference_immersive_mode_off">Выключить</string>
     <string name="preference_immersive_mode_navigation">Скрыть кнопки навигации</string>
@@ -838,7 +836,20 @@
     <string name="preferences_licence">Лицензия</string>
     <string name="preferences_build_version">Версия сборки</string>
     <string name="preference_privacy_policy_text" translatable="false"> preference_audio_control_summary defined below </string>
-    <string name="whats_new_text"> preference_audio_control_summary defined below </string>
+    <string name="whats_new_text"> <small>[Этот диалог показывается, когда приложение Камера обновлено. Вы можете выключить это в Настройки/Экранный интерфейс/Показывать диалог \"Что нового\?.\"]</small>
+\n
+\n<b>v1.48:</b>
+\n<ul> <li>Новый значок для нескольких камер. Если ваше устройство имеет несколько передних/задних камер, то существующий значок будет переключаться между передней и фронтальной камерой; вместо этого новый значок будет циклически переключаться между несколькими передними и фронтальными камерами. Если вы предпочитается старое переключение, то отключите его в Настройки/Экранный интерфейс/\"Значок нескольких камер\". (Обратите внимание, поддерживается только для устройств, которые предоставляют доступ к нескольким камерам сторонним приложениям.)
+\n</li> <li>Функция автоматического выравнивания теперь показывает на экране прямоугольник, чтобы показать рамку полученной фотографии.
+\n</li> <li>Управление диафрагмой для устройств, которые это поддерживают. (Только Camera2 API.)
+\n</li> <li>Больше пользовательских видео-профилей.
+\n</li> <li>Новая опция для альфа-значения для опции фантомного изображения.
+\n</li> <li>Опции для цветов полосок зебры.
+\n</li> <li>Опция для сохранения текущего рысканье / тангаж / угла в Exif комментариях пользователя на вашем устройстве.
+\n</li> <li>Опция для отключения действий на длительное нажатие.
+\n</li> <li>Лучшее использование полноэкранного режима с широким соотношением сторон на устройствах с экранными кнопками навигации.
+\n</li> <li>Исправления ошибок и улучшения пользовательского интерфейса.
+\n</li> </ul> </string>
     <string name="preference_licence_google_icons_text">Камера использует иконки из Google\'s Material Design icons (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) под Apache 2.0 лицензией. Некоторые иконки содержать модификации. Нажмите, чтобы посмотреть полный текст лицензии.</string>
     <string name="preference_allow_long_press_summary">Разрешать ли действия по долгому нажатию (например: длительное нажатие нагалерею для изменения места сохранения).</string>
     <string name="preference_multi_cam_button_summary">Если включено, то используются отдельные кнопки для переключения между передней/задней камерами, и для переключения между несколькими передними/задними камерами. Если отключено, то значёк \"Переключения Камеры\" будет циклично переключаться между всеми камерами.</string>
