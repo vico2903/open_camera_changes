@@ -86,7 +86,7 @@
     <string name="folder_exists">Map bestaat al</string>
     <string name="exposure_lock">Vergrendel belichting</string>
     <string name="exposure">Belichting</string>
-    <string name="gallery">Gallerij</string>
+    <string name="gallery">Galerij</string>
     <string name="about_copy_to_clipboard">Kopieer naar klembord</string>
     <string name="about_not_available">Niet beschikbaar</string>
     <string name="about_available">Beschikbaar</string>
@@ -503,9 +503,9 @@
 \n%s</string>
     <string name="flash_red_eye">Rode ogen reductie</string>
     <string name="flash_torch">Zaklamp</string>
-    <string name="flash_on">Flash aan</string>
-    <string name="flash_auto">Automatische flash</string>
-    <string name="flash_off">Geen flash</string>
+    <string name="flash_on">Flits aan</string>
+    <string name="flash_auto">Automatische flits</string>
+    <string name="flash_off">Geen flits</string>
     <string name="slow_motion_disabled">Slow motion uitgeschakeld</string>
     <string name="slow_motion_enabled">Slow motion ingeschakeld</string>
     <string name="preference_video_capture_rate_normal">Normaal</string>
