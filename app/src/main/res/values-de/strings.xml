@@ -747,7 +747,7 @@
     <string name="bluetooth_scan">Scan</string>
     <string name="preference_stamp_style_shadowed">Schattierter Text</string>
     <string name="preference_stamp_style_plain">Normaler Text</string>
-    <string name="preferences_build_version">Build Version</string>
+    <string name="preferences_build_version">Build-Version</string>
     <string name="preferences_about_app">Kamera ist eine Anpassung von OpenCamera</string>
     <string name="preferences_authors">Autoren</string>
     <string name="preferences_source_code">Quellcode</string>
