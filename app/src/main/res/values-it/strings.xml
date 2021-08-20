@@ -256,7 +256,7 @@
     <string name="switch_to_video">Passa in modalità video</string>
     <string name="switch_to_photo">Passa in modalità foto</string>
     <string name="trash">Cancella ultima immagine</string>
-    <string name="share">Condividi foto</string>
+    <string name="share">Condividi Foto</string>
     <string name="parent_folder">Cartella Superiore</string>
     <string name="new_folder">Nuova Cartella</string>
     <string name="cant_write_folder">Non posso scrivere su questa cartella</string>
@@ -803,7 +803,7 @@
     <string name="preference_panorama_save_summary">Se salvare o meno gli originali in modalità panorama. Ciò rallenterà il processo di salvataggio delle foto panoramiche. Inoltre abilita la scelta per salvare un file XML utile a riportare i problemi rilevati in modalità panorama.
 \n%s</string>
     <string name="preference_panorama_save">Originali del Panorama</string>
-    <string name="panorama_info">Per scattare una panoramica, mantieni il dispositivo in verticale, e aziona lo scatto per farlo partire. Quindi muovi il dispositivo verso destra o verso sinistra fino a quando il cerchio bianco ricopre il punto blu. Dopo che la foto è stata scattata, ruota ancora una volta il dispositivo fino a coprire i successivi punti blu che appariranno via via.
+    <string name="panorama_info">Per scattare una panoramica, mantieni il dispositivo in verticale, e aziona lo scatto per farlo partire. Quindi muovi il dispositivo verso destra o verso sinistra fino a quando il cerchio bianco ricopre il punto blu. Dopo che la foto è stata scattata, ruota ancora una volta il dispositivo fino a coprire i successivi punti blu che appariranno a loro volta.
 \n
 \nAl termine, scegli di salvare il panorama o la X per cancellarlo.
 \n
