@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="preference_burst_mode_off">Dheth</string>
+    <string name="next">Air adhart</string>
+    <string name="preferences_service_terms">Teirmichean na seirbheise</string>
+    <string name="preferences_licence">Ceadachas</string>
+    <string name="preferences_source_code">Bun-tùs</string>
+    <string name="preferences_authors">Ùghdaran</string>
+    <string name="preferences_build_version">Tionndadh na togail</string>
+    <string name="action_settings">Roghainnean</string>
+</resources>
