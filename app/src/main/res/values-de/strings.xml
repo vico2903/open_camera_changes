@@ -748,11 +748,11 @@
     <string name="preference_stamp_style_shadowed">Schattierter Text</string>
     <string name="preference_stamp_style_plain">Normaler Text</string>
     <string name="preferences_build_version">Build-Version</string>
-    <string name="preferences_about_app">Kamera ist eine Anpassung von OpenCamera</string>
+    <string name="preferences_about_app">Kamera ist eine Abänderung von OpenCamera</string>
     <string name="preferences_authors">Autoren</string>
     <string name="preferences_source_code">Quellcode</string>
     <string name="preferences_licence">Lizenz</string>
-    <string name="preferences_app_info_title">Kamerainformationen</string>
+    <string name="preferences_app_info_title">Information über Kamera</string>
     <string name="preferences_service_terms">Nutzungsbedingungen</string>
     <string name="preference_camera_api_old">Originale Kamera-API</string>
     <string name="preference_camera_api_summary">Wählen Sie Kamera 2 API aus, um Zusatzfunktionen wie manueller Modus für die Belichtungszeit, Fokus, Weißabgleich, sowie RAW (sofern vom Gerät unterstützt) zu aktivieren, die unter Umständen nicht auf allen Geräten einwandfrei funktionieren. Eine Änderung der API führt zu einem Neustart.
