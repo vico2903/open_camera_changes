@@ -530,7 +530,7 @@
     <string name="preference_units_distance_m">Meter</string>
     <string name="preference_units_distance_summary">Verwendet für GPS-Höhe, Fotostempel und Video-Untertitel\n%s</string>
     <string name="preference_show_whats_new">Zeige den What\'s-New-Dialog</string>
-    <string name="preference_show_whats_new_summary">Zeigt Info zu neuen Features und Verbesserungen wenn die App upgedatet wurde</string>
+    <string name="preference_show_whats_new_summary">Zeigt Informationen zu neuen Features und Verbesserungen, wenn die App aktualisiert wurde</string>
     <string name="preference_video_log_fine">Log (Fein)</string>
     <string name="preference_focus_assist">Fokus-Assistenz</string>
     <string name="preference_focus_assist_summary">Zoomt näher bei manueller Fokussierung\n%s</string>
