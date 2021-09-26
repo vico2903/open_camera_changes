@@ -30,9 +30,9 @@
     <string name="accuracy_medium">Meadhanach</string>
     <string name="accuracy_low">Ìseal</string>
     <string name="accuracy_unreliable">Neo-earbsach</string>
-    <string name="preference_video_bitrate_500000">500kbps</string>
-    <string name="preference_video_bitrate_200000">200kbps</string>
-    <string name="preference_video_bitrate_100000">100kbps</string>
+    <string name="preference_video_bitrate_500000">500kb/s</string>
+    <string name="preference_video_bitrate_200000">200kb/s</string>
+    <string name="preference_video_bitrate_100000">100kb/s</string>
     <string name="preference_video_bitrate_default">Bun-roghainn</string>
     <string name="preference_record_audio_src_camcorder">Camara video</string>
     <string name="preference_video_log_off">Bun-roghainn</string>
@@ -413,7 +413,7 @@
     <string name="preference_crop_guide">Seall treòir bearraidh</string>
     <string name="grid">Griod</string>
     <string name="preference_grid">Seall griod</string>
-    <string name="preference_show_battery_summary">Seall ìre a’ bhataraidh air an srìn</string>
+    <string name="preference_show_battery_summary">Seall ìre a’ bhataraidh air an sgrìn</string>
     <string name="preference_show_battery">Seall am bataraidh</string>
     <string name="preference_show_time_summary">Seall an t-àm làithreach air an sgrìn</string>
     <string name="preference_show_time">Seall an t-àm</string>
@@ -511,4 +511,197 @@
     <string name="color_effect">Èifeachd dhathan</string>
     <string name="max_duration">Air a char as fhaide</string>
     <string name="audio_disabled">Tha an fhuaim à comas</string>
+    <string name="preference_video_bitrate_200000000">200Mb/s</string>
+    <string name="preference_video_bitrate_150000000">150Mb/s</string>
+    <string name="preference_video_bitrate_100000000">100Mb/s</string>
+    <string name="preference_video_bitrate_90000000">90Mb/s</string>
+    <string name="preference_video_bitrate_80000000">80Mb/s</string>
+    <string name="preference_video_bitrate_70000000">70Mb/s</string>
+    <string name="preference_video_bitrate_60000000">60Mb/s</string>
+    <string name="preference_video_bitrate_50000000">50Mb/s</string>
+    <string name="preference_video_bitrate_40000000">40Mb/s</string>
+    <string name="preference_video_bitrate_30000000">30Mb/s</string>
+    <string name="preference_video_bitrate_20000000">20Mb/s</string>
+    <string name="preference_video_bitrate_15000000">15Mb/s</string>
+    <string name="preference_video_bitrate_10000000">10Mb/s</string>
+    <string name="preference_video_bitrate_9000000">9Mb/s</string>
+    <string name="preference_video_bitrate_8000000">8Mb/s</string>
+    <string name="preference_video_bitrate_7000000">7Mb/s</string>
+    <string name="preference_video_bitrate_6000000">6Mb/s</string>
+    <string name="preference_video_bitrate_5000000">5Mb/s</string>
+    <string name="preference_video_bitrate_4000000">4Mb/s</string>
+    <string name="preference_video_bitrate_3000000">3Mb/s</string>
+    <string name="preference_video_bitrate_2000000">2Mb/s</string>
+    <string name="preference_video_bitrate_1000000">1Mb/s</string>
+    <string name="preference_noise_reduction_mode_summary">An algairim a chleachdas draibhear a’ chamara airson faram a ghlanadh. Feuchaidh algairim glanadh an fharaim ri piseach a thoirt air càileachd an deilbh le toirt air falbh faraim anabarraich a chaidh a chur ris le pròiseas a’ ghlacaidh, gu h-àraidh nuair a bhios e dorcha. (Thoir an aire nach eil seo co-cheangailte ri modh glanadh faraim deilbh agus gun dèid an roghainn seo a chur dhan dàrna taobh an am modh NR deilbh.)
+\n%s</string>
+    <string name="preference_noise_reduction_mode">Algairim glanadh faraim</string>
+    <string name="preference_screen_processing_settings">Roghainnean pròiseasaidh…</string>
+    <string name="preference_edge_mode_summary">An algairim a chleachdas draibhear a’ chamara airson piseach a thoirt air an oir. Bheir piseach na h-oire geurad is mion-fhiosrachadh nas fheàrr dhut san dealbh a chaidh a ghlacadh. (Cuiridh modh NR an deilbh an roghainn seo dhan dàrna taobh.)
+\n%s</string>
+    <string name="preference_edge_mode">Algairim modh na h-oire</string>
+    <string name="preference_show_whats_new_summary">Gidheadh an dèid fiosrachadh mu ghleusan is pisich ùra a shealltainn dhut gus nach dèid nuair a bhios an aplacaid air a h-ùrachadh</string>
+    <string name="preference_show_whats_new">Seall còmhradh mu na tha ùr</string>
+    <string name="preference_units_distance_summary">Thèid a chleachdadh airson àirde GPS do stampa an deilbh is fo-thiotalan video
+\n%s</string>
+    <string name="magnetic_accuracy_info">Tha combaist an uidheim agad feumach air cailbhreachadh gus a phongalachd a phiseachadh. ’S urrainn dhut seo a dèanamh a ghluasad an uidheim agad ann an cumadh 8.
+\n
+\nA’ phongalachd làithreach:</string>
+    <string name="magnetic_accuracy_title">Comhair na combaiste</string>
+    <string name="focus_bracketing_add_infinity">Cuir astar neo-chrìochnach ris</string>
+    <string name="focus_bracketing_target_distance">Astar-amais airson bracketing an fhòcais</string>
+    <string name="focus_bracketing_source_distance">Astar-tùis airson bracketing an fhòcais</string>
+    <string name="photo_mode_focus_bracketing_full">Bracketing an fhòcais</string>
+    <string name="photo_mode_focus_bracketing">{} an fhòcais</string>
+    <string name="preference_show_video_max_amp_summary">Co-dhiù an dèid ìre na fuaime a shealltainn air an sgrìn rè clàradh video gus nach dèid</string>
+    <string name="preference_show_video_max_amp">Seall meidheadair fuaime</string>
+    <string name="no_burst">gun bhòrcadh</string>
+    <string name="preference_record_audio_src_unprocessed">Gun phròiseasadh</string>
+    <string name="preference_record_audio_src_voice_recognition">Pisichte airson aithneachadh gutha</string>
+    <string name="preference_record_audio_src_voice_communication">Pisichte airson gairmean gutha</string>
+    <string name="preference_record_audio_src_default">Tùs bunaiteach na fuaime</string>
+    <string name="preference_record_audio_src_mic">Micreofon on taobh a-muigh (ma tha gin ann)</string>
+    <string name="video_log">Pròifil an loga</string>
+    <string name="preference_video_log_extra_strong">Loga (glè làidir)</string>
+    <string name="preference_video_log_strong">Loga (làidir)</string>
+    <string name="preference_video_log_medium">Loga (meadhanach)</string>
+    <string name="preference_video_log_low">Loga (ìosal)</string>
+    <string name="preference_video_log_fine">Loga (fìne)</string>
+    <string name="preference_video_subtitle_summary">Cruthaich faidhle fho-tiotalan (.SRT) a ghlèidheas an ceann-là ’s an t-àm; agus fiosrachadh GPS cuideachd ma tha dàta an ionaid/na comhair an comas
+\n%s</string>
+    <string name="preference_video_subtitle">Fo-thiotalan video</string>
+    <string name="preference_show_geo_direction_lines_summary">Seall loidhnichean comhair na combaiste</string>
+    <string name="preference_show_geo_direction_lines">Seall loidhnichean comhair na combaiste</string>
+    <string name="preference_show_pitch_lines_summary">Seall loidhnichean pids còmhnard</string>
+    <string name="preference_show_pitch_lines">Seall loidhnichean pids</string>
+    <string name="photo_mode_dro">DRO</string>
+    <string name="preference_calibrate_level_calibration_reset">Chaidh cailbhreachadh a’ chòmhnaird ath-shuidheachadh</string>
+    <string name="preference_calibrate_level_calibrated">Chaidh an còmhnard a chailbhreachadh</string>
+    <string name="preference_calibrate_level_dialog">Cuir an t-uidheam agad air uachdar rèidh còmhnard far am bi e còmhnard (air comhair portraid no dreach-tìre) agus tagh “Cailbhrich” an uairsin.
+\n
+\nBrùth air “Ath-shuidhich” airson an cailbhreachadh a thoirt air falbh on uidheam agad.
+\n
+\nBrùth air a’ phutan “Air ais” airson sgur dheth.</string>
+    <string name="preference_calibrate_level_summary">Nì an roghainn seo cailbhreachadh air meidheadair-luathachaidh an uidheim agad ach an obraich an còmhnardachadh fèin-obrachail agus roghainnean a’ chòmhnardachaidh/a’ cheàrna air an sgrìn</string>
+    <string name="exposure_lock">Glais an deisearas</string>
+    <string name="preference_reset_question">A bheil thu cinnteach gu bheil thu airson roghainnean uile a’ chamara ath-shuidheachadh air na bun-roghainnean\?</string>
+    <string name="preference_reset_summary">Aisig gach bun-roghainn a’ chamara</string>
+    <string name="preference_about_summary">Fiosrachadh dì-bhugachaidh ’s na h-aplacaid</string>
+    <string name="preference_use_camera2_summary">Cuiridh seo an comas barrachd roghainnean mar modhan a làimh dhan deisearas, dhan fhòcas is dhan bhalans gheal agus modh RAW (ma chuireas an t-uidheam taic ris) ach dh’fhaoidte nach obraich e mar bu chòir air a h-uile uidheam (bidh feum air ath-thòiseachadh)</string>
+    <string name="preference_use_camera2">Cleachd API Camera2</string>
+    <string name="preference_donate_summary">Mas toigh leat an aplacaid seo, saoil an doir thu tabhartas dhuinn airson taic a chur ris an obair-leasachaidh\? ’S urrainn dhut an aplacaid tabhartais againn a cheannach airson seo a dhèanamh – briog air an roghainn seo airson duilleag na h-aplacaid tabhartais againn fhosgladh. Mòran taing!</string>
+    <string name="preference_donate">Thoir tabhartas dhuinn a chuireas taic ris an obair-leasachaidh</string>
+    <string name="preference_video_log_summary">Suidhich pròifil stannardach no rèidh dhan mhodh video
+\n%s</string>
+    <string name="preference_video_log">Pròifil dealbh nam videothan</string>
+    <string name="preference_camera2_photo_video_recording_summary">Ceadaich togail dhealbhan nuair ’s a bhios video ’ga chlàradh. Cuir seo à comas ma tha duilgheadas ann le clàradh videothan nuair a bhios API Camera2 an comas air an uidheam agad.</string>
+    <string name="preference_camera2_photo_video_recording">Ceadaich togail dhealbhan rè clàradh video</string>
+    <string name="saf_permission_failed_open_image">Cha ghabh an dealbh seo fhosgladh</string>
+    <string name="open_files_saf_exception_ghost">Cha do lorg sinn còmhradh faidhle air an uidheam seo, chan eil taic ri gleus an deilbh taibhse</string>
+    <string name="preference_ghost_image_selected">Dealbh air a thaghadh</string>
+    <string name="preference_ghost_image_last">An dealbh mu dheireadh a chaidh a thogail</string>
+    <string name="preference_ghost_image_summary">Tar-chòmhdaich dealbh a chuidicheas leis a’ cho-thaobhadh.
+\n%s</string>
+    <string name="preference_ghost_image">Dealbh taibhse</string>
+    <string name="preference_antibanding_summary">Algairimean a chuidicheas le priobadh an t-solais.
+\n%s</string>
+    <string name="preference_antibanding">Mùchadh a’ bhannachaidh</string>
+    <string name="flash_frontscreen_torch">Leus na sgrìn</string>
+    <string name="flash_frontscreen_on">Tha boillsgeadh na sgrìn air</string>
+    <string name="flash_frontscreen_auto">Boillsgeadh fèin-obrachail na sgrìn</string>
+    <string name="slow_motion_disabled">Tha an gluasad slaodach à comas</string>
+    <string name="slow_motion_enabled">Tha an gluasad slaodach an comas</string>
+    <string name="preference_focus_bracketing_n_images">Àireamh de dhealbhan</string>
+    <string name="preference_fast_burst_n_images">Àireamh de dhealbhan</string>
+    <string name="preference_raw_only">DNG (RAW) a-mhàin</string>
+    <string name="preference_raw_yes">Stannardach agus DNG (RAW)</string>
+    <string name="preference_exif_copyright_summary">An teacsa a thèid a ghlèidheadh ann am meata-dàta an deilbh airson taga na còrach-lethbhreac (san fhòrmat JPEG a-mhàin). (Fàg bàn e mur eil thu ’ga iarraidh.)</string>
+    <string name="preference_exif_artist_summary">An teacsa a thèid a ghlèidheadh ann am meata-dàta an deilbh airson taga an neach-ealain (san fhòrmat JPEG a-mhàin). (Fàg bàn e mur eil thu ’ga iarraidh.)</string>
+    <string name="preference_category_exif_tags">Tagaichean EXIF gnàthaichte</string>
+    <string name="high_speed">Fìor-luath</string>
+    <string name="centre_of_screen">sa mheadhan</string>
+    <string name="bottom_of_screen">aig bonn na sgrìn</string>
+    <string name="top_of_screen">aig bàrr na sgrìn</string>
+    <string name="right_of_screen">taobh deas na sgrìn</string>
+    <string name="left_of_screen">taobh clì na sgrìn</string>
+    <string name="white_balance_shade">Dubhar</string>
+    <string name="failed_to_process_hdr">Dh’fhàillig cruthachadh an deilbh HDR</string>
+    <string name="audio_listener_failed">Cha deach leinn tòiseachadh air èisteachd ris an fuaim</string>
+    <string name="resume_video">Lean air clàradh a’ video</string>
+    <string name="pause_video">Cuir clàradh a’ video ’na stad</string>
+    <string name="video_resume">A’ leantainn air a’ video</string>
+    <string name="preference_show_take_photo_summary">Seall an ìomhaigheag airson dealbhan a thogail ’s videothan a chlàradh. Thoir a’ chromag air falbh nam b’ fheàrr leat dealbhan a thogail air dòigh eile (m.e. ma tha putan siutair bathair-chruaidh aig an uidheam agad no ma bhios tu a’ cleachdadh iuchraichean àirde na fuaime).</string>
+    <string name="preference_online_help_summary">Cuir làrach-lìn a’ chamara gu dol sa bhrabhsair agad</string>
+    <string name="preference_video_flash_summary">Ma tha seo an comas, thèid an solas-boillsgidh a chur air/dheth le clàradh video (agus chì thu aig astar a bheil an camara a’ clàradh fhathast gus nach eil)</string>
+    <string name="preference_video_flash">Solas-boillsgidh rè clàradh video</string>
+    <string name="preference_record_audio_channels_summary">Sònraich mono no stereo dhan chlàradh fuaime (cha chuir ach cuir a dh’uidheaman taic ri stereo)</string>
+    <string name="preference_record_audio_src_summary">Am micreofon a thèid a chleachdadh airson clàradh fuaime. Thoir an aire gu bheil giùlan nan roghainnean a-rèir an dòigh air an deach an roghainn seo a phrògramachadh dhan uidheam agad.
+\n%s</string>
+    <string name="preference_record_audio_summary">Clàraich an fhuaim nuair a thèid video a chlàradh</string>
+    <string name="preference_video_restart_max_filesize_summary">Co-dhiù an dèid clàradh video ath-thòiseachadh gu fèin-obrachail nuair a ruigeas e am meud faidhle as motha gus nach dèid (ge b’ e a bheil meud faidhle as motha a uidheim ’ga chleachdadh no an deach a shònrachadh le cleachdaiche)</string>
+    <string name="preference_video_restart_max_filesize">Ath-thòisich às dèidh meud as motha an fhaidhle</string>
+    <string name="preference_video_max_filesize_summary">Thèid stad a chur air clàradh videothan agus/no an ath-thòiseachadh (faic an roghainn gu h-ìosal) nuair a thèid meud as motha an fhaidhle a ruigsinn (mu thuaiream). Thoir an aire gu bheil meud as motha air iomadh uidheam Android a thaobh videothan (mu 2GB no 4GB mar as trice) ach leigidh an roghainn seo leat luach sònraichte a shuidheachadh. Thoir an aire nach urrainn dhut an roghainn seo a chleachdadh airson am meud as motha tùsail aig uidheam a mheudachadh.
+\n%s</string>
+    <string name="preference_video_max_filesize">Meud as motha nam faidhlichean video</string>
+    <string name="preference_video_restart_summary">Ma chaidh stad a chur air video às dèidh an fhaide as motha a ruigsinn (ma chaidh sin a shuidheachadh), bheir an roghainn seo ath-thòiseachadh air a’ video an àireamh de thursan a shònraich thu
+\n%s</string>
+    <string name="preference_video_restart">Ath-thòisich a’ video às dèidh na faide as motha</string>
+    <string name="preference_video_max_duration_summary">Thèid stad a chur air clàradh videothan às dèidh na faide a shònraich thu
+\n%s</string>
+    <string name="preference_video_max_duration">Faid as motha nam videothan</string>
+    <string name="preference_video_fps_summary">Suidhich reat fhrèaman (FPS) nam videothan (mu thuaiream, cha chuir sinn geall gun gabh a ruigsinn agus dh’fhaoidte gum fàillig le clàradh video mur eil taic ris an reat fhrèaman). Thoir sùil air na videothan a gheibh thu às airson an reat fhrèaman a chaidh a chleachdadh dha-rìribh fhaicinn. Thoir an aire gum fàg videothan le gluasad slaodach an roghainn seo air an dàrna taobh.
+\n%s</string>
+    <string name="preference_calibrate_level">Cailbhrich ceàrn a’ chòmhnardachaidh</string>
+    <string name="preference_front_camera_mirror_summary">Co-dhiù an dèid na dealbhan a gheibh thu on chamara bheòil a sgàthanachadh gus nach dèid
+\n%s</string>
+    <string name="preference_front_camera_mirror">Sgàthanaich an camara beòil</string>
+    <string name="preference_camera2_fast_burst_summary">Gabhaidh togail HDR/deisearais a dhèanamh nas luaithe leis. Cuir seo à comas ma tha duilgheadas aig an uidheam agad nuair a bhios tu a’ togail dealbhan sa mhodh HDR no deisearais.</string>
+    <string name="preference_camera2_fast_burst">Cuir an comas HDR luath/bòrcadh an deisearais</string>
+    <string name="camera_error">Mearachd èiginneach a’ chamara</string>
+    <string name="preference_video_low_power_check_summary">Cuir stad air clàradh video nuair a bhios am bataraidh èiginneach fann. Cuidichidh seo ach nach biodh na videothan coirbte nuair a thèid an t-uidheam agad a chur dheth gu h-obann air sàilleibh dìth cumhachd.</string>
+    <string name="preference_video_low_power_check">Sgrùd ìre èiginneach a’ bhataraidh</string>
+    <string name="video_power_critical">Chaidh stad a chur air a’ video
+\nTha am bataraidh èiginneach fann</string>
+    <string name="video_no_free_space">Chan eil àite saor gu leòr ann gus a’ video a chlàradh</string>
+    <string name="preference_nr_save_all">Sàbhail gach dealbh tùsail (slaodach)</string>
+    <string name="preference_nr_save_single">Sàbhail aon dealbh tùsail</string>
+    <string name="preference_nr_save_no">Na sàbhail na dealbhan tùsail</string>
+    <string name="preference_nr_save_summary">Co-dhiù an dèid na dealbhan tùsail a shàbhaladh sa modh glanadh faraim gus nach dèid. Thoir an aire gun doir sàbhaladh nan dealbhan mòran nas fhaide leis.
+\n%s</string>
+    <string name="preference_nr_save">Dealbhan tùsail dhan ghlanadh faraim</string>
+    <string name="preference_expo_bracketing_stops_summary">Co mheud stadan a thèid a chur ris/a thoirt air falbh on dealbh as duirche/soilleire
+\n%s</string>
+    <string name="preference_expo_bracketing_stops">Stadan bracketing an deisearais</string>
+    <string name="preference_expo_bracketing_n_images_summary">An àireamh de dhealbhan do mhodh bracketing an deisearais
+\n%s</string>
+    <string name="preference_expo_bracketing_n_images">Bracketing an deisearais</string>
+    <string name="preference_camera2_fake_flash_summary">Cuir seo an comas ma tha giùlan briste aig solas-boillsgidh an uidheim agad le API Camera2</string>
+    <string name="preference_camera2_fake_flash">Cleachd dòigh solais-bhoillsgidh eile</string>
+    <string name="permission_rationale_location">Tha feum air cead ionaid airson geò-tagadh (glèidheadh dàta mun ionad ann an dealbhan is videothan). Tha feum air cead ionaid cuideachd airson ceangal ri uidheaman-smachd cèine Bluetooth LE.</string>
+    <string name="permission_rationale_record_audio">Tha feum air cead a’ mhicreofoin airson videothan le fuaim a chlàradh agus roghainnean stiùireadh na fuaime a chleachdadh</string>
+    <string name="permission_rationale_storage">Tha feum air cead leughaidh/sgrìobhaidh gus dealbhan a shàbhaladh</string>
+    <string name="permission_rationale_camera">Tha feum air cead air a’ chamara gus an camara a chur an comas</string>
+    <string name="no_permission">CHAN EIL NA CEADAN RI FHAIGHINN</string>
+    <string name="preference_hdr_save_expo">Sàbhail gach dealbh airson modh HDR</string>
+    <string name="preference_category_stamp">Stampa deilbh</string>
+    <string name="photo_mode_fast_burst_full">Bòrcadh luath</string>
+    <string name="photo_mode_expo_bracketing_full">Bracketing an deisearais</string>
+    <string name="photo_mode_expo_bracketing">{} deis</string>
+    <string name="photo_mode_standard">Std</string>
+    <string name="audio_listener_started">Dèan fuaim àrd</string>
+    <string name="audio_control_stop">Cuir stad air èisteachd ris an fhuaim</string>
+    <string name="audio_control_start">Tòisich air èisteachd ris an fhuaim</string>
+    <string name="max_filesize">Meud as motha nam faidhlichean</string>
+    <string name="permission_location_not_available">Chan eil cead dhan ionad ri fhaighinn</string>
+    <string name="permission_record_audio_not_available">Chan eil cead dhan mhicreofon ri fhaighinn</string>
+    <string name="saf_permission_failed">Chan urrainn dhuinn sàbhaladh dhan phasgan seo</string>
+    <string name="saf_cancelled">Chaidh sgur de fhrèam-obrach inntrigeadh an stòrais</string>
+    <string name="saf_select_save_location">Tagh ionad sàbhalaidh</string>
+    <string name="enter_new_folder">Cuir a-steach ainm pasgain ùir</string>
+    <string name="cant_access_folder">Cha ghabh am pasgan seo inntrigeadh</string>
+    <string name="cant_write_folder">Cha ghabh sgrìobhadh dhan phasgan seo</string>
+    <string name="trash">Sguab às an dealbh mu dheireadh</string>
+    <string name="switch_to_photo">Geàrr leum gun mhodh deilbh</string>
+    <string name="switch_to_video">Geàrr leum gun mhodh video</string>
+    <string name="switch_to_back_camera">Geàrr leum gun chamara chùil</string>
 </resources>
