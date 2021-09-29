@@ -292,7 +292,7 @@
     <string name="error_features_frame_rate">Reat fhrèaman</string>
     <string name="error_features_bitrate">Reat bhiodan</string>
     <string name="aperture">Fosgladh</string>
-    <string name="switch_to_unknown_camera">Thoir leum gu camara eile</string>
+    <string name="switch_to_unknown_camera">Geàrr leum gu camara eile</string>
     <string name="preference_zebra_stripes_color_white">Geal</string>
     <string name="preference_zebra_stripes_color_transparent">Trìd-shoilleir</string>
     <string name="preference_zebra_stripes_color_orange">Orains</string>
@@ -813,4 +813,99 @@
     <string name="exposure_compensation_zoom">Meudaich no lùghdaich co-leasachadh an deisearais</string>
     <string name="preference_focus_assist_summary">Co-dhiù an dèid sùmadh a-steach gus ach dèid nuair a chuireas tu gleus air astar an fhòcais a làimh
 \n%s</string>
+    <string name="preference_video_profile_gamma_summary">An luach gamma a thèid a chleachdadh dhan video ma chaidh pròifil dealbh a’ video a shuidheachadh air “Gamma”
+\n%s</string>
+    <string name="preference_video_profile_gamma">Luach gamma a’ video</string>
+    <string name="intro_text">Suath ris airson fòcas is brùth air putan gorm a’ chamara airson dealbhan a thogail.
+\n
+\nAirson an t-soilleireachd as motha a chur dheth dhan sgrìn, faic “Roghainnean”/”Eadar-aghaidh air an sgrìn”/”Spàrr an t-soillearachd as motha air”. Airson sàbhaladh gu cairt SD air Android 5+, faic “Roghainnean”/”Barrachd uidheaman-smachd a’ chamara”/”Cleachd frèam-obrach inntrigeadh an stòrais”. Airson barrachd cobharach, briog air “Cobhair air loidhne” o na roghainnean.</string>
+    <string name="preference_stamp_geo_address_summary">Ma ghabhas seo dèanamh, cleachd seòladh airson stampaidhean le ionad GPS. Feumaidh an roghainn seo ceangal dhan eadar-lìon. Thoir an aire nuair a bhios seo an comas gun tar-chuir an t-uidheam agad dàta mun ionaid dhan eadar-lìon gu treas-phàrtaidh airson seòladh fhaighinn às na co-chomharran GPS. Faic https://developer.android.com/reference/android/location/Geocoder .
+\n%s</string>
+    <string name="preference_audio_control_summary">Togh dealbh/video nuair a thèid mothachadh do dh’fhuaim no le àithne gutha. Nuair a bhios seo an comas, cleachd putan a’ mhicreofoin air an sgrìn airson tòiseachadh air èisteachd no sguir dhith. Thoir an aire gun cleachd roghainn na h-àithne gutha seirbheis aithneachadh cainnt Android: nuair a chleachdas tu an roghainn sin, tha sinn an dùil gun dèid dàta fuaime a chur a-null gu frithealaichean cèine airson an t-aithneachadh gutha a thoirt gu buil.
+\n%s</string>
+    <string name="preference_camera_api_camera2">API Camera2</string>
+    <string name="preference_camera_api_old">API tùsail a’ chamara</string>
+    <string name="preference_camera_api_summary">Tagh API Camera2 airson barrachd roghainnean a chur an comas mar modhan a làimh dhan deisearas, dhan fhòcas is dhan bhalans gheal agus modh RAW (ma chuireas an t-uidheam taic ris). Bidh feum air ath-thòiseachadh nuair a dh’atharraicheas tu an API.
+\n%s</string>
+    <string name="preference_camera_api">API a’ chamara</string>
+    <string name="preference_image_format_summary">Tagh fòrmat nam faidhlichean do shàbhaladh nan dealbhan. Bheir seo buaidh air dealbhan “stannardach” (seach RAW). Thoir an aire nach eil am fòrmat PNG gun chall gu tur ach gun dèid iompachadh o JPEG air càileachd de 100%%.
+\n%s</string>
+    <string name="exposure_compensation_seekbar">Bàr-siridh airson co-leasachadh an deisearais atharrachadh</string>
+    <string name="preference_panorama_save_all_plus_debug">Sàbhail na dealbhan tùsail ’s XML dì-bhugachaidh</string>
+    <string name="preference_panorama_save_all">Sàbhail na dealbhan tùsail</string>
+    <string name="preference_panorama_save_no">Na sàbhail na dealbhan tùsail</string>
+    <string name="preference_panorama_save_summary">Co-dhiù an dèid na dealbhan tùsail a shàbhaladh ann am modh a’ chuairt-sheallaidh gus nach dèid. Thoir an aire gun doir sàbhaladh nan cuairt-sheallaidhean nas fhaide le seo. Bheir seo an roghainn dhut cuideachd gun sàbhail thu faidhle XML a ghabhas cleachdadh airson aithris a dhèanamh air duilgheadasan leis a’ chuairt-shealladh.
+\n%s</string>
+    <string name="preference_panorama_save">Dealbhan tùsail a’ chuairt-sheallaidh</string>
+    <string name="panorama_info">Airson dealbh cuairt-sheallaidh a thogail, cuir comhair portraid air an uidheam agad is briog airson an dealbh a thòisicheas an cuairt-shealladh a thogail. An uairsin, cuairtich an t-uidheam agad gu clì no deas airson an cearcall geal sa mheadhan a ghluasad air an dotag ghorm. Gach turas a dhèid dealbh ùr a ghlacadh, cuairtich an t-uidheam a-rithist dhan dotag ghorm a nochdas.
+\n
+\nBriog air ìomhaigheag na cromaige airson an cuairt-shealladh a shàbhaladh no air ìomhaigheag na croise airson sgur dheth.
+\n
+\nThoir an aire gun doir dealbhan cuairt-sheallaidh ùine a phròiseasadh is a shàbhaladh.</string>
+    <string name="preference_panorama_crop_summary">Do mhodh a’ chuairt-sheallaidh, co-dhiù an dèid na h-iomallan lùbach a thoirt air falbh gus nach dèid
+\n%s</string>
+    <string name="preference_panorama_crop">Bearradh fèin-obrachail a’ chuairt-sheallaidh</string>
+    <string name="failed_to_process_panorama">Dh’fhàillig cruthachadh a’ chuairt-sheallaidh</string>
+    <string name="panorama_cancelled">Chaidh sgur dhen chuairt-shealladh</string>
+    <string name="cancel_panorama">Sguir dhen chuairt-shealladh</string>
+    <string name="finish_panorama">Cuir crìoch air a’ chuairt-shealladh</string>
+    <string name="image_saving_notification">A’ sàbhaladh nan dealbhan…</string>
+    <string name="preference_stamp_style_background">Teacsa le cùlaibh duibhrichte</string>
+    <string name="bluetooth_current_remote">An t-uidheam-smachd cèin làithreach:</string>
+    <string name="preference_show_cycle_raw_summary">Co-dhiù an dèid ìomhaigheag a shealltainn air an sgrìn gus nach dèid airson cuairteachadh tro na modhan RAW</string>
+    <string name="preference_raw_focus_bracketing_summary">Co-dhiù am bi roghainn HDR an sàs air modh bracketing an fhòcais gus nach bi. Ma tha an roghainn seo à comas, cha dèid ach faidhlichean JPEG a shàbhaladh ann am modhan deilbh bracketing an fhòcais.</string>
+    <string name="preference_raw_expo_bracketing_summary">Co-dhiù am bi roghainn HDR an sàs air modh bracketing an deisearais (no dhan mhodh HDR nuair a bhios “Sàbhail gach dealbh airson modh HDR” an comas) gus nach bi. Ma tha an roghainn seo à comas, cha dèid ach faidhlichean JPEG a shàbhaladh sna modhan deilbh sin.</string>
+    <string name="whats_new_text"> <small>[Thèid an còmhradh seo a shealltainn nuair a bhios an camara ’ga ùrachadh. ’S urrainn dhut a chur à comas fo “Roghainnean”/“Eadar-aghaidh air an sgrìn”/“Seall còmhradh mu na tha ùr”.]</small>
+\n
+\n<b>v1.48:</b>
+\n <ul> <li>Ìomhaigheag ùr airson iomadh camara. Ma tha iomadh camara beòil/cùil aig an uidheam agad, gearraidh an ìomhaigheag a bha ann mu thràth leum eadar an camara beòil is cùil; nì an ìomhaigheag ùr cuairteachadh eadar iomadh camara beòil is cùil ’na àite. Nam b’ fheàrr leat an seann-ghiùlan, cuir à comas “Roghainnean”/“Eadar-aghaidh air an sgrìn”/“Ìomhaigheag iomadh camara”. (Thoir an aire nach eil seo ri fhaighinn ach do dh’uidheaman a nochdas iomadh camara do dh’aplacaidean treas-phàrtaidhean.)
+\n</li> <li>Seallaidh gleus a’ chòmhnardachaidh fhèin-obrachail ceart-cheàrnach air an sgrìn a-nis airson frèam an deilbh a gheibh thu às a shealltainn.
+\n</li> <li>Stiùireadh an deisearais do dh’uidheaman a bheir taic dha. (API Camera2 a-mhàin.)
+\n</li> <li>Barrachd pròifilean video gnàthaichte.
+\n</li> <li>Roghainn ùr do luach alpha dhan roghainn deilbh taibhse.
+\n</li> <li>Roghainnean airson dathan stiallan sìobra.
+\n</li> <li>Roghainn airson claonadh,/pids/roiligeadh làithreach an uidheim a ghlèidheadh ann am beachd cleachdaiche Exif.
+\n</li> <li>Roghainn airson gnìomhan brùthaidh fhaide a chur à comas.
+\n</li> <li>Piseach air cleachdadh na làn-sgrìn airson co-mheasan deilbh leathann air uidheaman le putanan seòladaireachd air an sgrìn.
+\n</li> <li>Càradh air bugaichean is pisich air an eadar-aghaidh.
+\n</li> </ul> </string>
+    <string name="preference_screen_licences">Ceadachasan bun-tùis fhosgailte</string>
+    <string name="preference_comment_ypr_summary">Glèidh claonadh, pids is roiligeadh an uidheim ann am beachd cleachdaiche Exif an deilbh (fòrmat JPEG a-mhàin)</string>
+    <string name="preference_comment_ypr">Glèidh an claonadh, a’ phids is an roiligeadh</string>
+    <string name="error_features_4k">4K UHD</string>
+    <string name="preference_allow_long_press_summary">Co-dhiù am bi gnìomhan brùthaidh fhaide ceadaichte gus nach bi (m.e. brùthadh fada air a’ ghailearaidh airson ionad an t-sàbhalaidh atharrachadh).</string>
+    <string name="preference_allow_long_press">Ceadaich gnìomhan brùthaidh fhaide</string>
+    <string name="preference_show_camera_id_summary">Seall àireamh ID a’ chamara làithrich air an sgrìn</string>
+    <string name="preference_show_camera_id">Seall ID a’ chamara</string>
+    <string name="preference_multi_cam_button_summary">Ma tha seo an comas, cleachdaidh tu putanan fa leth airson leum a ghearradh eadar camara cùil/beòil agus iomadh camara cùil/beòil. Ma tha seo à comas, cuairtichidh ìomhaigheag gearradh leum nan camarathan tro na camarathan uile.</string>
+    <string name="preference_multi_cam_button">Ìomhaigheag iomadh camara</string>
+    <string name="switch_multi_camera">Geàrr leum eadar camarathan</string>
+    <string name="switch_to_external_camera">Geàrr leum gun chamara on taobh a-muigh</string>
+    <string name="ultrawide">Glè leathann</string>
+    <string name="external_camera">Camara on taobh a-muigh</string>
+    <string name="preference_zebra_stripes_background_color_summary">An dath a thèid a chleachdadh airson stiallan sa chùlaibh nuair a bhios stiallan sìobra ’gan sealltainn.
+\n%s</string>
+    <string name="preference_zebra_stripes_background_color">Dath cùlaibh nan stiallan sìobra</string>
+    <string name="preference_zebra_stripes_foreground_color_summary">An dath a thèid a chleachdadh airson stiallan sa bheulaibh nuair a bhios stiallan sìobra ’gan sealltainn.
+\n%s</string>
+    <string name="preference_zebra_stripes_foreground_color">Dath beulaibh nan stiallan sìobra</string>
+    <string name="preference_ghost_image_alpha_summary">An luach alpha a thèid a chleachdadh airson dealbhan taibhse. Is ciall do luach nas ìsle gu bheil e nas trìd-shoilleire agus do luach nas àirde gu bheil e nas trìd-dhoilleire.
+\n%s</string>
+    <string name="preference_ghost_image_alpha">Trìd-dhoilleireachd an deilbh taibhse</string>
+    <string name="preference_immersive_mode_everything">Falaich a h-uile rud</string>
+    <string name="preference_immersive_mode_gui">Falaich an eadar-aghaidh</string>
+    <string name="preference_immersive_mode_navigation">Falaich putanan biortail na seòladaireachd air an sgrìn</string>
+    <string name="preference_immersive_mode_low_profile">Doilleirich putanan biortail na seòladaireachd air an sgrìn</string>
+    <string name="preferences_app_info_title">Fiosrachadh mun chamara</string>
+    <string name="preferences_about_app">’S e fork de OpenCamera a th’ ann an aplacaid a’ chamara</string>
+    <string name="preference_licence_google_icons_text">Tha an Camara a’ cleachdadh ìomhaigheagan o Material Design Google (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) fo cheadachas Apache tionndadh 2.0. Chaidh cuid dhe na h-ìomhaigheagan atharrachadh. Thoir gnogag an-seo airson teacsa slàn a’ cheadachais.</string>
+    <string name="preference_licence_google_icons">Ìomhaigheagan Material Design Google</string>
+    <string name="preference_licence_open_camera_text">Tha an Camara © 2013–2019 Mark Harman, ’ga fhoillseachadh fo GPL v3 no nas ùire. Thoir gnogag an-seo airson teacsa slàn a’ cheadachais.</string>
+    <string name="preference_select_remote">Tagh uidheam-smachd cèin</string>
+    <string name="preference_show_cycle_raw">Seall ìomhaigheag RAW</string>
+    <string name="cycle_raw">Cuairteachadh na modhan RAW</string>
+    <string name="preference_raw_focus_bracketing">Ceadaich RAW airson bracketing an fhòcais</string>
+    <string name="preference_raw_expo_bracketing">Ceadaich RAW airson bracketing an deisearais</string>
+    <string name="preference_show_cycle_flash_summary">Co-dhiù an dèid ìomhaigheag a shealltainn air an sgrìn gus nach dèid airson cuairteachadh tro roghainnean an t-solais-bhoillsgidh seach a bhith a’ sealltainn roghainnean an t-solais-bhoillsgidh air priob-chlàr-taice</string>
+    <string name="preference_show_cycle_flash">Seall ìomhaigheag an t-solais-bhoillsgidh</string>
 </resources>
