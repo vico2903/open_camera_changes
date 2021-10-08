@@ -826,7 +826,7 @@
     <string name="preference_immersive_mode_gui">Скрыть интерфейс</string>
     <string name="preference_immersive_mode_everything">Скрыть все</string>
     <string name="preferences_authors">Авторы</string>
-    <string name="preferences_service_terms">Условия обслуживания</string>
+    <string name="preferences_service_terms">Условия предоставления услуг</string>
     <string name="preference_video_srgb">sRGB</string>
     <string name="preference_video_profile_gamma">Значение гаммы видео</string>
     <string name="preference_video_gamma">Гамма</string>
