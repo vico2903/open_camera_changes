@@ -10,7 +10,7 @@
     <!-- whether a setting is turned off, e.g., "Auto-stabilise: Off" -->
     <string name="choose_save_location">Válaszd ki a mentés helyét:</string>
     <string name="clear_folder_history">Könyvtárelőzmények törlése</string>
-    <string name="clear_folder_history_question">Törlöd a könyvtárelőzményeket?</string>
+    <string name="clear_folder_history_question">Törlöd a könyvtárelőzményeket\?</string>
     <string name="choose_another_folder">Válassz másik könyvtárat</string>
     <string name="changed_save_location">Mentés helye módosult erre:</string>
     <string name="stopped_recording_video">Videofelvétel megállítva</string>
@@ -37,7 +37,7 @@
     <string name="cancelled_timer">Időzítő megszakítva</string>
     <string name="cancelled_repeat_mode">Sorozatfelvétel megszakítva</string>
     <string name="started_timer">Időzítő elindult</string>
-    <string name="failed_to_save_video">Nem sikerült menteni a videofájlt </string>
+    <string name="failed_to_save_video">Nem sikerült menteni a videofájlt</string>
     <string name="failed_to_record_video">Nem sikerült videofelvételt készíteni</string>
     <string name="started_recording_video">Videofelvétel elindult</string>
     <string name="sorry">Sajnálom</string>
@@ -50,9 +50,11 @@
     <string name="location_not_available">A GPS helymeghatározás nem érhető el</string>
     <string name="photo_deleted">Fotó törölve</string>
     <string name="no_gallery_app">Nincs elérhető galéria alkalmazás</string>
-    <string name="screen_is_locked">Képernyő zárolva\nA feloldáshoz csúsztasd az ujjad a képernyőn</string>
+    <string name="screen_is_locked">Képernyő zárolva
+\nA feloldáshoz csúsztasd az ujjad a képernyőn</string>
     <string name="unlocked">Feloldva</string>
-    <string name="auto_stabilise_not_supported">Sajnálom, az auto-stabilizálás\nnem támogatott ezen az eszközön</string>
+    <string name="auto_stabilise_not_supported">Sajnálom, az auto-stabilizálás
+\nnem támogatott ezen az eszközön</string>
     <string name="audio_disabled">Hang letiltva</string>
     <string name="max_duration">Max időtartam</string>
     <string name="color_effect">Színhatás</string>
