@@ -749,4 +749,5 @@
     <string name="preference_angle_highlight_color_summary">Markeer met kleur wanneer camera waterpas staat.</string>
     <string name="preference_show_angle_summary">"Toon de huidige apparaat oriëntatie hoek op het scherm "</string>
     <string name="preference_immersive_mode">Meeslepende modus</string>
+    <string name="preference_auto_stabilise_summary">Afbeeldingen worden geroteerd zodat ze automatisch waterpas zijn (alleen bij foto\'s) (tijd om foto\'s te maken duurt langer, en kan mislukken op apparaten met te weinig geheugen)</string>
 </resources>
