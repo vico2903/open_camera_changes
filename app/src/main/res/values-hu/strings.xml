@@ -87,7 +87,8 @@
     <string name="preference_exposure">Expozíció kompenzáció beállítása</string>
     <string name="preference_exposure_summary">Az alapértelmezett kompenzációhoz állítsd 0-ra</string>
     <string name="preference_lock_orientation">Fotó/videó tájolás zárolása</string>
-    <string name="preference_lock_orientation_summary">Ha be van állítva, a készülék tájolása figyelmen kívül lesz hagyva, és a fotó/videó a megadott tájolás szerint fog állni\n%s</string>
+    <string name="preference_lock_orientation_summary">Ha be van állítva, a készülék tájolása figyelmen kívül lesz hagyva, és a fotó/videó a megadott tájolás szerint fog működni
+\n%s</string>
     <string name="preference_face_detection">Arcfelismerés</string>
     <string name="preference_face_detection_summary">Arcfelismerés használata fókuszterületek helyett</string>
     <string name="preference_category_camera_controls">Kamera kezelés</string>
@@ -97,7 +98,7 @@
     <string name="preference_timer_speak">Hangos visszaszámlálás</string>
     <string name="preference_timer_speak_summary">Az időzítő és sorozatfelvétel visszaszámlálás késleltetésének bemondása (60 másodperctől)</string>
     <string name="preference_burst_mode">Sorozatfelvétel</string>
-    <string name="preference_burst_interval">Sorozatfelvétel intervallum</string>
+    <string name="preference_burst_interval">Sorozatfelvétel időköz</string>
     <string name="preference_screen_camera_controls_more">További kamera beállítások…</string>
     <string name="preference_touch_capture">Exponálás érintéssel</string>
     <string name="preference_touch_capture_summary">Fénykép készítése az előnézet érintésével, vagy dupla koppintással</string>
