@@ -751,4 +751,21 @@
     <string name="preference_immersive_mode">Meeslepende modus</string>
     <string name="preference_auto_stabilise_summary">Foto\'s zullen gedraaid worden, zodat ze automatisch waterpas staan (alleen foto\'s) (langzamer om foto\'s te maken, en kan mislukken op apparaten met te weinig geheugen)</string>
     <string name="preference_angle_highlight_color">Hoek/hoogte markeringskleur</string>
+    <string name="flash_frontscreen_torch">Scherm Zaklamp</string>
+    <string name="flash_frontscreen_on">Scherm Flits Aan</string>
+    <string name="flash_frontscreen_auto">Scherm Flits Auto</string>
+    <string name="preference_show_pitch_lines_summary">Toon horizontale veldlijnen</string>
+    <string name="preference_show_pitch_lines">Toon veldlijnen</string>
+    <string name="preference_calibrate_level_calibration_reset">Niveau kalibratie reset</string>
+    <string name="preference_calibrate_level_calibrated">Niveau gekalibreerd</string>
+    <string name="preference_calibrate_level_calibrate">Kalibreer</string>
+    <string name="preference_calibrate_level_dialog">Plaats uw toestel op een plat horizontaal oppervlak zodat het waterpas ligt (in staande of liggende positie) en selecteer vervolgens Kalibreren.
+\n
+\nDruk op Reset om de kalibratie van uw toestel te verwijderen.
+\n
+\nDruk op de knop Terug om te annuleren.</string>
+    <string name="preference_calibrate_level_summary">Met deze optie wordt de versnellingsmeter van het toestel gekalibreerd, zodat de opties voor automatisch waterpas stellen en waterpas/hoek op het scherm correct werken</string>
+    <string name="preference_calibrate_level">Kalibreer waterpashoek</string>
+    <string name="preference_nr_save_all">Sla alle originele afbeeldingen op (langzaam)</string>
+    <string name="preference_nr_save_single">Enkel originele afbeelding opslaan</string>
 </resources>
