@@ -554,11 +554,11 @@
     <string name="preferences_about_title">About</string>
     <string name="preferences_build_version">Versión de compilación</string>
     <string name="preferences_about_app">La cámara está bifurcada de OpenCamera</string>
-    <string name="preferences_authors">Autor</string>
+    <string name="preferences_authors">Autores</string>
     <string name="preferences_source_code">Código fuente</string>
     <string name="preferences_licence">Licencia</string>
     <string name="preferences_app_info_title">Información de la cámara</string>
-    <string name="preferences_service_terms">Términos de servicio</string>
+    <string name="preferences_service_terms">Condiciones de servicio</string>
     <string name="preference_immersive_mode_off">Apagado</string>
     <string name="preference_immersive_mode_navigation">Sólo ocultar los botones de navegación en pantalla</string>
     <string name="preference_immersive_mode_gui">Ocultar interfaz de usuario</string>
