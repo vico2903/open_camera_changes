@@ -896,7 +896,7 @@
     <string name="preference_immersive_mode_gui">Falaich an eadar-aghaidh</string>
     <string name="preference_immersive_mode_navigation">Falaich putanan biortail na seòladaireachd air an sgrìn</string>
     <string name="preference_immersive_mode_low_profile">Doilleirich putanan biortail na seòladaireachd air an sgrìn</string>
-    <string name="preferences_app_info_title">Fiosrachadh mun chamara</string>
+    <string name="preferences_app_info_title">Mun chamara</string>
     <string name="preferences_about_app">’S e fork de OpenCamera a th’ ann an aplacaid a’ chamara</string>
     <string name="preference_licence_google_icons_text">Tha an Camara a’ cleachdadh ìomhaigheagan o Material Design Google (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) fo cheadachas Apache tionndadh 2.0. Chaidh cuid dhe na h-ìomhaigheagan atharrachadh. Thoir gnogag an-seo airson teacsa slàn a’ cheadachais.</string>
     <string name="preference_licence_google_icons">Ìomhaigheagan Material Design Google</string>
