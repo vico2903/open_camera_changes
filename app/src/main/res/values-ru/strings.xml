@@ -576,7 +576,7 @@
     <string name="exposure_compensation_zoom">Увеличивать или уменьшать экспокоррекцию</string>
     <string name="previous">Предыдущий</string>
     <!-- for "ContentDescription" (used for accessibility, e.g., Google Talkback) for "<" button on popup menu -->
-    <string name="next">Следующий</string>
+    <string name="next">Далее</string>
     <!-- for "ContentDescription" (used for accessibility, e.g., Google Talkback) for ">" button on popup menu -->
     <string name="preference_burst_mode_off">Выкл</string>
     <string name="preference_burst_mode_2x">2x</string>
