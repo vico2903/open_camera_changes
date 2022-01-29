@@ -892,4 +892,18 @@
 \n%s</string>
     <string name="preference_immersive_mode_low_profile">Nur die virtuellen Bildschirmtasten dimmen</string>
     <string name="preference_video_rec709">REC709</string>
+    <string name="whats_new_text"> <small>[Dieses Dialogfeld wird angezeigt, wenn Kamera aktualisiert wird. Sie können ihn unter Einstellungen/Benutzeroberfläche/Neuigkeiten anzeigen deaktivieren.]</small>
+\n
+\n<b>v1.48:</b>
+\n<ul> <li>Neues Symbol für mehrere Kameras. Wenn dein Gerät mehrere Vorder-/Rückkameras hat wird das Symbol, was früher zwischen Vorder- und Rückansicht gewächselt hat, jetzt zwischen den einzelnen Kameras wechseln. Wenn du die alte Funktionsweise zurück haben möchtest, dann deaktiviere Einstellungen/Benutzeroberfläche.../\"Symbol für mehrere Kameras\". (Nur unterstützt für Geräte, welche mehrere Kameras an dritte zur Verfügung stellen.)
+\n</li> <li>Autolevel Funktion zeigt jetzt ein Rechteck um das Ergebnisfoto an.
+\n</li> <li>Blenden Kontrolle für unterstützte Geräte. (nur Camera2 API)
+\n</li> <li>Mehr Benutzerdefinierte Videoprofile.
+\n</li> <li>Neue Option um die Alphawerte für Doppelbilder einzustellen.
+\n</li> <li>Optionen zum Speichern von Zebrastreifen Farben.
+\n</li> <li>Option zum Speichern der Geräteausrichtung im EXIF Nutzerkommentar.
+\n</li> <li>Option zum Ausschalten der Funktionen nach langem Drücken.
+\n</li> <li>Bessere Vollbildnutzung mit weitem Seitenverhältnis auf Geräten mit digitalen Navigationsknöpfen.
+\n</li> <li>Fehlerbehebungen und Anwenderschnittstellen Verbesserungen.
+\n</li> </ul> </string>
 </resources>
