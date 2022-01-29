@@ -120,7 +120,7 @@
     <string name="preference_show_when_locked">Kamera trotz Sperre anzeigen</string>
     <string name="preference_show_when_locked_summary">Wenn aktiviert, wird Camera über dem Sperrbildschirm stehen (das Entsperren ist jedoch für den Zugriff auf Einstellungen, Galerie usw. nötig)</string>
     <string name="preference_startup_focus">Verwende Auto-Fokus bei Start der App</string>
-    <string name="preference_startup_focus_summary">Beim Start von Camera automatisch fokussieren. Deaktiviere diese Option bei einem Problem mit dem Blitz.</string>
+    <string name="preference_startup_focus_summary">Beim Start von Kamera automatisch fokussieren. Deaktiviere diese Option bei einem Problem mit dem Blitz.</string>
     <string name="preference_lock_video">Bildschirm bei Videoaufnahme sperren</string>
     <string name="preference_lock_video_summary">Wenn aktiviert, wird bei Videoaufnahmen die Oberfläche gesperrt, um versehentliches Stoppen zu verhindern. Zum Entsperren einfach wischen.</string>
     <string name="preference_rotate_preview">Vorschau drehen</string>
@@ -161,7 +161,7 @@
     <string name="preference_thumbnail_animation">Vorschau-Animation</string>
     <string name="preference_thumbnail_animation_summary">Zeigt eine Vorschaubildanimation bei der Fotoaufnahme</string>
     <string name="preference_take_photo_border">Zeige Rahmen, wenn Fotos aufgenommen werden</string>
-    <string name="preference_take_photo_border_summary">Zeige einen Rahmen auf der Anzeige um die Aufnahme eines Bildes anzuzeigen.</string>
+    <string name="preference_take_photo_border_summary">Zeige einen Rahmen auf dem Bildschirm, um die Aufnahme eines Bildes anzuzeigen</string>
     <string name="preference_keep_display_on">Bildschirm immer an</string>
     <string name="preference_keep_display_on_summary">Wenn aktiviert, wird der Bildschirm nie ausgeschaltet, solange die Kamera-Benutzeroberfläche aktiv ist</string>
     <string name="preference_max_brightness">Maximale Helligkeit erzwingen</string>
@@ -175,7 +175,7 @@
     <string name="preference_quality_summary">Die Qualität beim Speichern der Fotos einstellen (Empfehlung: 90%%)\n%s</string>
     <string name="preference_raw">RAW</string>
     <string name="preference_location">Geotagging</string>
-    <string name="preference_location_summary">Wenn aktiviert, werden die GPS-Standortdaten in den Aufnahmen gespeichert.</string>
+    <string name="preference_location_summary">GPS-Standortdaten in den Aufnahmen (Foto/Video) speichern (Bei Fotos ist das nur in den JPEG und DNG-Format möglich)</string>
     <string name="preference_gps_direction">Himmelsrichtung</string>
     <string name="preference_gps_direction_summary">Speichere die GPS-Kompassrichtung in den Fotos (nur JPEG-Format)</string>
     <string name="preference_require_location">Standortdaten erforderlich</string>
@@ -197,8 +197,7 @@
     <string name="preference_background_photo_saving_summary">Legt fest, ob ein Hintergrund-Thread zum Speichern eines Bildes zur schnelleren Ausführung benutzt wird</string>
     <string name="video_quality">Video-Auflösung</string>
     <string name="preference_force_video_4k">Erzwinge UHD/4K (experimentell)</string>
-    <string name="preference_force_video_4k_summary">Aktiviert die Auflösung von 3840x2160 für die Videoaufnahme der Hauptkam
-        era. Funktioniert jedoch nur, wenn es vom Gerät unterstützt wird</string>
+    <string name="preference_force_video_4k_summary">Aktiviert die Auflösung von 3840x2160 für die Videoaufnahme der Hauptkamera. Diese Funktion ist ein Hack, der ermöglichen soll, dass 4K-Aufnahmen bei 4K-Kameras gemacht werden, selbst wenn keine Drittanbieter-Apps unterstützt werden. Bitte ausprobieren, ob das auf deinem Gerät funktioniert.</string>
     <string name="preference_video_stabilization">Digitale Video-Stabilisierung aktivieren</string>
     <string name="preference_video_stabilization_summary">Die Video-Stabilisierung reduziert Bildwackeln in der Vorschau und der Aufnahme. Dies ist eventuell nicht erforderlich, wenn das Gerät optische Bildstabilisierung (OIS) unterstützt.</string>
     <string name="preference_video_bitrate">Video-Bitrate (durchschnittlich)</string>
@@ -213,16 +212,16 @@
     <string name="preference_video_max_filesize">Maximale Dateigröße für Video</string>
     <string name="preference_video_max_filesize_summary">Die Videoaufnahme stoppt und/oder started (siehe nächste Optionen), wenn die maximale Dateigröße fast erreicht ist. Alle Android Geräte haben eine maximale Größe von 2GB oder 4GB für Videos. Mit diesem Wert läßt sich ein bestimmter Wert einstellen.\n%s</string>
     <string name="preference_video_restart_max_filesize">Neustart bei maximaler Dateigröße</string>
-    <string name="preference_video_restart_max_filesize_summary">Legt fest, ob die Videoaufnahme neugestartet wird, sobald das geräte-definierte oder das benutzerdefinierte Maximum erreicht ist.</string>
+    <string name="preference_video_restart_max_filesize_summary">Bestimmt, ob die Videoaufnahme neu gestartet werden soll, sobald die maximale Dateigröße erreicht ist (die vom Gerät oder vom Benutzer festgelegt ist)</string>
     <string name="preference_record_audio">Ton aufzeichnen</string>
-    <string name="preference_record_audio_summary">Wenn aktiviert, wird das Video mit Ton aufgenommen.</string>
+    <string name="preference_record_audio_summary">Ton auch aufnehmen, wenn Video aufgenommen wird</string>
     <string name="preference_record_audio_src">Audio-Quelle</string>
     <string name="preference_record_audio_src_summary">Einstellung der Mikrofonquelle für die Tonaufnahme. Die exakte Auswirkung der Einstellungen ist abhängig vom Gerät.
 \n%s</string>
     <string name="preference_record_audio_channels">Audio-Kanäle</string>
     <string name="preference_record_audio_channels_summary">Mono- oder Stereo-Aufnahme (Stereo wird nur von einigen Geräten unterstützt)</string>
     <string name="preference_video_flash">Blitzlicht während der Videoaufnahme</string>
-    <string name="preference_video_flash_summary">Wenn aktiviert, blinkt der Blitz während der Videoaufnahme.</string>
+    <string name="preference_video_flash_summary">Wenn aktiviert, blinkt der Blitz während der Videoaufnahme (damit man aus der Ferne erkennen kann, ob die Aufnahme läuft)</string>
     <string name="preference_category_online">Verschiedenes</string>
     <string name="preference_online_help">Online-Hilfe</string>
     <string name="preference_online_help_summary">Öffne die Camera Website in deinem Browser</string>
@@ -265,7 +264,7 @@
     <string name="permission_location_not_available">Location-Berechtigung ist nicht gegeben</string>
     <string name="start_video">Starte Videoaufnahme</string>
     <string name="stop_video">Stoppe Videoaufnahme</string>
-    <string name="max_filesize">Max. Filegröße</string>
+    <string name="max_filesize">Max. Dateigröße</string>
     <string name="mb_abbreviation">MB</string>
     <!-- symbol short for megabytes -->
     <string name="gb_abbreviation">GB</string>
@@ -274,9 +273,19 @@
     <string name="audio_control_stop">Stoppe Sprach/Geräusch-Steuerung</string>
     <string name="speech_recognizer_started">Sag \"cheese\"</string>
     <string name="audio_listener_started">Mache ein lautes Geräusch</string>
-    <string name="auto_stabilise_info">Autostabilisierung rotiert die Fotos so, dass sie waagerecht erscheinen.\n\nDies bedeutet aber auch eine geringere Auflösung aufgrund von Rotation und Beschneidung.</string>
-    <string name="raw_info">DNG-Dateien enthalten die volle, unkomprimierte Bildinformation der Kamera. Manche Galerie-Apps erkennen das DNG-Format nicht. DNG-Dateien können in  spezialisierten Foto-Editor-Apps wie Snapseed oder Lightroom verwendet werden. Verschiedene Bildbearbeitungsoptionen wie \"Fotostempel\" oder \"Autostabilisierung\" werden nur bei JPEG-Dateien angewandt und nicht bei DNG-Dateien.</string>
-    <string name="hdr_info">Der HDR-Modus ist nützlich für Motive mit starkem Kontrast. Dabei werden mehrere Bilder mit verschiedener Belichtung kombiniert.\n\nHDR ist nicht für bewegte Szenen geeignet, kann Farbänderungen bewirken und benötigt mehr Zeit.</string>
+    <string name="auto_stabilise_info">Autostabilisierung dreht die Fotos so, dass sie waagerecht erscheinen.
+\n
+\nDies bedeutet aber auch eine geringere Auflösung des Fotos aufgrund der Drehung und Beschneidung.</string>
+    <string name="raw_info">DNG-Dateien enthalten die völlig unkomprimierte und unbearbeitete Bildinformation der Kamera. 
+\n
+\nManche Galerie-Apps erkennen das DNG-Format nicht. DNG-Dateien können in spezialisierten Foto-Editor-Apps wie Snapseed oder Lightroom verwendet werden. 
+\n
+\nVerschiedene Bildbearbeitungsoptionen wie Fotostempel oder Autostabilisierung werden nur bei nicht-DNG-Dateien (wie JPEG) angewandt und nicht bei DNG-Dateien.</string>
+    <string name="hdr_info">Der HDR-Modus ist nützlich für Motive mit starkem Kontrast. Dabei werden mehrere Bilder mit verschiedener Belichtung aufgenommen und miteinander für das Endfoto kombiniert.
+\n
+\nHDR ist nicht für bewegte Szenen geeignet und kann Farbverfälschungen bewirken.
+\n
+\nFotos im HDR-Modus aufnehmen benötigt mehr Rechenzeit.</string>
     <string name="dont_show_again">Nicht wieder zeigen</string>
     <string name="photo_mode">Foto Modus</string>
     <string name="photo_mode_standard">Std</string>
@@ -298,7 +307,7 @@
     <string name="permission_rationale_camera">Kamera Berechtigung wird benötigt um die Kamera zu aktivieren</string>
     <string name="permission_rationale_storage">Speicher-Berechtiung benötigt zum Speichern von Fotos</string>
     <string name="permission_rationale_record_audio">Mikrofon-Berechtigung benötigt um Audio mit dem Video aufzuzeichnen</string>
-    <string name="permission_rationale_location">Location-Berechtigung für das Geotagging benötigt</string>
+    <string name="permission_rationale_location">Standort-Berechtigung für das Geotagging benötigt (das Speichern von Standortdaten in Fotos und Videos). Standort-Berechtigung ist auch notwendig, um mit Bluetooth LE Fernsteuerungen zu verbinden.</string>
     <string name="preference_category_photo_debugging">Debug-Optionen</string>
     <string name="preference_category_video_debugging">Debug-Optionen</string>
     <string name="preference_camera2_fake_flash">Benutze alternative Blitz Methode</string>
@@ -315,9 +324,10 @@
     <string name="seconds_abbreviation">s</string>
     <!-- short for seconds -->
     <string name="video_no_free_space">Nicht genügend freier Speicher um Video aufzunehmen</string>
-    <string name="video_power_critical">Videoaufzeichnung gestoppt\nBatterie fast leer.</string>
+    <string name="video_power_critical">Videoaufzeichnung gestoppt
+\nBatterie fast leer</string>
     <string name="preference_video_low_power_check">Überprüfung der Batterieladung</string>
-    <string name="preference_video_low_power_check_summary">Stoppe die Videoauszeichnung wenn die Batterie fast leer ist. Dies vermeidet korrupte Videos, falls dein Gerät aufgrund von Energiemangel plötzlich abschaltet</string>
+    <string name="preference_video_low_power_check_summary">Stoppe die Videoauszeichnung, wenn die Batterie fast leer ist. Dies vermeidet korrupte Videos, falls dein Gerät dann plötzlich abschaltet.</string>
     <string name="dark">Dunkel</string>
     <!-- exposure compensation dark -->
     <string name="bright">Hell</string>
@@ -332,11 +342,11 @@
     <string name="preference_front_camera_mirror">Spiegele Front Kamera</string>
     <string name="preference_front_camera_mirror_summary">Bestimmt, ob Bilder der Front Kamera gespiegelt werden\n%s</string>
     <string name="preference_calibrate_level">Kalibriere den Gyro</string>
-    <string name="preference_calibrate_level_summary">Diese Option kalibriert den Lagesensor, sodaß die Bilderausrichtung korrekt bestimmt wird.</string>
+    <string name="preference_calibrate_level_summary">Diese Option kalibriert den Lagesensor, sodass die Bilderausrichtung korrekt bestimmt wird.</string>
     <string name="preference_calibrate_level_dialog">Lege dein Gerät auf eine ebene Fläche, sodass es ebenfalls eben liegt (entweder Portrait- oder Landscape-Orientierung), and wähle \'Kalibriere\'.\n\nDrücke \'Reset\' um die Kalibrierung für dieses Gerät zu entfernen.\n\nDrücke \'Zurück\' zum Abbruch.</string>
     <string name="preference_calibrate_level_calibrate">Kalibriere</string>
     <string name="preference_calibrate_level_reset">Reset</string>
-    <string name="preference_calibrate_level_calibrated">Waagerechte Ebene kalibriert.</string>
+    <string name="preference_calibrate_level_calibrated">Waagerechte Ebene kalibriert</string>
     <string name="preference_calibrate_level_calibration_reset">Ebenen-Kalibrierung zurückgesetzt</string>
     <string name="photo_mode_dro">DRO</string>
     <string name="preference_show_pitch_lines">Zeige Neigungslinien</string>
@@ -512,7 +522,7 @@
     <!-- string for burst mode not being supported for a resolution -->
     <string name="preference_show_video_max_amp">Anzeige der Lautstärke</string>
     <string name="preference_show_video_max_amp_summary">Anzeige der Lautstärke bei der Video-Aufnahme</string>
-    <string name="photo_mode_focus_bracketing">Focus {}</string>
+    <string name="photo_mode_focus_bracketing">Fokus {}</string>
     <!-- keep short, as this shows in the popup menu -->
     <string name="photo_mode_focus_bracketing_full">Focus Bracketing</string>
     <string name="focus_bracketing_source_distance">Focus Bracketing Quell-Entfernung</string>
@@ -606,7 +616,7 @@
     <string name="preference_hdr_contrast_enhancement">HDR-Kontrastverstärkung</string>
     <string name="preference_hdr_contrast_enhancement_summary">Verwendet einen Algorithmus zur Verstärkung des HDR-Kontrasts. Das kann die Aufnahme verbessern, wenn eine Szene einen sehr hohen Dynamikumfang hat aber einen "HDR-Look" bekommen soll.\n%s</string>
     <string name="preference_hdr_contrast_enhancement_off">Aus</string>
-    <string name="preference_hdr_contrast_enhancement_smart">Smart</string>
+    <string name="preference_hdr_contrast_enhancement_smart">Intelligent</string>
     <string name="preference_hdr_contrast_enhancement_always">Immer</string>
     <string name="preference_video_output_format">Video-Format</string>
     <string name="preference_video_output_format_summary">Video- und Audio-Dateiformat and -Codecs\n%s</string>
@@ -625,7 +635,7 @@
     <string name="saved_settings">Gesicherte Einstellungen</string>
     <string name="save_settings_failed">Fehler beim Speichern der Einstellungen</string>
     <string name="restore_settings_failed">Fehler beim Laden der Einstellungen</string>
-    <string name="open_files_saf_exception_generic">Kein Datei-Dialog verfügbar, das Gerät unterstützt diese Funktion nicht.</string>
+    <string name="open_files_saf_exception_generic">Kein Datei-Dialog verfügbar, das Gerät unterstützt diese Funktion nicht</string>
     <string name="preference_image_format">Bild-Format</string>
     <string name="preference_image_format_jpeg">JPEG</string>
     <string name="preference_image_format_webp">WebP</string>
@@ -791,7 +801,8 @@
     <string name="noise_reduction_mode_minimal">Minimal</string>
     <string name="noise_reduction_mode_off">Aus</string>
     <string name="noise_reduction_mode_default">Standard</string>
-    <string name="preference_noise_reduction_mode_summary">Der Algorithmus, den der Kameratreiber für Rauschreduzierung benutzen soll. Der Rauschreduzierungs-Algorithmus versucht die Bildqualität zu verbessern, indem er überschüssiges Rauschen entfernt, das beim Aufnehmen entsteht, vor allem in dunklen Bedingungen. (Das ist nicht wegen des Rauschreduzierungs-Fotomodus, und diese Einstellung wird im NR-Fotomodus ignoriert.)</string>
+    <string name="preference_noise_reduction_mode_summary">Der Algorithmus, den der Kameratreiber für Rauschreduzierung benutzen soll. Der Rauschreduzierungs-Algorithmus versucht, die Bildqualität zu verbessern, indem er überschüssiges Rauschen entfernt, das beim Aufnehmen entsteht, vor allem in dunklen Bedingungen. (Das ist nicht wegen des Rauschreduzierungs-Fotomodus, und diese Einstellung wird im NR-Fotomodus ignoriert.)
+\n%s</string>
     <string name="preference_noise_reduction_mode">Rauschreduzierung-Algorithmus</string>
     <string name="preference_screen_processing_settings">Einstellungen werden verarbeitet…</string>
     <string name="preference_edge_mode_summary">Der Algorithmus, den der Kameratreiber für Kantenglättung benutzen soll. Kantenglättung verbessert Schärfe und Details im aufgenommen Bild. (Diese Einstellung wird im NR Foto Modus ignoriert.)
@@ -892,18 +903,18 @@
 \n%s</string>
     <string name="preference_immersive_mode_low_profile">Nur die virtuellen Bildschirmtasten dimmen</string>
     <string name="preference_video_rec709">REC709</string>
-    <string name="whats_new_text"> <small>[Dieses Dialogfeld wird angezeigt, wenn Kamera aktualisiert wird. Sie können ihn unter Einstellungen/Benutzeroberfläche/Neuigkeiten anzeigen deaktivieren.]</small>
+    <string name="whats_new_text"> <small>[Dieses Dialogfeld wird angezeigt, wenn Kamera aktualisiert wird. Sie können ihn deaktivieren unter Einstellungen/Benutzeroberfläche/Neuigkeiten anzeigen.]</small>
 \n
 \n<b>v1.48:</b>
-\n<ul> <li>Neues Symbol für mehrere Kameras. Wenn dein Gerät mehrere Vorder-/Rückkameras hat wird das Symbol, was früher zwischen Vorder- und Rückansicht gewächselt hat, jetzt zwischen den einzelnen Kameras wechseln. Wenn du die alte Funktionsweise zurück haben möchtest, dann deaktiviere Einstellungen/Benutzeroberfläche.../\"Symbol für mehrere Kameras\". (Nur unterstützt für Geräte, welche mehrere Kameras an dritte zur Verfügung stellen.)
-\n</li> <li>Autolevel Funktion zeigt jetzt ein Rechteck um das Ergebnisfoto an.
-\n</li> <li>Blenden Kontrolle für unterstützte Geräte. (nur Camera2 API)
-\n</li> <li>Mehr Benutzerdefinierte Videoprofile.
-\n</li> <li>Neue Option um die Alphawerte für Doppelbilder einzustellen.
-\n</li> <li>Optionen zum Speichern von Zebrastreifen Farben.
-\n</li> <li>Option zum Speichern der Geräteausrichtung im EXIF Nutzerkommentar.
+\n<ul> <li>Neues Symbol für mehrere Kameras. Wenn dein Gerät mehrere Vorder-/Rückkameras hat, wird das Symbol, was früher zwischen Vorder- und Rückansicht gewechselt hat, jetzt zwischen den einzelnen Kameras wechseln. Wenn du die alte Funktionsweise zurück haben möchtest, dann deaktiviere Einstellungen/Benutzeroberfläche/„Symbol für mehrere Kameras“. (Nur unterstützt für Geräte, welche mehrere Kameras an Drittanbieter-Apps zur Verfügung stellen.)
+\n</li> <li>Autolevel-Funktion zeigt jetzt ein Rechteck um das Ergebnisfoto an.
+\n</li> <li>Blenden-Kontrolle für unterstützte Geräte. (nur Camera2 API)
+\n</li> <li>Mehr benutzerdefinierte Videoprofile.
+\n</li> <li>Neue Option, um die Alphawerte für Doppelbilder einzustellen.
+\n</li> <li>Optionen zum Speichern von Zebrastreifen-Farben.
+\n</li> <li>Option zum Speichern der Geräteausrichtung im EXIF-Nutzerkommentar.
 \n</li> <li>Option zum Ausschalten der Funktionen nach langem Drücken.
-\n</li> <li>Bessere Vollbildnutzung mit weitem Seitenverhältnis auf Geräten mit digitalen Navigationsknöpfen.
-\n</li> <li>Fehlerbehebungen und Anwenderschnittstellen Verbesserungen.
+\n</li> <li>Bessere Vollbildnutzung mit weitem Seitenverhältnis auf Geräten mit digitalen Navigationstatsten.
+\n</li> <li>Fehlerbehebungen und Anwenderschnittstellen-Verbesserungen.
 \n</li> </ul> </string>
 </resources>
