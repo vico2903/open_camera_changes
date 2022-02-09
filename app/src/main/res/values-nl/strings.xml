@@ -768,4 +768,6 @@
     <string name="preference_calibrate_level">Kalibreer waterpashoek</string>
     <string name="preference_nr_save_all">Sla alle originele afbeeldingen op (langzaam)</string>
     <string name="preference_nr_save_single">Enkel originele afbeelding opslaan</string>
+    <string name="scene_mode_steady_photo">Stabiele foto</string>
+    <string name="preference_antibanding">Antibanding</string>
 </resources>
