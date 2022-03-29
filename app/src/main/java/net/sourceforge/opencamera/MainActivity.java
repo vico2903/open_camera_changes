@@ -4090,7 +4090,7 @@ public class MainActivity extends Activity {
                     }
                 });
 
-                if( sharedPreferences.getBoolean(PreferenceKeys.ShowZoomSliderControlsPreferenceKey, true) ) {
+                if( sharedPreferences.getBoolean(PreferenceKeys.ShowZoomSliderControlsPreferenceKey, false) ) {
                     if( !mainUI.inImmersiveMode() ) {
                         zoomSeekBar.setVisibility(View.VISIBLE);
                     }
