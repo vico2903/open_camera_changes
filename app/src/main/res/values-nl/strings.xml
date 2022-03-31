@@ -156,7 +156,7 @@
     <string name="preference_stamp_fontsize">Tekstgrootte</string>
     <string name="preference_textstamp_summary">Voeg stempel toe aan foto\'s met een aangepaste tekst</string>
     <string name="preference_textstamp">Aangepaste tekst</string>
-    <string name="preference_stamp_timeformat">Tijd stempel formaat</string>
+    <string name="preference_stamp_timeformat">Formaat tijdsaanduiding</string>
     <string name="preference_stamp_dateformat">Datum stempel formaat</string>
     <string name="preference_stamp_summary">Voeg aan foto\'s een stempel toe met datum en tijd; en ook met gps locatie indien locatie/richting data ingeschakeld
 \n%s</string>
@@ -197,14 +197,14 @@
     <string name="preference_startup_focus">Voer auto-focus uit tijdens het opstarten</string>
     <string name="preference_show_when_locked_summary">Wanneer ingeschakeld zal Camera op het vergrendelingsscherm worden afgebeeld (Je moet wel nog deblokkeren voor toegang tot Instellingen, Galerij enz)</string>
     <string name="preference_show_when_locked">Toon camera wanneer vergrendeld</string>
-    <string name="preference_save_zulu_time">Tijd formaat voor bestandsnaam</string>
-    <string name="preference_save_video_prefix_summary">Het voorvoegsel om te gebruiken bij het opslaan van video\'s</string>
-    <string name="preference_save_video_prefix">Sla video voorvoegsel op</string>
-    <string name="preference_save_photo_prefix_summary">Het voorvoegsel om te gebruiken om bestandsnamen voor foto\'s op te slaan</string>
-    <string name="preference_save_photo_prefix">Foto voorvoegsel opslaan</string>
+    <string name="preference_save_zulu_time">Tijdnotatie voor bestandsnamen</string>
+    <string name="preference_save_video_prefix_summary">Het voorvoegsel voor bestandsnamen bij opgeslagen video\'s</string>
+    <string name="preference_save_video_prefix">Video voorvoegsel</string>
+    <string name="preference_save_photo_prefix_summary">Het voorvoegsel voor bestandsnamen bij opgeslagen foto\'s</string>
+    <string name="preference_save_photo_prefix">Foto voorvoegsel</string>
     <string name="preference_using_saf">Gebruik Storage Access Framework</string>
     <string name="preference_save_location_summary">Map om foto/video bestanden in op te slaan</string>
-    <string name="preference_save_location">Sla locatie op</string>
+    <string name="preference_save_location">Opslag locatie</string>
     <string name="preference_touch_capture_summary">Neem een foto door het voorbeeld aan te raken of te dubbelklikken</string>
     <string name="preference_touch_capture">Vastleggen bij aanraking</string>
     <string name="preference_timer_speak">Timer met spraakgeluid</string>
@@ -277,7 +277,7 @@
     <string name="preference_ui_placement">Plaatsing van gebruikersinterface</string>
     <string name="preference_rotate_preview_summary">Optie om de voorbeeld weergave te draaien (heeft geen invloed op het resultaat van de opname)
 \n%s</string>
-    <string name="preference_startup_focus_summary">Of de camera automatisch scherp stelt bij het opstarten van de app. Wanneer je een probleem hebt waardoor de flits ongevraagd aan gaat bij het starten, schakel je deze optie uit</string>
+    <string name="preference_startup_focus_summary">Automatisch scherpstellen bij het opstarten van de app. Wanneer je een probleem hebt waardoor de flits ongevraagd aan gaat bij het starten, schakel je deze optie uit</string>
     <string name="preference_using_saf_summary">Maak gebruik van Storage Access Framework om foto\'s en video\'s op te slaan. Vink dit aan (vanaf Android 5) om te kunnen opslaan op externe SD-cards.</string>
     <string name="preference_audio_noise_control_sensitivity_summary">Geluidniveau gevoeligheid voor harde geluiden</string>
     <string name="preference_zebra_stripes_100pc">100%</string>
@@ -356,7 +356,7 @@
     <string name="preference_water_type_summary">Voor onderwater behuizingen, verbetert de nauwkeurigheid als het correcte water type is geselecteerd.</string>
     <string name="preference_water_type">Gebruik Zoutwater voor diepte berekeningen</string>
     <string name="preference_remote_disconnect_screen_dim_summary">Hint: zet de standaard helderheid van het scherm op de minimum stand voor dat je Open Camera start.</string>
-    <string name="preference_remote_disconnect_screen_dim">Scherm dimmen bij verbreken van verbinding met afstandsbediening</string>
+    <string name="preference_remote_disconnect_screen_dim">Scherm dimmen bij verbroken verbinding</string>
     <string name="unknown_device">Onbekend apparaat</string>
     <string name="bluetooth_not_supported">Bluetooth wordt niet ondersteund.</string>
     <string name="scan_ble">BLE Apparaat Scan</string>
@@ -737,17 +737,17 @@
 \n*De \"Addressen\" optie voor foto stempels of video ondertitels maakt gebruik van Android Geocoder API. Wanneer ingeschakeld is het nodig om locatie data over internet te versturen naar een derde partij (Dit hangt af van welke backend service geïnstalleerd zijn op je toestel).
 \n*Apps/services zoals cloud services kunnen de foto\'s en video\'s op je toestel automatisch uploaden. </string>
     <string name="preference_camera2_fake_flash_summary">Schakel dit in als je apparaat onvolmaakt flits gedrag heeft met Camera2 API</string>
-    <string name="permission_rationale_record_audio">Microfoon permissie is nodig om video met geluid op te nemen, en ook om de \"Audio beheer\" opties te kunnen gebruiken.</string>
+    <string name="permission_rationale_record_audio">Toegang tot de microfoon is vereist om video met geluid op te nemen alsook om de \"Audio beheer\" opties te kunnen gebruiken</string>
     <string name="photo_mode_expo_bracketing_full">Blootstelling Bracketing</string>
-    <string name="auto_stabilise_info">"Auto-level zal automatisch foto\'s roteren, zodat ze waterpas staan.
+    <string name="auto_stabilise_info">Auto-level zal automatisch foto\'s roteren, zodat ze waterpas staan.
 \n
-\nLet op dat dit betekent dat foto\'s een kleinere resolutie zullen hebben (door het roteren en bijsnijden dat benodigd is). "</string>
+\nLet op dat dit betekent dat foto\'s een kleinere resolutie zullen hebben (door het roteren en bijsnijden dat benodigd is).</string>
     <string name="audio_control_stop">Stop beluisteren van geluid</string>
     <string name="audio_control_start">Start beluisteren van geluid</string>
-    <string name="preference_video_flash_summary">"Indien ingeschakeld, flits zal ingeschakeld of uitgeschakeld worden tijdens het opnemen van video (kan gebruikt worden om aan te geven dat de camera nog steeds aan het opnemen is, vanaf een afstand) "</string>
+    <string name="preference_video_flash_summary">Indien ingeschakeld zal de flitser langzaam knipperen tijdens een video opname (kan gebruikt worden als indicatie dat de camera aan het opnemen is)</string>
     <string name="preference_video_flash">Flits tijdens het opnemen van een video</string>
-    <string name="preference_angle_highlight_color_summary">Markeer met kleur wanneer camera waterpas staat.</string>
-    <string name="preference_show_angle_summary">"Toon de huidige apparaat oriëntatie hoek op het scherm "</string>
+    <string name="preference_angle_highlight_color_summary">Toon kleurmarkering wanneer camera ongeveer waterpas staat</string>
+    <string name="preference_show_angle_summary">Toon de huidige apparaat oriëntatie hoek op het scherm</string>
     <string name="preference_immersive_mode">Meeslepende modus</string>
     <string name="preference_auto_stabilise_summary">Foto\'s zullen gedraaid worden, zodat ze automatisch waterpas staan (alleen foto\'s) (langzamer om foto\'s te maken, en kan mislukken op apparaten met te weinig geheugen)</string>
     <string name="preference_angle_highlight_color">Hoek/hoogte markeringskleur</string>
@@ -772,4 +772,6 @@
     <string name="preference_antibanding">Antibanding</string>
     <string name="preference_expo_bracketing_n_images">Blootstelling Bracketing</string>
     <string name="photo_mode_expo_bracketing">Expo {}</string>
+    <string name="preference_ghost_image_last">Laatste foto genomen</string>
+    <string name="preference_select_remote">Selecteer afstandsbediening</string>
 </resources>
