@@ -168,16 +168,7 @@ public class MainUI {
     }
 
     private UIPlacement computeUIPlacement() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(main_activity);
-        String ui_placement_string = sharedPreferences.getString(PreferenceKeys.UIPlacementPreferenceKey, "ui_top");
-        switch (ui_placement_string) {
-            case "ui_left":
-                return UIPlacement.UIPLACEMENT_LEFT;
-            case "ui_top":
-                return UIPlacement.UIPLACEMENT_TOP;
-            default:
-                return UIPlacement.UIPLACEMENT_RIGHT;
-        }
+        return UIPlacement.UIPLACEMENT_TOP;
     }
 
     private void layoutUI(boolean popup_container_only) {
