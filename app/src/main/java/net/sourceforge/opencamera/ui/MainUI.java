@@ -1,6 +1,7 @@
 package net.sourceforge.opencamera.ui;
 
 import net.sourceforge.opencamera.MyApplicationInterface;
+import net.sourceforge.opencamera.ScaleUtils;
 import net.sourceforge.opencamera.cameracontroller.CameraController;
 import net.sourceforge.opencamera.MainActivity;
 import net.sourceforge.opencamera.MyDebug;
@@ -40,7 +41,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.ZoomControls;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -303,17 +303,6 @@ public class MainUI {
             if (ui_placement == UIPlacement.UIPLACEMENT_TOP) {
                 // not part of the icon panel in TOP mode
                 view = main_activity.findViewById(R.id.gallery);
-                layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-                layoutParams.addRule(align_parent_left, 0);
-                layoutParams.addRule(align_parent_right, RelativeLayout.TRUE);
-                layoutParams.addRule(align_parent_top, RelativeLayout.TRUE);
-                layoutParams.addRule(align_parent_bottom, 0);
-                layoutParams.addRule(above, 0);
-                layoutParams.addRule(below, 0);
-                layoutParams.addRule(left_of, 0);
-                layoutParams.addRule(right_of, 0);
-                layoutParams.setMargins(0, 0, navigation_gap, 0);
-                view.setLayoutParams(layoutParams);
                 setViewRotation(view, ui_rotation);
             } else {
                 buttons_permanent.add(main_activity.findViewById(R.id.gallery));
@@ -389,6 +378,7 @@ public class MainUI {
 					}*/
                     int total_button_size = count * button_size;
                     int margin = 0;
+                    int topMargin = (int)ScaleUtils.convertDpToPx(main_activity, 24.0f);
                     if (total_button_size > display_height) {
                         if (MyDebug.LOG)
                             Log.d(TAG, "need to reduce button size");
@@ -397,13 +387,14 @@ public class MainUI {
                         if (MyDebug.LOG)
                             Log.d(TAG, "need to increase margin");
                         if (count > 1)
-                            margin = (display_height - total_button_size) / (count - 1);
+                            margin = (display_height - total_button_size - (2 * topMargin)) / (count - 1);
                     }
                     if (MyDebug.LOG) {
                         Log.d(TAG, "button_size: " + button_size);
                         Log.d(TAG, "total_button_size: " + total_button_size);
                         Log.d(TAG, "margin: " + margin);
                     }
+                    int leftMargin = (int)ScaleUtils.convertDpToPx(main_activity, 16.0f);
                     for (View this_view : buttons_permanent) {
                         if (this_view.getVisibility() == View.VISIBLE) {
                             if (MyDebug.LOG) {
@@ -418,13 +409,18 @@ public class MainUI {
                             // is displayed (when taking a photo) if it is still shown left-most, rather than centred; also
                             // needed for "pause preview" trash/icons to be shown properly (test by rotating the phone to update
                             // the layout)
-                            layoutParams.setMargins(0, this_view == first_visible_view ? 0 : margin / 2, 0, this_view == last_visible_view ? 0 : margin / 2);
+                            layoutParams.setMargins(leftMargin, this_view == first_visible_view ? topMargin : margin / 2, 0, this_view == last_visible_view ? topMargin : margin / 2);
                             layoutParams.width = button_size;
                             layoutParams.height = button_size;
                             this_view.setLayoutParams(layoutParams);
                         }
                     }
-                    top_icon = first_visible_view;
+
+                    view = main_activity.findViewById(R.id.top_bg);
+                    layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                    layoutParams.width = button_size + (2 * leftMargin);
+                    view.setLayoutParams(layoutParams);
+                    top_icon = view;
                 }
             } else {
                 // need to reset size/margins to their default
@@ -439,101 +435,42 @@ public class MainUI {
 
             // end icon panel
 
+            int rightSideMargin = (int) ScaleUtils.convertDpToPx(main_activity, 23.0f);
+            rightSideMargin += navigation_gap;
+
+            view = main_activity.findViewById(R.id.bottom_buttons_holder);
+            int bottomBarLeftPadding = (int) ScaleUtils.convertDpToPx(main_activity, 23.0f);
+            int bottomBarTopBottomPadding = (int) ScaleUtils.convertDpToPx(main_activity, 20.0f);
+            view.setPadding(bottomBarLeftPadding, bottomBarTopBottomPadding, rightSideMargin, bottomBarTopBottomPadding);
+
             view = main_activity.findViewById(R.id.take_photo);
-            layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-            layoutParams.addRule(align_parent_left, 0);
-            layoutParams.addRule(align_parent_right, RelativeLayout.TRUE);
-            layoutParams.setMargins(0, 0, navigation_gap, 0);
-            view.setLayoutParams(layoutParams);
             setViewRotation(view, ui_rotation);
 
             view = main_activity.findViewById(R.id.switch_camera);
-            layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-            layoutParams.addRule(align_parent_left, 0);
-            layoutParams.addRule(align_parent_right, RelativeLayout.TRUE);
-            layoutParams.setMargins(0, 0, navigation_gap, 0);
-            view.setLayoutParams(layoutParams);
             setViewRotation(view, ui_rotation);
 
             view = main_activity.findViewById(R.id.switch_multi_camera);
-            layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-            view.setLayoutParams(layoutParams);
             setViewRotation(view, ui_rotation);
 
             view = main_activity.findViewById(R.id.pause_video);
-            layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-            layoutParams.addRule(align_parent_left, 0);
-            layoutParams.addRule(align_parent_right, RelativeLayout.TRUE);
-            layoutParams.setMargins(0, 0, navigation_gap, 0);
-            view.setLayoutParams(layoutParams);
             setViewRotation(view, ui_rotation);
 
             view = main_activity.findViewById(R.id.cancel_panorama);
-            layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-            layoutParams.addRule(align_parent_left, 0);
-            layoutParams.addRule(align_parent_right, RelativeLayout.TRUE);
-            layoutParams.setMargins(0, 0, navigation_gap, 0);
-            view.setLayoutParams(layoutParams);
             setViewRotation(view, ui_rotation);
 
             view = main_activity.findViewById(R.id.switch_video);
-            layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-            layoutParams.addRule(align_parent_left, 0);
-            layoutParams.addRule(align_parent_right, RelativeLayout.TRUE);
-            layoutParams.setMargins(0, 0, navigation_gap, 0);
-            view.setLayoutParams(layoutParams);
             setViewRotation(view, ui_rotation);
 
             view = main_activity.findViewById(R.id.take_photo_when_video_recording);
-            layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-            layoutParams.addRule(align_parent_left, 0);
-            layoutParams.addRule(align_parent_right, RelativeLayout.TRUE);
-            layoutParams.setMargins(0, 0, navigation_gap, 0);
-            view.setLayoutParams(layoutParams);
             setViewRotation(view, ui_rotation);
 
             view = main_activity.findViewById(R.id.zoom);
-            layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-            layoutParams.addRule(align_parent_left, 0);
-            layoutParams.addRule(align_parent_right, RelativeLayout.TRUE);
-            layoutParams.addRule(align_parent_top, 0);
-            layoutParams.addRule(align_parent_bottom, RelativeLayout.TRUE);
-            layoutParams.setMargins(0, 0, navigation_gap, 0);
-            view.setLayoutParams(layoutParams);
-            view.setRotation(180.0f); // should always match the zoom_seekbar, so that zoom in and out are in the same directions
-
-            //  view = main_activity.findViewById(R.id.zoom_seekbar);
-            layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-            // if we are showing the zoom control, the align next to that; otherwise have it aligned close to the edge of screen
-            if (sharedPreferences.getBoolean(PreferenceKeys.ShowZoomControlsPreferenceKey, false)) {
-                layoutParams.addRule(align_left, 0);
-                layoutParams.addRule(align_right, R.id.zoom);
-                layoutParams.addRule(above, R.id.zoom);
-                layoutParams.addRule(below, 0);
-                // need to clear the others, in case we turn zoom controls on/off
-                layoutParams.addRule(align_parent_left, 0);
-                layoutParams.addRule(align_parent_right, 0);
-                layoutParams.addRule(align_parent_top, 0);
-                layoutParams.addRule(align_parent_bottom, 0);
-                layoutParams.setMargins(0, 0, 0, 0);
-            } else {
-                layoutParams.addRule(align_parent_left, 0);
-                layoutParams.addRule(align_parent_right, RelativeLayout.TRUE);
-                layoutParams.addRule(align_parent_top, 0);
-                layoutParams.addRule(align_parent_bottom, RelativeLayout.TRUE);
-                layoutParams.setMargins(0, 0, navigation_gap, 0);
-                // need to clear the others, in case we turn zoom controls on/off
-                layoutParams.addRule(align_left, 0);
-                layoutParams.addRule(align_right, 0);
-                layoutParams.addRule(above, 0);
-                layoutParams.addRule(below, 0);
-            }
-            view.setLayoutParams(layoutParams);
+            setViewRotation(view, ui_rotation);
 
             view = main_activity.findViewById(R.id.zoom_seekbar);
             LinearLayout.LayoutParams linearLayoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
-            int marginBottom = (navigation_gap + main_activity.getResources().getDimensionPixelSize(R.dimen.shutter_button_size)) - (main_activity.getResources().getDimensionPixelSize(R.dimen.zoom_seekbar_hw_diff));
-            linearLayoutParams.setMargins(0, 0, marginBottom, 0);
+            int zoomSeekBarMarginRight = (rightSideMargin + 140);
+            linearLayoutParams.setMargins(0, 0, zoomSeekBarMarginRight, 0);
             view.setLayoutParams(linearLayoutParams);
 
             view = main_activity.findViewById(R.id.focus_seekbar);
@@ -651,9 +588,6 @@ public class MainUI {
             lp.width = width_pixels;
             lp.height = height_pixels;
             view.setLayoutParams(lp);
-
-            view = main_activity.findViewById(R.id.exposure_seekbar_zoom);
-            view.setAlpha(0.5f);
 
             view = main_activity.findViewById(R.id.iso_seekbar);
             lp = (RelativeLayout.LayoutParams) view.getLayoutParams();
@@ -812,22 +746,20 @@ public class MainUI {
             ImageButton view = main_activity.findViewById(R.id.take_photo);
             int resource;
             int content_description;
-            ColorStateList tintList = ColorStateList.valueOf(main_activity.getResources().getColor(R.color.color_default_accent));
             int switch_video_content_description;
             if (main_activity.getPreview().isVideo()) {
                 if (MyDebug.LOG)
                     Log.d(TAG, "set icon to video " + main_activity.getPreview().isVideoRecording());
-                resource = lineageos.platform.R.drawable.ic_camera_shutter;
-                tintList = main_activity.getPreview().isVideoRecording()
-                        ? ColorStateList.valueOf(main_activity.getResources().getColor(lineageos.platform.R.color.color_default_red1))
-                        : ColorStateList.valueOf(main_activity.getResources().getColor(R.color.color_default_accent));
+                resource = main_activity.getPreview().isVideoRecording()
+                        ? R.drawable.ic_camera_video_recording
+                        : R.drawable.ic_camera_video;
                 content_description = main_activity.getPreview().isVideoRecording() ? R.string.stop_video : R.string.start_video;
                 switch_video_content_description = R.string.switch_to_photo;
             } else if (main_activity.getApplicationInterface().getPhotoMode() == MyApplicationInterface.PhotoMode.Panorama &&
                     main_activity.getApplicationInterface().getGyroSensor().isRecording()) {
                 if (MyDebug.LOG)
                     Log.d(TAG, "set icon to recording panorama");
-                resource = R.drawable.baseline_check_white_48;
+                resource = R.drawable.ic_done;
                 content_description = R.string.finish_panorama;
                 switch_video_content_description = R.string.switch_to_video;
             } else {
@@ -838,13 +770,12 @@ public class MainUI {
                 switch_video_content_description = R.string.switch_to_video;
             }
             view.setImageResource(resource);
-            view.setImageTintList(tintList);
             view.setContentDescription(main_activity.getResources().getString(content_description));
             view.setTag(resource); // for testing
 
             view = main_activity.findViewById(R.id.switch_video);
             view.setContentDescription(main_activity.getResources().getString(switch_video_content_description));
-            resource = main_activity.getPreview().isVideo() ? lineageos.platform.R.drawable.ic_camera_photo : lineageos.platform.R.drawable.ic_camera_video;
+            resource = main_activity.getPreview().isVideo() ? R.drawable.ic_switch_camera : R.drawable.ic_switch_video;
             view.setImageResource(resource);
             view.setTag(resource); // for testing
         }
@@ -890,10 +821,10 @@ public class MainUI {
         int content_description;
         if (main_activity.getPreview().isVideoRecordingPaused()) {
             content_description = R.string.resume_video;
-            pauseVideoButton.setImageResource(R.drawable.ic_play_circle_outline_white_48dp);
+            pauseVideoButton.setImageResource(R.drawable.ic_play);
         } else {
             content_description = R.string.pause_video;
-            pauseVideoButton.setImageResource(R.drawable.ic_pause_circle_outline_white_48dp);
+            pauseVideoButton.setImageResource(R.drawable.ic_pause);
         }
         if (MyDebug.LOG)
             Log.d(TAG, "content_description: " + main_activity.getResources().getString(content_description));
@@ -1061,6 +992,7 @@ public class MainUI {
                 View settingsButton = main_activity.findViewById(R.id.settings);
                 View zoomControls = main_activity.findViewById(R.id.zoom);
                 View zoomSeekBar = main_activity.findViewById(R.id.zoom_seekbar);
+                View zoomSeekbarIcon = main_activity.findViewById(R.id.zoom_seekbar_icon);
                 if (main_activity.getPreview().getCameraControllerManager().getNumberOfCameras() > 1)
                     switchCameraButton.setVisibility(visibility);
                 if (main_activity.showSwitchMultiCamIcon())
@@ -1099,6 +1031,7 @@ public class MainUI {
                 }
                 if (main_activity.getPreview().supportsZoom() && sharedPreferences.getBoolean(PreferenceKeys.ShowZoomSliderControlsPreferenceKey, false)) {
                     zoomSeekBar.setVisibility(visibility);
+                    zoomSeekbarIcon.setVisibility(visibility);
                 }
                 String pref_immersive_mode = sharedPreferences.getString(PreferenceKeys.ImmersiveModePreferenceKey, "immersive_mode_low_profile");
                 if (pref_immersive_mode.equals("immersive_mode_everything")) {
@@ -1228,14 +1161,15 @@ public class MainUI {
     public void updateExposureLockIcon() {
         ImageButton view = main_activity.findViewById(R.id.exposure_lock);
         boolean enabled = main_activity.getPreview().isExposureLocked();
-        view.setImageResource(enabled ? lineageos.platform.R.drawable.ic_camera_exposure_locked : lineageos.platform.R.drawable.ic_camera_exposure_unlocked);
+        view.setImageResource(enabled ? R.drawable.ic_camera_exposure_locked : R.drawable.ic_camera_exposure_unlocked);
         view.setContentDescription(main_activity.getResources().getString(enabled ? R.string.exposure_unlock : R.string.exposure_lock));
     }
 
     public void updateWhiteBalanceLockIcon() {
         ImageButton view = main_activity.findViewById(R.id.white_balance_lock);
         boolean enabled = main_activity.getPreview().isWhiteBalanceLocked();
-        view.setImageResource(enabled ? R.drawable.white_balance_locked : R.drawable.white_balance_unlocked);
+        view.setImageResource(R.drawable.ic_white_balance_unlocked);
+        view.setImageTintList(ColorStateList.valueOf(main_activity.getResources().getColor(enabled ? R.color.color_default_accent : R.color.white)));
         view.setContentDescription(main_activity.getResources().getString(enabled ? R.string.white_balance_unlock : R.string.white_balance_lock));
     }
 
@@ -1247,7 +1181,7 @@ public class MainUI {
                 // actually RAW only
                 view.setImageResource(R.drawable.raw_only_icon);
             } else {
-                view.setImageResource(R.drawable.raw_icon);
+                view.setImageResource(R.drawable.ic_raw);
             }
         } else {
             view.setImageResource(R.drawable.raw_off_icon);
@@ -1257,27 +1191,31 @@ public class MainUI {
     public void updateStoreLocationIcon() {
         ImageButton view = main_activity.findViewById(R.id.store_location);
         boolean enabled = main_activity.getApplicationInterface().getGeotaggingPref();
-        view.setImageResource(enabled ? R.drawable.ic_gps_fixed_red_48dp : R.drawable.ic_gps_fixed_white_48dp);
+        view.setImageResource(R.drawable.ic_gps_fixed_white_48dp);
+        view.setImageTintList(ColorStateList.valueOf(main_activity.getResources().getColor(enabled ? R.color.color_default_accent : R.color.white)));
         view.setContentDescription(main_activity.getResources().getString(enabled ? R.string.preference_location_disable : R.string.preference_location_enable));
     }
 
     public void updateTextStampIcon() {
         ImageButton view = main_activity.findViewById(R.id.text_stamp);
         boolean enabled = !main_activity.getApplicationInterface().getTextStampPref().isEmpty();
-        view.setImageResource(enabled ? R.drawable.baseline_text_fields_red_48 : R.drawable.baseline_text_fields_white_48);
+        view.setImageResource(R.drawable.ic_text_stamp);
+        view.setImageTintList(ColorStateList.valueOf(main_activity.getResources().getColor(enabled ? R.color.color_default_accent : R.color.white)));
     }
 
     public void updateStampIcon() {
         ImageButton view = main_activity.findViewById(R.id.stamp);
         boolean enabled = main_activity.getApplicationInterface().getStampPref().equals("preference_stamp_yes");
-        view.setImageResource(enabled ? R.drawable.ic_text_format_red_48dp : R.drawable.ic_text_format_white_48dp);
+        view.setImageResource(R.drawable.ic_preference_text_format);
+        view.setImageTintList(ColorStateList.valueOf(main_activity.getResources().getColor(enabled ? R.color.color_default_accent : R.color.white)));
         view.setContentDescription(main_activity.getResources().getString(enabled ? R.string.stamp_disable : R.string.stamp_enable));
     }
 
     public void updateAutoLevelIcon() {
         ImageButton view = main_activity.findViewById(R.id.auto_level);
         boolean enabled = main_activity.getApplicationInterface().getAutoStabilisePref();
-        view.setImageResource(enabled ? R.drawable.auto_stabilise_icon_red : R.drawable.auto_stabilise_icon);
+        view.setImageResource(R.drawable.ic_preference_auto_stabilise);
+        view.setImageTintList(ColorStateList.valueOf(main_activity.getResources().getColor(enabled ? R.color.color_default_accent : R.color.white)));
         view.setContentDescription(main_activity.getResources().getString(enabled ? R.string.auto_level_disable : R.string.auto_level_enable));
     }
 
@@ -1290,38 +1228,39 @@ public class MainUI {
         if (flash_value != null) {
             switch (flash_value) {
                 case "flash_off":
-                    view.setImageResource(lineageos.platform.R.drawable.ic_camera_flash_off);
+                    view.setImageResource(R.drawable.ic_camera_flash_off);
                     break;
                 case "flash_auto":
                 case "flash_frontscreen_auto":
-                    view.setImageResource(lineageos.platform.R.drawable.ic_camera_flash_auto);
+                    view.setImageResource(R.drawable.ic_camera_flash_auto);
                     break;
                 case "flash_on":
                 case "flash_frontscreen_on":
-                    view.setImageResource(lineageos.platform.R.drawable.ic_camera_flash_on);
+                    view.setImageResource(R.drawable.ic_camera_flash_on);
                     break;
                 case "flash_torch":
                 case "flash_frontscreen_torch":
-                    view.setImageResource(R.drawable.baseline_highlight_white_48);
+                    view.setImageResource(R.drawable.ic_camera_highlight);
                     break;
                 case "flash_red_eye":
-                    view.setImageResource(R.drawable.baseline_remove_red_eye_white_48);
+                    view.setImageResource(R.drawable.ic_camera_remove_red_eye);
                     break;
                 default:
                     // just in case??
                     Log.e(TAG, "unknown flash value " + flash_value);
-                    view.setImageResource(lineageos.platform.R.drawable.ic_camera_flash_off);
+                    view.setImageResource(R.drawable.ic_camera_flash_off);
                     break;
             }
         } else {
-            view.setImageResource(lineageos.platform.R.drawable.ic_camera_flash_off);
+            view.setImageResource(R.drawable.ic_camera_flash_off);
         }
     }
 
     public void updateFaceDetectionIcon() {
         ImageButton view = main_activity.findViewById(R.id.face_detection);
         boolean enabled = main_activity.getApplicationInterface().getFaceDetectionPref();
-        view.setImageResource(enabled ? R.drawable.ic_face_red_48dp : R.drawable.ic_face_white_48dp);
+        view.setImageResource(R.drawable.ic_face);
+        view.setImageTintList(ColorStateList.valueOf(main_activity.getResources().getColor(enabled ? R.color.color_default_accent : R.color.white)));
         view.setContentDescription(main_activity.getResources().getString(enabled ? R.string.face_detection_disable : R.string.face_detection_enable));
     }
 
@@ -1341,13 +1280,15 @@ public class MainUI {
 
     public void audioControlStarted() {
         ImageButton view = main_activity.findViewById(R.id.audio_control);
-        view.setImageResource(R.drawable.ic_mic_red_48dp);
+        view.setImageResource(R.drawable.ic_mic);
+        view.setImageTintList(ColorStateList.valueOf(main_activity.getResources().getColor(R.color.color_default_accent)));
         view.setContentDescription(main_activity.getResources().getString(R.string.audio_control_stop));
     }
 
     public void audioControlStopped() {
         ImageButton view = main_activity.findViewById(R.id.audio_control);
-        view.setImageResource(R.drawable.ic_mic_white_48dp);
+        view.setImageResource(R.drawable.ic_mic);
+        view.setImageTintList(ColorStateList.valueOf(main_activity.getResources().getColor(R.color.white)));
         view.setContentDescription(main_activity.getResources().getString(R.string.audio_control_start));
     }
 
@@ -1755,8 +1696,8 @@ public class MainUI {
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(main_activity);
         final Preview preview = main_activity.getPreview();
         ImageButton view = main_activity.findViewById(R.id.exposure);
-        view.setImageResource(lineageos.platform.R.drawable.ic_camera_exposure);
-        view.setImageTintList(ColorStateList.valueOf(main_activity.getResources().getColor(lineageos.platform.R.color.color_default_red1)));
+        view.setImageResource(R.drawable.ic_camera_exposure);
+        view.setImageTintList(ColorStateList.valueOf(main_activity.getResources().getColor(R.color.color_default_accent)));
         View sliders_container = main_activity.findViewById(R.id.sliders_container);
         sliders_container.setVisibility(View.VISIBLE);
         ViewGroup iso_buttons_container = main_activity.findViewById(R.id.iso_buttons);
@@ -1915,8 +1856,6 @@ public class MainUI {
 
             if (main_activity.getPreview().supportsExposures()) {
                 exposure_seek_bar.setVisibility(View.VISIBLE);
-                ZoomControls seek_bar_zoom = main_activity.findViewById(R.id.exposure_seekbar_zoom);
-                seek_bar_zoom.setVisibility(View.VISIBLE);
             } else {
                 exposure_seek_bar.setVisibility(View.GONE);
             }
@@ -1982,7 +1921,7 @@ public class MainUI {
         SeekBar zoomSeekBar = main_activity.findViewById(R.id.zoom_seekbar);
         if (MyDebug.LOG)
             Log.d(TAG, "progress was: " + zoomSeekBar.getProgress());
-        zoomSeekBar.setProgress(main_activity.getPreview().getMaxZoom() - new_zoom);
+        zoomSeekBar.setProgress(new_zoom);
         if (MyDebug.LOG)
             Log.d(TAG, "progress is now: " + zoomSeekBar.getProgress());
     }
@@ -2012,7 +1951,7 @@ public class MainUI {
      */
     public void closeExposureUI() {
         ImageButton image_button = main_activity.findViewById(R.id.exposure);
-        image_button.setImageResource(lineageos.platform.R.drawable.ic_camera_exposure);
+        image_button.setImageResource(R.drawable.ic_camera_exposure);
         image_button.setImageTintList(ColorStateList.valueOf(Color.WHITE));
         clearRemoteControlForExposureUI(); // must be called before we actually close the exposure panel
         View view = main_activity.findViewById(R.id.sliders_container);
@@ -2037,15 +1976,15 @@ public class MainUI {
         if (main_activity.getMainUI().showCycleFlashIcon()) {
             popup.setImageResource(lineageos.platform.R.drawable.ic_menu);
         } else if (flash_value != null && flash_value.equals("flash_off")) {
-            popup.setImageResource(lineageos.platform.R.drawable.ic_camera_flash_off);
+            popup.setImageResource(R.drawable.popup_camera_flash_off);
         } else if (flash_value != null && (flash_value.equals("flash_torch") || flash_value.equals("flash_frontscreen_torch"))) {
-            popup.setImageResource(R.drawable.popup_flash_torch);
+            popup.setImageResource(R.drawable.popup_camera_flash_torch);
         } else if (flash_value != null && (flash_value.equals("flash_auto") || flash_value.equals("flash_frontscreen_auto"))) {
-            popup.setImageResource(lineageos.platform.R.drawable.ic_camera_flash_auto);
+            popup.setImageResource(R.drawable.popup_camera_flash_auto);
         } else if (flash_value != null && (flash_value.equals("flash_on") || flash_value.equals("flash_frontscreen_on"))) {
-            popup.setImageResource(lineageos.platform.R.drawable.ic_camera_flash_on);
+            popup.setImageResource(R.drawable.popup_camera_flash_on);
         } else if (flash_value != null && flash_value.equals("flash_red_eye")) {
-            popup.setImageResource(R.drawable.popup_flash_red_eye);
+            popup.setImageResource(R.drawable.popup_camera_flash_red_eye);
         } else {
             popup.setImageResource(lineageos.platform.R.drawable.ic_menu);
         }

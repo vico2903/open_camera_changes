@@ -1,10 +1,8 @@
 package net.sourceforge.opencamera;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,7 +22,7 @@ import android.renderscript.Script;
 import android.renderscript.ScriptIntrinsicHistogram;
 //import android.renderscript.ScriptIntrinsicResize;
 import android.renderscript.Type;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.util.Log;
 
 public class HDRProcessor {

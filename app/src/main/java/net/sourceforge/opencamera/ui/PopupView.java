@@ -330,7 +330,7 @@ public class PopupView extends LinearLayout {
                             LayoutParams.MATCH_PARENT
                     );
                     final int left_padding = (int) (10 * scale + 0.5f); // convert dps to pixels
-                    params.setMargins(left_padding, 0, 0, 0);
+                    params.setMargins(left_padding, 20, 0, 40);
                     checkBox.setLayoutParams(params);
                 }
 
@@ -1052,6 +1052,8 @@ public class PopupView extends LinearLayout {
             }
 
         }
+
+        setBackgroundColor(getResources().getColor(R.color.color_popup_bg));
     }
 
     int getTotalWidth() {
@@ -1473,8 +1475,9 @@ public class PopupView extends LinearLayout {
         text_view.setGravity(Gravity.CENTER);
         text_view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, title_text_size_dip);
         text_view.setTypeface(null, Typeface.BOLD);
+        text_view.setPadding(0, 5, 0, 5);
         //text_view.setBackgroundColor(Color.GRAY); // debug
-        text_view.setBackgroundColor(Color.argb(255, 33,  33, 33)); // Grey 900
+        text_view.setBackgroundColor(getResources().getColor(R.color.color_popup_title_bg));
         this.addView(text_view);
     }
 
@@ -1516,12 +1519,50 @@ public class PopupView extends LinearLayout {
             final MainActivity main_activity = (MainActivity)this.getContext();
             final long debug_time = System.nanoTime();
 
-            final Button button = new Button(this.getContext());
-            button.setBackgroundColor(Color.TRANSPARENT); // workaround for Android 6 crash!
-            button.setText(title + "...");
-            button.setAllCaps(false);
-            button.setTextSize(TypedValue.COMPLEX_UNIT_DIP, title_text_size_dip);
-            this.addView(button);
+            LinearLayout ll = new LinearLayout(this.getContext());
+            ll.setOrientation(LinearLayout.HORIZONTAL);
+
+            final View dummyView = new View(this.getContext());
+            dummyView.setBackgroundColor(Color.TRANSPARENT);
+            dummyView.setEnabled(false);
+            dummyView.setClickable(false);
+            ll.addView(dummyView);
+            ViewGroup.LayoutParams dummy_params = dummyView.getLayoutParams();
+            dummy_params.width = arrow_button_w;
+            dummy_params.height = arrow_button_h;
+            dummyView.setLayoutParams(dummy_params);
+
+            final TextView text_view = new TextView(this.getContext());
+            text_view.setText(title);
+            text_view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, standard_text_size_dip);
+            text_view.setTextColor(Color.WHITE);
+            text_view.setGravity(Gravity.CENTER);
+            text_view.setSingleLine(true); // if text too long for the button, we'd rather not have wordwrap, even if it means cutting some text off
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
+            // Yuck! We want the arrow_button_w to be fairly large so that users can touch the arrow buttons easily, but if
+            // the text is too much for the button size, we'd rather it extend into the arrow buttons (which the user won't see
+            // anyway, since the button backgrounds are transparent).
+            // Needed for OnePlus 3T and Nokia 8, for camera resolution
+            params.setMargins(-arrow_button_w/2, arrow_button_h/4, -arrow_button_w/2, arrow_button_h/4);
+            text_view.setLayoutParams(params);
+            ll.addView(text_view);
+
+            final float scale = getResources().getDisplayMetrics().density;
+            final int padding = (int) (0 * scale + 0.5f); // convert dps to pixels
+            final ImageButton down_button = new ImageButton(this.getContext());
+            down_button.setEnabled(false);
+            down_button.setClickable(false);
+            down_button.setBackgroundColor(Color.TRANSPARENT); // workaround for Android 6 crash!
+            ll.addView(down_button);
+            down_button.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_arrow_down));
+            down_button.setPadding(padding, padding, padding, padding);
+            ViewGroup.LayoutParams vg_params = down_button.getLayoutParams();
+            vg_params.width = arrow_button_w;
+            vg_params.height = arrow_button_h;
+            down_button.setLayoutParams(vg_params);
+            down_button.setContentDescription(title);
+            addView(ll);
+
             if( MyDebug.LOG )
                 Log.d(TAG, "addRadioOptionsToPopup time 1: " + (System.nanoTime() - debug_time));
 
@@ -1532,7 +1573,7 @@ public class PopupView extends LinearLayout {
             if( MyDebug.LOG )
                 Log.d(TAG, "addRadioOptionsToPopup time 2: " + (System.nanoTime() - debug_time));
 
-            button.setOnClickListener(new OnClickListener() {
+            ll.setOnClickListener(new OnClickListener() {
                 private boolean opened = false;
                 private boolean created = false;
 
@@ -1705,6 +1746,10 @@ public class PopupView extends LinearLayout {
 
             LinearLayout ll2 = new LinearLayout(this.getContext());
             ll2.setOrientation(LinearLayout.HORIZONTAL);
+            if( !title_in_options ) {
+                ll2.setPadding(0,40,0, 0);
+            }
+
 
             final TextView text_view = new TextView(this.getContext());
             setArrayOptionsText(supported_options, title, text_view, title_in_options, title_in_options_first_only, current_index);
@@ -1718,17 +1763,15 @@ public class PopupView extends LinearLayout {
             // the text is too much for the button size, we'd rather it extend into the arrow buttons (which the user won't see
             // anyway, since the button backgrounds are transparent).
             // Needed for OnePlus 3T and Nokia 8, for camera resolution
-            params.setMargins(-arrow_button_w/2, 0, -arrow_button_w/2, 0);
+            params.setMargins(-arrow_button_w/2, arrow_button_h/4, -arrow_button_w/2, arrow_button_h/4);
             text_view.setLayoutParams(params);
 
             final float scale = getResources().getDisplayMetrics().density;
             final int padding = (int) (0 * scale + 0.5f); // convert dps to pixels
-            final Button prev_button = new Button(this.getContext());
+            final ImageButton prev_button = new ImageButton(this.getContext());
             prev_button.setBackgroundColor(Color.TRANSPARENT); // workaround for Android 6 crash!
             ll2.addView(prev_button);
-            prev_button.setText("<");
-            prev_button.setTextSize(TypedValue.COMPLEX_UNIT_DIP, arrow_text_size_dip);
-            prev_button.setTypeface(null, Typeface.BOLD);
+            prev_button.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_arrow_left));
             prev_button.setPadding(padding, padding, padding, padding);
             ViewGroup.LayoutParams vg_params = prev_button.getLayoutParams();
             vg_params.width = arrow_button_w;
@@ -1741,12 +1784,10 @@ public class PopupView extends LinearLayout {
             ll2.addView(text_view);
             main_activity.getMainUI().getTestUIButtonsMap().put(test_key, text_view);
 
-            final Button next_button = new Button(this.getContext());
+            final ImageButton next_button = new ImageButton(this.getContext());
             next_button.setBackgroundColor(Color.TRANSPARENT); // workaround for Android 6 crash!
             ll2.addView(next_button);
-            next_button.setText(">");
-            next_button.setTextSize(TypedValue.COMPLEX_UNIT_DIP, arrow_text_size_dip);
-            next_button.setTypeface(null, Typeface.BOLD);
+            next_button.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_arrow_right));
             next_button.setPadding(padding, padding, padding, padding);
             vg_params = next_button.getLayoutParams();
             vg_params.width = arrow_button_w;

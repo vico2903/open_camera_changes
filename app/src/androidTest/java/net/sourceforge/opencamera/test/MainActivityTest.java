@@ -1,10 +1,8 @@
 package net.sourceforge.opencamera.test;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -59,7 +57,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.renderscript.Allocation;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.util.Log;

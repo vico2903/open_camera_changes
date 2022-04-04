@@ -1902,7 +1902,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         }
 
         ImageButton view = main_activity.findViewById(R.id.take_photo);
-        view.setImageTintList(ColorStateList.valueOf(main_activity.getResources().getColor(lineageos.platform.R.color.color_default_red1)));
+        view.setImageResource(R.drawable.ic_camera_video_recording);
         final int video_method = this.createOutputVideoMethod();
         boolean dategeo_subtitles = getVideoSubtitlePref().equals("preference_video_subtitle_yes");
         if( dategeo_subtitles && video_method != ApplicationInterface.VIDEOMETHOD_URI ) {

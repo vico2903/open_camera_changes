@@ -18,7 +18,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -30,14 +29,12 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.GradientDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -69,12 +66,10 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.renderscript.RenderScript;
 import android.speech.tts.TextToSpeech;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.ContextThemeWrapper;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -90,7 +85,6 @@ import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.ZoomControls;
@@ -414,6 +408,8 @@ public class MainActivity extends Activity {
         zoomControls.setVisibility(View.GONE);
         View zoomSeekbar = findViewById(R.id.zoom_seekbar);
         zoomSeekbar.setVisibility(View.INVISIBLE);
+        View zoomSeekbarIcon = findViewById(R.id.zoom_seekbar_icon);
+        zoomSeekbarIcon.setVisibility(View.INVISIBLE);
 
         // initialise state of on-screen icons
         mainUI.updateOnScreenIcons();
@@ -573,7 +569,7 @@ public class MainActivity extends Activity {
                         launchOnlineHelp();
                     }
                 });
-                alertDialog.show();
+                showAlertDialog(alertDialog, "first time load dialog dismissed");
             }
 
             setFirstTimeFlag();
@@ -631,7 +627,7 @@ public class MainActivity extends Activity {
                                 startActivity(browserIntent);
                             }
                         });
-                        alertDialog.show();
+                        showAlertDialog(alertDialog, "whats new dialog dismissed");
                     }
                 }
                 // We set the latest_version whether or not the dialog is shown - if we showed the first time dialog, we don't
@@ -1174,11 +1170,11 @@ public class MainActivity extends Activity {
     }
 
     public void zoomIn() {
-        mainUI.changeSeekbar(R.id.zoom_seekbar, -1);
+        mainUI.changeSeekbar(R.id.zoom_seekbar, 1);
     }
 
     public void zoomOut() {
-        mainUI.changeSeekbar(R.id.zoom_seekbar, 1);
+        mainUI.changeSeekbar(R.id.zoom_seekbar, -1);
     }
 
     public void changeExposure(int change) {
@@ -1509,13 +1505,16 @@ public class MainActivity extends Activity {
             }
         });
         alertDialog.setNegativeButton(android.R.string.cancel, null);
+        showAlertDialog(alertDialog, "custom stamp text dialog dismissed");
+    }
 
+    private void showAlertDialog(AlertDialog.Builder alertDialog, final String logMessageOnDismiss) {
         final AlertDialog alert = alertDialog.create();
         alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface arg0) {
-                if( MyDebug.LOG )
-                    Log.d(TAG, "custom stamp text dialog dismissed");
+                if (MyDebug.LOG)
+                    Log.d(TAG, logMessageOnDismiss);
                 setWindowFlagsForCamera();
                 showPreview(true);
             }
@@ -2967,7 +2966,8 @@ public class MainActivity extends Activity {
 	    /*if( MyDebug.LOG )
 			Log.d(TAG, "padding: " + bottom);*/
         galleryButton.setImageBitmap(null);
-        galleryButton.setImageResource(lineageos.platform.R.drawable.ic_album);
+        galleryButton.setImageResource(R.drawable.ic_album);
+        galleryButton.setBorderWidth(0);
         // workaround for setImageResource also resetting padding, Android bug
         galleryButton.setPadding(left, top, right, bottom);
         gallery_bitmap = null;
@@ -2981,6 +2981,7 @@ public class MainActivity extends Activity {
             Log.d(TAG, "updateGalleryIcon: " + thumbnail);
            CircleImageView galleryButton = this.findViewById(R.id.gallery);
             galleryButton.setImageBitmap(thumbnail);
+            galleryButton.setBorderWidth(6);
             gallery_bitmap = thumbnail;
 
     }
@@ -4040,36 +4041,39 @@ public class MainActivity extends Activity {
                 Log.d(TAG, "set up zoom");
             if( MyDebug.LOG )
                 Log.d(TAG, "has_zoom? " + preview.supportsZoom());
-            ZoomControls zoomControls = findViewById(R.id.zoom);
+            View zoomControlHolder = findViewById(R.id.zoom);
             SeekBar zoomSeekBar = findViewById(R.id.zoom_seekbar);
+            View zoomSeekbarIcon = findViewById(R.id.zoom_seekbar_icon);
 
             if( preview.supportsZoom() ) {
                 if( sharedPreferences.getBoolean(PreferenceKeys.ShowZoomControlsPreferenceKey, false) ) {
-                    zoomControls.setIsZoomInEnabled(true);
-                    zoomControls.setIsZoomOutEnabled(true);
-                    zoomControls.setZoomSpeed(20);
-
-                    zoomControls.setOnZoomInClickListener(new View.OnClickListener(){
-                        public void onClick(View v){
-                            zoomIn();
-                        }
-                    });
-                    zoomControls.setOnZoomOutClickListener(new View.OnClickListener(){
-                        public void onClick(View v){
-                            zoomOut();
-                        }
-                    });
                     if( !mainUI.inImmersiveMode() ) {
-                        zoomControls.setVisibility(View.VISIBLE);
+                        View zoomInButton = findViewById(R.id.button_zoom_in);
+                        View zoomOutButton = findViewById(R.id.button_zoom_out);
+
+                        zoomInButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                zoomIn();
+                            }
+                        });
+
+                        zoomOutButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                zoomOut();
+                            }
+                        });
+                        zoomControlHolder.setVisibility(View.VISIBLE);
                     }
                 }
                 else {
-                    zoomControls.setVisibility(View.GONE);
+                    zoomControlHolder.setVisibility(View.GONE);
                 }
 
                 zoomSeekBar.setOnSeekBarChangeListener(null); // clear an existing listener - don't want to call the listener when setting up the progress bar to match the existing state
                 zoomSeekBar.setMax(preview.getMaxZoom());
-                zoomSeekBar.setProgress(preview.getMaxZoom()-preview.getCameraController().getZoom());
+                zoomSeekBar.setProgress(preview.getCameraController().getZoom());
                 zoomSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -4077,7 +4081,7 @@ public class MainActivity extends Activity {
                             Log.d(TAG, "zoom onProgressChanged: " + progress);
                         // note we zoom even if !fromUser, as various other UI controls (multitouch, volume key zoom, -/+ zoomcontrol)
                         // indirectly set zoom via this method, from setting the zoom slider
-                        preview.zoomTo(preview.getMaxZoom() - progress);
+                        preview.zoomTo(progress);
 
                     }
 
@@ -4093,15 +4097,18 @@ public class MainActivity extends Activity {
                 if( sharedPreferences.getBoolean(PreferenceKeys.ShowZoomSliderControlsPreferenceKey, false) ) {
                     if( !mainUI.inImmersiveMode() ) {
                         zoomSeekBar.setVisibility(View.VISIBLE);
+                        zoomSeekbarIcon.setVisibility(View.VISIBLE);
                     }
                 }
                 else {
                     zoomSeekBar.setVisibility(View.INVISIBLE); // should be INVISIBLE not GONE, as the focus_seekbar is aligned to be left to this; in future we might want this similarly for exposure panel
+                    zoomSeekbarIcon.setVisibility(View.INVISIBLE);
                 }
             }
             else {
-                zoomControls.setVisibility(View.GONE);
+                zoomControlHolder.setVisibility(View.GONE);
                 zoomSeekBar.setVisibility(View.INVISIBLE); // should be INVISIBLE not GONE, as the focus_seekbar is aligned to be left to this; in future we might want this similarly for the exposure panel
+                zoomSeekbarIcon.setVisibility(View.INVISIBLE);
             }
             if( MyDebug.LOG )
                 Log.d(TAG, "cameraSetup: time after setting up zoom: " + (System.currentTimeMillis() - debug_time));
@@ -4221,18 +4228,6 @@ public class MainActivity extends Activity {
 
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
-                    }
-                });
-
-                ZoomControls seek_bar_zoom = findViewById(R.id.exposure_seekbar_zoom);
-                seek_bar_zoom.setOnZoomInClickListener(new View.OnClickListener(){
-                    public void onClick(View v){
-                        changeExposure(1);
-                    }
-                });
-                seek_bar_zoom.setOnZoomOutClickListener(new View.OnClickListener(){
-                    public void onClick(View v){
-                        changeExposure(-1);
                     }
                 });
             }
