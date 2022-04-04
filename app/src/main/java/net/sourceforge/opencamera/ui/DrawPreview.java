@@ -27,7 +27,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -54,6 +53,8 @@ import android.view.Display;
 import android.view.Surface;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.NonNull;
 
 public class DrawPreview {
     private static final String TAG = "DrawPreview";
@@ -164,7 +165,7 @@ public class DrawPreview {
     private Bitmap location_off_bitmap;
     private Bitmap raw_jpeg_bitmap;
     private Bitmap raw_only_bitmap;
-    private Bitmap auto_stabilise_bitmap;
+    private Drawable auto_stabilise_drawable;
     private Bitmap dro_bitmap;
     private Bitmap hdr_bitmap;
     private Bitmap panorama_bitmap;
@@ -173,8 +174,8 @@ public class DrawPreview {
     private Bitmap burst_bitmap;
     private Bitmap nr_bitmap;
     private Bitmap photostamp_bitmap;
-    private Drawable flash_bitmap;
-    private Bitmap face_detection_bitmap;
+    private Drawable flash_drawable;
+    private Drawable face_detection_drawable;
     private Bitmap audio_disabled_bitmap;
     private Bitmap high_speed_fps_bitmap;
     private Bitmap slow_motion_bitmap;
@@ -256,7 +257,7 @@ public class DrawPreview {
         location_off_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_gps_off_white_48dp);
         raw_jpeg_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.raw_icon);
         raw_only_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.raw_only_icon);
-        auto_stabilise_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.auto_stabilise_icon);
+        auto_stabilise_drawable = getContext().getResources().getDrawable(R.drawable.ic_preference_auto_stabilise);
         dro_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.dro_icon);
         hdr_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_hdr_on_white_48dp);
         panorama_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.baseline_panorama_horizontal_white_48);
@@ -265,12 +266,8 @@ public class DrawPreview {
         burst_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_burst_mode_white_48dp);
         nr_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.nr_icon);
         photostamp_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_text_format_white_48dp);
-        try {
-            flash_bitmap = getContext().getPackageManager().getResourcesForApplication("lineageos.platform").getDrawable(lineageos.platform.R.drawable.ic_camera_flash_on);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        face_detection_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_face_white_48dp);
+        flash_drawable = getContext().getResources().getDrawable(R.drawable.ic_camera_flash_on);
+        face_detection_drawable = getContext().getResources().getDrawable(R.drawable.ic_face);
         audio_disabled_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_mic_off_white_48dp);
         high_speed_fps_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_fast_forward_white_48dp);
         slow_motion_bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_slow_motion_video_white_48dp);
@@ -301,9 +298,8 @@ public class DrawPreview {
             raw_only_bitmap.recycle();
             raw_only_bitmap = null;
         }
-        if( auto_stabilise_bitmap != null ) {
-            auto_stabilise_bitmap.recycle();
-            auto_stabilise_bitmap = null;
+        if( auto_stabilise_drawable != null ) {
+            auto_stabilise_drawable = null;
         }
         if( dro_bitmap != null ) {
             dro_bitmap.recycle();
@@ -337,9 +333,8 @@ public class DrawPreview {
             photostamp_bitmap.recycle();
             photostamp_bitmap = null;
         }
-        if( face_detection_bitmap != null ) {
-            face_detection_bitmap.recycle();
-            face_detection_bitmap = null;
+        if( face_detection_drawable != null ) {
+            face_detection_drawable = null;
         }
         if( audio_disabled_bitmap != null ) {
             audio_disabled_bitmap.recycle();
@@ -1082,7 +1077,7 @@ public class DrawPreview {
         int ui_rotation = preview.getUIRotation();
 
         // set up text etc for the multiple lines of "info" (time, free mem, etc)
-        p.setTextSize(16 * scale + 0.5f); // convert dps to pixels
+        p.setTextSize(12.6f * scale + 0.5f); // convert dps to pixels
         p.setTextAlign(Paint.Align.LEFT);
         int location_x = top_x;
         int location_y = top_y;
@@ -1221,7 +1216,7 @@ public class DrawPreview {
                     Color.WHITE, Color.BLACK, location_x, bottom_y,
                     MyApplicationInterface.Alignment.ALIGNMENT_BOTTOM, null, MyApplicationInterface.Shadow.SHADOW_OUTLINE);
         }
-        p.setTextSize(16 * scale + 0.5f); // Restore text size
+        p.setTextSize(12.6f * scale + 0.5f); // Restore text size
 
         if( camera_controller != null && show_iso_pref ) {
             if( iso_exposure_string == null || time_ms > last_iso_exposure_time + 500 ) {
@@ -1364,7 +1359,7 @@ public class DrawPreview {
                 p.setAlpha(64);
                 canvas.drawRect(icon_dest, p);
                 p.setAlpha(255);
-                canvas.drawBitmap(face_detection_bitmap, null, icon_dest, p);
+                face_detection_drawable.draw(canvas);
 
                 if( ui_rotation == 180 ) {
                     location_x2 -= icon_size + flash_padding;
@@ -1381,7 +1376,7 @@ public class DrawPreview {
                 p.setAlpha(64);
                 canvas.drawRect(icon_dest, p);
                 p.setAlpha(255);
-                canvas.drawBitmap(auto_stabilise_bitmap, null, icon_dest, p);
+                auto_stabilise_drawable.draw(canvas);
 
                 if( ui_rotation == 180 ) {
                     location_x2 -= icon_size + flash_padding;
@@ -1530,8 +1525,7 @@ public class DrawPreview {
                     p.setAlpha((int)(64*alpha));
                     canvas.drawRect(icon_dest, p);
                     p.setAlpha((int)(255*alpha));
-                    flash_bitmap.draw(canvas);
-                    //canvas.drawBitmap(flash_bitmap, null, icon_dest, p);
+                    flash_drawable.draw(canvas);
                     p.setAlpha(255);
                 }
                 else {
@@ -2003,7 +1997,7 @@ public class DrawPreview {
                     // Convert the dps to pixels, based on density scale
                     p.setTextSize(14 * scale + 0.5f); // convert dps to pixels
                     p.setTextAlign(Paint.Align.CENTER);
-                    applicationInterface.drawTextWithBackground(canvas, p, getContext().getResources().getString(R.string.zoom) + ": " + zoom_ratio +"x", Color.WHITE, Color.BLACK, canvas.getWidth() / 2, text_base_y - text_y, MyApplicationInterface.Alignment.ALIGNMENT_BOTTOM, ybounds_text, MyApplicationInterface.Shadow.SHADOW_OUTLINE);
+                    applicationInterface.drawTextWithBackground(canvas, p, getZoomText(zoom_ratio), Color.WHITE, Color.BLACK, canvas.getWidth() / 2, text_base_y - text_y - 100, MyApplicationInterface.Alignment.ALIGNMENT_BOTTOM, ybounds_text, MyApplicationInterface.Shadow.SHADOW_OUTLINE);
                 }
             }
 
@@ -2035,7 +2029,7 @@ public class DrawPreview {
         }
 
         int top_x = (int) (5 * scale + 0.5f); // convert dps to pixels
-        int top_y = (int) (5 * scale + 0.5f); // convert dps to pixels
+        int top_y = (int) (15 * scale + 0.5f); // convert dps to pixels
         View top_icon = main_activity.getMainUI().getTopIcon();
         if( top_icon != null ) {
             if( last_top_icon_shift_time == 0 || time_ms > last_top_icon_shift_time + 1000 ) {
@@ -2150,6 +2144,11 @@ public class DrawPreview {
         onDrawInfoLines(canvas, top_x, top_y, text_base_y, time_ms);
 
         canvas.restore();
+    }
+
+    @NonNull
+    private String getZoomText(float zoom_ratio) {
+        return "·    " + zoom_ratio + "X" + "    ·";
     }
 
     private void drawAngleLines(Canvas canvas, long time_ms) {

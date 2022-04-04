@@ -6,7 +6,7 @@
                 android:width="4.5dp"/>
         </shape>
     </item>
-    <item android:drawable="@lineageos.platform:drawable/ic_camera_photo"
+    <item android:drawable="@drawable/ic_switch_camera"
         android:top="6dp"
         android:left="6dp"
         android:right="6dp"

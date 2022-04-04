@@ -1,8 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context="net.sourceforge.opencamera.MainActivity">
 
     <FrameLayout
         android:id="@+id/preview"
@@ -10,124 +11,220 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
     <!--center-->
-    <ImageButton
-        android:id="@+id/take_photo"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_centerVertical="true"
-        android:background="@null"
-        android:contentDescription="@string/take_photo"
-        android:onClick="clickedTakePhoto"
-        android:padding="0dp"
-        android:scaleType="fitCenter"
-        android:src="@lineageos.platform:drawable/ic_camera_shutter" />
 
-    <ImageButton
-        android:id="@+id/switch_camera"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_above="@+id/take_photo"
-        android:background="@null"
-        android:contentDescription="@string/switch_to_front_camera"
-        android:onClick="clickedSwitchCamera"
-        android:padding="12dp"
-        android:scaleType="fitCenter"
-        android:src="@lineageos.platform:drawable/ic_camera_toggle"
-        android:tint="@color/color_default_foreground" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_buttons_holder"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/navigation_background"
+        android:layout_alignParentEnd="true">
+
+        <View
+            android:id="@+id/place_holder_view"
+            android:layout_width="@dimen/onscreen_bottom_button_size"
+            android:layout_height="@dimen/onscreen_bottom_button_size"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:clickable="false"
+            android:focusable="false"/>
+
+        <ImageButton
+            android:id="@+id/take_photo"
+            android:layout_width="@dimen/shutter_button_size"
+            android:layout_height="@dimen/shutter_button_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@null"
+            android:contentDescription="@string/take_photo"
+            android:onClick="clickedTakePhoto"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_camera_shutter" />
+
+        <net.sourceforge.opencamera.ui.CircleImageView
+            android:id="@+id/gallery"
+            android:layout_width="@dimen/onscreen_bottom_button_size"
+            android:layout_height="@dimen/onscreen_bottom_button_size"
+            android:onClick="clickedGallery"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_album"
+            app:civ_border_color="#40FFFFFF"
+            app:civ_border_width="0dp" />
+
+        <ImageButton
+            android:id="@+id/switch_camera"
+            android:layout_width="@dimen/onscreen_bottom_button_size"
+            android:layout_height="@dimen/onscreen_bottom_button_size"
+            app:layout_constraintTop_toBottomOf="@id/gallery"
+            app:layout_constraintBottom_toTopOf="@id/take_photo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@null"
+            android:contentDescription="@string/switch_to_front_camera"
+            android:onClick="clickedSwitchCamera"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_camera_toggle" />
+
+        <ImageButton
+            android:id="@+id/pause_video"
+            android:layout_width="@dimen/onscreen_bottom_button_size"
+            android:layout_height="@dimen/onscreen_bottom_button_size"
+            app:layout_constraintTop_toBottomOf="@id/gallery"
+            app:layout_constraintBottom_toTopOf="@id/take_photo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@null"
+            android:contentDescription="@string/pause_video"
+            android:onClick="clickedPauseVideo"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_pause"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/cancel_panorama"
+            android:layout_width="@dimen/onscreen_bottom_button_size"
+            android:layout_height="@dimen/onscreen_bottom_button_size"
+            app:layout_constraintTop_toBottomOf="@id/gallery"
+            app:layout_constraintBottom_toTopOf="@id/take_photo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@null"
+            android:contentDescription="@string/cancel_panorama"
+            android:onClick="clickedCancelPanorama"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_cancel"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/switch_video"
+            android:layout_width="@dimen/onscreen_bottom_button_size"
+            android:layout_height="@dimen/onscreen_bottom_button_size"
+            app:layout_constraintBottom_toTopOf="@id/place_holder_view"
+            app:layout_constraintTop_toBottomOf="@id/take_photo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@null"
+            android:contentDescription="@string/switch_to_video"
+            android:onClick="clickedSwitchVideo"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_switch_video" />
+
+        <ImageButton
+            android:id="@+id/take_photo_when_video_recording"
+            android:layout_width="@dimen/onscreen_bottom_button_size"
+            android:layout_height="@dimen/onscreen_bottom_button_size"
+            app:layout_constraintBottom_toTopOf="@id/place_holder_view"
+            app:layout_constraintTop_toBottomOf="@id/take_photo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@null"
+            android:contentDescription="@string/take_photo"
+            android:onClick="clickedTakePhotoVideoSnapshot"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_switch_camera"
+            android:visibility="gone" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/top_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:background="@color/navigation_background"/>
+
 
     <ImageButton
         android:id="@+id/switch_multi_camera"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_below="@+id/switch_video"
-        android:layout_alignTop="@+id/switch_camera"
-        android:layout_alignBottom="@+id/switch_camera"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@+id/switch_camera"
-        android:background="@drawable/circle_background"
-        android:backgroundTint="@color/icons_background_tint"
-        android:backgroundTintMode="src_in"
+        android:layout_width="@dimen/onscreen_bottom_button_size"
+        android:layout_height="@dimen/onscreen_bottom_button_size"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@id/bottom_buttons_holder"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="21dp"
+        android:background="@null"
         android:contentDescription="@string/switch_multi_camera"
         android:onClick="clickedSwitchMultiCamera"
-        android:padding="12dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/baseline_add_a_photo_white_48"
+        android:src="@drawable/ic_switch_multi_camera"
         android:visibility="gone"
 
         />
 
-    <ImageButton
-        android:id="@+id/pause_video"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_above="@+id/take_photo"
-        android:background="@null"
-        android:contentDescription="@string/pause_video"
-        android:onClick="clickedPauseVideo"
-        android:padding="8dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_pause"
-        android:visibility="gone" />
-
-    <ImageButton
-        android:id="@+id/cancel_panorama"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_above="@+id/take_photo"
-        android:background="@null"
-        android:contentDescription="@string/cancel_panorama"
-        android:onClick="clickedCancelPanorama"
-        android:padding="12dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/baseline_close_white_48"
-        android:visibility="gone" />
-
-    <!-- alpha of 0.5 flags up Google Play prelaunch warning about contrast ratio too low (2.92; should be at least 3)-->
-    <ImageButton
-        android:id="@+id/switch_video"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_below="@+id/take_photo"
-        android:background="@null"
-        android:contentDescription="@string/switch_to_video"
-        android:onClick="clickedSwitchVideo"
-        android:padding="12dp"
-        android:scaleType="fitCenter"
-        android:src="@lineageos.platform:drawable/ic_camera_video"
-        android:tint="@color/color_default_foreground" />
-
-    <ImageButton
-        android:id="@+id/take_photo_when_video_recording"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_below="@+id/take_photo"
-        android:background="@null"
-        android:contentDescription="@string/take_photo"
-        android:onClick="clickedTakePhotoVideoSnapshot"
-        android:padding="12dp"
-        android:scaleType="fitCenter"
-        android:src="@lineageos.platform:drawable/ic_camera_photo"
-        android:visibility="gone" />
-
-    <ZoomControls
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/zoom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0.5"
-        android:contentDescription="@string/zoom" />
+        android:layout_width="112dp"
+        android:layout_height="38dp"
+        android:background="@drawable/bg_zoom_control"
+        android:layout_toEndOf="@id/top_bg"
+        android:layout_marginStart="25dp"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/zoom">
+
+        <View
+            android:id="@+id/zoom_divider"
+            android:layout_width="1dp"
+            android:layout_height="26dp"
+            android:clickable="false"
+            android:focusable="false"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/color_default_icon"/>
+
+        <ImageButton
+            android:id="@+id/button_zoom_out"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_zoom_out"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/zoom_divider"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageButton
+            android:id="@+id/button_zoom_in"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_zoom_in"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/zoom_divider"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center|end">
+        android:gravity="center|end"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/zoom_seekbar_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_zoom_in"
+            android:layout_marginTop="155dp"
+            android:layout_marginEnd="-150dp"
+            android:rotation="270"/>
 
         <SeekBar
             android:id="@+id/zoom_seekbar"
-            android:layout_width="256dp"
+            android:layout_width="278dp"
             android:layout_height="48dp"
-            android:background="@color/seekbar_background"
+            android:background="@null"
             android:contentDescription="@string/zoom"
-            android:rotation="90" />
+            android:rotation="270" />
     </LinearLayout>
 
     <!-- n.b., layout_marginLeft set programmatically in DrawPreview -->
@@ -139,7 +236,7 @@
         android:layout_marginTop="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginBottom="0dp"
-        android:background="@color/seekbar_background"
+        android:background="@drawable/bg_rounded_corner"
         android:contentDescription="@string/focus_distance"
         android:visibility="gone" />
 
@@ -152,7 +249,7 @@
         android:layout_marginTop="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginBottom="0dp"
-        android:background="@color/seekbar_background"
+        android:background="@drawable/bg_rounded_corner"
         android:contentDescription="@string/focus_bracketing_target_distance"
         android:visibility="gone" />
 
@@ -164,30 +261,6 @@
         android:scaleType="fitCenter"
         android:visibility="invisible" />
 
-    <!--  <ImageButton
-          android:id="@+id/gallery"
-          android:layout_width="@dimen/onscreen_button_size"
-          android:layout_height="@dimen/onscreen_button_size"
-          android:padding="8dp"
-          android:scaleType="fitCenter"
-          android:contentDescription="@string/gallery"
-          android:src="@drawable/baseline_photo_library_white_48"
-          android:background="@color/icons_background"
-          android:backgroundTint="@color/icons_background_tint"
-          android:backgroundTintMode="src_in"
-
-          />-->
-
-    <net.sourceforge.opencamera.ui.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/gallery"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:onClick="clickedGallery"
-        android:padding="12dp"
-        android:src="@lineageos.platform:drawable/ic_album"
-        app:civ_border_color="#ffffff"
-        app:civ_border_width="2dp" />
-
     <ImageButton
         android:id="@+id/settings"
         android:layout_width="@dimen/onscreen_button_size"
@@ -195,10 +268,9 @@
         android:background="@null"
         android:contentDescription="@string/action_settings"
         android:onClick="clickedSettings"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
-        android:src="@lineageos.platform:drawable/ic_settings"
-        android:tint="@color/white" />
+        android:src="@drawable/ic_settings" />
 
     <ImageButton
         android:id="@+id/popup"
@@ -207,9 +279,9 @@
         android:background="@null"
         android:contentDescription="@string/action_popup"
         android:onClick="clickedPopupSettings"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
-        android:src="@lineageos.platform:drawable/ic_menu" />
+        android:src="@drawable/ic_more" />
 
     <ImageButton
         android:id="@+id/exposure"
@@ -218,10 +290,9 @@
         android:background="@null"
         android:contentDescription="@string/exposure"
         android:onClick="clickedExposure"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
-        android:src="@lineageos.platform:drawable/ic_camera_exposure"
-        android:tint="@color/white"
+        android:src="@drawable/ic_camera_exposure"
         android:visibility="gone" />
 
     <ImageButton
@@ -231,10 +302,9 @@
         android:background="@null"
         android:contentDescription="@string/exposure_lock"
         android:onClick="clickedExposureLock"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
-        android:src="@lineageos.platform:drawable/ic_camera_exposure_unlocked"
-        android:tint="@color/white"
+        android:src="@drawable/ic_camera_exposure_unlocked"
         android:visibility="gone" />
 
     <ImageButton
@@ -244,9 +314,9 @@
         android:background="@null"
         android:contentDescription="@string/white_balance_lock"
         android:onClick="clickedWhiteBalanceLock"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
-        android:src="@drawable/white_balance_unlocked"
+        android:src="@drawable/ic_white_balance_unlocked"
         android:visibility="gone" />
 
     <ImageButton
@@ -256,7 +326,7 @@
         android:background="@null"
         android:contentDescription="@string/cycle_raw"
         android:onClick="clickedCycleRaw"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
         android:src="@drawable/raw_off_icon"
         android:visibility="gone" />
@@ -268,38 +338,10 @@
         android:background="@null"
         android:contentDescription="@string/preference_location_enable"
         android:onClick="clickedStoreLocation"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_gps_fixed_white_48dp"
+        android:src="@drawable/ic_preference_location"
         android:visibility="gone" />
-
-    <!--<ImageButton
-        android:id="@+id/switch_video"
-        android:layout_width="@dimen/onscreen_button_size"
-        android:layout_height="@dimen/onscreen_button_size"
-        android:padding="10dp"
-        android:scaleType="fitCenter"
-        android:contentDescription="@string/switch_to_video"
-        android:src="@drawable/switch_video"
-        android:background="@color/icons_background"
-        android:backgroundTint="@color/icons_background_tint"
-        android:backgroundTintMode="src_in"
-        android:onClick="clickedSwitchVideo"
-        />-->
-
-    <!--<ImageButton
-        android:id="@+id/switch_camera"
-        android:layout_width="@dimen/onscreen_button_size"
-        android:layout_height="@dimen/onscreen_button_size"
-        android:padding="10dp"
-        android:scaleType="fitCenter"
-        android:contentDescription="@string/switch_to_front_camera"
-        android:src="@drawable/switch_camera"
-        android:background="@color/icons_background"
-        android:backgroundTint="@color/icons_background_tint"
-        android:backgroundTintMode="src_in"
-        android:onClick="clickedSwitchCamera"
-        />-->
 
     <ImageButton
         android:id="@+id/text_stamp"
@@ -308,9 +350,9 @@
         android:background="@null"
         android:contentDescription="@string/preference_textstamp_summary"
         android:onClick="clickedTextStamp"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
-        android:src="@drawable/baseline_text_fields_white_48"
+        android:src="@drawable/ic_text_stamp"
         android:visibility="gone" />
 
     <ImageButton
@@ -321,9 +363,9 @@
         android:backgroundTintMode="src_in"
         android:contentDescription="@string/stamp_enable"
         android:onClick="clickedStamp"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_text_format_white_48dp"
+        android:src="@drawable/ic_preference_text_format"
         android:visibility="gone" />
 
     <ImageButton
@@ -333,9 +375,9 @@
         android:background="@null"
         android:contentDescription="@string/auto_level_enable"
         android:onClick="clickedAutoLevel"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
-        android:src="@drawable/auto_stabilise_icon"
+        android:src="@drawable/ic_preference_auto_stabilise"
         android:visibility="gone" />
 
     <ImageButton
@@ -345,10 +387,9 @@
         android:background="@null"
         android:contentDescription="@string/cycle_flash"
         android:onClick="clickedCycleFlash"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
-        android:src="@lineageos.platform:drawable/ic_camera_flash_off"
-        android:tint="@color/white"
+        android:src="@drawable/ic_camera_flash_off"
         android:visibility="gone" />
 
     <ImageButton
@@ -359,9 +400,9 @@
         android:backgroundTintMode="src_in"
         android:contentDescription="@string/face_detection_enable"
         android:onClick="clickedFaceDetection"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_face_white_48dp"
+        android:src="@drawable/ic_face"
         android:visibility="gone" />
 
     <ImageButton
@@ -372,9 +413,9 @@
         android:backgroundTintMode="src_in"
         android:contentDescription="@string/audio_control_start"
         android:onClick="clickedAudioControl"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_mic_white_48dp"
+        android:src="@drawable/ic_mic"
         android:visibility="gone" />
 
     <ImageButton
@@ -384,9 +425,9 @@
         android:background="@null"
         android:backgroundTintMode="src_in"
         android:contentDescription="@string/remote_connected"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
-        android:src="@drawable/baseline_bluetooth_white_48"
+        android:src="@drawable/ic_bluetooth"
         android:visibility="gone" />
 
     <!-- should be at left-most -->
@@ -398,9 +439,9 @@
         android:backgroundTintMode="src_in"
         android:contentDescription="@string/trash"
         android:onClick="clickedTrash"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
-        android:src="@lineageos.platform:drawable/ic_bin"
+        android:src="@drawable/ic_delete"
         android:visibility="gone" />
 
     <ImageButton
@@ -411,9 +452,9 @@
         android:backgroundTintMode="src_in"
         android:contentDescription="@string/share"
         android:onClick="clickedShare"
-        android:padding="12dp"
+        android:padding="@dimen/onscreen_button_padding"
         android:scaleType="fitCenter"
-        android:src="@lineageos.platform:drawable/ic_share"
+        android:src="@drawable/ic_share"
         android:visibility="gone" />
 
     <LinearLayout
@@ -422,7 +463,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="@color/seekbar_background"
+        android:background="@drawable/bg_rounded_corner"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -437,7 +481,7 @@
                 android:id="@+id/iso_buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"></RelativeLayout>
+                android:layout_gravity="center"/>
 
         </RelativeLayout>
 
@@ -453,8 +497,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:contentDescription="@string/exposure_compensation"
-                android:src="@lineageos.platform:drawable/ic_camera_exposure"
-                android:tint="@color/white" />
+                android:src="@drawable/ic_camera_exposure" />
 
             <!-- alpha set as workaround for Android 7 bug where seekbar doesn't show when rotated -->
             <SeekBar
@@ -466,16 +509,6 @@
                 android:layout_toRightOf="@+id/exposure_seekbar_text"
                 android:alpha="0.9"
                 android:contentDescription="@string/exposure_compensation_seekbar" />
-
-            <ZoomControls
-                android:id="@+id/exposure_seekbar_zoom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/exposure_seekbar"
-                android:layout_alignLeft="@+id/exposure_seekbar"
-                android:layout_alignRight="@+id/exposure_seekbar"
-                android:contentDescription="@string/exposure_compensation_zoom"
-                android:gravity="center" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -490,7 +523,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:contentDescription="@string/iso"
-                android:src="@drawable/iso_icon" />
+                android:src="@drawable/ic_iso" />
 
             <!-- alpha set as workaround for Android 7 bug where seekbar doesn't show when rotated -->
             <SeekBar
@@ -509,7 +542,7 @@
                 android:layout_height="30dp"
                 android:layout_below="@+id/iso_seekbar"
                 android:contentDescription="@string/exposure_shutter_speed"
-                android:src="@drawable/baseline_shutter_speed_white_48" />
+                android:src="@drawable/ic_shutter_speed" />
 
             <!-- alpha set as workaround for Android 7 bug where seekbar doesn't show when rotated -->
             <SeekBar
@@ -536,7 +569,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:contentDescription="@string/white_balance"
-                android:src="@drawable/ic_colorize_white_48dp" />
+                android:src="@drawable/ic_colorize" />
 
             <!-- alpha set as workaround for Android 7 bug where seekbar doesn't show when rotated -->
             <SeekBar
@@ -573,5 +606,4 @@
         android:background="@android:color/black"
         android:importantForAccessibility="no"
         android:visibility="gone" />
-
 </RelativeLayout>

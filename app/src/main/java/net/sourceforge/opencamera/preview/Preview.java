@@ -76,8 +76,8 @@ import android.renderscript.Element;
 import android.renderscript.RSInvalidStateException;
 import android.renderscript.RenderScript;
 import android.renderscript.Type;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Display;
@@ -7244,9 +7244,7 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
 
             paint.setStyle(Paint.Style.FILL);
             if (!style_outline) {
-                paint.setColor(Color.rgb(50, 50, 50));
-                //paint.setColor(Color.argb(32, 0, 0, 0));
-                //canvas.drawRect(rect, paint);
+                paint.setColor(Preview.this.getResources().getColor(R.color.color_toast_bg));
                 final float radius = (24 * scale + 0.5f); // convert dps to pixels
                 canvas.drawRoundRect(rect, radius, radius, paint);
             }
