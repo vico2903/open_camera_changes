@@ -7236,10 +7236,11 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             final int padding = (int) (14 * scale + 0.5f); // padding for the shaded rectangle; convert dps to pixels
             canvas.save();
             canvas.rotate(ui_rotation, canvas.getWidth() / 2.0f, canvas.getHeight() / 2.0f);
+            float margin = 32.0f;
 
-            rect.left = canvas.getWidth() / 2.0f - bounds.width() / 2.0f + bounds.left - padding;
+            rect.left = canvas.getWidth() / 2.0f - bounds.width() / 2.0f + bounds.left - padding + margin;
             rect.top = canvas.getHeight() / 2.0f + bounds.top - padding + offset_y;
-            rect.right = canvas.getWidth() / 2.0f - bounds.width() / 2.0f + bounds.right + padding;
+            rect.right = canvas.getWidth() / 2.0f - bounds.width() / 2.0f + bounds.right + padding + margin;
             rect.bottom = canvas.getHeight() / 2.0f + bounds.bottom + padding + offset_y;
 
             paint.setStyle(Paint.Style.FILL);
@@ -7252,7 +7253,7 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             paint.setColor(Color.WHITE);
             int ypos = canvas.getHeight() / 2 + offset_y - ((lines.length - 1) * height) / 2;
             for (String line : lines) {
-                canvas.drawText(line, canvas.getWidth() / 2.0f - bounds.width() / 2.0f, ypos, paint);
+                canvas.drawText(line, canvas.getWidth() / 2.0f - bounds.width() / 2.0f + margin, ypos, paint);
 
                 if (style_outline) {
                     // draw outline
@@ -7260,7 +7261,7 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                     paint.setColor(Color.BLACK);
                     paint.setStyle(Paint.Style.STROKE);
                     paint.setStrokeWidth(1);
-                    canvas.drawText(line, canvas.getWidth() / 2.0f - bounds.width() / 2.0f, ypos, paint);
+                    canvas.drawText(line, canvas.getWidth() / 2.0f - bounds.width() / 2.0f + margin, ypos, paint);
                     paint.setStyle(Paint.Style.FILL);
                     paint.setColor(current_color);
                 }
