@@ -1251,7 +1251,7 @@ public class PopupView extends LinearLayout {
                 actual_max_per_row = Math.min(actual_max_per_row, max_buttons_per_row);
             int button_width_dp = total_width_dp/actual_max_per_row;
             boolean use_scrollview = false;
-            final int min_button_width_dp = 48; // needs to be at least 48dp to avoid Google Play pre-launch accessibility report warnings
+            final int min_button_width_dp = 24; // needs to be at least 48dp to avoid Google Play pre-launch accessibility report warnings
             if( button_width_dp < min_button_width_dp && max_buttons_per_row == 0 ) {
                 button_width_dp = min_button_width_dp;
                 use_scrollview = true;
@@ -1276,6 +1276,13 @@ public class PopupView extends LinearLayout {
             View current_view = null;
             if( MyDebug.LOG )
                 Log.d(TAG, "addButtonOptionsToPopup time 2.05: " + (System.nanoTime() - debug_time));
+
+            int padding_dp = 0;
+            if (button_width_dp > min_button_width_dp) {
+                padding_dp = button_width_dp - min_button_width_dp;
+                padding_dp /= 2;
+            }
+            final int imageButtonPadding = (int) (padding_dp * scale + 0.5f);
 
             for(int button_indx=0;button_indx<supported_options.size();button_indx++) {
                 final String supported_option = supported_options.get(button_indx);
@@ -1368,8 +1375,7 @@ public class PopupView extends LinearLayout {
                         Log.d(TAG, "addButtonOptionsToPopup time 2.13: " + (System.nanoTime() - debug_time));
                     image_button.setScaleType(ScaleType.FIT_CENTER);
                     image_button.setBackgroundColor(Color.TRANSPARENT);
-                    final int padding = (int) (7 * scale + 0.5f); // convert dps to pixels
-                    view.setPadding(padding, padding, padding, padding);
+                    view.setPadding(imageButtonPadding, imageButtonPadding, imageButtonPadding, imageButtonPadding);
                 }
                 else {
                     Button button = new Button(context);
@@ -1389,10 +1395,15 @@ public class PopupView extends LinearLayout {
                     Log.d(TAG, "addButtonOptionsToPopup time 2.2: " + (System.nanoTime() - debug_time));
 
                 ViewGroup.LayoutParams params = view.getLayoutParams();
-                params.width = button_width;
-                // be careful of making the height too smaller, as harder to touch buttons; remember that this also affects the
-                // ISO buttons on exposure panel, and not just the main popup!
-                params.height = (int) (55 * scale + 0.5f); // convert dps to pixels
+                if (resource != -1) {
+                    params.width = button_width;
+                    params.height = button_width;
+                } else {
+                    params.width = button_width;
+                    // be careful of making the height too smaller, as harder to touch buttons; remember that this also affects the
+                    // ISO buttons on exposure panel, and not just the main popup!
+                    params.height = (int) (55 * scale + 0.5f); // convert dps to pixels
+                }
                 view.setLayoutParams(params);
 
                 view.setContentDescription(button_string);
