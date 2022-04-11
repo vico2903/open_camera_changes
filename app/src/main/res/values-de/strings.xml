@@ -342,7 +342,7 @@
     <string name="preference_front_camera_mirror">Spiegele Front Kamera</string>
     <string name="preference_front_camera_mirror_summary">Bestimmt, ob Bilder der Front Kamera gespiegelt werden\n%s</string>
     <string name="preference_calibrate_level">Kalibriere den Gyro</string>
-    <string name="preference_calibrate_level_summary">Diese Option kalibriert den Lagesensor, sodass die Bilderausrichtung korrekt bestimmt wird.</string>
+    <string name="preference_calibrate_level_summary">Diese Option kalibriert den Lagesensor, sodass die Bilderausrichtung korrekt bestimmt wird</string>
     <string name="preference_calibrate_level_dialog">Lege dein Gerät auf eine ebene Fläche, sodass es ebenfalls eben liegt (entweder Portrait- oder Landscape-Orientierung), and wähle \'Kalibriere\'.\n\nDrücke \'Reset\' um die Kalibrierung für dieses Gerät zu entfernen.\n\nDrücke \'Zurück\' zum Abbruch.</string>
     <string name="preference_calibrate_level_calibrate">Kalibriere</string>
     <string name="preference_calibrate_level_reset">Reset</string>
@@ -696,13 +696,13 @@
     <string name="preference_water_type">Setze Salzwasser zur Tiefenberechnung</string>
     <string name="preference_water_type_summary">Für Unterwassergehäuse, verbessert die Genauigkeit bei korrekter Auswahl der Wasserart.</string>
     <string name="remote_connected">Fernsteurung verbunden</string>
-    <string name="preference_remote_type_kraken">Kraken Smart Housing</string>
+    <string name="preference_remote_type_kraken">Kraken Smart Schutzhülle</string>
     <string name="preference_stamp_geo_address">Verwende Adressen</string>
     <string name="preference_stamp_geo_address_both">Zeige zusätzlich zur GPS-Position die zugehörige Adresse an</string>
     <string name="preference_stamp_geo_address_prefer">Bevorzuge Adressdaten vor GPS-Koordinaten</string>
     <string name="preference_stamp_geo_address_no">Zeige keine Adressdaten an</string>
     <string name="preference_show_store_location">Zeige Standortdaten-Icon</string>
-    <string name="preference_show_store_location_summary">Zeige ein Icon mit dem die Erfassung von Standortdaten (Geotagging) ermöglicht wird.</string>
+    <string name="preference_show_store_location_summary">Anzeigen eines Symbols, mit dem die Erfassung von Standortdaten (Geotagging) an- und ausgeschaltet werden kann</string>
     <string name="preference_location_enable">Speichere Standortdaten</string>
     <string name="preference_location_disable">Beende das Speichern von Standortdaten</string>
     <string name="preference_histogram">Zeige ein Histogramm</string>
@@ -745,14 +745,14 @@
     <string name="preference_preview">Kamera-Vorschau…</string>
     <string name="cycle_flash">Blitz-Optionen</string>
     <string name="preference_show_cycle_flash">Zeige Blitz-Icon</string>
-    <string name="preference_show_cycle_flash_summary">Zeigt Icon für die Blitz-Optionen-Auswahl direkt auf dem Bildschirm, anstelle der Auswahl per Popup-Menü.</string>
+    <string name="preference_show_cycle_flash_summary">Anzeigen eines Symbols für die Blitz-Optionen-Auswahl direkt auf dem Bildschirm, anstelle der Auswahl per Popup-Menü</string>
     <string name="preference_raw_expo_bracketing">RAW für Belichtungsreihe</string>
     <string name="preference_raw_expo_bracketing_summary">Speichert die Fotos von Belichtungsreihen (Expo {}) auch im RAW-Format (oder für HDR-Modus, wenn \"Speichere alle Fotos für HDR-Modus\" gewählt ist). Ist die Option \"RAW für Belichtungsreihe\" nicht ausgewählt, werden in diesen Modi nur JPEGs gespeichert.</string>
     <string name="preference_raw_focus_bracketing">RAW für Fokus-Reihe</string>
     <string name="preference_raw_focus_bracketing_summary">Speichert die Fotos von Fokus-Reihen (FOCUS {}) auch im RAW-Format. Ist die Option \"RAW für Fokus-Reihe\" nicht ausgewählt, werden in diesen Modi nur JPEGs gespeichert.</string>
     <string name="cycle_raw">RAW-Mode-Optionen</string>
     <string name="preference_show_cycle_raw">Zeige RAW-Icon</string>
-    <string name="preference_show_cycle_raw_summary">Zeigt Icon für die RAW-Mode-Auswahl direkt auf dem Bildschirm.</string>
+    <string name="preference_show_cycle_raw_summary">Anzeigen eines Symbols für die RAW-Mode-Auswahl direkt auf dem Bildschirm</string>
     <string name="bluetooth_current_remote">Momentane Fernsteurung:</string>
     <string name="bluetooth_scan">Scan</string>
     <string name="preference_stamp_style_shadowed">Schattierter Text</string>
@@ -846,12 +846,12 @@
     <string name="switch_multi_camera">Zwischen mehreren Kameras wechseln</string>
     <string name="switch_to_unknown_camera">Kamera wechseln</string>
     <string name="ultrawide">Ultraweit</string>
-    <string name="intro_text">Tippe um zu fokussieren, und drücke das blaue Kamerasymbol um Fotos aufzunehmen.
+    <string name="intro_text">Tippe, um zu fokussieren, und drücke das weiße Kamerasymbol, um Fotos aufzunehmen.
 \n
-\nUm die maximale Bildschirmhelligkeit zu deaktivieren, gehe zu Einstellungen/Benutzeroberfläche/„Maximale Helligkeit erzwingen“. Um ab Android 5 oder höher auf der SD-Karte zu speichern, gehe zu Einstellungen/Mehr Kamera-Einstellungen.../„Benutze Storage Access Framework“. Für weitere Hilfe tippe auf „Online-Hilfe“ in den Einstellungen.</string>
-    <string name="preference_stamp_geo_address_summary">Falls möglich, eine Adresse beim Stempeln von GPS-Standorten verwenden. Diese Option erfordert eine Internetverbindung. Falls diese Option aktiviert ist, ist es erforderlich, dass Ihr Gerät Standortdaten über das Internet an einen Dritten überträgt, um die GPS-Koordinaten in eine Adresse umzuwandeln. Siehe https://developer.android.com/reference/android/location/Geocoder.
+\nUm die maximale Bildschirmhelligkeit zu deaktivieren, gehe zu Einstellungen/Benutzeroberfläche/„Maximale Helligkeit erzwingen“. Um ab Android 5 oder höher auf der SD-Karte zu speichern, gehe zu Einstellungen/Mehr Kamera-Einstellungen …/„Benutze Storage Access Framework“. Für weitere Hilfe tippe auf „Online-Hilfe“ in den Einstellungen.</string>
+    <string name="preference_stamp_geo_address_summary">Falls möglich, eine Adresse beim Stempeln von GPS-Standorten verwenden. Diese Option erfordert eine Internetverbindung. Wenn aktiviert, werden Standortdaten über das Internet an einen Drittanbieter übermittelt, um die GPS-Koordinaten in eine Adresse umzuwandeln. Siehe https://developer.android.com/reference/android/location/Geocoder. 
 \n%s</string>
-    <string name="preference_audio_control_summary">Foto-/Video per Geräuscherkennung oder Sprachbefehl aufnehmen. Wenn diese Funktion aktiviert ist, können Sie mit der Mikrofontaste auf dem Bildschirm die Aufnahmebereitschaft starten/stoppen. Beachten Sie, dass die Sprachbefehlsoption den Android-Spracherkennungsdienst verwendet: Wenn diese Option verwendet wird, werden Audiodaten wahrscheinlich an entfernte Server gesendet, um die Spracherkennung durchzuführen.
+    <string name="preference_audio_control_summary">Foto-/Video per Geräuscherkennung oder Sprachbefehl aufnehmen. Wenn diese Funktion aktiviert ist, können Sie mit der Mikrofontaste auf dem Bildschirm die Aufnahmebereitschaft starten/stoppen. Beachten Sie, dass die Sprachbefehlsoption den Android-Spracherkennungsdienst verwendet: Wenn diese Option verwendet wird, werden Audiodaten wahrscheinlich an entfernte Server gesendet, um die Spracherkennung durchzuführen. 
 \n%s</string>
     <string name="preference_show_camera_id">Kamera-ID anzeigen</string>
     <string name="switch_to_external_camera">Wechsle zu externer Kamera</string>
@@ -903,7 +903,7 @@
 \n%s</string>
     <string name="preference_immersive_mode_low_profile">Nur die virtuellen Bildschirmtasten dimmen</string>
     <string name="preference_video_rec709">REC709</string>
-    <string name="whats_new_text"> <small>[Dieses Dialogfeld wird angezeigt, wenn Kamera aktualisiert wird. Sie können ihn deaktivieren unter Einstellungen/Benutzeroberfläche/Neuigkeiten anzeigen.]</small>
+    <string name="whats_new_text"> <small>[Dieses Dialogfeld wird angezeigt, wenn Kamera aktualisiert wird. Sie können ihn deaktivieren unter Einstellungen/Benutzeroberfläche/Neuigkeiten anzeigen.]</small> 
 \n
 \n<b>v1.48:</b>
 \n<ul> <li>Neues Symbol für mehrere Kameras. Wenn dein Gerät mehrere Vorder-/Rückkameras hat, wird das Symbol, was früher zwischen Vorder- und Rückansicht gewechselt hat, jetzt zwischen den einzelnen Kameras wechseln. Wenn du die alte Funktionsweise zurück haben möchtest, dann deaktiviere Einstellungen/Benutzeroberfläche/„Symbol für mehrere Kameras“. (Nur unterstützt für Geräte, welche mehrere Kameras an Drittanbieter-Apps zur Verfügung stellen.)
@@ -914,7 +914,10 @@
 \n</li> <li>Optionen zum Speichern von Zebrastreifen-Farben.
 \n</li> <li>Option zum Speichern der Geräteausrichtung im EXIF-Nutzerkommentar.
 \n</li> <li>Option zum Ausschalten der Funktionen nach langem Drücken.
-\n</li> <li>Bessere Vollbildnutzung mit weitem Seitenverhältnis auf Geräten mit digitalen Navigationstatsten.
+\n</li> <li>Bessere Vollbildnutzung mit weitem Seitenverhältnis auf Geräten mit digitalen Navigationstasten.
 \n</li> <li>Fehlerbehebungen und Anwenderschnittstellen-Verbesserungen.
 \n</li> </ul> </string>
+    <string name="back_button_label">Zurück</string>
+    <string name="next_button_label">Weiter</string>
+    <string name="skip_button_label">Überspringen</string>
 </resources>
