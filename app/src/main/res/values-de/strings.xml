@@ -432,7 +432,7 @@
     <string name="top_of_screen">oben im Bild</string>
     <string name="bottom_of_screen">unten im Bild</string>
     <string name="centre_of_screen">in der Mitte</string>
-    <string name="high_speed">High Speed</string>
+    <string name="high_speed">Highspeed</string>
     <string name="preference_video_fps_default">Standard</string>
     <string name="preference_category_exif_tags">Spezifische EXIF-Kennungen</string>
     <string name="preference_exif_artist">Ersteller</string>
