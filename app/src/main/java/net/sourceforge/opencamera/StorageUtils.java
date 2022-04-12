@@ -240,6 +240,10 @@ public class StorageUtils {
                             }
                             if( set_last_scanned ) {
                                 last_media_scanned = uri;
+                                if (is_new_video) {
+                                    Media media = getLatestMedia(is_new_video);
+                                    last_media_scanned = (media != null) ? media.uri : uri;
+                                }
                                 if( MyDebug.LOG )
                                     Log.d(TAG, "set last_media_scanned to " + last_media_scanned);
                             }
