@@ -1,7 +1,7 @@
 package net.sourceforge.opencamera.preview;
 
+import net.sourceforge.opencamera.MainActivity;
 import net.sourceforge.opencamera.cameracontroller.RawImage;
-//import net.sourceforge.opencamera.MainActivity;
 import net.sourceforge.opencamera.MyDebug;
 
 import foundation.e.camera.R;
@@ -3470,6 +3470,21 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         return optimalSize;
     }
 
+    private static CameraController.Size getClosestSizeForFullScreen(List<CameraController.Size> sizes, double targetRatio) {
+        if (MyDebug.LOG)
+            Log.d(TAG, "getClosestSize()");
+        CameraController.Size optimalSize = null;
+        double minDiff = Double.MIN_VALUE;
+        for (CameraController.Size size : sizes) {
+            double ratio = (double) size.width / size.height;
+            if ((ratio - targetRatio) > minDiff) {
+                optimalSize = size;
+                minDiff = ratio - targetRatio;
+            }
+        }
+        return (optimalSize != null) ? optimalSize : getClosestSize(sizes, targetRatio, null);
+    }
+
     public CameraController.Size getOptimalPreviewSize(List<CameraController.Size> sizes) {
         if (MyDebug.LOG)
             Log.d(TAG, "getOptimalPreviewSize()");
@@ -3503,6 +3518,7 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             if (MyDebug.LOG)
                 Log.d(TAG, "display_size: " + display_size.x + " x " + display_size.y);
         }
+        ((MainActivity)getContext()).handleDecorFitsSystemWindows();
         double targetRatio = calculateTargetRatioForPreview(display_size);
         int targetHeight = Math.min(display_size.y, display_size.x);
         if (targetHeight <= 0) {
@@ -3524,7 +3540,11 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             // can't find match for aspect ratio, so find closest one
             if (MyDebug.LOG)
                 Log.d(TAG, "no preview size matches the aspect ratio");
-            optimalSize = getClosestSize(sizes, targetRatio, null);
+            if (((MainActivity)getContext()).isInFullScreenMode()) {
+                optimalSize = getClosestSizeForFullScreen(sizes, targetRatio);
+            } else {
+                optimalSize = getClosestSize(sizes, targetRatio, null);
+            }
         }
         if (MyDebug.LOG) {
             Log.d(TAG, "chose optimalSize: " + optimalSize.width + " x " + optimalSize.height);
@@ -4315,12 +4335,14 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         } else {
             if (this.isOnTimer()) {
                 cancelTimer();
+                ((MainActivity)getContext()).setDecorFitsSystemWindows(true);
                 this.is_video = true;
             } else if (this.phase == PHASE_TAKING_PHOTO) {
                 // wait until photo taken
                 if (MyDebug.LOG)
                     Log.d(TAG, "wait until photo taken");
             } else {
+                ((MainActivity)getContext()).setDecorFitsSystemWindows(true);
                 this.is_video = true;
             }
         }
