@@ -597,13 +597,6 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
             pg.removePreference(pref);
         }
 
-        if( Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT ) {
-            // Some immersive modes require KITKAT - simpler to require Kitkat for any of the menu options
-            Preference pref = findPreference("preference_immersive_mode");
-            PreferenceGroup pg = (PreferenceGroup)this.findPreference("preference_screen_gui");
-            pg.removePreference(pref);
-        }
-
         if( !using_android_l ) {
             Preference pref = findPreference("preference_focus_assist");
             PreferenceGroup pg = (PreferenceGroup)this.findPreference("preference_preview");

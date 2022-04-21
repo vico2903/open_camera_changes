@@ -1,33 +1,10 @@
 package net.sourceforge.opencamera;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import net.sourceforge.opencamera.cameracontroller.CameraController;
-import net.sourceforge.opencamera.cameracontroller.RawImage;
-import net.sourceforge.opencamera.preview.ApplicationInterface;
-import net.sourceforge.opencamera.preview.BasicApplicationInterface;
-import net.sourceforge.opencamera.preview.Preview;
-import net.sourceforge.opencamera.preview.VideoProfile;
-import net.sourceforge.opencamera.ui.CircleImageView;
-import net.sourceforge.opencamera.ui.DrawPreview;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -54,6 +31,28 @@ import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+
+import net.sourceforge.opencamera.cameracontroller.CameraController;
+import net.sourceforge.opencamera.cameracontroller.RawImage;
+import net.sourceforge.opencamera.preview.ApplicationInterface;
+import net.sourceforge.opencamera.preview.BasicApplicationInterface;
+import net.sourceforge.opencamera.preview.Preview;
+import net.sourceforge.opencamera.preview.VideoProfile;
+import net.sourceforge.opencamera.ui.CircleImageView;
+import net.sourceforge.opencamera.ui.DrawPreview;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import foundation.e.camera.R;
 
@@ -1854,9 +1853,6 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     public void touchEvent(MotionEvent event) {
         main_activity.getMainUI().closeExposureUI();
         main_activity.getMainUI().closePopup();
-        if( main_activity.usingKitKatImmersiveMode() ) {
-            main_activity.setImmersiveMode(false);
-        }
     }
 
     @Override
@@ -1876,18 +1872,14 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     public void startedVideo() {
         if( MyDebug.LOG )
             Log.d(TAG, "startedVideo()");
-        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ) {
-            if( !( main_activity.getMainUI().inImmersiveMode() && main_activity.usingKitKatImmersiveModeEverything() ) ) {
-                View pauseVideoButton = main_activity.findViewById(R.id.pause_video);
-                pauseVideoButton.setVisibility(View.VISIBLE);
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            View pauseVideoButton = main_activity.findViewById(R.id.pause_video);
+            pauseVideoButton.setVisibility(View.VISIBLE);
             main_activity.getMainUI().setPauseVideoContentDescription();
         }
-        if( main_activity.getPreview().supportsPhotoVideoRecording() && this.usePhotoVideoRecording() ) {
-            if( !( main_activity.getMainUI().inImmersiveMode() && main_activity.usingKitKatImmersiveModeEverything() ) ) {
-                View takePhotoVideoButton = main_activity.findViewById(R.id.take_photo_when_video_recording);
-                takePhotoVideoButton.setVisibility(View.VISIBLE);
-            }
+        if (main_activity.getPreview().supportsPhotoVideoRecording() && this.usePhotoVideoRecording()) {
+            View takePhotoVideoButton = main_activity.findViewById(R.id.take_photo_when_video_recording);
+            takePhotoVideoButton.setVisibility(View.VISIBLE);
         }
         if( main_activity.getMainUI().isExposureUIOpen() ) {
             if( MyDebug.LOG )

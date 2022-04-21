@@ -1,16 +1,5 @@
 package net.sourceforge.opencamera.ui;
 
-import net.sourceforge.opencamera.MyApplicationInterface;
-import net.sourceforge.opencamera.ScaleUtils;
-import net.sourceforge.opencamera.cameracontroller.CameraController;
-import net.sourceforge.opencamera.MainActivity;
-import net.sourceforge.opencamera.MyDebug;
-import net.sourceforge.opencamera.PreferenceKeys;
-import net.sourceforge.opencamera.preview.ApplicationInterface;
-import net.sourceforge.opencamera.preview.Preview;
-
-import foundation.e.camera.R;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -42,10 +31,21 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
+import net.sourceforge.opencamera.MainActivity;
+import net.sourceforge.opencamera.MyApplicationInterface;
+import net.sourceforge.opencamera.MyDebug;
+import net.sourceforge.opencamera.PreferenceKeys;
+import net.sourceforge.opencamera.ScaleUtils;
+import net.sourceforge.opencamera.cameracontroller.CameraController;
+import net.sourceforge.opencamera.preview.ApplicationInterface;
+import net.sourceforge.opencamera.preview.Preview;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+
+import foundation.e.camera.R;
 
 /**
  * This contains functionality related to the main UI.
@@ -378,7 +378,7 @@ public class MainUI {
 					}*/
                     int total_button_size = count * button_size;
                     int margin = 0;
-                    int topMargin = (int)ScaleUtils.convertDpToPx(main_activity, 8.0f);
+                    int topMargin = (int) ScaleUtils.convertDpToPx(main_activity, 8.0f);
                     if (total_button_size > display_height) {
                         if (MyDebug.LOG)
                             Log.d(TAG, "need to reduce button size");
@@ -792,7 +792,7 @@ public class MainUI {
         if (!sharedPreferences.getBoolean(PreferenceKeys.ShowTakePhotoPreferenceKey, true)) {
             return;
         }
-        
+
         view = main_activity.findViewById(R.id.finish_panorama);
         view.setVisibility(isPanoramaRunning ? View.VISIBLE : View.GONE);
 
@@ -1055,35 +1055,6 @@ public class MainUI {
                     zoomSeekBar.setVisibility(visibility);
                     zoomSeekbarIcon.setVisibility(visibility);
                 }
-                String pref_immersive_mode = sharedPreferences.getString(PreferenceKeys.ImmersiveModePreferenceKey, "immersive_mode_low_profile");
-                if (pref_immersive_mode.equals("immersive_mode_everything")) {
-                    final boolean showTakePhotoPreferenceKey = sharedPreferences.getBoolean(PreferenceKeys.ShowTakePhotoPreferenceKey, true);
-
-                    if (showTakePhotoPreferenceKey) {
-                        View takePhotoButton = main_activity.findViewById(R.id.take_photo);
-                        takePhotoButton.setVisibility(visibility);
-                    }
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && main_activity.getPreview().isVideoRecording()) {
-                        View pauseVideoButton = main_activity.findViewById(R.id.pause_video);
-                        pauseVideoButton.setVisibility(visibility);
-                    }
-
-                    if (main_activity.getPreview().supportsPhotoVideoRecording() && main_activity.getApplicationInterface().usePhotoVideoRecording() && main_activity.getPreview().isVideoRecording()) {
-                        View takePhotoVideoButton = main_activity.findViewById(R.id.take_photo_when_video_recording);
-                        takePhotoVideoButton.setVisibility(visibility);
-                    }
-
-                    if (main_activity.getApplicationInterface().getGyroSensor().isRecording()) {
-                        View cancelPanoramaButton = main_activity.findViewById(R.id.cancel_panorama);
-                        cancelPanoramaButton.setVisibility(visibility);
-
-                        if (showTakePhotoPreferenceKey) {
-                            View finishPanoramaButton = main_activity.findViewById(R.id.finish_panorama);
-                            finishPanoramaButton.setVisibility(visibility);
-                        }
-                    }
-                }
                 if (!immersive_mode) {
                     // make sure the GUI is set up as expected
                     showGUI();
@@ -1116,10 +1087,6 @@ public class MainUI {
         }
         if (inImmersiveMode())
             return;
-        if ((show_gui_photo || show_gui_video) && main_activity.usingKitKatImmersiveMode()) {
-            // call to reset the timer
-            main_activity.initImmersiveMode();
-        }
         main_activity.runOnUiThread(new Runnable() {
             public void run() {
                 final boolean is_panorama_recording = main_activity.getApplicationInterface().getGyroSensor().isRecording();

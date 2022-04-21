@@ -84,7 +84,6 @@ public class DrawPreview {
     private boolean show_angle_line_pref;
     private boolean show_pitch_lines_pref;
     private boolean show_geo_direction_lines_pref;
-    private boolean immersive_mode_everything_pref;
     private boolean has_stamp_pref;
     private boolean is_raw_pref; // whether in RAW+JPEG or RAW only mode
     private boolean is_raw_only_pref; // whether in RAW only mode
@@ -544,9 +543,6 @@ public class DrawPreview {
         show_angle_line_pref = sharedPreferences.getBoolean(PreferenceKeys.ShowAngleLinePreferenceKey, false);
         show_pitch_lines_pref = sharedPreferences.getBoolean(PreferenceKeys.ShowPitchLinesPreferenceKey, false);
         show_geo_direction_lines_pref = sharedPreferences.getBoolean(PreferenceKeys.ShowGeoDirectionLinesPreferenceKey, false);
-
-        String immersive_mode = sharedPreferences.getString(PreferenceKeys.ImmersiveModePreferenceKey, "immersive_mode_low_profile");
-        immersive_mode_everything_pref = immersive_mode.equals("immersive_mode_everything");
 
         has_stamp_pref = applicationInterface.getStampPref().equals("preference_stamp_yes");
         is_raw_pref = applicationInterface.getRawPref() != ApplicationInterface.RawPref.RAWPREF_JPEG_ONLY;
@@ -2611,15 +2607,6 @@ public class DrawPreview {
             p.setAlpha(200); // set alpha so user can still see some of the preview
             canvas.drawRect(0.0f, 0.0f, canvas.getWidth(), canvas.getHeight(), p);
             p.setAlpha(255);
-        }
-
-        if( main_activity.getMainUI().inImmersiveMode() ) {
-            if( immersive_mode_everything_pref ) {
-                // exit, to ensure we don't display anything!
-                // though note we still should do the front screen flash (since the user can take photos via volume keys when
-                // in immersive_mode_everything mode)
-                return;
-            }
         }
 
         if( camera_controller != null && taking_picture && !front_screen_flash && take_photo_border_pref ) {

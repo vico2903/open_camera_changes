@@ -1,5 +1,71 @@
 package net.sourceforge.opencamera;
 
+import android.Manifest;
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.app.KeyguardManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Point;
+import android.graphics.PorterDuff;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.ParcelFileDescriptor;
+import android.preference.PreferenceManager;
+import android.provider.MediaStore;
+import android.renderscript.RenderScript;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
+import android.view.Display;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MotionEvent;
+import android.view.OrientationEventListener;
+import android.view.TextureView;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
+import android.view.WindowInsets;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+
 import net.sourceforge.opencamera.cameracontroller.CameraController;
 import net.sourceforge.opencamera.cameracontroller.CameraControllerManager;
 import net.sourceforge.opencamera.cameracontroller.CameraControllerManager2;
@@ -22,76 +88,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import android.Manifest;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
-import android.content.IntentFilter;
-import android.content.pm.PackageInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Point;
-import android.graphics.PorterDuff;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.ParcelFileDescriptor;
-import android.preference.PreferenceManager;
-import android.provider.MediaStore;
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.AlertDialog;
-import android.app.KeyguardManager;
-import android.content.ActivityNotFoundException;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.renderscript.RenderScript;
-import android.speech.tts.TextToSpeech;
-import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import android.util.Log;
-import android.view.Display;
-import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MotionEvent;
-import android.view.OrientationEventListener;
-import android.view.TextureView;
-import android.view.View;
-import android.view.ViewConfiguration;
-import android.view.ViewGroup;
-import android.view.WindowInsets;
-import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.ZoomControls;
-
 import foundation.e.camera.R;
 
-/** The main Activity for Open Camera.
+/**
+ * The main Activity for Open Camera.
  */
 public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
@@ -509,44 +509,6 @@ public class MainActivity extends Activity {
                 }
             });
         }
-
-        // set up listener to handle immersive mode options
-        decorView.setOnSystemUiVisibilityChangeListener
-                (new View.OnSystemUiVisibilityChangeListener() {
-                    @Override
-                    public void onSystemUiVisibilityChange(int visibility) {
-                        // Note that system bars will only be "visible" if none of the
-                        // LOW_PROFILE, HIDE_NAVIGATION, or FULLSCREEN flags are set.
-                        if( !usingKitKatImmersiveMode() )
-                            return;
-                        if( MyDebug.LOG )
-                            Log.d(TAG, "onSystemUiVisibilityChange: " + visibility);
-
-                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-                        String immersive_mode = sharedPreferences.getString(PreferenceKeys.ImmersiveModePreferenceKey, "immersive_mode_low_profile");
-                        boolean hide_ui = immersive_mode.equals("immersive_mode_gui") || immersive_mode.equals("immersive_mode_everything");
-
-                        if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
-                            if( MyDebug.LOG )
-                                Log.d(TAG, "system bars now visible");
-                            // The system bars are visible. Make any desired
-                            // adjustments to your UI, such as showing the action bar or
-                            // other navigational controls.
-                            if( hide_ui )
-                                mainUI.setImmersiveMode(false);
-                            setImmersiveTimer();
-                        }
-                        else {
-                            if( MyDebug.LOG )
-                                Log.d(TAG, "system bars now NOT visible");
-                            // The system bars are NOT visible. Make any desired
-                            // adjustments to your UI, such as hiding the action bar or
-                            // other navigational controls.
-                            if( hide_ui )
-                                mainUI.setImmersiveMode(true);
-                        }
-                    }
-                });
         if( MyDebug.LOG )
             Log.d(TAG, "onCreate: time after setting immersive mode listener: " + (System.currentTimeMillis() - debug_time));
 
@@ -2676,82 +2638,19 @@ public class MainActivity extends Activity {
         super.onBackPressed();
     }
 
-    public boolean usingKitKatImmersiveMode() {
-        // whether we are using a Kit Kat style immersive mode (either hiding GUI, or everything)
-        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ) {
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            String immersive_mode = sharedPreferences.getString(PreferenceKeys.ImmersiveModePreferenceKey, "immersive_mode_low_profile");
-            if( immersive_mode.equals("immersive_mode_navigation") || immersive_mode.equals("immersive_mode_gui") || immersive_mode.equals("immersive_mode_everything") )
-                return true;
-        }
-        return false;
-    }
-    public boolean usingKitKatImmersiveModeEverything() {
-        // whether we are using a Kit Kat style immersive mode for everything
-        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ) {
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            String immersive_mode = sharedPreferences.getString(PreferenceKeys.ImmersiveModePreferenceKey, "immersive_mode_low_profile");
-            if( immersive_mode.equals("immersive_mode_everything") )
-                return true;
-        }
-        return false;
-    }
-
-
-    private Handler immersive_timer_handler = null;
-    private Runnable immersive_timer_runnable = null;
-
-    private void setImmersiveTimer() {
-        if( immersive_timer_handler != null && immersive_timer_runnable != null ) {
-            immersive_timer_handler.removeCallbacks(immersive_timer_runnable);
-        }
-        immersive_timer_handler = new Handler();
-        immersive_timer_handler.postDelayed(immersive_timer_runnable = new Runnable(){
-            @Override
-            public void run(){
-                if( MyDebug.LOG )
-                    Log.d(TAG, "setImmersiveTimer: run");
-                if( !camera_in_background && !popupIsOpen() && usingKitKatImmersiveMode() )
-                    setImmersiveMode(true);
-            }
-        }, 5000);
-    }
-
     public void initImmersiveMode() {
-        if( !usingKitKatImmersiveMode() ) {
-            setImmersiveMode(true);
-        }
-        else {
-            // don't start in immersive mode, only after a timer
-            setImmersiveTimer();
-        }
+        setImmersiveMode(true);
     }
 
     void setImmersiveMode(boolean on) {
         if( MyDebug.LOG )
             Log.d(TAG, "setImmersiveMode: " + on);
         // n.b., preview.setImmersiveMode() is called from onSystemUiVisibilityChange()
-        if( on ) {
-            if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && usingKitKatImmersiveMode() ) {
-                if( applicationInterface.getPhotoMode() == MyApplicationInterface.PhotoMode.Panorama ) {
-                    // don't allow the kitkat-style immersive mode for panorama mode (problem that in "full" immersive mode, the gyro spot can't be seen - we could fix this, but simplest to just disallow)
-                    getWindow().getDecorView().setSystemUiVisibility(0);
-                }
-                else {
-                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN);
-                }
-            }
-            else {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-                String immersive_mode = sharedPreferences.getString(PreferenceKeys.ImmersiveModePreferenceKey, "immersive_mode_low_profile");
-                if( immersive_mode.equals("immersive_mode_low_profile") )
-                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-                else
-                    getWindow().getDecorView().setSystemUiVisibility(0);
-            }
-        }
-        else
+        if (on) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+        } else {
             getWindow().getDecorView().setSystemUiVisibility(0);
+        }
     }
 
     /** Sets the brightness level for normal operation (when camera preview is visible).
