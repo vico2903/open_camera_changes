@@ -516,29 +516,8 @@ public class MainActivity extends Activity {
         boolean has_done_first_time = sharedPreferences.contains(PreferenceKeys.FirstTimePreferenceKey);
         if( MyDebug.LOG )
             Log.d(TAG, "has_done_first_time: " + has_done_first_time);
-        if( !has_done_first_time ) {
+        if (!has_done_first_time) {
             setDeviceDefaults();
-        }
-        if( !has_done_first_time ) {
-            if( !is_test ) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-                alertDialog.setTitle(R.string.app_name);
-                alertDialog.setMessage(R.string.intro_text);
-                alertDialog.setPositiveButton(android.R.string.ok, null);
-                alertDialog.setNegativeButton(R.string.preference_online_help, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if( MyDebug.LOG )
-                            Log.d(TAG, "online help");
-                        launchOnlineHelp();
-                    }
-                });
-                /* On application start 20 millisecond delay is not enough for all screen rotating animation to be complete
-                    (if user use the camera in portrait mode, then it moves from portrait to landscape & then again landscape to portrait).
-                    500 milliseconds delay would do the trick. */
-                showAlertDialog(alertDialog, "first time load dialog dismissed", 500L);
-            }
-
             setFirstTimeFlag();
         }
 
