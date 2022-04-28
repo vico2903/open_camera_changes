@@ -3470,21 +3470,6 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         return optimalSize;
     }
 
-    private static CameraController.Size getClosestSizeForFullScreen(List<CameraController.Size> sizes, double targetRatio) {
-        if (MyDebug.LOG)
-            Log.d(TAG, "getClosestSize()");
-        CameraController.Size optimalSize = null;
-        double minDiff = Double.MIN_VALUE;
-        for (CameraController.Size size : sizes) {
-            double ratio = (double) size.width / size.height;
-            if ((ratio - targetRatio) > minDiff) {
-                optimalSize = size;
-                minDiff = ratio - targetRatio;
-            }
-        }
-        return (optimalSize != null) ? optimalSize : getClosestSize(sizes, targetRatio, null);
-    }
-
     public CameraController.Size getOptimalPreviewSize(List<CameraController.Size> sizes) {
         if (MyDebug.LOG)
             Log.d(TAG, "getOptimalPreviewSize()");
@@ -3518,7 +3503,6 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             if (MyDebug.LOG)
                 Log.d(TAG, "display_size: " + display_size.x + " x " + display_size.y);
         }
-        ((MainActivity)getContext()).handleDecorFitsSystemWindows();
         double targetRatio = calculateTargetRatioForPreview(display_size);
         int targetHeight = Math.min(display_size.y, display_size.x);
         if (targetHeight <= 0) {
@@ -3540,22 +3524,20 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             // can't find match for aspect ratio, so find closest one
             if (MyDebug.LOG)
                 Log.d(TAG, "no preview size matches the aspect ratio");
-            if (((MainActivity)getContext()).isInFullScreenMode()) {
-                optimalSize = getClosestSizeForFullScreen(sizes, targetRatio);
-            } else {
-                optimalSize = getClosestSize(sizes, targetRatio, null);
-            }
+            optimalSize = getClosestSize(sizes, targetRatio, null);
         }
-
-        if (((MainActivity)getContext()).isInFullScreenMode()) {
-           camera_controller.setPictureSize(optimalSize.width, optimalSize.height);
-        }
-
+        handleDecorFitsSystemWindows(optimalSize, display_size);
         if (MyDebug.LOG) {
             Log.d(TAG, "chose optimalSize: " + optimalSize.width + " x " + optimalSize.height);
             Log.d(TAG, "optimalSize ratio: " + ((double) optimalSize.width / optimalSize.height));
         }
         return optimalSize;
+    }
+
+    private void handleDecorFitsSystemWindows(CameraController.Size optimalSize, Point display_size) {
+        double previewRatio = (double) optimalSize.width / optimalSize.height;
+        double screenRatio = (double) display_size.x / display_size.y;
+        ((MainActivity)getContext()).handleDecorFitsSystemWindows(previewRatio, screenRatio);
     }
 
     public CameraController.Size getOptimalVideoPictureSize(List<CameraController.Size> sizes, double targetRatio) {
