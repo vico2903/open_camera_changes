@@ -774,4 +774,5 @@
     <string name="photo_mode_expo_bracketing">Expo {}</string>
     <string name="preference_ghost_image_last">Laatste foto genomen</string>
     <string name="preference_select_remote">Selecteer afstandsbediening</string>
+    <string name="preference_video_log">Video beeld profielen</string>
 </resources>
