@@ -664,7 +664,7 @@ public class MainActivity extends Activity {
      */
     public boolean isInFullScreenMode() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String preview_size = sharedPreferences.getString(PreferenceKeys.PreviewSizePreferenceKey, "preference_preview_size_display");
+        String preview_size = sharedPreferences.getString(PreferenceKeys.PreviewSizePreferenceKey, "preference_preview_size_wysiwyg");
         return !(preview_size.equals("preference_preview_size_wysiwyg") || preview.isVideo());
     }
 
