@@ -120,7 +120,7 @@
     <string name="preference_show_when_locked">Kamera trotz Sperre anzeigen</string>
     <string name="preference_show_when_locked_summary">Wenn aktiviert, wird Camera über dem Sperrbildschirm stehen (das Entsperren ist jedoch für den Zugriff auf Einstellungen, Galerie usw. nötig)</string>
     <string name="preference_startup_focus">Verwende Auto-Fokus bei Start der App</string>
-    <string name="preference_startup_focus_summary">Beim Start von Kamera automatisch fokussieren. Deaktiviere diese Option bei einem Problem mit dem Blitz.</string>
+    <string name="preference_startup_focus_summary">Beim Starten der Kamera automatisch fokussieren. Deaktiviere diese Option, falls der Blitz beim Starten auch immer angeht.</string>
     <string name="preference_lock_video">Bildschirm bei Videoaufnahme sperren</string>
     <string name="preference_lock_video_summary">Wenn aktiviert, wird bei Videoaufnahmen die Oberfläche gesperrt, um versehentliches Stoppen zu verhindern. Zum Entsperren einfach wischen.</string>
     <string name="preference_rotate_preview">Vorschau drehen</string>
