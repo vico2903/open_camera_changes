@@ -87,7 +87,7 @@
     <string name="preference_exposure">Imposta la compensazione dell\'esposizione</string>
     <string name="preference_exposure_summary">Imposta a 0 per compensazione d\'esposizione predefinita</string>
     <string name="preference_lock_orientation">Blocco orientamento foto/video</string>
-    <string name="preference_lock_orientation_summary">Se impostato, l\'orientamento del dispositivo verrà ignorato e l\'orientamento della foto/video sarà quello prescelto
+    <string name="preference_lock_orientation_summary">Se impostato, l\'orientamento del dispositivo verrà ignorato e l\'orientamento della foto/video sarà quello dell\'orientamento scelto
 \n%s</string>
     <string name="preference_face_detection">Riconoscimento volti</string>
     <string name="preference_face_detection_summary">Usa il riconoscimento volti invece dell\'area di messa a fuoco</string>
@@ -124,7 +124,7 @@
     <string name="preference_lock_video">Blocca lo schermo mentre registri un video</string>
     <string name="preference_lock_video_summary">Mentre si registra un video l\'interfaccia verrà bloccata per prevenire interruzioni accidentali. Trascina il dito sullo schermo per sbloccare. Infatti la registrazione video viene sempre interrotta nel caso in cui l\'app venga eseguita in background o lo schermo venga spento.</string>
     <string name="preference_rotate_preview">Ruota anteprima</string>
-    <string name="preference_rotate_preview_summary">Opzione per ruotare l\'anteprima (non modificherà foto/video ottenuti)
+    <string name="preference_rotate_preview_summary">Scelta per ruotare l\'anteprima (non modificherà foto/video ottenuti)
 \n%s</string>
     <string name="preference_screen_gui">GUI dello schermo…</string>
     <string name="preference_preview_size">Dimensione anteprima</string>
@@ -154,7 +154,7 @@
     <string name="grid">Griglia</string>
     <!-- short form of Show a grid -->
     <string name="preference_crop_guide">Mostra guida per ritaglio</string>
-    <string name="preference_crop_guide_summary">La guida per ritagliare mostra sullo schermo un rettangolo con un determinato rapporto nelle proporzioni - utile nel caso in cui si abbia intenzione di ritagliare la foto/il video con un determinato rapporto di proporzioni. Richiede la modalità foto WYSIWYG, o di essere in modalità video.
+    <string name="preference_crop_guide_summary">La guida per ritagliare mostra sullo schermo un rettangolo con il rapporto nelle proporzioni scelte - utile nel caso in cui si abbia intenzione di ritagliare la foto/il video con un determinato rapporto di proporzioni. Richiede la modalità foto WYSIWYG, o di essere in modalità video.
 \n%s</string>
     <string name="preference_show_toasts">Visualizza messaggi</string>
     <string name="preference_show_toasts_summary">Se mostrare o meno messaggi contenenti informazioni sullo schermo</string>
@@ -172,7 +172,7 @@
     <string name="preference_screen_location_settings">Impostazioni localizzazione…</string>
     <string name="preference_resolution">Risoluzione fotocamera</string>
     <string name="preference_quality">Qualità immagine</string>
-    <string name="preference_quality_summary">Imposta la qualità delle foto salvate in JPEG o WebP (il valore standard è 90%%). Non funziona sul formato PNG.
+    <string name="preference_quality_summary">Imposta la qualità delle foto salvate in JPEG o WebP (il valore standard è 90%%). Non ha effetto sul formato PNG.
 \n%s</string>
     <string name="preference_raw">RAW</string>
     <string name="preference_location">Salva la localizzazione (Geotagging)</string>
@@ -194,7 +194,7 @@
     <string name="preference_stamp_font_color">Colore Carattere</string>
     <string name="preference_stamp_font_color_summary">Colore del carattere da utilizzare per timbrare il testo su una foto</string>
     <string name="preference_stamp_style">Stile Testo</string>
-    <string name="preference_stamp_style_summary">Stile da utilizzare per timbrare il testo su una foto
+    <string name="preference_stamp_style_summary">Stile da utilizzare per timbrare testo su una foto
 \n%s</string>
     <string name="preference_background_photo_saving">Usa processo in background</string>
     <string name="preference_background_photo_saving_summary">Se salvare o meno le foto con un processo in background (per velocizzare l\'operazione)</string>
@@ -207,7 +207,7 @@
     <string name="preference_video_bitrate_summary">Imposta un bitrate aprossimativo per i video (più alto si traduce in una qualità superiore, ma consuma più spazio disco; la registrazione video potrebbe fallire se il bitrate non è supportato)
 \n%s</string>
     <string name="preference_video_fps">Frame rate del video (aprossimativo)</string>
-    <string name="preference_video_fps_summary">Imposta il frame rate (FPS) dei video (approssimativamente, non è garantito che lo si raggiunga, e potrebbe far fallire la registrazione video se il frame rate non è supportato). Verifica sui video per conoscere il frame rate utitilizzato attualmente. L\'impostazione viene ignorata per i video in slow motion. 
+    <string name="preference_video_fps_summary">Imposta il frame rate (FPS) dei video (approssimativamente, non è garantito che lo si raggiunga, e potrebbe far fallire la registrazione video se il frame rate non è supportato). Verifica sui video già presenti per conoscere il frame rate utitilizzato attualmente. L\'impostazione viene ignorata per i video in slow motion.
 \n%s</string>
     <string name="preference_video_max_duration">Durata massima del video</string>
     <string name="preference_video_max_duration_summary">La registrazione del video verrà interrotta alla durata specificata
@@ -217,7 +217,7 @@
 \n%s</string>
     <!-- @TODO MA IN CHE SENSO? COSA FA? -->
     <string name="preference_video_max_filesize">Dimensione massima del file video</string>
-    <string name="preference_video_max_filesize_summary">La registrazione del video verrà interrotta e/o riavviata (vedi opzione seguente) quando (approssimativamente) verrà raggiunta la dimensione massima del file. Molti dispositivi Android hanno impostata una dimensione massima dei video (tipicamente intorno ai 2 o 4 GB), ma questa scelta permette di impostare un valore specifico. Questa scelta non può essere utilizzata per aumentare il valore massimo prestabilito in fase di costruzione del dispositivo.
+    <string name="preference_video_max_filesize_summary">La registrazione del video verrà interrotta e/o riavviata (vedi opzione seguente) quando (approssimativamente) verrà raggiunta la dimensione massima del file indicata. Molti dispositivi Android hanno una dimensione massima dei video preimpostata (tipicamente intorno ai 2 o 4 GB), ma questa scelta permette di impostare un valore differente. Questa scelta non può essere utilizzata per aumentare il valore massimo prestabilito in fase di costruzione del dispositivo.
 \n%s</string>
     <string name="preference_video_restart_max_filesize">Riavvia se raggiunta la dimensione massima del file</string>
     <string name="preference_video_restart_max_filesize_summary">Se riavviare o meno automaticamente quando viene raggiunta la dimensione massima del file (sia la dimensione massima standard del file per il dispositivo, che una scelta dall\'utente)</string>
@@ -288,7 +288,7 @@
 \n
 \nAlcune app Galleria non sono in grado di riconoscere i file DNG. Questo formato può invece essere utilizzato con editor di immagini specializzati come Snapseed o Lightroom.
 \n
-\nDiverse opzioni di elaborazione come ad esempio Timbri foto e Auto-level funzioneranno solo con le immagini non-DNG (JPEG/etc), e non con le immagini DNG.</string>
+\nDiverse opzioni di elaborazione come ad esempio Timbra foto e Auto-level funzioneranno solo con le immagini non-DNG (JPEG/etc), e non con le immagini DNG.</string>
     <string name="hdr_info">La modalità HDR è utile per scatti con un\'ampia variazione della luminosità. Funziona scattando diverse foto ciascuna con esposizione differente, e assemblandole per creare l\'immagine finale.
 \n
 \nTale modalità non è indicata per scene che includono movimenti veloci, e possono risultare in una riproduzione dei colori meno accurata.
@@ -358,7 +358,7 @@
     <string name="preference_show_geo_direction_lines">Mostra linee di orientamento della bussola</string>
     <string name="preference_show_geo_direction_lines_summary">Visualizza linee di orientamento della bussola</string>
     <string name="preference_video_subtitle">Sottotitoli Video</string>
-    <string name="preference_video_subtitle_summary">Crea il file con i sottotitoli (.SRT) contenente data e ora; ed anche le informazioni GPS se i dati di posizione/orientamento sono abilitati
+    <string name="preference_video_subtitle_summary">Crea il file con i sottotitoli (.SRT) contenente data e ora; anche le informazioni GPS se i dati di posizione/orientamento sono abilitati
 \n%s</string>
     <string name="duration_unlimited">Illimitata</string>
     <string name="duration_3s">3 secondi</string>
@@ -541,7 +541,7 @@
     <string name="preference_focus_assist_4x">4x</string>
     <string name="preference_focus_assist_2x">2x</string>
     <string name="preference_focus_assist_off">Off</string>
-    <string name="preference_focus_assist_summary">Se azionare o no lo zoom mentre sistemi la distanza manuale di messa a fuoco
+    <string name="preference_focus_assist_summary">Se azionare o no lo zoom mentre si sistema la distanza manuale di messa a fuoco
 \n%s</string>
     <string name="preference_focus_assist">Messa a fuoco assistita</string>
     <string name="noise_reduction_mode_high_quality">Alta Qualità</string>
@@ -549,11 +549,11 @@
     <string name="noise_reduction_mode_minimal">Minima</string>
     <string name="noise_reduction_mode_off">Off</string>
     <string name="noise_reduction_mode_default">Default</string>
-    <string name="preference_noise_reduction_mode_summary">Algoritmo che dovresti utilizzare per azionare la riduzione del rumore. L\'algoritmo per la riduzione del rumore cerca di migliorare la qualità dell\'immagine rimuovendo il rumore eccessivo aggiunto dal processo di cattura, specialmente in condizioni di scarsa luminosità. (Fai attenzione che ciò non ha relazione con la modalità fotografica Noise Reduction, e infatti questa impostazione viene ignorata se in modalità NR.)
+    <string name="preference_noise_reduction_mode_summary">Algoritmo che dovresti utilizzare per ottenere la riduzione del rumore. L\'algoritmo per la riduzione del rumore cerca di migliorare la qualità dell\'immagine rimuovendo il rumore eccessivo aggiunto dal processo di cattura, specialmente in condizioni di scarsa luminosità. (Fai attenzione che ciò non ha relazione con la modalità fotografica Noise Reduction, e infatti questa impostazione viene ignorata se in modalità NR.)
 \n%s</string>
     <string name="preference_noise_reduction_mode">Algoritmo di riduzione del rumore</string>
     <string name="preference_screen_processing_settings">Applico le impostazioni…</string>
-    <string name="preference_edge_mode_summary">Algoritmo che l\'utilizzatore della fotocamera dovrebbe utilizzare per azionare le migliorie più avanzate. Queste migliorano accuratezza e dettagli dell\'immagine catturata. (Impostazione ignorata se in modalità foto NR.)
+    <string name="preference_edge_mode_summary">Algoritmo che l\'utilizzatore della fotocamera dovrebbe utilizzare per utilizzare le migliorie più avanzate. Queste migliorano accuratezza e dettagli dell\'immagine catturata. (Impostazione ignorata se in modalità foto NR.)
 \n%s</string>
     <string name="preference_edge_mode">Algoritmo in modalità spinta</string>
     <string name="preference_show_whats_new_summary">Se mostrare o meno informazioni su nuove funzionalità e miglioramenti dopo l\'aggiornamento dell\' app</string>
@@ -561,7 +561,7 @@
     <string name="feet_abbreviation">ft</string>
     <string name="preference_units_distance_ft">Piedi</string>
     <string name="preference_units_distance_m">Metri</string>
-    <string name="preference_units_distance_summary">Utilizzata come quota GPS da imprimere sulle foto e per i sottotitoli video
+    <string name="preference_units_distance_summary">Utilizzato come quota GPS da imprimere sulle foto e nei sottotitoli video
 \n%s</string>
     <string name="preference_units_distance">Unità di misura</string>
     <string name="accuracy_unknown">Sconosciuta</string>
@@ -569,7 +569,7 @@
     <string name="accuracy_medium">Media</string>
     <string name="accuracy_low">Bassa</string>
     <string name="accuracy_unreliable">Inattendibile</string>
-    <string name="magnetic_accuracy_info">La bussola del dispositivo deve essere calibrata per accrescere la sua precisione. Puoi farlo muovendo il dispositivo in un movimento a forma di 8.
+    <string name="magnetic_accuracy_info">La bussola del dispositivo deve essere calibrata per accrescerne la precisione. Puoi farlo muovendo il dispositivo con un movimento a forma di 8.
 \n
 \nAccuratezza attuale:</string>
     <string name="magnetic_accuracy_title">Orientamento Bussola</string>
@@ -592,7 +592,7 @@
     <string name="preference_video_log_low">Log (Scarso)</string>
     <string name="preference_video_log_fine">Log (Di qualità)</string>
     <string name="preference_video_log_off">Predefinito</string>
-    <string name="preference_video_log_summary">Abilita un profilo standard o di qualità in modalità video 
+    <string name="preference_video_log_summary">Abilita un profilo standard o di qualità in modalità video
 \n%s</string>
     <string name="preference_video_log">Profili Video</string>
     <string name="preference_camera2_photo_video_recording_summary">Permetti di scattare foto mentre registri video. Disabilitalo nel caso in cui riscontrassi problemi registrando un video con le API Camera 2 abilitate sul tuo dispositivo.</string>
@@ -601,7 +601,7 @@
     <string name="preference_ghost_image_selected">Immagine a scelta</string>
     <string name="preference_ghost_image_last">Ultimo scatto</string>
     <string name="preference_ghost_image_off">Off</string>
-    <string name="preference_ghost_image_summary">Sovrappone un immagine, aiuta con l\'allineamento.
+    <string name="preference_ghost_image_summary">Sovrappone un immagine, per facilitare l\'allineamento.
 \n%s</string>
     <string name="preference_ghost_image">Immagine fantasma</string>
     <string name="anti_banding_off">Off</string>
@@ -778,7 +778,7 @@
     <string name="preference_privacy_policy_online">Policy Privacy Online</string>
     <string name="preference_privacy_policy_summary">Premi per visualizzzare la policy sulla Privacy</string>
     <string name="preference_privacy_policy">Privacy policy</string>
-    <string name="intro_text">Tocca lo schermo per mettere a fuoco e premi il pulsante blu a forma di fotocamera per scattare. 
+    <string name="intro_text">Tocca lo schermo per mettere a fuoco e premi il pulsante bianco a forma di fotocamera per scattare.
 \n
 \nPer disabilitare la luminosità massima dello schermo, vai su Impostazioni/On screen GUI/\"Forza massima luminosità\". Per salvare sulla card SD con Android 5+, vai su Impostazioni/Altri controlli fotocamera/\"Utilizza Storage Access Framework\". Se occorre altro aiuto, premi su \"Aiuto Online\" in Impostazioni.</string>
     <string name="preference_stamp_geo_address_summary">Se possibile, riporta sulla foto l\'indirizzo della località al posto dei dati GPS. Questa scelta richiede una connessione Internet attiva. Se abilitata, richiede al tuo dispositivo di trasmetter i dati tramite Internet ad un servizio terzo per convertire le coordinate GPS in un indirizzo. Informazioni su https://developer.android.com/reference/android/location/Geocoder .
@@ -789,7 +789,7 @@
 \n%s</string>
     <string name="preference_camera_api_camera2">API Camera2</string>
     <string name="preference_camera_api_old">API fotocamera originali</string>
-    <string name="preference_camera_api_summary">Scegli le API Camera2 insieme a RAW (se supportato dal dispositivo) per abilitare funzionalità extra come esposizione, messa a fuoco, bilanciamento del bianco manuali. Se modifichi le API da utilizzare, il dispositivo verrà riavviato. 
+    <string name="preference_camera_api_summary">Scegli le API Camera2 insieme a RAW (se supportato dal dispositivo) per abilitare funzionalità extra come esposizione, messa a fuoco, bilanciamento del bianco manuali. Se modifichi le API da utilizzare, il dispositivo verrà riavviato.
 \n%s</string>
     <string name="preference_camera_api">Camera API</string>
     <string name="preference_focus_peaking_off">Off</string>
@@ -859,7 +859,20 @@
     <string name="preference_show_store_location">Mostra icona salva dati localizzazione</string>
     <string name="preference_privacy_policy_text"> whether a setting is turned on, e.g., \"Auto-stabilise: On\" </string>
     <string name="preference_licence_google_icons_text">Fotocamera utilizza icone dal Google\'s Material Design icons (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) rilasciate sotto la licenza Apache versione 2.0. Alcune icone sono state modificate. Tocca qui per il testo completo della licenza.</string>
-    <string name="whats_new_text"> whether a setting is turned on, e.g., \"Auto-stabilise: On\" </string>
+    <string name="whats_new_text"> <small>[Questo testo viene mostrato ad ogni aggiornamento di FotoCamera. Puoi disabilitarlo da Impostazioni/On screen GUI/Mostra Novità.]</small>
+\n
+\n<b>v1.48:</b>
+\n <ul> <li>New icon for multiple cameras. If your device has multiple front/back cameras, then the existing icon to switch cameras will switch between front and back camera; the new icon will instead cycle between the multiple front or back cameras. If you prefer the old behaviour, disable Settings/On screen GUI/\"Multiple cameras icon\". (Note, only supported for devices that expose multiple cameras to third party applications.)
+\n</li> <li>Auto-level feature now shows on-screen rectangle to show the frame of the resultant photo.
+\n</li> <li>Aperture control, for devices that support this. (Camera2 API only.)
+\n</li> <li>More custom video profiles.
+\n</li> <li>New option for alpha value for ghost image option.
+\n</li> <li>Options for zebra stripe colours.
+\n</li> <li>Option for storing device\'s current yaw/pitch/roll in Exif user comment.
+\n</li> <li>Option to disable long press actions.
+\n</li> <li>Better use of full screen with wide aspect ratios on devices with on-screen navigation buttons.
+\n</li> <li>Bug fixes and UI improvements.
+\n</li> </ul> </string>
     <string name="preference_immersive_mode_off">Off</string>
     <string name="preference_immersive_mode_navigation">Nascondi i tasti di navigazione virtuali on-screen</string>
     <string name="preference_immersive_mode_gui">Nascondi GUI</string>
@@ -919,4 +932,7 @@
     <string name="preference_zebra_stripes_97pc">97%</string>
     <string name="preference_zebra_stripes_95pc">95%</string>
     <string name="preference_zebra_stripes_93pc">93%</string>
+    <string name="skip_button_label">Salta</string>
+    <string name="next_button_label">Prossimo</string>
+    <string name="back_button_label">Indietro</string>
 </resources>
