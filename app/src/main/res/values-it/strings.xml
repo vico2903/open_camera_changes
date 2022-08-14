@@ -527,7 +527,7 @@
     <string name="preferences_build_version">Versione build</string>
     <string name="preferences_about_app">Camera è un fork di OpenCamera</string>
     <string name="preferences_authors">Autori</string>
-    <string name="preferences_source_code">Codice sorgente</string>
+    <string name="preferences_source_code">Sorgente</string>
     <string name="preferences_licence">Licenza</string>
     <string name="preferences_app_info_title">Informazioni su Camera</string>
     <string name="preferences_service_terms">Termini di servizio</string>
