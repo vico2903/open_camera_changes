@@ -689,7 +689,6 @@
     <string name="preference_audio_noise_control_sensitivity_m1">-1</string>
     <string name="preference_audio_noise_control_sensitivity_m2">-2</string>
     <string name="preference_audio_noise_control_sensitivity_m3">-3 (bassa sensibilità)</string>
-
     <string name="preference_hdr_contrast_enhancement">Migliora contrasto HDR</string>
     <string name="preference_hdr_contrast_enhancement_summary">Determina quando usare un algoritmo di contrasto per HDR. Può migliorare l\'aspetto nei casi in cui c\'è un intervallo dinamico molto elevato nella scena, e dà anche un \"aspetto HDR\" all\'immagine risultante.\n%s</string>
     <string name="preference_hdr_contrast_enhancement_off">Spento</string>
