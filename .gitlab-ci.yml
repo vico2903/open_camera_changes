@@ -4,6 +4,7 @@ stages:
 - build
 
 before_script:
+- apt update && apt-get install libncurses5 -y
 - export GRADLE_USER_HOME=$(pwd)/.gradle
 - chmod +x ./gradlew
 
