@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.TextureView;
 
+import androidx.annotation.NonNull;
+
 /** CameraController is an abstract class that wraps up the access/control to
  *  the Android camera, so that the rest of the application doesn't have to
  *  deal directly with the Android camera API. It also allows us to support
@@ -38,12 +40,11 @@ public abstract class CameraController {
     public static final String ISO_DEFAULT = "auto";
     public static final long EXPOSURE_TIME_DEFAULT = 1000000000L/30; // note, responsibility of callers to check that this is within the valid min/max range
 
-    public static final int ISO_FOR_DARK = 1100;
     public static final int N_IMAGES_NR_DARK = 8;
     public static final int N_IMAGES_NR_DARK_LOW_LIGHT = 15;
 
     // for testing:
-    volatile int count_camera_parameters_exception;
+    public volatile int count_camera_parameters_exception;
     public volatile int count_precapture_timeout;
     public volatile boolean test_wait_capture_result; // whether to test delayed capture result in Camera2 API
     public volatile boolean test_release_during_photo; // for Camera2 API, will force takePictureAfterPrecapture() to call release() on UI thread
@@ -65,6 +66,7 @@ public abstract class CameraController {
         public List<CameraController.Size> video_sizes;
         public List<CameraController.Size> video_sizes_high_speed; // may be null if high speed not supported
         public List<CameraController.Size> preview_sizes;
+        public List<Integer> supported_extensions; // if non-null, list of supported camera vendor extensions, see https://developer.android.com/reference/android/hardware/camera2/CameraExtensionCharacteristics
         public List<String> supported_flash_values;
         public List<String> supported_focus_values;
         public float [] apertures; // may be null if not supported, else will have at least 2 values
@@ -136,7 +138,7 @@ public abstract class CameraController {
     }
 
     // Android docs and FindBugs recommend that Comparators also be Serializable
-    public static class RangeSorter implements Comparator<int[]>, Serializable {
+    static class RangeSorter implements Comparator<int[]>, Serializable {
         private static final long serialVersionUID = 5802214721073728212L;
         @Override
         public int compare(int[] o1, int[] o2) {
@@ -148,7 +150,7 @@ public abstract class CameraController {
     /* Sorts resolutions from highest to lowest, by area.
      * Android docs and FindBugs recommend that Comparators also be Serializable
      */
-    public static class SizeSorter implements Comparator<Size>, Serializable {
+    static class SizeSorter implements Comparator<Size>, Serializable {
         private static final long serialVersionUID = 5802214721073718212L;
 
         @Override
@@ -161,6 +163,7 @@ public abstract class CameraController {
         public final int width;
         public final int height;
         public boolean supports_burst; // for photo
+        public List<Integer> supported_extensions; // for photo and preview: if non-null, list of supported camera vendor extensions
         final List<int[]> fps_ranges; // for video
         public final boolean high_speed; // for video
 
@@ -174,7 +177,17 @@ public abstract class CameraController {
         }
 
         public Size(int width, int height) {
-            this(width, height, new ArrayList<int[]>(), false);
+            this(width, height, new ArrayList<>(), false);
+        }
+
+        /** Whether this size supports the requested burst and/or extension
+         */
+        public boolean supportsRequirements(boolean want_burst, boolean want_extension, int extension) {
+            return (!want_burst || this.supports_burst) && (!want_extension || this.supportsExtension(extension));
+        }
+
+        public boolean supportsExtension(int extension) {
+            return supported_extensions != null && supported_extensions.contains(extension);
         }
 
         boolean supportsFrameRate(double fps) {
@@ -203,6 +216,7 @@ public abstract class CameraController {
             return width*41 + height;
         }
 
+        @NonNull
         public String toString() {
             StringBuilder s = new StringBuilder();
             for (int[] f : this.fps_ranges) {
@@ -276,10 +290,13 @@ public abstract class CameraController {
 
     public static class Face {
         public final int score;
-        /* The has values from [-1000,-1000] (for top-left) to [1000,1000] (for bottom-right) for whatever is
+        /* The rect has values from [-1000,-1000] (for top-left) to [1000,1000] (for bottom-right) for whatever is
          * the current field of view (i.e., taking zoom into account).
          */
         public final Rect rect;
+        /** The temp rect is temporary storage that can be used by callers.
+         */
+        public final Rect temp = new Rect();
 
         Face(int score, Rect rect) {
             this.score = score;
@@ -369,6 +386,9 @@ public abstract class CameraController {
     public abstract CameraController.Size getPreviewSize();
     public abstract void setPreviewSize(int width, int height);
 
+    public abstract void setCameraExtension(boolean enabled, int extension);
+    public abstract boolean isCameraExtension();
+    public abstract int getCameraExtension();
     // whether to take a burst of images, and if so, what type
     public enum BurstType {
         BURSTTYPE_NONE, // no burst
@@ -400,6 +420,11 @@ public abstract class CameraController {
      */
     public abstract void setExpoBracketingStops(double stops);
     public abstract void setUseExpoFastBurst(boolean use_expo_fast_burst);
+    /** Whether to enable a workaround hack for some Galaxy devices - take an additional dummy photo
+     *  when taking an expo/HDR burst, to avoid problem where manual exposure is ignored for the
+     *  first image.
+     */
+    public abstract void setDummyCaptureHack(boolean dummy_capture_hack);
     public abstract boolean isBurstOrExpo();
     /** If true, then the camera controller is currently capturing a burst of images.
      */
@@ -478,6 +503,7 @@ public abstract class CameraController {
     public abstract void setJpegQuality(int quality);
     public abstract int getZoom();
     public abstract void setZoom(int value);
+    public abstract void resetZoom(); // resets to zoom 1x
     public abstract int getExposureCompensation();
     public abstract boolean setExposureCompensation(int new_exposure);
     public abstract void setPreviewFpsRange(int min, int max);
@@ -519,6 +545,7 @@ public abstract class CameraController {
     public abstract List<CameraController.Area> getFocusAreas();
     public abstract List<CameraController.Area> getMeteringAreas();
     public abstract boolean supportsAutoFocus();
+    public abstract boolean supportsMetering();
     public abstract boolean focusIsContinuous();
     public abstract boolean focusIsVideo();
     public abstract void reconnect() throws CameraControllerException;

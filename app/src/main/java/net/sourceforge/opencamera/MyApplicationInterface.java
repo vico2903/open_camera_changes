@@ -2,6 +2,7 @@ package net.sourceforge.opencamera;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,8 +11,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.location.Address;
-import android.location.Geocoder;
+//import android.location.Address; // don't use until we have info for data privacy!
+//import android.location.Geocoder; // don't use until we have info for data privacy!
+import android.hardware.camera2.CameraExtensionCharacteristics;
 import android.location.Location;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
@@ -29,8 +31,11 @@ import android.provider.Settings;
 import android.util.Log;
 import android.util.Pair;
 import android.view.MotionEvent;
+import android.view.Surface;
 import android.view.View;
 import android.widget.ImageButton;
+
+import androidx.annotation.RequiresApi;
 
 import net.sourceforge.opencamera.cameracontroller.CameraController;
 import net.sourceforge.opencamera.cameracontroller.RawImage;
@@ -70,7 +75,13 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         FocusBracketing, // take multiple focus bracketed images, without combining to a single image
         FastBurst,
         NoiseReduction,
-        Panorama
+        Panorama,
+        // camera vendor extensions:
+        X_Auto,
+        X_HDR,
+        X_Night,
+        X_Bokeh,
+        X_Beauty
     }
 
     private final MainActivity main_activity;
@@ -89,7 +100,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     private boolean panorama_dir_left_to_right = true; // direction of panorama (set after we've captured two images)
 
     private File last_video_file = null;
-    private Uri last_video_file_saf = null;
+    private Uri last_video_file_uri = null;
 
     private final Timer subtitleVideoTimer = new Timer();
     private TimerTask subtitleVideoTimerTask;
@@ -100,7 +111,12 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     // store to avoid calling PreferenceManager.getDefaultSharedPreferences() repeatedly
     private final SharedPreferences sharedPreferences;
 
-    private boolean last_images_saf; // whether the last images array are using SAF or not
+    private enum LastImagesType {
+        FILE,
+        SAF,
+        MEDIASTORE
+    }
+    private LastImagesType last_images_type = LastImagesType.FILE; // whether the last images array are using File API, SAF or MediaStore
 
     /** This class keeps track of the images saved in this batch, for use with Pause Preview option, so we can share or trash images.
      */
@@ -143,7 +159,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     private final static float aperture_default = -1.0f;
     private float aperture = aperture_default;
     // camera properties that aren't saved even in the bundle; these should be initialised/reset in reset()
-    private int zoom_factor; // don't save zoom, as doing so tends to confuse users; other camera applications don't seem to save zoom when pause/resuming
+    private int zoom_factor = -1; // don't save zoom, as doing so tends to confuse users; other camera applications don't seem to save zoom when pause/resuming
 
     // for testing:
     public volatile int test_n_videos_scanned;
@@ -256,7 +272,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     }
 
     /** If adding extra calls to this, consider whether explicit user permission is required, and whether
-     *  privacy policy needs updating.
+     *  privacy policy or data privacy section needs updating.
      *  Returns null if location not available.
      */
     @Override
@@ -265,7 +281,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     }
 
     /** If adding extra calls to this, consider whether explicit user permission is required, and whether
-     *  privacy policy needs updating.
+     *  privacy policy or data privacy section  needs updating.
      *  Returns null if location not available.
      */
     public Location getLocation(LocationSupplier.LocationInfo locationInfo) {
@@ -273,9 +289,8 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     }
 
     @Override
-    public int createOutputVideoMethod() {
-        String action = main_activity.getIntent().getAction();
-        if( MediaStore.ACTION_VIDEO_CAPTURE.equals(action) ) {
+    public VideoMethod createOutputVideoMethod() {
+        if( isVideoCaptureIntent() ) {
             if( MyDebug.LOG )
                 Log.d(TAG, "from video capture intent");
             Bundle myExtras = main_activity.getIntent().getExtras();
@@ -284,17 +299,30 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                 if( intent_uri != null ) {
                     if( MyDebug.LOG )
                         Log.d(TAG, "save to: " + intent_uri);
-                    return VIDEOMETHOD_URI;
+                    return VideoMethod.URI;
                 }
             }
             // if no EXTRA_OUTPUT, we should save to standard location, and will pass back the Uri of that location
             if( MyDebug.LOG )
                 Log.d(TAG, "intent uri not specified");
-            // note that SAF URIs don't seem to work for calling applications (tested with Grabilla and "Photo Grabber Image From Video" (FreezeFrame)), so we use standard folder with non-SAF method
-            return VIDEOMETHOD_FILE;
+            if( MainActivity.useScopedStorage() ) {
+                // can't use file method with scoped storage
+                return VideoMethod.MEDIASTORE;
+            }
+            else {
+                // note that SAF URIs don't seem to work for calling applications (tested with Grabilla and "Photo Grabber Image From Video" (FreezeFrame)), so we use standard folder with non-SAF method
+                return VideoMethod.FILE;
+            }
         }
-        boolean using_saf = storageUtils.isUsingSAF();
-        return using_saf ? VIDEOMETHOD_SAF : VIDEOMETHOD_FILE;
+        else if( storageUtils.isUsingSAF() ) {
+            return VideoMethod.SAF;
+        }
+        else if( MainActivity.useScopedStorage() ) {
+            return VideoMethod.MEDIASTORE;
+        }
+        else {
+            return VideoMethod.FILE;
+        }
     }
 
     @Override
@@ -305,14 +333,61 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
     @Override
     public Uri createOutputVideoSAF(String extension) throws IOException {
-        last_video_file_saf = storageUtils.createOutputMediaFileSAF(StorageUtils.MEDIA_TYPE_VIDEO, "", extension, new Date());
-        return last_video_file_saf;
+        last_video_file_uri = storageUtils.createOutputMediaFileSAF(StorageUtils.MEDIA_TYPE_VIDEO, "", extension, new Date());
+        return last_video_file_uri;
+    }
+
+    @Override
+    public Uri createOutputVideoMediaStore(String extension) throws IOException {
+        Uri folder = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ?
+                MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY) :
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+        ContentValues contentValues = new ContentValues();
+        String filename = storageUtils.createMediaFilename(StorageUtils.MEDIA_TYPE_VIDEO, "", 0, "." + extension, new Date());
+        if( MyDebug.LOG )
+            Log.d(TAG, "filename: " + filename);
+        contentValues.put(MediaStore.Video.Media.DISPLAY_NAME, filename);
+        String mime_type = storageUtils.getVideoMimeType(extension);
+        if( MyDebug.LOG )
+            Log.d(TAG, "mime_type: " + mime_type);
+        contentValues.put(MediaStore.Video.Media.MIME_TYPE, mime_type);
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ) {
+            String relative_path = storageUtils.getSaveRelativeFolder();
+            if( MyDebug.LOG )
+                Log.d(TAG, "relative_path: " + relative_path);
+            contentValues.put(MediaStore.Video.Media.RELATIVE_PATH, relative_path);
+            contentValues.put(MediaStore.Video.Media.IS_PENDING, 1);
+        }
+
+        try {
+            last_video_file_uri = main_activity.getContentResolver().insert(folder, contentValues);
+            if( MyDebug.LOG )
+                Log.d(TAG, "uri: " + last_video_file_uri);
+        }
+        catch(IllegalArgumentException e) {
+            // can happen for mediastore method if invalid ContentResolver.insert() call
+            if( MyDebug.LOG )
+                Log.e(TAG, "IllegalArgumentException writing video file: " + e.getMessage());
+            e.printStackTrace();
+            throw new IOException();
+        }
+        catch(IllegalStateException e) {
+            // have received Google Play crashes from ContentResolver.insert() call for mediastore method
+            if( MyDebug.LOG )
+                Log.e(TAG, "IllegalStateException writing video file: " + e.getMessage());
+            e.printStackTrace();
+            throw new IOException();
+        }
+        if( last_video_file_uri == null ) {
+            throw new IOException();
+        }
+
+        return last_video_file_uri;
     }
 
     @Override
     public Uri createOutputVideoUri() {
-        String action = main_activity.getIntent().getAction();
-        if( MediaStore.ACTION_VIDEO_CAPTURE.equals(action) ) {
+        if( isVideoCaptureIntent() ) {
             if( MyDebug.LOG )
                 Log.d(TAG, "from video capture intent");
             Bundle myExtras = main_activity.getIntent().getExtras();
@@ -581,6 +656,10 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
     @Override
     public boolean getFaceDetectionPref() {
+        if( isCameraExtensionPref() ) {
+            // not supported for camera extensions
+            return false;
+        }
         return sharedPreferences.getBoolean(PreferenceKeys.FaceDetectionPreferenceKey, false);
     }
 
@@ -593,8 +672,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
     @Override
     public String getVideoQualityPref() {
-        String action = main_activity.getIntent().getAction();
-        if( MediaStore.ACTION_VIDEO_CAPTURE.equals(action) ) {
+        if( isVideoCaptureIntent() ) {
             if( MyDebug.LOG )
                 Log.d(TAG, "from video capture intent");
             if( main_activity.getIntent().hasExtra(MediaStore.EXTRA_VIDEO_QUALITY) ) {
@@ -647,8 +725,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     @Override
     public String getVideoFPSPref() {
         // if check for EXTRA_VIDEO_QUALITY, if set, best to fall back to default FPS - see corresponding code in getVideoQualityPref
-        String action = main_activity.getIntent().getAction();
-        if( MediaStore.ACTION_VIDEO_CAPTURE.equals(action) ) {
+        if( isVideoCaptureIntent() ) {
             if( MyDebug.LOG )
                 Log.d(TAG, "from video capture intent");
             if( main_activity.getIntent().hasExtra(MediaStore.EXTRA_VIDEO_QUALITY) ) {
@@ -847,15 +924,14 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
     @Override
     public long getVideoMaxDurationPref() {
-        String action = main_activity.getIntent().getAction();
-        if( MediaStore.ACTION_VIDEO_CAPTURE.equals(action) ) {
+        if( isVideoCaptureIntent() ) {
             if( MyDebug.LOG )
                 Log.d(TAG, "from video capture intent");
             if( main_activity.getIntent().hasExtra(MediaStore.EXTRA_DURATION_LIMIT) ) {
                 int intent_duration_limit = main_activity.getIntent().getIntExtra(MediaStore.EXTRA_DURATION_LIMIT, 0);
                 if( MyDebug.LOG )
                     Log.d(TAG, "intent_duration_limit: " + intent_duration_limit);
-                return intent_duration_limit * 1000;
+                return intent_duration_limit * 1000L;
             }
         }
 
@@ -893,8 +969,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         if( MyDebug.LOG )
             Log.d(TAG, "getVideoMaxFileSizeUserPref");
 
-        String action = main_activity.getIntent().getAction();
-        if( MediaStore.ACTION_VIDEO_CAPTURE.equals(action) ) {
+        if( isVideoCaptureIntent() ) {
             if( MyDebug.LOG )
                 Log.d(TAG, "from video capture intent");
             if( main_activity.getIntent().hasExtra(MediaStore.EXTRA_SIZE_LIMIT) ) {
@@ -916,14 +991,14 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             e.printStackTrace();
             video_max_filesize = 0;
         }
+        //video_max_filesize = 1024*1024; // test
         if( MyDebug.LOG )
             Log.d(TAG, "video_max_filesize: " + video_max_filesize);
         return video_max_filesize;
     }
 
     private boolean getVideoRestartMaxFileSizeUserPref() {
-        String action = main_activity.getIntent().getAction();
-        if( MediaStore.ACTION_VIDEO_CAPTURE.equals(action) ) {
+        if( isVideoCaptureIntent() ) {
             if( MyDebug.LOG )
                 Log.d(TAG, "from video capture intent");
             if( main_activity.getIntent().hasExtra(MediaStore.EXTRA_SIZE_LIMIT) ) {
@@ -958,11 +1033,11 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             if( MyDebug.LOG )
                 Log.d(TAG, "saving to: " + folder_name);
             boolean is_internal = false;
-            if( !folder_name.startsWith("/") ) {
+            if( !StorageUtils.saveFolderIsFull(folder_name) ) {
                 is_internal = true;
             }
             else {
-                // if save folder path is a full path, see if it matches the "external" storage (which actually means "primary", which typically isn't an SD card these days)
+                // If save folder path is a full path, see if it matches the "external" storage (which actually means "primary", which typically isn't an SD card these days).
                 File storage = Environment.getExternalStorageDirectory();
                 if( MyDebug.LOG )
                     Log.d(TAG, "compare to: " + storage.getAbsolutePath());
@@ -1030,11 +1105,6 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     @Override
     public String getPreviewSizePref() {
         return sharedPreferences.getString(PreferenceKeys.PreviewSizePreferenceKey, "preference_preview_size_wysiwyg");
-    }
-
-    @Override
-    public String getPreviewRotationPref() {
-        return sharedPreferences.getString(PreferenceKeys.RotatePreviewPreferenceKey, "0");
     }
 
     @Override
@@ -1210,9 +1280,9 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         return sharedPreferences.getString(PreferenceKeys.StampGPSFormatPreferenceKey, "preference_stamp_gpsformat_default");
     }
 
-    private String getStampGeoAddressPref() {
+    /*private String getStampGeoAddressPref() {
         return sharedPreferences.getString(PreferenceKeys.StampGeoAddressPreferenceKey, "preference_stamp_geo_address_no");
-    }
+    }*/
 
     private String getUnitsDistancePref() {
         return sharedPreferences.getString(PreferenceKeys.UnitsDistancePreferenceKey, "preference_units_distance_m");
@@ -1239,7 +1309,17 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         return font_size;
     }
 
-    private String getVideoSubtitlePref() {
+    /** Whether the Mediastore API supports saving subtitle files.
+     */
+    static boolean mediastoreSupportsVideoSubtitles() {
+        // Android 11+ no longer allows mediastore API to save types that Android doesn't support!
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.R;
+    }
+
+    private String getVideoSubtitlePref(VideoMethod video_method) {
+        if( video_method == VideoMethod.MEDIASTORE && !mediastoreSupportsVideoSubtitles() ) {
+            return "preference_video_subtitle_no";
+        }
         return sharedPreferences.getString(PreferenceKeys.VideoSubtitlePref, "preference_video_subtitle_no");
     }
 
@@ -1368,6 +1448,34 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         return imageSaver.queueWouldBlock(n_raw, n_jpegs);
     }
 
+    /** Returns the ROTATION_* enum of the display relative to the natural device orientation, but
+     *  also checks for the preview being rotated due to user preference
+     *  RotatePreviewPreferenceKey.
+     */
+    @Override
+    public int getDisplayRotation() {
+        // important to use cached rotation to reduce issues of incorrect focus square location when
+        // rotating device, due to strange Android behaviour where rotation changes shortly before
+        // the configuration actually changes
+        int rotation = main_activity.getDisplayRotation();
+
+        String rotate_preview = sharedPreferences.getString(PreferenceKeys.RotatePreviewPreferenceKey, "0");
+        if( MyDebug.LOG )
+            Log.d(TAG, "    rotate_preview = " + rotate_preview);
+        if( rotate_preview.equals("180") ) {
+            switch (rotation) {
+                case Surface.ROTATION_0: rotation = Surface.ROTATION_180; break;
+                case Surface.ROTATION_90: rotation = Surface.ROTATION_270; break;
+                case Surface.ROTATION_180: rotation = Surface.ROTATION_0; break;
+                case Surface.ROTATION_270: rotation = Surface.ROTATION_90; break;
+                default:
+                    break;
+            }
+        }
+
+        return rotation;
+    }
+
     @Override
     public long getExposureTimePref() {
         return sharedPreferences.getLong(PreferenceKeys.ExposureTimePreferenceKey, CameraController.EXPOSURE_TIME_DEFAULT);
@@ -1442,6 +1550,34 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                 return NRModePref.NRMODE_LOW_LIGHT;
         }
         return NRModePref.NRMODE_NORMAL;
+    }
+
+    @Override
+    public boolean isCameraExtensionPref() {
+        PhotoMode photo_mode = getPhotoMode();
+        return photo_mode == PhotoMode.X_Auto || photo_mode == PhotoMode.X_HDR || photo_mode == PhotoMode.X_Night || photo_mode == PhotoMode.X_Bokeh || photo_mode == PhotoMode.X_Beauty;
+    }
+
+    @Override
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    public int getCameraExtensionPref() {
+        PhotoMode photo_mode = getPhotoMode();
+        if( photo_mode == PhotoMode.X_Auto ) {
+            return CameraExtensionCharacteristics.EXTENSION_AUTOMATIC;
+        }
+        else if( photo_mode == PhotoMode.X_HDR ) {
+            return CameraExtensionCharacteristics.EXTENSION_HDR;
+        }
+        else if( photo_mode == PhotoMode.X_Night ) {
+            return CameraExtensionCharacteristics.EXTENSION_NIGHT;
+        }
+        else if( photo_mode == PhotoMode.X_Bokeh ) {
+            return CameraExtensionCharacteristics.EXTENSION_BOKEH;
+        }
+        else if( photo_mode == PhotoMode.X_Beauty ) {
+            return CameraExtensionCharacteristics.EXTENSION_BEAUTY;
+        }
+        return 0;
     }
 
     public void setAperture(float aperture) {
@@ -1559,6 +1695,21 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         boolean panorama = photo_mode_pref.equals("preference_photo_mode_panorama");
         if( panorama && !main_activity.getPreview().isVideo() && main_activity.supportsPanorama() )
             return PhotoMode.Panorama;
+        boolean x_auto = photo_mode_pref.equals("preference_photo_mode_x_auto");
+        if( x_auto && !main_activity.getPreview().isVideo() && main_activity.supportsCameraExtension(CameraExtensionCharacteristics.EXTENSION_AUTOMATIC) )
+            return PhotoMode.X_Auto;
+        boolean x_hdr = photo_mode_pref.equals("preference_photo_mode_x_hdr");
+        if( x_hdr && !main_activity.getPreview().isVideo() && main_activity.supportsCameraExtension(CameraExtensionCharacteristics.EXTENSION_HDR) )
+            return PhotoMode.X_HDR;
+        boolean x_night = photo_mode_pref.equals("preference_photo_mode_x_night");
+        if( x_night && !main_activity.getPreview().isVideo() && main_activity.supportsCameraExtension(CameraExtensionCharacteristics.EXTENSION_NIGHT) )
+            return PhotoMode.X_Night;
+        boolean x_bokeh = photo_mode_pref.equals("preference_photo_mode_x_bokeh");
+        if( x_bokeh && !main_activity.getPreview().isVideo() && main_activity.supportsCameraExtension(CameraExtensionCharacteristics.EXTENSION_BOKEH) )
+            return PhotoMode.X_Bokeh;
+        boolean x_beauty = photo_mode_pref.equals("preference_photo_mode_x_beauty");
+        if( x_beauty && !main_activity.getPreview().isVideo() && main_activity.supportsCameraExtension(CameraExtensionCharacteristics.EXTENSION_BEAUTY) )
+            return PhotoMode.X_Beauty;
         return PhotoMode.Standard;
     }
 
@@ -1607,6 +1758,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                     main_activity.supportsBurstRaw();
         }
         // not supported for panorama mode
+        // not supported for camera vendor extensions
         return false;
     }
 
@@ -1660,6 +1812,11 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     }
 
     @Override
+    public boolean useCamera2DummyCaptureHack() {
+        return sharedPreferences.getBoolean(PreferenceKeys.Camera2DummyCaptureHackPreferenceKey, false);
+    }
+
+    @Override
     public boolean useCamera2FastBurst() {
         return sharedPreferences.getBoolean(PreferenceKeys.Camera2FastBurstPreferenceKey, true);
     }
@@ -1679,8 +1836,9 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
     @Override
     public boolean allowZoom() {
-        if( getPhotoMode() == PhotoMode.Panorama ) {
+        if( getPhotoMode() == PhotoMode.Panorama || isCameraExtensionPref() ) {
             // don't allow zooming in panorama mode, the algorithm isn't set up to support this!
+            // zoom also not supported for camera extensions
             return false;
         }
         return true;
@@ -1795,6 +1953,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         if( MyDebug.LOG )
             Log.d(TAG, "setNextPanoramaPoint : " + x + " , " + y + " , " + z);
 
+        @SuppressWarnings("PointlessArithmeticExpression")
         final float target_angle = 1.0f * 0.01745329252f;
         //final float target_angle = 0.5f * 0.01745329252f;
         final float upright_angle_tol = 2.0f * 0.017452406437f;
@@ -1853,6 +2012,9 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     public void touchEvent(MotionEvent event) {
         main_activity.getMainUI().closeExposureUI();
         main_activity.getMainUI().closePopup();
+        if( main_activity.usingKitKatImmersiveMode() ) {
+            main_activity.setImmersiveMode(false);
+        }
     }
 
     @Override
@@ -1868,18 +2030,300 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         main_activity.getMainUI().destroyPopup(); // as the available popup options change while recording video
     }
 
+    private void startVideoSubtitlesTask(final VideoMethod video_method) {
+        final String preference_stamp_dateformat = this.getStampDateFormatPref();
+        final String preference_stamp_timeformat = this.getStampTimeFormatPref();
+        final String preference_stamp_gpsformat = this.getStampGPSFormatPref();
+        final String preference_units_distance = this.getUnitsDistancePref();
+        //final String preference_stamp_geo_address = this.getStampGeoAddressPref();
+        final boolean store_location = getGeotaggingPref();
+        final boolean store_geo_direction = getGeodirectionPref();
+        class SubtitleVideoTimerTask extends TimerTask {
+            // need to keep a reference to pfd_saf for as long as writer, to avoid getting garbage collected - see https://sourceforge.net/p/opencamera/tickets/417/
+            private ParcelFileDescriptor pfd_saf;
+            private OutputStreamWriter writer;
+            private Uri uri;
+            private int count = 1;
+            private long min_video_time_from = 0;
+
+            private String getSubtitleFilename(String video_filename) {
+                if( MyDebug.LOG )
+                    Log.d(TAG, "getSubtitleFilename");
+                int indx = video_filename.indexOf('.');
+                if( indx != -1 ) {
+                    video_filename = video_filename.substring(0, indx);
+                }
+                video_filename = video_filename + ".srt";
+                if( MyDebug.LOG )
+                    Log.d(TAG, "return filename: " + video_filename);
+                return video_filename;
+            }
+
+            public void run() {
+                if( MyDebug.LOG )
+                    Log.d(TAG, "SubtitleVideoTimerTask run");
+                long video_time = main_activity.getPreview().getVideoTime(true); // n.b., in case of restarts due to max filesize, we only want the time for this video file!
+                if( !main_activity.getPreview().isVideoRecording() ) {
+                    if( MyDebug.LOG )
+                        Log.d(TAG, "no longer video recording");
+                    return;
+                }
+                if( main_activity.getPreview().isVideoRecordingPaused() ) {
+                    if( MyDebug.LOG )
+                        Log.d(TAG, "video recording is paused");
+                    return;
+                }
+                Date current_date = new Date();
+                Calendar current_calendar = Calendar.getInstance();
+                int offset_ms = current_calendar.get(Calendar.MILLISECOND);
+                // We subtract an offset, because if the current time is say 00:00:03.425 and the video has been recording for
+                // 1s, we instead need to record the video time when it became 00:00:03.000. This does mean that the GPS
+                // location is going to be off by up to 1s, but that should be less noticeable than the clock being off.
+                if( MyDebug.LOG ) {
+                    Log.d(TAG, "count: " + count);
+                    Log.d(TAG, "offset_ms: " + offset_ms);
+                    Log.d(TAG, "video_time: " + video_time);
+                }
+                String date_stamp = TextFormatter.getDateString(preference_stamp_dateformat, current_date);
+                String time_stamp = TextFormatter.getTimeString(preference_stamp_timeformat, current_date);
+                Location location = store_location ? getLocation() : null;
+                double geo_direction = store_geo_direction && main_activity.getPreview().hasGeoDirection() ? main_activity.getPreview().getGeoDirection() : 0.0;
+                String gps_stamp = main_activity.getTextFormatter().getGPSString(preference_stamp_gpsformat, preference_units_distance, store_location && location!=null, location, store_geo_direction && main_activity.getPreview().hasGeoDirection(), geo_direction);
+                if( MyDebug.LOG ) {
+                    Log.d(TAG, "date_stamp: " + date_stamp);
+                    Log.d(TAG, "time_stamp: " + time_stamp);
+                    // don't log gps_stamp, in case of privacy!
+                }
+
+                String datetime_stamp = "";
+                if( date_stamp.length() > 0 )
+                    datetime_stamp += date_stamp;
+                if( time_stamp.length() > 0 ) {
+                    if( datetime_stamp.length() > 0 )
+                        datetime_stamp += " ";
+                    datetime_stamp += time_stamp;
+                }
+
+                // build subtitles
+                StringBuilder subtitles = new StringBuilder();
+                if( datetime_stamp.length() > 0 )
+                    subtitles.append(datetime_stamp).append("\n");
+
+                if( gps_stamp.length() > 0 ) {
+                    /*Address address = null;
+                    if( store_location && !preference_stamp_geo_address.equals("preference_stamp_geo_address_no") ) {
+                        // try to find an address
+                        if( main_activity.isAppPaused() ) {
+                            // seems safer to not try to initiate potential network connections (via geocoder) if Open Camera
+                            // is paused - this shouldn't happen, since we stop video when paused, but just to be safe
+                            if( MyDebug.LOG )
+                                Log.d(TAG, "don't call geocoder for video subtitles  as app is paused?!");
+                        }
+                        else if( Geocoder.isPresent() ) {
+                            if( MyDebug.LOG )
+                                Log.d(TAG, "geocoder is present");
+                            Geocoder geocoder = new Geocoder(main_activity, Locale.getDefault());
+                            try {
+                                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                if( addresses != null && addresses.size() > 0 ) {
+                                    address = addresses.get(0);
+                                    // don't log address, in case of privacy!
+                                    if( MyDebug.LOG ) {
+                                        Log.d(TAG, "max line index: " + address.getMaxAddressLineIndex());
+                                    }
+                                }
+                            }
+                            catch(Exception e) {
+                                Log.e(TAG, "failed to read from geocoder");
+                                e.printStackTrace();
+                            }
+                        }
+                        else {
+                            if( MyDebug.LOG )
+                                Log.d(TAG, "geocoder not present");
+                        }
+                    }
+
+                    if( address != null ) {
+                        for(int i=0;i<=address.getMaxAddressLineIndex();i++) {
+                            // write in forward order
+                            String addressLine = address.getAddressLine(i);
+                            subtitles.append(addressLine).append("\n");
+                        }
+                    }*/
+
+                    //if( address == null || preference_stamp_geo_address.equals("preference_stamp_geo_address_both") )
+                    {
+                        if( MyDebug.LOG )
+                            Log.d(TAG, "display gps coords");
+                        subtitles.append(gps_stamp).append("\n");
+                    }
+                    /*else if( store_geo_direction ) {
+                        if( MyDebug.LOG )
+                            Log.d(TAG, "not displaying gps coords, but need to display geo direction");
+                        gps_stamp = main_activity.getTextFormatter().getGPSString(preference_stamp_gpsformat, preference_units_distance, false, null, store_geo_direction && main_activity.getPreview().hasGeoDirection(), geo_direction);
+                        if( gps_stamp.length() > 0 ) {
+                            // don't log gps_stamp, in case of privacy!
+                            subtitles.append(gps_stamp).append("\n");
+                        }
+                    }*/
+                }
+
+                if( subtitles.length() == 0 ) {
+                    return;
+                }
+                long video_time_from = video_time - offset_ms;
+                long video_time_to = video_time_from + 999;
+                // don't want to start from before 0; also need to keep track of min_video_time_from to avoid bug reported at
+                // https://forum.xda-developers.com/showpost.php?p=74827802&postcount=345 for pause video where we ended up
+                // with overlapping times when resuming
+                if( video_time_from < min_video_time_from )
+                    video_time_from = min_video_time_from;
+                min_video_time_from = video_time_to + 1;
+                String subtitle_time_from = TextFormatter.formatTimeMS(video_time_from);
+                String subtitle_time_to = TextFormatter.formatTimeMS(video_time_to);
+                try {
+                    synchronized( this ) {
+                        if( writer == null ) {
+                            if( video_method == VideoMethod.FILE ) {
+                                String subtitle_filename = last_video_file.getAbsolutePath();
+                                subtitle_filename = getSubtitleFilename(subtitle_filename);
+                                writer = new FileWriter(subtitle_filename);
+                            }
+                            else if( video_method == VideoMethod.SAF || video_method == VideoMethod.MEDIASTORE ) {
+                                if( MyDebug.LOG )
+                                    Log.d(TAG, "last_video_file_uri: " + last_video_file_uri);
+                                String subtitle_filename = storageUtils.getFileName(last_video_file_uri);
+                                subtitle_filename = getSubtitleFilename(subtitle_filename);
+                                if( video_method == VideoMethod.SAF ) {
+                                    uri = storageUtils.createOutputFileSAF(subtitle_filename, ""); // don't set a mimetype, as we don't want it to append a new extension
+                                }
+                                else {
+                                    Uri folder = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ?
+                                            MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY) :
+                                            MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                                    ContentValues contentValues = new ContentValues();
+                                    contentValues.put(MediaStore.Video.Media.DISPLAY_NAME, subtitle_filename);
+                                    // set mime type - it's unclear if .SRT files have an official mime type, but (a) we must set a mime type otherwise
+                                    // resultant files are named "*.srt.mp4", and (b) the mime type must be video/*, otherwise we get exception:
+                                    // "java.lang.IllegalArgumentException: MIME type text/plain cannot be inserted into content://media/external_primary/video/media; expected MIME type under video/*"
+                                    // and we need the file to be saved in the same folder (in DCIM/ ) as the video
+                                    contentValues.put(MediaStore.Images.Media.MIME_TYPE, "video/x-srt");
+                                    if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ) {
+                                        String relative_path = storageUtils.getSaveRelativeFolder();
+                                        if( MyDebug.LOG )
+                                            Log.d(TAG, "relative_path: " + relative_path);
+                                        contentValues.put(MediaStore.Video.Media.RELATIVE_PATH, relative_path);
+                                        contentValues.put(MediaStore.Video.Media.IS_PENDING, 1);
+                                    }
+
+                                    // Note, we catch exceptions specific to insert() here and rethrow as IOException,
+                                    // rather than catching below, to avoid catching things too broadly.
+                                    // Catching too broadly could mean we miss genuine problems that should be fixed.
+                                    try {
+                                        uri = main_activity.getContentResolver().insert(folder, contentValues);
+                                    }
+                                    catch(IllegalArgumentException e) {
+                                        // can happen for mediastore method if invalid ContentResolver.insert() call
+                                        if( MyDebug.LOG )
+                                            Log.e(TAG, "IllegalArgumentException from SubtitleVideoTimerTask inserting to mediastore: " + e.getMessage());
+                                        e.printStackTrace();
+                                        throw new IOException();
+                                    }
+                                    catch(IllegalStateException e) {
+                                        if( MyDebug.LOG )
+                                            Log.e(TAG, "IllegalStateException from SubtitleVideoTimerTask inserting to mediastore: " + e.getMessage());
+                                        e.printStackTrace();
+                                        throw new IOException();
+                                    }
+                                    if( uri == null ) {
+                                        throw new IOException();
+                                    }
+                                }
+                                if( MyDebug.LOG )
+                                    Log.d(TAG, "uri: " + uri);
+                                pfd_saf = getContext().getContentResolver().openFileDescriptor(uri, "w");
+                                writer = new FileWriter(pfd_saf.getFileDescriptor());
+                            }
+                        }
+                        if( writer != null ) {
+                            writer.append(Integer.toString(count));
+                            writer.append('\n');
+                            writer.append(subtitle_time_from);
+                            writer.append(" --> ");
+                            writer.append(subtitle_time_to);
+                            writer.append('\n');
+                            writer.append(subtitles.toString()); // subtitles should include the '\n' at the end
+                            writer.append('\n'); // additional newline to indicate end of this subtitle
+                            writer.flush();
+                            // n.b., we flush rather than closing/reopening the writer each time, as appending doesn't seem to work with storage access framework
+                        }
+                    }
+                    count++;
+                }
+                catch(IOException e) {
+                    if( MyDebug.LOG )
+                        Log.e(TAG, "SubtitleVideoTimerTask failed to create or write");
+                    e.printStackTrace();
+                }
+                if( MyDebug.LOG )
+                    Log.d(TAG, "SubtitleVideoTimerTask exit");
+            }
+
+            public boolean cancel() {
+                if( MyDebug.LOG )
+                    Log.d(TAG, "SubtitleVideoTimerTask cancel");
+                synchronized( this ) {
+                    if( writer != null ) {
+                        if( MyDebug.LOG )
+                            Log.d(TAG, "close writer");
+                        try {
+                            writer.close();
+                        }
+                        catch(IOException e) {
+                            e.printStackTrace();
+                        }
+                        writer = null;
+                    }
+                    if( pfd_saf != null ) {
+                        try {
+                            pfd_saf.close();
+                        }
+                        catch(IOException e) {
+                            e.printStackTrace();
+                        }
+                        pfd_saf = null;
+                    }
+                    if( video_method == VideoMethod.MEDIASTORE ) {
+                        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ) {
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put(MediaStore.Video.Media.IS_PENDING, 0);
+                            main_activity.getContentResolver().update(uri, contentValues, null, null);
+                        }
+                    }
+                }
+                return super.cancel();
+            }
+        }
+        subtitleVideoTimer.schedule(subtitleVideoTimerTask = new SubtitleVideoTimerTask(), 0, 1000);
+    }
+
     @Override
     public void startedVideo() {
         if( MyDebug.LOG )
             Log.d(TAG, "startedVideo()");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            View pauseVideoButton = main_activity.findViewById(R.id.pause_video);
-            pauseVideoButton.setVisibility(View.VISIBLE);
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ) {
+            if( !( main_activity.getMainUI().inImmersiveMode() && main_activity.usingKitKatImmersiveModeEverything() ) ) {
+                View pauseVideoButton = main_activity.findViewById(R.id.pause_video);
+                pauseVideoButton.setVisibility(View.VISIBLE);
+            }
             main_activity.getMainUI().setPauseVideoContentDescription();
         }
-        if (main_activity.getPreview().supportsPhotoVideoRecording() && this.usePhotoVideoRecording()) {
-            View takePhotoVideoButton = main_activity.findViewById(R.id.take_photo_when_video_recording);
-            takePhotoVideoButton.setVisibility(View.VISIBLE);
+        if( main_activity.getPreview().supportsPhotoVideoRecording() && this.usePhotoVideoRecording() ) {
+            if( !( main_activity.getMainUI().inImmersiveMode() && main_activity.usingKitKatImmersiveModeEverything() ) ) {
+                View takePhotoVideoButton = main_activity.findViewById(R.id.take_photo_when_video_recording);
+                takePhotoVideoButton.setVisibility(View.VISIBLE);
+            }
         }
         if( main_activity.getMainUI().isExposureUIOpen() ) {
             if( MyDebug.LOG )
@@ -1888,216 +2332,14 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             // ability to switch between auto and manual
             main_activity.getMainUI().setupExposureUI();
         }
+        final VideoMethod video_method = this.createOutputVideoMethod();
+        boolean dategeo_subtitles = getVideoSubtitlePref(video_method).equals("preference_video_subtitle_yes");
+        if( dategeo_subtitles && video_method != ApplicationInterface.VideoMethod.URI ) {
+            startVideoSubtitlesTask(video_method);
+        }
 
         ImageButton view = main_activity.findViewById(R.id.take_photo);
         view.setImageResource(R.drawable.ic_camera_video_recording);
-        final int video_method = this.createOutputVideoMethod();
-        boolean dategeo_subtitles = getVideoSubtitlePref().equals("preference_video_subtitle_yes");
-        if( dategeo_subtitles && video_method != ApplicationInterface.VIDEOMETHOD_URI ) {
-            final String preference_stamp_dateformat = this.getStampDateFormatPref();
-            final String preference_stamp_timeformat = this.getStampTimeFormatPref();
-            final String preference_stamp_gpsformat = this.getStampGPSFormatPref();
-            final String preference_units_distance = this.getUnitsDistancePref();
-            final String preference_stamp_geo_address = this.getStampGeoAddressPref();
-            final boolean store_location = getGeotaggingPref();
-            final boolean store_geo_direction = getGeodirectionPref();
-            class SubtitleVideoTimerTask extends TimerTask {
-                OutputStreamWriter writer;
-                private int count = 1;
-                private long min_video_time_from = 0;
-
-                private String getSubtitleFilename(String video_filename) {
-                    if( MyDebug.LOG )
-                        Log.d(TAG, "getSubtitleFilename");
-                    int indx = video_filename.indexOf('.');
-                    if( indx != -1 ) {
-                        video_filename = video_filename.substring(0, indx);
-                    }
-                    video_filename = video_filename + ".srt";
-                    if( MyDebug.LOG )
-                        Log.d(TAG, "return filename: " + video_filename);
-                    return video_filename;
-                }
-
-                public void run() {
-                    if( MyDebug.LOG )
-                        Log.d(TAG, "SubtitleVideoTimerTask run");
-                    long video_time = main_activity.getPreview().getVideoTime();
-                    if( !main_activity.getPreview().isVideoRecording() ) {
-                        if( MyDebug.LOG )
-                            Log.d(TAG, "no longer video recording");
-                        return;
-                    }
-                    if( main_activity.getPreview().isVideoRecordingPaused() ) {
-                        if( MyDebug.LOG )
-                            Log.d(TAG, "video recording is paused");
-                        return;
-                    }
-                    Date current_date = new Date();
-                    Calendar current_calendar = Calendar.getInstance();
-                    int offset_ms = current_calendar.get(Calendar.MILLISECOND);
-                    // We subtract an offset, because if the current time is say 00:00:03.425 and the video has been recording for
-                    // 1s, we instead need to record the video time when it became 00:00:03.000. This does mean that the GPS
-                    // location is going to be off by up to 1s, but that should be less noticeable than the clock being off.
-                    if( MyDebug.LOG ) {
-                        Log.d(TAG, "count: " + count);
-                        Log.d(TAG, "offset_ms: " + offset_ms);
-                        Log.d(TAG, "video_time: " + video_time);
-                    }
-                    String date_stamp = TextFormatter.getDateString(preference_stamp_dateformat, current_date);
-                    String time_stamp = TextFormatter.getTimeString(preference_stamp_timeformat, current_date);
-                    Location location = store_location ? getLocation() : null;
-                    double geo_direction = store_geo_direction && main_activity.getPreview().hasGeoDirection() ? main_activity.getPreview().getGeoDirection() : 0.0;
-                    String gps_stamp = main_activity.getTextFormatter().getGPSString(preference_stamp_gpsformat, preference_units_distance, store_location && location!=null, location, store_geo_direction && main_activity.getPreview().hasGeoDirection(), geo_direction);
-                    if( MyDebug.LOG ) {
-                        Log.d(TAG, "date_stamp: " + date_stamp);
-                        Log.d(TAG, "time_stamp: " + time_stamp);
-                        // don't log gps_stamp, in case of privacy!
-                    }
-
-                    String datetime_stamp = "";
-                    if( date_stamp.length() > 0 )
-                        datetime_stamp += date_stamp;
-                    if( time_stamp.length() > 0 ) {
-                        if( datetime_stamp.length() > 0 )
-                            datetime_stamp += " ";
-                        datetime_stamp += time_stamp;
-                    }
-
-                    // build subtitles
-                    StringBuilder subtitles = new StringBuilder();
-                    if( datetime_stamp.length() > 0 )
-                        subtitles.append(datetime_stamp).append("\n");
-
-                    if( gps_stamp.length() > 0 ) {
-                        Address address = null;
-                        if( store_location && !preference_stamp_geo_address.equals("preference_stamp_geo_address_no") ) {
-                            // try to find an address
-                            if( Geocoder.isPresent() ) {
-                                if( MyDebug.LOG )
-                                    Log.d(TAG, "geocoder is present");
-                                Geocoder geocoder = new Geocoder(main_activity, Locale.getDefault());
-                                try {
-                                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                                    if( addresses != null && addresses.size() > 0 ) {
-                                        address = addresses.get(0);
-                                        // don't log address, in case of privacy!
-                                        if( MyDebug.LOG ) {
-                                            Log.d(TAG, "max line index: " + address.getMaxAddressLineIndex());
-                                        }
-                                    }
-                                }
-                                catch(Exception e) {
-                                    Log.e(TAG, "failed to read from geocoder");
-                                    e.printStackTrace();
-                                }
-                            }
-                            else {
-                                if( MyDebug.LOG )
-                                    Log.d(TAG, "geocoder not present");
-                            }
-                        }
-
-                        if( address != null ) {
-                            for(int i=0;i<=address.getMaxAddressLineIndex();i++) {
-                                // write in forward order
-                                String addressLine = address.getAddressLine(i);
-                                subtitles.append(addressLine).append("\n");
-                            }
-                        }
-
-                        if( address == null || preference_stamp_geo_address.equals("preference_stamp_geo_address_both") ) {
-                            if( MyDebug.LOG )
-                                Log.d(TAG, "display gps coords");
-                            subtitles.append(gps_stamp).append("\n");
-                        }
-                        else if( store_geo_direction ) {
-                            if( MyDebug.LOG )
-                                Log.d(TAG, "not displaying gps coords, but need to display geo direction");
-                            gps_stamp = main_activity.getTextFormatter().getGPSString(preference_stamp_gpsformat, preference_units_distance, false, null, store_geo_direction && main_activity.getPreview().hasGeoDirection(), geo_direction);
-                            if( gps_stamp.length() > 0 ) {
-                                // don't log gps_stamp, in case of privacy!
-                                subtitles.append(gps_stamp).append("\n");
-                            }
-                        }
-                    }
-
-                    if( subtitles.length() == 0 ) {
-                        return;
-                    }
-                    long video_time_from = video_time - offset_ms;
-                    long video_time_to = video_time_from + 999;
-                    // don't want to start from before 0; also need to keep track of min_video_time_from to avoid bug reported at
-                    // https://forum.xda-developers.com/showpost.php?p=74827802&postcount=345 for pause video where we ended up
-                    // with overlapping times when resuming
-                    if( video_time_from < min_video_time_from )
-                        video_time_from = min_video_time_from;
-                    min_video_time_from = video_time_to + 1;
-                    String subtitle_time_from = TextFormatter.formatTimeMS(video_time_from);
-                    String subtitle_time_to = TextFormatter.formatTimeMS(video_time_to);
-                    try {
-                        synchronized( this ) {
-                            if( writer == null ) {
-                                if( video_method == ApplicationInterface.VIDEOMETHOD_FILE ) {
-                                    String subtitle_filename = last_video_file.getAbsolutePath();
-                                    subtitle_filename = getSubtitleFilename(subtitle_filename);
-                                    writer = new FileWriter(subtitle_filename);
-                                }
-                                else {
-                                    if( MyDebug.LOG )
-                                        Log.d(TAG, "last_video_file_saf: " + last_video_file_saf);
-                                    String subtitle_filename = storageUtils.getFileName(last_video_file_saf);
-                                    subtitle_filename = getSubtitleFilename(subtitle_filename);
-                                    Uri subtitle_uri = storageUtils.createOutputFileSAF(subtitle_filename, ""); // don't set a mimetype, as we don't want it to append a new extension
-                                    ParcelFileDescriptor pfd_saf = getContext().getContentResolver().openFileDescriptor(subtitle_uri, "w");
-                                    writer = new FileWriter(pfd_saf.getFileDescriptor());
-                                }
-                            }
-                            if( writer != null ) {
-                                writer.append(Integer.toString(count));
-                                writer.append('\n');
-                                writer.append(subtitle_time_from);
-                                writer.append(" --> ");
-                                writer.append(subtitle_time_to);
-                                writer.append('\n');
-                                writer.append(subtitles.toString()); // subtitles should include the '\n' at the end
-                                writer.append('\n'); // additional newline to indicate end of this subtitle
-                                writer.flush();
-                                // n.b., we flush rather than closing/reopening the writer each time, as appending doesn't seem to work with storage access framework
-                            }
-                        }
-                        count++;
-                    }
-                    catch(IOException e) {
-                        if( MyDebug.LOG )
-                            Log.e(TAG, "SubtitleVideoTimerTask failed to create or write");
-                        e.printStackTrace();
-                    }
-                    if( MyDebug.LOG )
-                        Log.d(TAG, "SubtitleVideoTimerTask exit");
-                }
-
-                public boolean cancel() {
-                    if( MyDebug.LOG )
-                        Log.d(TAG, "SubtitleVideoTimerTask cancel");
-                    synchronized( this ) {
-                        if( writer != null ) {
-                            if( MyDebug.LOG )
-                                Log.d(TAG, "close writer");
-                            try {
-                                writer.close();
-                            }
-                            catch(IOException e) {
-                                e.printStackTrace();
-                            }
-                            writer = null;
-                        }
-                    }
-                    return super.cancel();
-                }
-            }
-            subtitleVideoTimer.schedule(subtitleVideoTimerTask = new SubtitleVideoTimerTask(), 0, 1000);
-        }
     }
 
     @Override
@@ -2112,7 +2354,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     }
 
     @Override
-    public void stoppedVideo(final int video_method, final Uri uri, final String filename) {
+    public void stoppedVideo(final VideoMethod video_method, final Uri uri, final String filename) {
         if( MyDebug.LOG ) {
             Log.d(TAG, "stoppedVideo");
             Log.d(TAG, "video_method " + video_method);
@@ -2137,13 +2379,13 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             subtitleVideoTimerTask = null;
         }
 
+        completeVideo(video_method, uri);
         boolean done = broadcastVideo(video_method, uri, filename);
         if( MyDebug.LOG )
             Log.d(TAG, "done? " + done);
 
-        String action = main_activity.getIntent().getAction();
-        if( MediaStore.ACTION_VIDEO_CAPTURE.equals(action) ) {
-            if( done && video_method == VIDEOMETHOD_FILE ) {
+        if( isVideoCaptureIntent() ) {
+            if( done && video_method == VideoMethod.FILE ) {
                 // do nothing here - we end the activity from storageUtils.broadcastFile after the file has been scanned, as it seems caller apps seem to prefer the content:// Uri rather than one based on a File
             }
             else {
@@ -2152,9 +2394,9 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                 Intent output = null;
                 if( done ) {
                     // may need to pass back the Uri we saved to, if the calling application didn't specify a Uri
-                    // set note above for VIDEOMETHOD_FILE
-                    // n.b., currently this code is not used, as we always switch to VIDEOMETHOD_FILE if the calling application didn't specify a Uri, but I've left this here for possible future behaviour
-                    if( video_method == VIDEOMETHOD_SAF ) {
+                    // set note above for VideoMethod.FILE
+                    // n.b., currently this code is not used, as we always switch to VideoMethod.FILE if the calling application didn't specify a Uri, but I've left this here for possible future behaviour
+                    if( video_method == VideoMethod.SAF || video_method == VideoMethod.MEDIASTORE ) {
                         output = new Intent();
                         output.setData(uri);
                         if( MyDebug.LOG )
@@ -2169,14 +2411,15 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             // create thumbnail
             long debug_time = System.currentTimeMillis();
             Bitmap thumbnail = null;
+            ParcelFileDescriptor pfd_saf = null; // keep a reference to this as long as retriever, to avoid risk of pfd_saf being garbage collected
             MediaMetadataRetriever retriever = new MediaMetadataRetriever();
             try {
-                if( video_method == VIDEOMETHOD_FILE ) {
+                if( video_method == VideoMethod.FILE ) {
                     File file = new File(filename);
                     retriever.setDataSource(file.getPath());
                 }
                 else {
-                    ParcelFileDescriptor pfd_saf = getContext().getContentResolver().openFileDescriptor(uri, "r");
+                    pfd_saf = getContext().getContentResolver().openFileDescriptor(uri, "r");
                     retriever.setDataSource(pfd_saf.getFileDescriptor());
                 }
                 thumbnail = retriever.getFrameAtTime(-1);
@@ -2192,6 +2435,14 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                 }
                 catch(RuntimeException ex) {
                     // ignore
+                }
+                try {
+                    if( pfd_saf != null ) {
+                        pfd_saf.close();
+                    }
+                }
+                catch(IOException e) {
+                    e.printStackTrace();
                 }
             }
             if( thumbnail != null ) {
@@ -2226,17 +2477,43 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     }
 
     @Override
-    public void restartedVideo(final int video_method, final Uri uri, final String filename) {
+    public void restartedVideo(final VideoMethod video_method, final Uri uri, final String filename) {
         if( MyDebug.LOG ) {
             Log.d(TAG, "restartedVideo");
             Log.d(TAG, "video_method " + video_method);
             Log.d(TAG, "uri " + uri);
             Log.d(TAG, "filename " + filename);
         }
+        completeVideo(video_method, uri);
         broadcastVideo(video_method, uri, filename);
+
+        // also need to restart subtitles file
+        if( subtitleVideoTimerTask != null ) {
+            subtitleVideoTimerTask.cancel();
+            subtitleVideoTimerTask = null;
+
+            // No need to check if option for subtitles is set, if we were already saving subtitles.
+            // Assume that video_method is unchanged between old and new video file when restarting.
+            startVideoSubtitlesTask(video_method);
+        }
     }
 
-    private boolean broadcastVideo(final int video_method, final Uri uri, final String filename) {
+    /** Called when we've finished recording to a video file, to do any necessary cleanup for the
+     *  file.
+     */
+    private void completeVideo(final VideoMethod video_method, final Uri uri) {
+        if( MyDebug.LOG )
+            Log.d(TAG, "completeVideo");
+        if( video_method == VideoMethod.MEDIASTORE ) {
+            if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(MediaStore.Video.Media.IS_PENDING, 0);
+                main_activity.getContentResolver().update(uri, contentValues, null, null);
+            }
+        }
+    }
+
+    private boolean broadcastVideo(final VideoMethod video_method, final Uri uri, final String filename) {
         if( MyDebug.LOG ) {
             Log.d(TAG, "broadcastVideo");
             Log.d(TAG, "video_method " + video_method);
@@ -2244,7 +2521,24 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             Log.d(TAG, "filename " + filename);
         }
         boolean done = false;
-        if( video_method == VIDEOMETHOD_FILE ) {
+        // clear just in case we're unable to update this - don't want an out of date cached uri
+        storageUtils.clearLastMediaScanned();
+        if( video_method == VideoMethod.MEDIASTORE ) {
+            // no need to broadcast when using mediastore
+
+            if( uri != null ) {
+                // in theory this is pointless, as announceUri no longer does anything on Android 7+,
+                // and mediastore method is only used on Android 10+, but keep this just in case
+                // announceUri does something in future
+                storageUtils.announceUri(uri, false, true);
+
+                // we also want to save the uri - we can use the media uri directly, rather than having to scan it
+                storageUtils.setLastMediaScanned(uri, false);
+
+                done = true;
+            }
+        }
+        else if( video_method == VideoMethod.FILE ) {
             if( filename != null ) {
                 File file = new File(filename);
                 storageUtils.broadcastFile(file, false, true, true);
@@ -2254,10 +2548,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         else {
             if( uri != null ) {
                 // see note in onPictureTaken() for where we call broadcastFile for SAF photos
-                File real_file = storageUtils.broadcastUri(uri, false, true, true);
-                if( real_file != null ) {
-                    main_activity.test_last_saved_image = real_file.getAbsolutePath();
-                }
+                storageUtils.broadcastUri(uri, false, true, true, false);
                 done = true;
             }
         }
@@ -2266,22 +2557,41 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             if( MyDebug.LOG )
                 Log.d(TAG, "test_n_videos_scanned is now: " + test_n_videos_scanned);
         }
+
+        if( video_method == VideoMethod.MEDIASTORE && isVideoCaptureIntent() ) {
+            finishVideoIntent(uri);
+        }
         return done;
     }
 
+    /** For use when called from a video capture intent. This returns the supplied uri to the
+     *  caller, and finishes the activity.
+     */
+    void finishVideoIntent(Uri uri) {
+        if( MyDebug.LOG )
+            Log.d(TAG, "finishVideoIntent:" + uri);
+        Intent output = new Intent();
+        output.setData(uri);
+        main_activity.setResult(Activity.RESULT_OK, output);
+        main_activity.finish();
+    }
+
     @Override
-    public void deleteUnusedVideo(final int video_method, final Uri uri, final String filename) {
+    public void deleteUnusedVideo(final VideoMethod video_method, final Uri uri, final String filename) {
         if( MyDebug.LOG ) {
             Log.d(TAG, "deleteUnusedVideo");
             Log.d(TAG, "video_method " + video_method);
             Log.d(TAG, "uri " + uri);
             Log.d(TAG, "filename " + filename);
         }
-        if( video_method == VIDEOMETHOD_FILE ) {
-            trashImage(false, uri, filename, false);
+        if( video_method == VideoMethod.FILE ) {
+            trashImage(LastImagesType.FILE, uri, filename, false);
         }
-        else if( video_method == VIDEOMETHOD_SAF ) {
-            trashImage(true, uri, filename, false);
+        else if( video_method == VideoMethod.SAF ) {
+            trashImage(LastImagesType.SAF, uri, filename, false);
+        }
+        else if( video_method == VideoMethod.MEDIASTORE ) {
+            trashImage(LastImagesType.MEDIASTORE, uri, filename, false);
         }
         // else can't delete Uri
     }
@@ -2357,10 +2667,6 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             error_message = getContext().getResources().getString(R.string.failed_to_record_video);
         }
         main_activity.getPreview().showToast(null, error_message);
-        ImageButton view = main_activity.findViewById(R.id.take_photo);
-        view.setImageResource(R.drawable.take_video_selector);
-        view.setContentDescription( getContext().getResources().getString(R.string.start_video) );
-        view.setTag(R.drawable.take_video_selector); // for testing
     }
 
     @Override
@@ -2383,11 +2689,9 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
     @Override
     public void onFailedCreateVideoFileError() {
+        if( MyDebug.LOG )
+            Log.d(TAG, "onFailedCreateVideoFileError");
         main_activity.getPreview().showToast(null, R.string.failed_to_save_video);
-        ImageButton view = main_activity.findViewById(R.id.take_photo);
-        view.setImageResource(R.drawable.take_video_selector);
-        view.setContentDescription( getContext().getResources().getString(R.string.start_video) );
-        view.setTag(R.drawable.take_video_selector); // for testing
     }
 
     @Override
@@ -2528,6 +2832,13 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     @Override
     public void multitouchZoom(int new_zoom) {
         main_activity.getMainUI().setSeekbarZoom(new_zoom);
+    }
+
+    @Override
+    public void requestTakePhoto() {
+        if( MyDebug.LOG )
+            Log.d(TAG, "requestTakePhoto");
+        main_activity.takePicture(false);
     }
 
     /** Switch to the first available camera that is front or back facing as desired.
@@ -2700,6 +3011,8 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     public boolean needsStoragePermission() {
         if( MyDebug.LOG )
             Log.d(TAG, "needsStoragePermission");
+        if( MainActivity.useScopedStorage() )
+            return false; // no longer need storage permission with scoped storage - and shouldn't request it either
         return true;
     }
 
@@ -2753,7 +3066,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             // aperture is reset when switching camera, but not when application is paused or switching between photo/video etc
             this.aperture = aperture_default;
         }
-        this.zoom_factor = 0;
+        this.zoom_factor = -1;
     }
 
     @Override
@@ -2847,8 +3160,18 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             paint.setAlpha(255);
         }
         paint.setColor(foreground);
+        if( shadow == Shadow.SHADOW_OUTLINE ) {
+            //noinspection PointlessArithmeticExpression
+            float shadow_radius = (1.0f * scale + 0.5f); // convert pt to pixels
+            shadow_radius = Math.max(shadow_radius, 1.0f);
+            paint.setShadowLayer(shadow_radius, 0.0f, 0.0f, background);
+        }
         canvas.drawText(text, location_x, location_y, paint);
         if( shadow == Shadow.SHADOW_OUTLINE ) {
+            paint.clearShadowLayer(); // set back to default
+        }
+        /*if( shadow == Shadow.SHADOW_OUTLINE ) {
+            // old method (instead of setting shadow layer) - doesn't work correctly on Android 12!
             paint.setColor(background);
             paint.setStyle(Paint.Style.STROKE);
             float current_stroke_width = paint.getStrokeWidth();
@@ -2856,7 +3179,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             canvas.drawText(text, location_x, location_y, paint);
             paint.setStyle(Paint.Style.FILL); // set back to default
             paint.setStrokeWidth(current_stroke_width); // reset
-        }
+        }*/
         return text_bounds.bottom - text_bounds.top;
     }
 
@@ -2880,6 +3203,17 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             image_capture_intent = true;
         }
         return image_capture_intent;
+    }
+
+    boolean isVideoCaptureIntent() {
+        boolean video_capture_intent = false;
+        String action = main_activity.getIntent().getAction();
+        if( MediaStore.ACTION_VIDEO_CAPTURE.equals(action) ) {
+            if( MyDebug.LOG )
+                Log.d(TAG, "from video capture intent");
+            video_capture_intent = true;
+        }
+        return video_capture_intent;
     }
 
     /** Whether the photos will be part of a burst, even if we're receiving via the non-burst callbacks.
@@ -2921,6 +3255,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         }
 
         boolean using_camera2 = main_activity.getPreview().usingCamera2API();
+        boolean using_camera_extensions = isCameraExtensionPref();
         ImageSaver.Request.ImageFormat image_format = getImageFormatPref();
         boolean store_ypr = sharedPreferences.getBoolean(PreferenceKeys.AddYPRToComments, false) &&
                 main_activity.getPreview().hasLevelAngle() &&
@@ -2953,7 +3288,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         String preference_stamp_dateformat = this.getStampDateFormatPref();
         String preference_stamp_timeformat = this.getStampTimeFormatPref();
         String preference_stamp_gpsformat = this.getStampGPSFormatPref();
-        String preference_stamp_geo_address = this.getStampGeoAddressPref();
+        //String preference_stamp_geo_address = this.getStampGeoAddressPref();
         String preference_units_distance = this.getUnitsDistancePref();
         boolean panorama_crop = sharedPreferences.getString(PreferenceKeys.PanoramaCropPreferenceKey, "preference_panorama_crop_on").equals("preference_panorama_crop_on");
         boolean store_location = getGeotaggingPref() && getLocation() != null;
@@ -3055,7 +3390,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                         photo_mode == PhotoMode.NoiseReduction ? ImageSaver.Request.ProcessType.AVERAGE : ImageSaver.Request.ProcessType.PANORAMA,
                         save_base,
                         image_capture_intent, image_capture_intent_uri,
-                        using_camera2,
+                        using_camera2, using_camera_extensions,
                         image_format, image_quality,
                         do_auto_stabilise, level_angle, photo_mode == PhotoMode.Panorama,
                         is_front_facing,
@@ -3064,7 +3399,9 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                         iso,
                         exposure_time,
                         zoom_factor,
-                        preference_stamp, preference_textstamp, font_size, color, pref_style, preference_stamp_dateformat, preference_stamp_timeformat, preference_stamp_gpsformat, preference_stamp_geo_address, preference_units_distance,
+                        preference_stamp, preference_textstamp, font_size, color, pref_style, preference_stamp_dateformat, preference_stamp_timeformat, preference_stamp_gpsformat,
+                        //preference_stamp_geo_address,
+                        preference_units_distance,
                         panorama_crop,
                         store_location, location, store_geo_direction, geo_direction,
                         pitch_angle, store_ypr,
@@ -3097,7 +3434,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                     force_suffix ? (n_capture_images-1) : 0,
                     save_expo, images,
                     image_capture_intent, image_capture_intent_uri,
-                    using_camera2,
+                    using_camera2, using_camera_extensions,
                     image_format, image_quality,
                     do_auto_stabilise, level_angle,
                     is_front_facing,
@@ -3107,7 +3444,9 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                     iso,
                     exposure_time,
                     zoom_factor,
-                    preference_stamp, preference_textstamp, font_size, color, pref_style, preference_stamp_dateformat, preference_stamp_timeformat, preference_stamp_gpsformat, preference_stamp_geo_address, preference_units_distance,
+                    preference_stamp, preference_textstamp, font_size, color, pref_style, preference_stamp_dateformat, preference_stamp_timeformat, preference_stamp_gpsformat,
+                    //preference_stamp_geo_address,
+                    preference_units_distance,
                     false, // panorama doesn't use this codepath
                     store_location, location, store_geo_direction, geo_direction,
                     pitch_angle, store_ypr,
@@ -3231,7 +3570,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             Log.d(TAG, "addLastImage: " + file);
             Log.d(TAG, "share?: " + share);
         }
-        last_images_saf = false;
+        last_images_type = LastImagesType.FILE;
         LastImage last_image = new LastImage(file.getAbsolutePath(), share);
         last_images.add(last_image);
     }
@@ -3241,7 +3580,17 @@ public class MyApplicationInterface extends BasicApplicationInterface {
             Log.d(TAG, "addLastImageSAF: " + uri);
             Log.d(TAG, "share?: " + share);
         }
-        last_images_saf = true;
+        last_images_type = LastImagesType.SAF;
+        LastImage last_image = new LastImage(uri, share);
+        last_images.add(last_image);
+    }
+
+    void addLastImageMediaStore(Uri uri, boolean share) {
+        if( MyDebug.LOG ) {
+            Log.d(TAG, "addLastImageMediaStore: " + uri);
+            Log.d(TAG, "share?: " + share);
+        }
+        last_images_type = LastImagesType.MEDIASTORE;
         LastImage last_image = new LastImage(uri, share);
         last_images.add(last_image);
     }
@@ -3249,7 +3598,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     void clearLastImages() {
         if( MyDebug.LOG )
             Log.d(TAG, "clearLastImages");
-        last_images_saf = false;
+        last_images_type = LastImagesType.FILE;
         last_images.clear();
         drawPreview.clearLastImage();
     }
@@ -3292,13 +3641,13 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void trashImage(boolean image_saf, Uri image_uri, String image_name, boolean from_user) {
+    private void trashImage(LastImagesType image_type, Uri image_uri, String image_name, boolean from_user) {
         if( MyDebug.LOG )
             Log.d(TAG, "trashImage");
         Preview preview  = main_activity.getPreview();
-        if( image_saf && image_uri != null ) {
+        if( image_type == LastImagesType.SAF && image_uri != null ) {
             if( MyDebug.LOG )
-                Log.d(TAG, "Delete: " + image_uri);
+                Log.d(TAG, "Delete SAF: " + image_uri);
             File file = storageUtils.getFileFromDocumentUriSAF(image_uri, false); // need to get file before deleting it, as fileFromDocumentUriSAF may depend on the file still existing
             try {
                 if( !DocumentsContract.deleteDocument(main_activity.getContentResolver(), image_uri) ) {
@@ -3324,6 +3673,11 @@ public class MyApplicationInterface extends BasicApplicationInterface {
                 e.printStackTrace();
             }
         }
+        else if( image_type == LastImagesType.MEDIASTORE && image_uri != null ) {
+            if( MyDebug.LOG )
+                Log.d(TAG, "Delete MediaStore: " + image_uri);
+            main_activity.getContentResolver().delete(image_uri, null, null);
+        }
         else if( image_name != null ) {
             if( MyDebug.LOG )
                 Log.d(TAG, "Delete: " + image_name);
@@ -3344,12 +3698,12 @@ public class MyApplicationInterface extends BasicApplicationInterface {
 
     void trashLastImage() {
         if( MyDebug.LOG )
-            Log.d(TAG, "trashImage");
+            Log.d(TAG, "trashLastImage");
         Preview preview  = main_activity.getPreview();
         if( preview.isPreviewPaused() ) {
             for(int i=0;i<last_images.size();i++) {
                 LastImage last_image = last_images.get(i);
-                trashImage(last_images_saf, last_image.uri, last_image.name, true);
+                trashImage(last_images_type, last_image.uri, last_image.name, true);
             }
             clearLastImages();
             drawPreview.clearGhostImage(); // doesn't make sense to show the last image as a ghost, if the user has trashed it!

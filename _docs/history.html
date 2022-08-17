@@ -24,16 +24,15 @@
 <!-- End Cookie Consent plugin -->
 
 <!-- Google Analytics -->
-<!-- anonymizeIp is set: unclear if this is needed for EU GDPR, but just in case -->
+<!-- anonymize_ip is set: unclear if this is needed for EU GDPR, but just in case -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-38364448-5"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-38364448-5', 'auto');
-  ga('set', 'anonymizeIp', true);
-  ga('send', 'pageview');
+  gtag('config', 'UA-38364448-5', { 'anonymize_ip': true });
 </script>
 
 </head>
@@ -48,6 +47,132 @@
 <p>&lt; <small><a href="index.html">Main Page.</a></small></p>
 
 <pre>
+Version 1.50.1 (2022/06/08)
+
+FIXED   Crash on OPPO devices for old camera API introduced in 1.50.
+
+Version 1.50 (2022/06/04)
+
+FIXED   HDR photos came out black on some Samsung Galaxy devices with Android 12.
+FIXED   Problems with flash on Camera2 API (Samsung Galaxy, OnePlus, Pixel 6 Pro). Galaxy and
+        OnePlus devices therefore no longer default to using the "alternative flash method".
+FIXED   Problems with expo, HDR and long manual exposures on some devices (e.g., Pixel 6 Pro).
+FIXED   Granting only approximate location permission on Android 12 would turn geotagging option
+        back off.
+FIXED   On-screen text looked strange on Android 12.
+FIXED   Gallery icon overlapped with navigation bar if using widescreen resolution with UI in left
+        or right handed mode.
+ADDED   Support for Android 12's camera extensions API. When using Camera2 API, on selected devices
+        advanced photo modes are now available (e.g., Night on Pixel 6 Pro; Night, Bokeh and Beauty
+        on some Galaxy devices).
+ADDED   Improved support for devices with multiple camera devices, where extra cameras are exposed
+        via zooming in and out (e.g., Pixel 5/6).
+ADDED   New debug option Settings/Photo settings/"Enable dummy capture HDR/expo fix". Please enable
+        this if you are having problems with HDR or expo bracketing mode on Samsung Galaxy devices
+        with Android 11+ (specifically if some expo images come out with the same exposures).
+UPDATED Removed "use addresses" and "say cheese" options. Sorry about that, but
+        this is due to new data privacy requirements on Google Play: although
+        these used standard Android APIs, information was not available for these APIs to satisfy
+        data privacy requirements.
+UPDATED Now targetting Android 12. For remote control device options, new bluetooth permissions are
+        used instead of requiring location permission.
+UPDATED Move gallery icon slightly to avoid overlapping with Android 12 camera privacy icon.
+UPDATED Made pinch zoom smoother, to allow finer control.
+
+Version 1.49.2 (2022/01/13)
+
+FIXED   Dialog for "Save settings" shouldn't allow multiple lines.
+FIXED   Crash for NR photo mode on some devices since version 1.49.
+UPDATED Switched to using AppCompat AppCompatActivity.
+UPDATED Photo stamp custom text now uses AppCompat libraries to support latest emoji.
+UPDATED Made appearance of info "toasts" more consistent.
+
+Version 1.49.1 (2021/09/20)
+
+FIXED   Crop guides weren't drawn correctly in portrait orientation in 1.49.
+FIXED   Diagonals grid wasn't drawn correctly in portrait orientation in 1.49.
+
+Version 1.49 (2021/09/07)
+
+FIXED   Crash when failing to save photos/videos with mediastore (Android 10+ if not using Storage
+        Access Framework).
+FIXED   Crash related to original camera API.
+FIXED   Crash when using photo stamp with auto-level when angle is zero.
+FIXED   Couldn't exit immersive mode on Android 11.
+FIXED   Behaviour where widescreen preview aspect ratios show under on-screen navigation bar wasn't
+        working properly on Android 11.
+FIXED   Manual white balance had inverted effect.
+FIXED   Video subtitles file didn't work properly when video file restarted due to max filesize.
+FIXED   Taking a photo in RAW only, then clicking on the gallery thumbnail would sometimes
+        incorrectly open an earlier non-RAW photo or video.
+FIXED   Corrected pitch and compass line lengths for portrait vs landscape orientations.
+FIXED   Single and double tap options to take photo weren't working correctly in panorama mode.
+FIXED   When using manual ISO seekbar, sometimes incorrect ISO button would be highlighted.
+UPDATED Now supports portrait and landscape system orientations, rather than being locked to
+        landscape system orientation.
+UPDATED Double tap to take photo option no longer performs a touch to focus, this now only happens
+        from a single tap.
+UPDATED Improved performance when opening camera and clicking on gallery icon (mainly relevant for
+        using Storage Access Framework with Android 10+ when save folder has large number of files).
+UPDATED Set max preview exposure time to be 1/5s instead of 1/12s, for when using manual exposure.
+UPDATED Support longer exposure time (1/5s) on some Samsung Galaxy S devices.
+UPDATED Improvements to brightness levels for Noise Reduction, DRO and HDR photo modes (images
+        coming out too dark in some cases).
+UPDATED Improvement to Noise Reduction photo mode quality (improved ability to distinguish noise
+        from ghosting effects).
+UPDATED Improvement to Noise Reduction photo mode to avoid overexposing in lower light scenes.
+UPDATED Improved choosing when to use 8 images for Noise Reduction photo mode.
+UPDATED Optimisations for DRO and NR photo modes on Samsung devices.
+UPDATED Accessibility improvement, set hints for EditTexts.
+UPDATED Now targetting Android 11. Due to changes in Android 11 this means "video subtitles" option
+        is now only available when saving with
+        Settings/More camera controls/"Storage Access Framework" enabled.
+UPDATED Updated some user interface icons.
+
+Version 1.48.3 (2020/11/20)
+
+FIXED   Possible crash for panorama if failing to crop due to poor transformations; now fails
+        gracefully.
+FIXED   Crash on EXTERNAL devices with Camera2 API that didn't support querying the view angles.
+FIXED   Photos would sometimes fail to save on some devices with Storage Access Framework, when some
+        options were enabled (options like DRO, HDR, auto-level, photostamp that require
+        post-processing; custom Exif tags like artist or copyright; or when using geotagging with
+        Camera2 API).
+FIXED   Fix for HDR scenes with both very bright and very dark regions, result would be over
+        exposed.
+FIXED   Fixed possible misalignment for HDR scenes with very bright or very dark images.
+FIXED   Corrupt videos could be left over if video failed to start.
+FIXED   Possible problem taking photos on some devices with LIMITED Camera2 API support.
+FIXED   Possible problem with default edge mode and noise reduction mode behaviours on some devices
+        with LIMITED Camera2 API support.
+FIXED   UI would become sluggish if camera or storage permission denied with "Don't ask again".
+UPDATED Now supporting "scoped storage" on Android 10+. This means storage permission is no longer
+        required on Android 10+. However this means the following changes:
+          * Saving outside of DCIM/ is no longer possible unless using the Storage Access Framework
+            option. If you had set up a custom save folder outside of DCIM/ and are on Android 10+,
+            it will be reset to the default DCIM/OpenCamera/ folder. If you want to continue saving
+            outside of DCIM/, you can enable
+            Settings/More camera controls/"Use Storage Access Framework" and choose a new folder.
+          * If using Video subtitles option, then the .SRT files will show up in gallery
+            applications, unless Settings/More camera controls/"Use Storage Access Framework" is
+            enabled.
+        Note that these changes are required due to changes being made in Android that applications
+        are required to support.
+UPDATED Use seekbar for more settings (audio control sensitivity, image quality, photo stamp font
+        size).
+UPDATED Debug XML files for panorama now saved in Android/data/net.sourceforge.opencamera/files/.
+UPDATED Camera now closed when in settings or preview otherwise in background.
+
+Version 1.48.2 (2020/07/12)
+
+FIXED   Manual focus and focus bracketing seekbars weren't being hidden when in immersive mode.
+FIXED   Video subtitles would stop before end of video on some devices when using Storage Access
+        Framework.
+UPDATED Switched to AndroidX support library.
+UPDATED Artist, Copyright exif tags option now supported for devices running Android 6 or earlier.
+UPDATED Selecting remote device type for Bluetooth remote control now calls Open Camera's
+        DeviceScanner directly; DeviceScanner activity no longer exported.
+
 Version 1.48.1 (2020/05/02)
 
 FIXED   Crash on devices with Camera2 API where camera reports no picture, video or preview

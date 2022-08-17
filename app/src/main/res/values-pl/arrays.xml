@@ -242,16 +242,6 @@
         <item>audio_mono</item>
         <item>audio_stereo</item>
     </string-array>
-    <string-array name="preference_audio_control_entries">
-        <item>Wyłączone</item>
-        <item>Głośny dźwięk</item>
-        <item>Komenda głosowa: \"cheese\"</item>
-    </string-array>
-    <string-array name="preference_audio_control_values">
-        <item>none</item>
-        <item>noise</item>
-        <item>voice</item>
-    </string-array>
     <string-array name="preference_save_zulu_time_entries">
         <item>Czas lokalny</item>
         <item>UTC (Zulu)</item>
@@ -281,8 +271,8 @@
         <item>3</item>
     </string-array>
     <string-array name="preference_front_camera_mirror_entries">
-        <item>No mirror</item>
-        <item>Mirror photo</item>
+        <item>Bez lustra</item>
+        <item>Odbicie lustrzane</item>
     </string-array>
     <string-array name="preference_front_camera_mirror_values">
         <item>preference_front_camera_mirror_no</item>

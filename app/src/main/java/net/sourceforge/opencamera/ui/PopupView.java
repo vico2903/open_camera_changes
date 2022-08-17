@@ -15,17 +15,20 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.hardware.camera2.CameraExtensionCharacteristics;
 import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
@@ -38,9 +41,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ImageView.ScaleType;
+
+import androidx.appcompat.widget.SwitchCompat;
 
 /** This defines the UI for the "popup" button, that provides quick access to a
  *  range of options.
@@ -114,8 +118,10 @@ public class PopupView extends LinearLayout {
 		}*/
 
         final Preview preview = main_activity.getPreview();
+        boolean is_camera_extension = main_activity.getApplicationInterface().isCameraExtensionPref();
         if( MyDebug.LOG )
             Log.d(TAG, "PopupView time 2: " + (System.nanoTime() - debug_time));
+
         if( !main_activity.getMainUI().showCycleFlashIcon() )
         {
             List<String> supported_flash_values = preview.getSupportedFlashValues();
@@ -213,6 +219,26 @@ public class PopupView extends LinearLayout {
             if( main_activity.supportsFocusBracketing() ) {
                 photo_modes.add( getResources().getString(use_expanded_menu ? R.string.photo_mode_focus_bracketing_full : R.string.photo_mode_focus_bracketing) );
                 photo_mode_values.add( MyApplicationInterface.PhotoMode.FocusBracketing );
+            }
+            if( main_activity.supportsCameraExtension(CameraExtensionCharacteristics.EXTENSION_AUTOMATIC) ) {
+                photo_modes.add( getResources().getString(use_expanded_menu ? R.string.photo_mode_x_auto_full : R.string.photo_mode_x_auto) );
+                photo_mode_values.add( MyApplicationInterface.PhotoMode.X_Auto );
+            }
+            if( main_activity.supportsCameraExtension(CameraExtensionCharacteristics.EXTENSION_HDR) ) {
+                photo_modes.add( getResources().getString(use_expanded_menu ? R.string.photo_mode_x_hdr_full : R.string.photo_mode_x_hdr) );
+                photo_mode_values.add( MyApplicationInterface.PhotoMode.X_HDR );
+            }
+            if( main_activity.supportsCameraExtension(CameraExtensionCharacteristics.EXTENSION_NIGHT) ) {
+                photo_modes.add( getResources().getString(use_expanded_menu ? R.string.photo_mode_x_night_full : R.string.photo_mode_x_night) );
+                photo_mode_values.add( MyApplicationInterface.PhotoMode.X_Night );
+            }
+            if( main_activity.supportsCameraExtension(CameraExtensionCharacteristics.EXTENSION_BOKEH) ) {
+                photo_modes.add( getResources().getString(use_expanded_menu ? R.string.photo_mode_x_bokeh_full : R.string.photo_mode_x_bokeh) );
+                photo_mode_values.add( MyApplicationInterface.PhotoMode.X_Bokeh );
+            }
+            if( main_activity.supportsCameraExtension(CameraExtensionCharacteristics.EXTENSION_BEAUTY) ) {
+                photo_modes.add( getResources().getString(use_expanded_menu ? R.string.photo_mode_x_beauty_full : R.string.photo_mode_x_beauty) );
+                photo_mode_values.add( MyApplicationInterface.PhotoMode.X_Beauty );
             }
             if( preview.isVideo() ) {
                 // only show photo modes when in photo mode, not video mode!
@@ -383,7 +409,7 @@ public class PopupView extends LinearLayout {
                         public void run() {
                             if (MyDebug.LOG)
                                 Log.d(TAG, "update settings due to resolution change");
-                            main_activity.updateForSettings("", true); // keep the popupview open
+                            main_activity.updateForSettings(true, "", true); // keep the popupview open
                         }
                     };
 
@@ -398,8 +424,11 @@ public class PopupView extends LinearLayout {
                         editor.apply();
 
                         // make it easier to scroll through the list of resolutions without a pause each time
+                        // need a longer time for extension modes, due to the need to camera reopening (which will cause the
+                        // popup menu to close)
+                        final long delay_time = main_activity.getApplicationInterface().isCameraExtensionPref() ? 800 : 400;
                         handler.removeCallbacks(update_runnable);
-                        handler.postDelayed(update_runnable, 400);
+                        handler.postDelayed(update_runnable, delay_time);
                     }
 
                     @Override
@@ -464,7 +493,7 @@ public class PopupView extends LinearLayout {
                         public void run() {
                             if( MyDebug.LOG )
                                 Log.d(TAG, "update settings due to video resolution change");
-                            main_activity.updateForSettings("", true); // keep the popupview open
+                            main_activity.updateForSettings(true, "", true); // keep the popupview open
                         }
                     };
 
@@ -506,7 +535,8 @@ public class PopupView extends LinearLayout {
             if( MyDebug.LOG )
                 Log.d(TAG, "PopupView time 10: " + (System.nanoTime() - debug_time));
 
-            if( preview.getSupportedApertures() != null ) {
+            // apertures probably not supported for camera extensions anyway
+            if( preview.getSupportedApertures() != null && !is_camera_extension ) {
                 if( MyDebug.LOG )
                     Log.d(TAG, "add apertures");
 
@@ -698,9 +728,12 @@ public class PopupView extends LinearLayout {
                     }
                 });
 
-                //CheckBox checkBox = new CheckBox(main_activity);
-                Switch checkBox = new Switch(main_activity);
+                @SuppressLint("InflateParams")
+                final View switch_view = LayoutInflater.from(context).inflate(R.layout.popupview_switch, null);
+                final SwitchCompat checkBox = switch_view.findViewById(R.id.popupview_switch);
+
                 checkBox.setText(getResources().getString(R.string.focus_bracketing_add_infinity));
+
                 {
                     // align the checkbox a bit better
                     checkBox.setGravity(Gravity.RIGHT);
@@ -771,8 +804,8 @@ public class PopupView extends LinearLayout {
                             @Override
                             public void run() {
                                 if (MyDebug.LOG)
-                                    Log.d(TAG, "update settings due to resolution change");
-                                main_activity.updateForSettings("", true); // keep the popupview open
+                                    Log.d(TAG, "update settings due to video capture rate change");
+                                main_activity.updateForSettings(true, "", true); // keep the popupview open
                             }
                         };
 
@@ -812,12 +845,12 @@ public class PopupView extends LinearLayout {
                             old_video_capture_rate_index = video_capture_rate_index;
 
                             if( keep_popup ) {
-                                // make it easier to scroll through the list of resolutions without a pause each time
+                                // make it easier to scroll through the list of capture rates without a pause each time
                                 handler.removeCallbacks(update_runnable);
                                 handler.postDelayed(update_runnable, 400);
                             }
                             else {
-                                main_activity.updateForSettings(toast_message, keep_popup);
+                                main_activity.updateForSettings(true, toast_message, keep_popup);
                             }
                         }
                         @Override
@@ -981,8 +1014,10 @@ public class PopupView extends LinearLayout {
             if( MyDebug.LOG )
                 Log.d(TAG, "PopupView time 13: " + (System.nanoTime() - debug_time));
 
+            // white balance modes, scene modes, color effects
+            // all of these are only supported when not using extension mode
             // popup should only be opened if we have a camera controller, but check just to be safe
-            if( preview.getCameraController() != null ) {
+            if( preview.getCameraController() != null && !is_camera_extension ) {
                 List<String> supported_white_balances = preview.getSupportedWhiteBalances();
                 List<String> supported_white_balances_entries = null;
                 if( supported_white_balances != null ) {
@@ -1016,7 +1051,7 @@ public class PopupView extends LinearLayout {
                         if( preview.getCameraController() != null ) {
                             if( preview.getCameraController().sceneModeAffectsFunctionality() ) {
                                 // need to call updateForSettings() and close the popup, as changing scene mode can change available camera features
-                                main_activity.updateForSettings(getResources().getString(R.string.scene_mode) + ": " + main_activity.getMainUI().getEntryForSceneMode(selected_value));
+                                main_activity.updateForSettings(true, getResources().getString(R.string.scene_mode) + ": " + main_activity.getMainUI().getEntryForSceneMode(selected_value));
                                 main_activity.closePopup();
                             }
                             else {
@@ -1054,6 +1089,9 @@ public class PopupView extends LinearLayout {
         }
 
         setBackgroundColor(getResources().getColor(R.color.color_popup_bg));
+
+        if( MyDebug.LOG )
+            Log.d(TAG, "Overall PopupView time: " + (System.nanoTime() - debug_time));
     }
 
     int getTotalWidth() {
@@ -1099,6 +1137,21 @@ public class PopupView extends LinearLayout {
                 case Panorama:
                     toast_message = getResources().getString(R.string.photo_mode_panorama_full);
                     break;
+                case X_Auto:
+                    toast_message = getResources().getString(R.string.photo_mode_x_auto_full);
+                    break;
+                case X_HDR:
+                    toast_message = getResources().getString(R.string.photo_mode_x_hdr_full);
+                    break;
+                case X_Night:
+                    toast_message = getResources().getString(R.string.photo_mode_x_night_full);
+                    break;
+                case X_Bokeh:
+                    toast_message = getResources().getString(R.string.photo_mode_x_bokeh_full);
+                    break;
+                case X_Beauty:
+                    toast_message = getResources().getString(R.string.photo_mode_x_beauty_full);
+                    break;
             }
             final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(main_activity);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -1126,6 +1179,21 @@ public class PopupView extends LinearLayout {
                     break;
                 case Panorama:
                     editor.putString(PreferenceKeys.PhotoModePreferenceKey, "preference_photo_mode_panorama");
+                    break;
+                case X_Auto:
+                    editor.putString(PreferenceKeys.PhotoModePreferenceKey, "preference_photo_mode_x_auto");
+                    break;
+                case X_HDR:
+                    editor.putString(PreferenceKeys.PhotoModePreferenceKey, "preference_photo_mode_x_hdr");
+                    break;
+                case X_Night:
+                    editor.putString(PreferenceKeys.PhotoModePreferenceKey, "preference_photo_mode_x_night");
+                    break;
+                case X_Bokeh:
+                    editor.putString(PreferenceKeys.PhotoModePreferenceKey, "preference_photo_mode_x_bokeh");
+                    break;
+                case X_Beauty:
+                    editor.putString(PreferenceKeys.PhotoModePreferenceKey, "preference_photo_mode_x_beauty");
                     break;
                 default:
                     if (MyDebug.LOG)
@@ -1156,7 +1224,7 @@ public class PopupView extends LinearLayout {
             }
 
             main_activity.getApplicationInterface().getDrawPreview().updateSettings(); // because we cache the photomode
-            main_activity.updateForSettings(toast_message); // need to setup the camera again, as options may change (e.g., required burst mode, or whether RAW is allowed in this mode)
+            main_activity.updateForSettings(true, toast_message); // need to setup the camera again, as options may change (e.g., required burst mode, or whether RAW is allowed in this mode)
             main_activity.getMainUI().destroyPopup(); // need to recreate popup for new selection
         }
     }
@@ -1226,6 +1294,10 @@ public class PopupView extends LinearLayout {
             Log.d(TAG, "addButtonOptionsToPopup");
         MainActivity main_activity = (MainActivity)this.getContext();
         createButtonOptions(this, this.getContext(), total_width_dp, main_activity.getMainUI().getTestUIButtonsMap(), supported_options, icons_id, values_id, prefix_string, true, current_value, max_buttons_per_row, test_key, listener);
+    }
+
+    public static String getButtonOptionString(boolean include_prefix, String prefix_string, String supported_option) {
+        return (include_prefix ? prefix_string : "") + "\n" + supported_option;
     }
 
     static List<View> createButtonOptions(ViewGroup parent, Context context, int total_width_dp, Map<String, View> test_ui_buttons, List<String> supported_options, int icons_id, int values_id, String prefix_string, boolean include_prefix, String current_value, int max_buttons_per_row, String test_key, final ButtonOptionsPopupListener listener) {
@@ -1338,13 +1410,13 @@ public class PopupView extends LinearLayout {
                     button_string = supported_option;
                 }
                 else if( prefix_string.equalsIgnoreCase("ISO") && supported_option.length() >= 4 && supported_option.substring(0, 4).equalsIgnoreCase("ISO_") ) {
-                    button_string = (include_prefix ? prefix_string : "") + "\n" + supported_option.substring(4);
+                    button_string = getButtonOptionString(include_prefix, prefix_string, supported_option.substring(4));
                 }
                 else if( prefix_string.equalsIgnoreCase("ISO") && supported_option.length() >= 3 && supported_option.substring(0, 3).equalsIgnoreCase("ISO") ) {
-                    button_string = (include_prefix ? prefix_string : "") + "\n" + supported_option.substring(3);
+                    button_string = getButtonOptionString(include_prefix, prefix_string, supported_option.substring(3));
                 }
                 else {
-                    button_string = (include_prefix ? prefix_string : "") + "\n" + supported_option;
+                    button_string = getButtonOptionString(include_prefix, prefix_string, supported_option);
                 }
                 if( MyDebug.LOG )
                     Log.d(TAG, "button_string: " + button_string);
@@ -1378,7 +1450,10 @@ public class PopupView extends LinearLayout {
                     view.setPadding(imageButtonPadding, imageButtonPadding, imageButtonPadding, imageButtonPadding);
                 }
                 else {
-                    Button button = new Button(context);
+                    @SuppressLint("InflateParams")
+                    final View button_view = LayoutInflater.from(context).inflate(R.layout.popupview_button, null);
+                    final Button button = button_view.findViewById(R.id.button);
+
                     button.setBackgroundColor(Color.TRANSPARENT); // workaround for Android 6 crash! Also looks nicer anyway...
                     view = button;
                     buttons.add(view);
@@ -1480,16 +1555,21 @@ public class PopupView extends LinearLayout {
     }
 
     private void addTitleToPopup(final String title) {
-        TextView text_view = new TextView(this.getContext());
+        final long debug_time = System.nanoTime();
+
+        @SuppressLint("InflateParams")
+        final View view = LayoutInflater.from(this.getContext()).inflate(R.layout.popupview_textview, null);
+        final TextView text_view = view.findViewById(R.id.text_view);
+
         text_view.setText(title + ":");
-        text_view.setTextColor(Color.WHITE);
-        text_view.setGravity(Gravity.CENTER);
         text_view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, title_text_size_dip);
         text_view.setTypeface(null, Typeface.BOLD);
         text_view.setPadding(0, 5, 0, 5);
         //text_view.setBackgroundColor(Color.GRAY); // debug
         text_view.setBackgroundColor(getResources().getColor(R.color.color_popup_title_bg));
         this.addView(text_view);
+        if( MyDebug.LOG )
+            Log.d(TAG, "addTitleToPopup time: " + (System.nanoTime() - debug_time));
     }
 
     private abstract static class RadioOptionsListener {
@@ -1659,7 +1739,16 @@ public class PopupView extends LinearLayout {
             }
             if( MyDebug.LOG )
                 Log.d(TAG, "addRadioOptionsToGroup time 1: " + (System.nanoTime() - debug_time));
-            RadioButton button = new RadioButton(this.getContext());
+
+            // Inflating from XML made opening the radio button sub-menus much slower on old devices (e.g., Galaxy Nexus),
+            // however testing showed this is also just as slow if we programmatically create a new AppCompatRadioButton().
+            // I.e., the slowdown is due to using AppCompatRadioButton (which AppCompat will automatically use if creating
+            // a RadioButton from XML) rather than inflating from XML.
+            // Whilst creating a new RadioButton() was faster, we can't do that anymore due to emoji policy!
+            @SuppressLint("InflateParams")
+            final View view = LayoutInflater.from(this.getContext()).inflate(R.layout.popupview_radiobutton, null);
+            final RadioButton button = view.findViewById(R.id.popupview_radiobutton);
+
             if( MyDebug.LOG )
                 Log.d(TAG, "addRadioOptionsToGroup time 2: " + (System.nanoTime() - debug_time));
 
@@ -1703,7 +1792,7 @@ public class PopupView extends LinearLayout {
                         listener.onClick(supported_option_value);
                     }
                     else {
-                        main_activity.updateForSettings(title + ": " + supported_option_entry);
+                        main_activity.updateForSettings(true, title + ": " + supported_option_entry);
                         main_activity.closePopup();
                     }
                 }
@@ -1749,25 +1838,18 @@ public class PopupView extends LinearLayout {
             }
 
             final MainActivity main_activity = (MainActivity)this.getContext();
-			/*final Button prev_button = new Button(this.getContext());
-			//prev_button.setBackgroundResource(R.drawable.exposure);
-			prev_button.setBackgroundColor(Color.TRANSPARENT); // workaround for Android 6 crash!
-			prev_button.setText("<");
-			this.addView(prev_button);*/
 
-            LinearLayout ll2 = new LinearLayout(this.getContext());
-            ll2.setOrientation(LinearLayout.HORIZONTAL);
-            if( !title_in_options ) {
-                ll2.setPadding(0,40,0, 0);
-            }
+            final long debug_time = System.nanoTime();
 
+            @SuppressLint("InflateParams")
+            final View ll2 = LayoutInflater.from(this.getContext()).inflate(R.layout.popupview_arrayoptions, null);
+            final TextView text_view = ll2.findViewById(R.id.text_view);
+            final ImageButton prev_button = ll2.findViewById(R.id.button_left);
+            final ImageButton next_button = ll2.findViewById(R.id.button_right);
 
-            final TextView text_view = new TextView(this.getContext());
             setArrayOptionsText(supported_options, title, text_view, title_in_options, title_in_options_first_only, current_index);
             //text_view.setBackgroundColor(Color.GRAY); // debug
             text_view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, standard_text_size_dip);
-            text_view.setTextColor(Color.WHITE);
-            text_view.setGravity(Gravity.CENTER);
             text_view.setSingleLine(true); // if text too long for the button, we'd rather not have wordwrap, even if it means cutting some text off
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
             // Yuck! We want the arrow_button_w to be fairly large so that users can touch the arrow buttons easily, but if
@@ -1779,9 +1861,7 @@ public class PopupView extends LinearLayout {
 
             final float scale = getResources().getDisplayMetrics().density;
             final int padding = (int) (0 * scale + 0.5f); // convert dps to pixels
-            final ImageButton prev_button = new ImageButton(this.getContext());
             prev_button.setBackgroundColor(Color.TRANSPARENT); // workaround for Android 6 crash!
-            ll2.addView(prev_button);
             prev_button.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_arrow_left));
             prev_button.setPadding(padding, padding, padding, padding);
             ViewGroup.LayoutParams vg_params = prev_button.getLayoutParams();
@@ -1792,12 +1872,10 @@ public class PopupView extends LinearLayout {
             prev_button.setContentDescription( getResources().getString(R.string.previous) + " " + title);
             main_activity.getMainUI().getTestUIButtonsMap().put(test_key + "_PREV", prev_button);
 
-            ll2.addView(text_view);
+            //ll2.addView(text_view);
             main_activity.getMainUI().getTestUIButtonsMap().put(test_key, text_view);
 
-            final ImageButton next_button = new ImageButton(this.getContext());
             next_button.setBackgroundColor(Color.TRANSPARENT); // workaround for Android 6 crash!
-            ll2.addView(next_button);
             next_button.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_arrow_right));
             next_button.setPadding(padding, padding, padding, padding);
             vg_params = next_button.getLayoutParams();
@@ -1838,6 +1916,9 @@ public class PopupView extends LinearLayout {
             });
 
             this.addView(ll2);
+
+            if( MyDebug.LOG )
+                Log.d(TAG, "addArrayOptionsToPopup time: " + (System.nanoTime() - debug_time));
         }
     }
 }

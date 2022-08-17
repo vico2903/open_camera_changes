@@ -2,21 +2,32 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="foundation.e.camera"
-    android:versionCode="77"
-    android:versionName="1.48.1"
+    android:versionCode="85"
+    android:versionName="1.50.1"
     android:installLocation="auto"
     tools:ignore="GoogleAppIndexingWarning">
     <!-- ignore GoogleAppIndexingWarning as we don't want to implement that -->
 
     <supports-screens android:xlargeScreens="true" android:largeScreens="true" android:normalScreens="true" android:smallScreens="true" android:anyDensity="true"/>
 
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30"
+        />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
+        android:maxSdkVersion="30"
+        />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"
+        />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.SYSTEM_CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.microphone" />
@@ -34,11 +45,10 @@
         <!-- should not change the android:name, including moving to a subpackage - see http://android-developers.blogspot.co.uk/2011/06/things-that-cannot-change.html -->
         <activity
             android:name="net.sourceforge.opencamera.MainActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppTheme"
             android:clearTaskOnLaunch="true"
+            android:exported="true"
             >
             <!-- clearTaskOnLaunch set to true, so if user goes to gallery then returns to home, we return to the camera rather than remaining in gallery if user relaunches Open Camera -->
             <intent-filter>
@@ -75,11 +85,8 @@
         <activity
             android:name="net.sourceforge.opencamera.remotecontrol.DeviceScanner"
             android:label="@string/scan_ble"
+            android:exported="false"
         >
-            <intent-filter>
-                <action android:name="net.sourceforge.opencamera.Remotecontrol.DeviceScanner"/>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
 
         <!-- should not change the android:name, including moving to a subpackage - see http://android-developers.blogspot.co.uk/2011/06/things-that-cannot-change.html -->
@@ -87,17 +94,18 @@
             android:name="net.sourceforge.opencamera.TakePhoto"
             android:label="@string/take_photo"
             android:icon="@mipmap/ic_launcher"
-            android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:taskAffinity=""
             android:excludeFromRecents="true"
+            android:exported="false"
             >
         </activity>
         <!-- should not change the android:name, including moving to a subpackage - see http://android-developers.blogspot.co.uk/2011/06/things-that-cannot-change.html -->
         <receiver
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
-            android:name="net.sourceforge.opencamera.MyWidgetProvider" >
+            android:name="net.sourceforge.opencamera.MyWidgetProvider"
+            android:exported="true">
             <intent-filter >
                  <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -112,7 +120,8 @@
         <receiver
             android:icon="@mipmap/ic_launcher"
             android:label="@string/take_photo"
-            android:name="net.sourceforge.opencamera.MyWidgetProviderTakePhoto" >
+            android:name="net.sourceforge.opencamera.MyWidgetProviderTakePhoto"
+            android:exported="true">
             <intent-filter >
                  <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -125,7 +134,8 @@
             android:name="net.sourceforge.opencamera.MyTileService"
             android:icon="@drawable/ic_switch_camera"
             android:label="@string/camera"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
@@ -135,7 +145,8 @@
             android:name="net.sourceforge.opencamera.MyTileServiceVideo"
             android:icon="@drawable/ic_switch_video"
             android:label="@string/record_video"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
@@ -145,11 +156,21 @@
             android:name="net.sourceforge.opencamera.MyTileServiceFrontCamera"
             android:icon="@drawable/ic_face"
             android:label="@string/selfie"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>
-        <service android:name="net.sourceforge.opencamera.remotecontrol.BluetoothLeService" android:enabled="true"/>
+        <service android:name="net.sourceforge.opencamera.remotecontrol.BluetoothLeService"
+            android:enabled="true"
+            android:exported="false"
+            />
     </application>
+    <!-- needed for targetting Android 11 - see https://developer.android.com/about/versions/11/behavior-changes-11 -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
 </manifest>

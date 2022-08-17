@@ -108,8 +108,7 @@
     <string name="preference_audio_noise_control_sensitivity_summary">Niveau de la sensibilité sonore pour l\'option contrôle audio (bruit fort)</string>
     <string name="preference_save_location">Dossier de stockage</string>
     <string name="preference_save_location_summary">Dossier où sont stockés les fichiers photo/vidéo</string>
-    <string name="preference_using_saf">Utiliser le Storage Access Framework</string>
-    <string name="preference_using_saf_summary">Utiliser ou non le Storage Access Framework pour sauvegarder des photos et des vidéos. Ceci devrait être activé pour permettre d\'enregistrer sur des cartes SD externes.</string>
+    <string name="preference_using_saf_summary">Utilise le Storage Access Framework pour enregistrer les photos et vidéos</string>
     <string name="preference_save_photo_prefix">Préfixe du nom de photo</string>
     <string name="preference_save_photo_prefix_summary">Le préfixe est utilisé pour le nom de fichier des photos</string>
     <string name="preference_save_video_prefix">Préfixe du nom de la vidéo</string>
@@ -203,7 +202,7 @@
     <string name="preference_video_bitrate_summary">Définir le débit approximatif des vidéos (plus élevé signifie une meilleure qualité, mais prend plus d\'espace disque ; et peut entraîner un échec de l\'enregistrement vidéo si le débit n\'est pas pris en charge)
 \n%s</string>
     <string name="preference_video_fps">Fréquence d\'images vidéo (environ)</string>
-    <string name="preference_video_fps_summary">Définir la fréquence d\'images (FPS) des vidéos (peut être approximative, non garantie, et peut entraîner l\'échec de l\'enregistrement vidéo si la fréquence d\'images n\'est pas prise en charge). Veuillez vérifier les vidéos produites pour déterminer la bonne fréquence d\'images. Notez que ce paramètre est ignoré pour les vidéos au ralenti. 
+    <string name="preference_video_fps_summary">Définir la fréquence d\'images (FPS) des vidéos (peut être approximative, non garantie, et peut entraîner l\'échec de l\'enregistrement vidéo si la fréquence d\'images n\'est pas prise en charge). Veuillez vérifier les vidéos produites pour déterminer la bonne fréquence d\'images. Notez que ce paramètre est ignoré pour les vidéos au ralenti.
 \n%s</string>
     <string name="preference_video_max_duration">Durée maximale de la vidéo</string>
     <string name="preference_video_max_duration_summary">L\'enregistrement vidéo s\'arrêtera après la durée spécifiée\n%s</string>
@@ -297,11 +296,14 @@
     <string name="preference_hdr_save_expo_summary">Si activé, en mode photo HDR les trois images utilisées seront enregistrées en supplément de la photo finale HDR. Notez que ceci ralentira l\'enregistrement, plus particulièrement si les options « Incrustation photo » ou « Auto-stabilisateur » sont aussi utilisées.</string>
     <string name="preference_raw">RAW</string>
     <string name="preference_save_zulu_time">Format de l\'heure pour le nom de fichier</string>
-    <string name="raw_info">Les fichiers DNG contiennent toutes les informations non compressées ni traitées de votre appareil photo. 
-\n 
-\nNotez que certaines applications de galerie ne reconnaissent pas les fichiers DNG. Les images DNG peuvent être utilisées avec des éditeurs d\'images spécialisés comme Snapseed ou Lightroom. 
-\n 
-\nNotez que certaines options comme « Incrustation photo » ou « Auto-stabilisateur » ne s\'appliquent que pour des images non DNG (JPEG, etc.).</string>
+    <string name="raw_info">Les fichiers DNG contiennent toutes les informations non compressées ni traitées de votre
+        caméra.\n\nLa plupart des applications d\'affichage d\'image ne reconnaissent pas le DNG. Vous devrez utiliser une app
+        spécialisée\n\nNotez que certaines options comme «\u00A0Incrustation photo\u00A0» ou
+        «\u00A0Auto-stabilisateur\u00A0» ne s\'appliquent que pour des images JPEG et pas DNG.\n\nLes fichiers DNG
+        utilisent beaucoup d\'espace disque, un explorateur de fichiers peut être utilise pour faire le ménage.\n\nLes
+        fichiers DNG ne sont enregistrés que dans le mode photo standard.
+    </string>
+
     <string name="duration_unlimited">Illimité</string>
     <string name="duration_3s">3 secondes</string>
     <string name="duration_5s">5 secondes</string>
@@ -455,7 +457,7 @@
     <string name="preference_audio_control_summary">Prendre une photo/vidéo lorsqu\'un bruit est détecté, ou sur commande vocale. Lorsque cette fonction est activée, utilisez le bouton du microphone à l\'écran pour démarrer/arrêter l\'écoute. Notez que l\'option de commande vocale utilise le service de reconnaissance vocale Android : lorsque vous utilisez cette option, les données audio sont probablement envoyées à des serveurs distants pour effectuer la reconnaissance vocale.
 
 \n%s</string>
-    <string name="preference_camera_api_summary">Sélectionner l\'API Camera2 pour activer des fonctions supplémentaires telles que les modes manuels d\'exposition, de mise au point, de balance des blancs, ainsi que le mode RAW (s\'il est pris en charge par l\'appareil). La modification de l\'API entraînera un redémarrage. 
+    <string name="preference_camera_api_summary">Sélectionner l\'API Camera2 pour activer des fonctions supplémentaires telles que les modes manuels d\'exposition, de mise au point, de balance des blancs, ainsi que le mode RAW (s\'il est pris en charge par l\'appareil). La modification de l\'API entraînera un redémarrage.
 \n%s</string>
     <string name="preference_image_format_summary">Sélectionner le format de fichier utilisé pour l\'enregistrement des photos. Cela concerne les photos \"standard\" (pas RAW). Notez que le format PNG n\'est pas vraiment sans perte, il est plutôt converti à partir d\'un JPEG avec une qualité de 100 %%.
 \n%s</string>
@@ -858,59 +860,9 @@
     <string name="preference_immersive_mode_navigation">Masquer uniquement les boutons de navigation virtuelle de l\'écran</string>
     <string name="preference_immersive_mode_gui">Masquer l\'interface graphique</string>
     <string name="preference_immersive_mode_everything">Tout masquer</string>
-    <string name="preference_zebra_stripes_93pc">93 %</string>
-    <string name="preference_zebra_stripes_95pc">95 %</string>
-    <string name="preference_zebra_stripes_97pc">97 %</string>
-    <string name="preference_zebra_stripes_98pc">98 %</string>
-    <string name="preference_zebra_stripes_99pc">99 %</string>
-    <string name="preference_select_remote">Choisir une télécommande</string>
-    <string name="preference_video_rec709">REC709</string>
-    <string name="preference_video_srgb">sRGB</string>
-    <string name="preference_video_gamma">Gamma</string>
-    <string name="preference_video_profile_gamma_summary">Valeur gamma à utiliser pour la vidéo si le profil de l\'image vidéo est défini sur Gamma
-\n%s</string>
-    <string name="preference_video_profile_gamma">Valeur du gamma vidéo</string>
-    <string name="preference_video_profile_gamma_1_6">1,6</string>
-    <string name="preference_video_profile_gamma_2_8">2,8</string>
-    <string name="preference_video_profile_gamma_2_6">2,6</string>
-    <string name="preference_video_profile_gamma_2_4">2,4</string>
-    <string name="preference_video_profile_gamma_2_3">2,3</string>
-    <string name="preference_video_profile_gamma_2_2">2,2</string>
-    <string name="preference_video_profile_gamma_2_1">2,1</string>
-    <string name="preference_video_profile_gamma_2_0">2,0</string>
-    <string name="preference_video_profile_gamma_1_9">1,9</string>
-    <string name="preference_video_profile_gamma_1_8">1,8</string>
-    <string name="preference_immersive_mode_low_profile">Atténuer seulement les boutons de navigation virtuelle à l\'écran</string>
-    <string name="preference_ghost_image_alpha">Opacité de l\'image fantôme</string>
-    <string name="preference_ghost_image_alpha_summary">Valeur alpha des images fantômes. Une valeur plus faible signifie plus transparent, plus élevée signifie plus opaque.
-\n%s</string>
-    <string name="preference_zebra_stripes_foreground_color_summary">Couleur à utiliser pour la bande en premier plan quand les bandes zébra sont affichées.
-\n%s</string>
-    <string name="preference_zebra_stripes_foreground_color">Couleur des bandes zébra au premier plan</string>
-    <string name="preference_zebra_stripes_background_color">Couleur des bandes zébra d\'arrière-plan</string>
-    <string name="preference_zebra_stripes_background_color_summary">Couleur à utiliser pour la bande en arrière plan quand les rayures sont affichées.
-\n%s</string>
-    <string name="preference_zebra_stripes_color_black">Noir</string>
-    <string name="preference_zebra_stripes_color_white">Blanc</string>
-    <string name="preference_zebra_stripes_color_transparent">Transparent</string>
-    <string name="preference_zebra_stripes_color_orange">Orange</string>
-    <string name="preference_zebra_stripes_color_red">Rouge</string>
-    <string name="external_camera">Caméra externe</string>
-    <string name="ultrawide">Grand-angle</string>
-    <string name="switch_to_external_camera">Basculer sur la caméra externe</string>
-    <string name="switch_to_unknown_camera">Changer de caméra</string>
-    <string name="switch_multi_camera">Basculer entre plusieurs caméras</string>
-    <string name="preference_multi_cam_button">Icône des caméras multiples</string>
-    <string name="preference_multi_cam_button_summary">Si activé, utilise des boutons séparés pour basculer entre caméras arrière/frontale, et pour basculer entre caméras multiples arrière/frontale. Si désactivé, l\'icône de basculement de caméra parcourra toutes les caméras.</string>
-    <string name="preference_show_camera_id">Afficher l\'identifiant de la caméra</string>
-    <string name="preference_show_camera_id_summary">Afficher le numéro d\'identification de la caméra actuelle à l\'écran</string>
-    <string name="preference_allow_long_press">Permettre des actions de pression longue</string>
-    <string name="preference_allow_long_press_summary">Permettre ou non les actions de pression longue (ex. : une pression longue sur la galerie pour changer la localisation de l\'enregistrement).</string>
-    <string name="aperture">Ouverture</string>
-    <string name="error_features_4k">4K UHD</string>
-    <string name="error_features_bitrate">Bitrate</string>
-    <string name="error_features_frame_rate">Fréquence d\'images</string>
-    <string name="error_features_slow_motion">Ralenti</string>
-    <string name="preference_comment_ypr_summary">Sauvegarder le lacet, le tangage et le roulis de l\'appareil dans le commentaire utilisateur Exif (format JPEG seulement)</string>
-    <string name="preference_comment_ypr">Sauvegarder le lacet, le tangage et le roulis</string>
+
+    <string name="preference_audio_control_none">Aucun</string>
+    <string name="preference_audio_control_noise">Bruit fort</string>
+    <string name="preference_audio_control_voice">Commande vocale : « cheese »</string> <!-- note that cheese shouldn't be translated, as we listen for this no matter what language is being used -->
+
 </resources>

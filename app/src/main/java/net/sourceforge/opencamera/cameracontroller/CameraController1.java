@@ -435,6 +435,7 @@ public class CameraController1 extends CameraController {
         catch(RuntimeException e) {
             Log.e(TAG, "exception from getParameters");
             e.printStackTrace();
+            count_camera_parameters_exception++;
             return null;
         }
         List<String> values = parameters.getSupportedSceneModes();
@@ -760,6 +761,21 @@ public class CameraController1 extends CameraController {
     }
 
     @Override
+    public void setCameraExtension(boolean enabled, int extension) {
+        // not supported
+    }
+
+    @Override
+    public boolean isCameraExtension() {
+        return false;
+    }
+
+    @Override
+    public int getCameraExtension() {
+        return -1;
+    }
+
+    @Override
     public void setBurstType(BurstType burst_type) {
         if( MyDebug.LOG )
             Log.d(TAG, "setBurstType: " + burst_type);
@@ -836,6 +852,11 @@ public class CameraController1 extends CameraController {
     }
 
     @Override
+    public void setDummyCaptureHack(boolean dummy_capture_hack) {
+        // not supported for CameraController1
+    }
+
+    @Override
     public void setUseExpoFastBurst(boolean use_expo_fast_burst) {
         // not supported for CameraController1
     }
@@ -890,8 +911,17 @@ public class CameraController1 extends CameraController {
     }
 
     public boolean getVideoStabilization() {
-        Camera.Parameters parameters = this.getParameters();
-        return parameters.getVideoStabilization();
+        try {
+            Camera.Parameters parameters = this.getParameters();
+            return parameters.getVideoStabilization();
+        }
+        catch(RuntimeException e) {
+            // have had crashes from Google Play for getParameters - assume video stabilization not enabled
+            Log.e(TAG, "failed to get parameters for video stabilization");
+            e.printStackTrace();
+            count_camera_parameters_exception++;
+            return false;
+        }
     }
 
     @Override
@@ -934,7 +964,13 @@ public class CameraController1 extends CameraController {
         catch(RuntimeException e) {
             Log.e(TAG, "failed to set parameters for zoom");
             e.printStackTrace();
+            count_camera_parameters_exception++;
         }
+    }
+
+    @Override
+    public void resetZoom() {
+        setZoom(0);
     }
 
     public int getExposureCompensation() {
@@ -990,6 +1026,7 @@ public class CameraController1 extends CameraController {
             // but here it doesn't really matter if we fail to set the fps range
             Log.e(TAG, "setPreviewFpsRange failed to get parameters");
             e.printStackTrace();
+            count_camera_parameters_exception++;
         }
     }
 
@@ -1012,6 +1049,7 @@ public class CameraController1 extends CameraController {
 			  But that's a subclass of RuntimeException which we now catch anyway.
 			  */
             e.printStackTrace();
+            count_camera_parameters_exception++;
         }
         return null;
     }
@@ -1266,6 +1304,7 @@ public class CameraController1 extends CameraController {
             // but here it doesn't really matter if we fail to set the recording hint
             Log.e(TAG, "setRecordingHint failed to get parameters");
             e.printStackTrace();
+            count_camera_parameters_exception++;
         }
     }
 
@@ -1372,9 +1411,14 @@ public class CameraController1 extends CameraController {
 
                 setCameraParameters(parameters);
             }
+            else {
+                if( MyDebug.LOG )
+                    Log.d(TAG, "metering areas not supported");
+            }
         }
         catch(RuntimeException e) {
             e.printStackTrace();
+            count_camera_parameters_exception++;
         }
         return false;
     }
@@ -1397,6 +1441,7 @@ public class CameraController1 extends CameraController {
         }
         catch(RuntimeException e) {
             e.printStackTrace();
+            count_camera_parameters_exception++;
         }
     }
 
@@ -1437,6 +1482,20 @@ public class CameraController1 extends CameraController {
         }
         catch(RuntimeException e) {
             e.printStackTrace();
+            count_camera_parameters_exception++;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean supportsMetering() {
+        try {
+            Camera.Parameters parameters = this.getParameters();
+            return parameters.getMaxNumMeteringAreas() > 0;
+        }
+        catch(RuntimeException e) {
+            e.printStackTrace();
+            count_camera_parameters_exception++;
         }
         return false;
     }
@@ -1454,6 +1513,7 @@ public class CameraController1 extends CameraController {
         }
         catch(RuntimeException e) {
             e.printStackTrace();
+            count_camera_parameters_exception++;
         }
         return false;
     }
@@ -1544,23 +1604,29 @@ public class CameraController1 extends CameraController {
         catch(RuntimeException e) {
             if( MyDebug.LOG )
                 Log.d(TAG, "face detection failed or already started");
+            count_camera_parameters_exception++;
             return false;
         }
         return true;
     }
 
     public void setFaceDetectionListener(final CameraController.FaceDetectionListener listener) {
-        class CameraFaceDetectionListener implements Camera.FaceDetectionListener {
-            @Override
-            public void onFaceDetection(Camera.Face[] camera_faces, Camera camera) {
-                Face [] faces = new Face[camera_faces.length];
-                for(int i=0;i<camera_faces.length;i++) {
-                    faces[i] = new Face(camera_faces[i].score, camera_faces[i].rect);
+        if( listener != null ) {
+            class CameraFaceDetectionListener implements Camera.FaceDetectionListener {
+                @Override
+                public void onFaceDetection(Camera.Face[] camera_faces, Camera camera) {
+                    Face [] faces = new Face[camera_faces.length];
+                    for(int i=0;i<camera_faces.length;i++) {
+                        faces[i] = new Face(camera_faces[i].score, camera_faces[i].rect);
+                    }
+                    listener.onFaceDetection(faces);
                 }
-                listener.onFaceDetection(faces);
             }
+            camera.setFaceDetectionListener(new CameraFaceDetectionListener());
         }
-        camera.setFaceDetectionListener(new CameraFaceDetectionListener());
+        else {
+            camera.setFaceDetectionListener(null);
+        }
     }
 
     @Override
