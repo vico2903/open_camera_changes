@@ -53,14 +53,13 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
-import android.graphics.Typeface;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
+import android.hardware.camera2.CameraExtensionCharacteristics;
 import android.location.Location;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
@@ -79,10 +78,14 @@ import android.renderscript.RenderScript;
 import android.renderscript.Type;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Display;
 import android.view.GestureDetector;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.OrientationEventListener;
 import android.view.ScaleGestureDetector;
@@ -94,18 +97,39 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
 import android.view.View.MeasureSpec;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * This class was originally named due to encapsulating the camera preview,
- * but in practice it's grown to more than this, and includes most of the
- * operation of the camera. It exists at a higher level than CameraController
- * (i.e., this isn't merely a low level wrapper to the camera API, but
- * supports much of the Open Camera logic and functionality). Communication to
- * the rest of the application is available through ApplicationInterface.
- * We could probably do with decoupling this class into separate components!
+/** This class was originally named due to encapsulating the camera preview,
+ *  but in practice it's grown to more than this, and includes most of the
+ *  operation of the camera. It exists at a higher level than CameraController
+ *  (i.e., this isn't merely a low level wrapper to the camera API, but
+ *  supports much of the Open Camera logic and functionality). Communication to
+ *  the rest of the application is available through ApplicationInterface.
+ *  We could probably do with decoupling this class into separate components!
+ *
+ *  This class also keeps track of various camera parameters, obtained from the
+ *  CameraController class. One decision is when certain parameters depend on
+ *  others (e.g., some resolutions don't support burst; lots of things don't
+ *  support vendor camera extensions). In general we shouldn't do that restriction
+ *  at this level, as that can cause problems since at the Application level we
+ *  may need to know what features are possible in any mode. E.g., if we said
+ *  burst mode isn't supported because we're in a camera extension mode, the user
+ *  wouldn't be able to switch to Fast Burst mode because the application thinks
+ *  burst isn't available! And also for changing preferences in Settings, we
+ *  typically want to show all available settings (e.g., showing RAW if it's
+ *  available for the current camera, even if not available in the current mode).
+ *  There are some exceptions where we need to restrict at the Preview level, e.g.:
+ *    - Resolutions (for burst mode, camera extensions) - though the application
+ *      can choose to obtain the full list by calling getSupportedPictureSizes()
+ *      with check_supported==false.
+ *    - Flash modes (for manual ISO or camera extensions).
+ *    - Focus modes (for camera extensions).
+ *  Similarly we shouldn't restrict available features at the CameraController
+ *  class, except where this is unavoidable due to the Android camera API
+ *  behaviour (e.g., for scene modes, it may be that some camera features are
+ *  affected).
  */
 public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextureListener {
     private static final String TAG = "Preview";
@@ -158,7 +182,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
 
     //private boolean ui_placement_right = true;
 
-    private boolean app_is_paused = true;
+    private boolean app_is_paused = true; // whether activity is paused
+    private boolean is_paused = true; // whether Preview.onPause() is called - note this could include the application pausing the preview, even if app_is_paused==false
     private boolean has_surface;
     private boolean has_aspect_ratio;
     private double aspect_ratio;
@@ -179,31 +204,44 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     private boolean is_video;
     private volatile MediaRecorder video_recorder; // must be volatile for test project reading the state
     private volatile boolean video_start_time_set; // must be volatile for test project reading the state
-    private long video_start_time; // when the video recording was started, or last resumed if it's was paused
+    private long video_start_time; // system time when the video recording was started, or last resumed if it was paused
     private long video_accumulated_time; // this time should be added to (System.currentTimeMillis() - video_start_time) to find the true video duration, that takes into account pausing/resuming, as well as any auto-restarts from max filesize
+    private long video_time_last_maxfilesize_restart; // when the video last restarted due to maxfilesize (or otherwise 0) - note this is time in ms relative to the recorded video, and not system time
     private boolean video_recorder_is_paused; // whether video_recorder is running but has paused
     private boolean video_restart_on_max_filesize;
     private static final long min_safe_restart_video_time = 1000; // if the remaining max time after restart is less than this, don't restart
-
+    /** Stores the file (or similar) to record a video.
+     *  Important to call close() when the video recording is finished, to free up any resources
+     *  (e.g., supplied ParcelFileDescriptor).
+     */
     private static class VideoFileInfo {
-        // stores the file (or similar) to record a video
-        private final int video_method;
-        private final Uri video_uri; // for VIDEOMETHOD_SAF or VIDEOMETHOD_URI
-        private final String video_filename; // for VIDEOMETHOD_FILE
-        private final ParcelFileDescriptor video_pfd_saf; // for VIDEOMETHOD_SAF
+        private final ApplicationInterface.VideoMethod video_method;
+        private final Uri video_uri; // for VideoMethod.SAF, VideoMethod.URI or VideoMethod.MEDIASTORE
+        private final String video_filename; // for VideoMethod.FILE
+        private final ParcelFileDescriptor video_pfd_saf; // for VideoMethod.SAF, VideoMethod.URI or VideoMethod.MEDIASTORE
 
         VideoFileInfo() {
-            this.video_method = ApplicationInterface.VIDEOMETHOD_FILE;
+            this.video_method = ApplicationInterface.VideoMethod.FILE;
             this.video_uri = null;
             this.video_filename = null;
             this.video_pfd_saf = null;
         }
-
-        VideoFileInfo(int video_method, Uri video_uri, String video_filename, ParcelFileDescriptor video_pfd_saf) {
+        VideoFileInfo(ApplicationInterface.VideoMethod video_method, Uri video_uri, String video_filename, ParcelFileDescriptor video_pfd_saf) {
             this.video_method = video_method;
             this.video_uri = video_uri;
             this.video_filename = video_filename;
             this.video_pfd_saf = video_pfd_saf;
+        }
+
+        void close() {
+            if( this.video_pfd_saf != null ) {
+                try {
+                    this.video_pfd_saf.close();
+                }
+                catch(IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -301,6 +339,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     private ApplicationInterface.CameraResolutionConstraints photo_size_constraints;
     private int current_size_index = -1; // this is an index into the sizes array, or -1 if sizes not yet set
 
+    public List<Integer> supported_extensions; // if non-null, list of supported camera vendor extensions, see https://developer.android.com/reference/android/hardware/camera2/CameraExtensionCharacteristics
+
     private boolean supports_video;
     private boolean has_capture_rate_factor; // whether we have a capture rate for faster (timelapse) or slow motion
     private float capture_rate_factor = 1.0f; // should be 1.0f if has_capture_rate_factor is false; set lower than 1 for slow motion, higher than 1 for timelapse
@@ -320,7 +360,6 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     private boolean using_face_detection;
     private CameraController.Face[] faces_detected;
     private final RectF face_rect = new RectF();
-    private final AccessibilityManager accessibility_manager;
     private boolean supports_optical_stabilization;
     private boolean supports_video_stabilization;
     private boolean supports_photo_video_recording;
@@ -329,8 +368,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     private boolean supports_tonemap_curve;
     private float[] supported_apertures;
     private boolean has_focus_area;
-    private int focus_screen_x;
-    private int focus_screen_y;
+    private float focus_camera_x;
+    private float focus_camera_y;
     private long focus_complete_time = -1;
     private long focus_started_time = -1;
     private int focus_success = FOCUS_DONE;
@@ -388,6 +427,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     public volatile int count_cameraContinuousFocusMoving;
     public volatile boolean test_fail_open_camera;
     public volatile boolean test_video_failure;
+    public volatile boolean test_video_ioexception;
+    public volatile boolean test_video_cameracontrollerexception;
     public volatile boolean test_ticker_called; // set from MySurfaceView or CanvasView
     public volatile boolean test_called_next_output_file;
     public volatile boolean test_started_next_output_file;
@@ -439,7 +480,6 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener());
         gestureDetector.setOnDoubleTapListener(new DoubleTapListener());
         scaleGestureDetector = new ScaleGestureDetector(getContext(), new ScaleListener());
-        accessibility_manager = (AccessibilityManager) activity.getSystemService(Activity.ACCESSIBILITY_SERVICE);
 
         parent.addView(cameraSurface.getView());
         if (canvasView != null) {
@@ -484,8 +524,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             boolean mirror = (camera_controller.getFacing() == CameraController.Facing.FACING_FRONT);
             camera_to_preview_matrix.setScale(mirror ? -1 : 1, 1);
             int display_orientation = camera_controller.getDisplayOrientation();
-            if (MyDebug.LOG) {
-                Log.d(TAG, "orientation of display relative to camera orientaton: " + display_orientation);
+            if( MyDebug.LOG ) {
+                Log.d(TAG, "orientation of display relative to camera orientation: " + display_orientation);
             }
             camera_to_preview_matrix.postRotate(display_orientation);
         } else {
@@ -496,9 +536,9 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             camera_to_preview_matrix.setScale(1, mirror ? -1 : 1);
             int degrees = getDisplayRotationDegrees();
             int result = (camera_controller.getCameraOrientation() - degrees + 360) % 360;
-            if (MyDebug.LOG) {
-                Log.d(TAG, "orientation of display relative to natural orientaton: " + degrees);
-                Log.d(TAG, "orientation of display relative to camera orientaton: " + result);
+            if( MyDebug.LOG ) {
+                Log.d(TAG, "orientation of display relative to natural orientation: " + degrees);
+                Log.d(TAG, "orientation of display relative to camera orientation: " + result);
             }
             camera_to_preview_matrix.postRotate(result);
         }
@@ -528,16 +568,12 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
 		return preview_to_camera_matrix;
 	}*/
 
-    private ArrayList<CameraController.Area> getAreas(float x, float y) {
-        float[] coords = {x, y};
-        calculatePreviewToCameraMatrix();
-        preview_to_camera_matrix.mapPoints(coords);
-        float focus_x = coords[0];
-        float focus_y = coords[1];
-
+    /** Return a focus area from supplied point. Supplied coordinates should be in camera
+     *  coordinates.
+     */
+    private ArrayList<CameraController.Area> getAreas(float focus_x, float focus_y) {
         int focus_size = 50;
-        if (MyDebug.LOG) {
-            Log.d(TAG, "x, y: " + x + ", " + y);
+        if( MyDebug.LOG ) {
             Log.d(TAG, "focus x, y: " + focus_x + ", " + focus_y);
         }
         Rect rect = new Rect();
@@ -614,10 +650,6 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         if (touch_was_multitouch) {
             return true;
         }
-        if (!this.is_video && this.isTakingPhotoOrOnTimer()) {
-            // if video, okay to refocus when recording
-            return true;
-        }
 
         // ignore swipes
         {
@@ -640,6 +672,24 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             }
         }
 
+        if( takePhotoOnDoubleTap() ) {
+            // need to wait until onSingleTapConfirmed() before calling handleSingleTouch(), e.g., don't
+            // want to do touch-to-focus if this is part of a double tap
+            return true;
+        }
+
+        return handleSingleTouch(event, was_paused);
+    }
+
+    private boolean handleSingleTouch(MotionEvent event, boolean was_paused) {
+        if( MyDebug.LOG )
+            Log.d(TAG, "handleSingleTouch");
+
+        if( !this.is_video && this.isTakingPhotoOrOnTimer() ) {
+            // if video, okay to refocus when recording
+            return true;
+        }
+
         // note, we always try to force start the preview (in case is_preview_paused has become false)
         // except if recording video (firstly, the preview should be running; secondly, we don't want to reset the phase!)
         if (!this.is_video) {
@@ -647,29 +697,47 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         }
         cancelAutoFocus();
 
+        boolean touch_capture = applicationInterface.getTouchCapturePref();
+
         // don't set focus areas on touch if the user is touching to unpause!
-        if (camera_controller != null && !this.using_face_detection && !was_paused) {
+        // similarly if doing single touch to capture (we go straight to taking a photo)
+        // and not supported for camera extensions
+        if( camera_controller != null && !this.using_face_detection && !was_paused && !touch_capture && !camera_controller.isCameraExtension() ) {
             this.has_focus_area = false;
-            ArrayList<CameraController.Area> areas = getAreas(event.getX(), event.getY());
-            if (camera_controller.setFocusAndMeteringArea(areas)) {
-                if (MyDebug.LOG)
+
+            if( MyDebug.LOG ) {
+                Log.d(TAG, "x, y: " + event.getX() + ", " + event.getY());
+            }
+            float [] coords = {event.getX(), event.getY()};
+            calculatePreviewToCameraMatrix();
+            preview_to_camera_matrix.mapPoints(coords);
+            float focus_x = coords[0];
+            float focus_y = coords[1];
+            ArrayList<CameraController.Area> areas = getAreas(focus_x, focus_y);
+
+            if( camera_controller.setFocusAndMeteringArea(areas) ) {
+                if( MyDebug.LOG )
                     Log.d(TAG, "set focus (and metering?) area");
                 this.has_focus_area = true;
-                this.focus_screen_x = (int) event.getX();
-                this.focus_screen_y = (int) event.getY();
-            } else {
-                if (MyDebug.LOG)
+                this.focus_camera_x = focus_x;
+                this.focus_camera_y = focus_y;
+            }
+            else {
+                if( MyDebug.LOG )
                     Log.d(TAG, "didn't set focus area in this mode, may have set metering");
                 // don't set has_focus_area in this mode
             }
         }
 
         // don't take a photo on touch if the user is touching to unpause!
-        if (!this.is_video && !was_paused && applicationInterface.getTouchCapturePref()) {
-            if (MyDebug.LOG)
+        if( !this.is_video && !was_paused && touch_capture ) {
+            if( MyDebug.LOG )
                 Log.d(TAG, "touch to capture");
-            // interpret as if user had clicked take photo/video button, except that we set the focus/metering areas
-            this.takePicturePressed(false, false);
+            // Interpret as if user had clicked take photo/video button, except that we set the focus/metering areas.
+            // We go via ApplicationInterface instead of going direct to Preview.takePicturePressed(), so that
+            // the application can handle same as if user had pressed shutter button (needed so that this works
+            // correctly in Panorama mode).
+            applicationInterface.requestTakePhoto();
             return true;
         }
 
@@ -682,10 +750,18 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
 
     //@SuppressLint("ClickableViewAccessibility") @Override
 
-    /**
-     * Handle multitouch zoom.
+    // When pinch zooming, we'd normally have the problem that zooming is too fast, because we can
+    // only zoom to the limited set of values in the zoom_ratios array. So when pinch zooming, we
+    // keep track of the fractional scaled zoom.
+    private boolean has_smooth_zoom = false;
+    private float smooth_zoom = 1.0f;
+
+    /** Handle multitouch zoom.
      */
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        private boolean has_multitouch_start_zoom_factor = false;
+        private int multitouch_start_zoom_factor = 0;
+
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
             if (Preview.this.camera_controller != null && Preview.this.has_zoom) {
@@ -693,26 +769,106 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             }
             return true;
         }
+
+        @Override
+        public boolean onScaleBegin(ScaleGestureDetector detector) {
+            if( has_zoom && camera_controller != null ) {
+                has_multitouch_start_zoom_factor = true;
+                multitouch_start_zoom_factor = camera_controller.getZoom();
+                has_smooth_zoom = true;
+                smooth_zoom = zoom_ratios.get(multitouch_start_zoom_factor)/100.0f;
+            }
+             else {
+                has_multitouch_start_zoom_factor = false;
+                multitouch_start_zoom_factor = 0;
+                has_smooth_zoom = false;
+                smooth_zoom = 1.0f;
+            }
+            return true;
+        }
+
+        @Override
+        public void onScaleEnd(ScaleGestureDetector detector) {
+            if( MyDebug.LOG )
+                Log.d(TAG, "onScaleEnd");
+            if( has_multitouch_start_zoom_factor && has_zoom && camera_controller != null && zoom_ratios.get(0) < 100 ) {
+                // when the minimum zoom is less than 1x, we should support snapping to 1x, so it's easy for the user to
+                // switch back to 1x zoom when using pinch zoom
+                int start_zoom = zoom_ratios.get(multitouch_start_zoom_factor);
+                final int end_zoom_factor = camera_controller.getZoom();
+                int end_zoom = zoom_ratios.get(end_zoom_factor);
+                if( MyDebug.LOG ) {
+                    Log.d(TAG, "start_zoom: " + start_zoom);
+                    Log.d(TAG, "end_zoom  : " + end_zoom);
+                }
+                if( end_zoom >= 90 && end_zoom <= 110 && start_zoom != 100 && end_zoom != 100 ) {
+                    int start_diff = start_zoom - 100;
+                    int end_diff = end_zoom - 100;
+                    if( Math.signum(start_diff) == Math.signum(end_diff) && Math.abs(end_diff) >= Math.abs(start_diff) ) {
+                        // we only want to snap when moving towards 1x, or have crossed over 1x
+                    }
+                    else {
+                        if( MyDebug.LOG )
+                            Log.d(TAG, "snapped pinch zoom to 1x zoom");
+                        int snapped_zoom = find1xZoom();
+                        zoomTo(snapped_zoom);
+                    }
+                }
+            }
+            has_multitouch_start_zoom_factor = false;
+            multitouch_start_zoom_factor = 0;
+            has_smooth_zoom = false;
+            smooth_zoom = 1.0f;
+        }
+    }
+
+    /** Returns whether we will take a photo on a double tap.
+     */
+    private boolean takePhotoOnDoubleTap() {
+        return !is_video && applicationInterface.getDoubleTapCapturePref();
     }
 
     @SuppressWarnings("SameReturnValue")
     public boolean onDoubleTap() {
         if (MyDebug.LOG)
             Log.d(TAG, "onDoubleTap()");
-        if (!is_video && applicationInterface.getDoubleTapCapturePref()) {
-            if (MyDebug.LOG)
+        if( takePhotoOnDoubleTap() ) {
+            if( MyDebug.LOG )
                 Log.d(TAG, "double-tap to capture");
-            // interpret as if user had clicked take photo/video button (don't need to set focus/metering, as this was done in touchEvent() for the first touch of the double-tap)
-            takePicturePressed(false, false);
+            // Interpret as if user had clicked take photo/video button.
+            // We go via ApplicationInterface instead of going direct to Preview.takePicturePressed(), so that
+            // the application can handle same as if user had pressed shutter button (needed so that this works
+            // correctly in Panorama mode).
+            applicationInterface.requestTakePhoto();
         }
         return true;
     }
 
     private class DoubleTapListener extends GestureDetector.SimpleOnGestureListener {
         @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+            if( MyDebug.LOG )
+                Log.d(TAG, "onSingleTapConfirmed");
+            // If we're taking a photo on double tap, then for single taps we need to wait until these are confirmed
+            // otherwise we handle via Preview.touchEvent().
+            // Arguably we could handle everything via onSingleTapConfirmed(), but want to avoid
+            // unexpected changes of behaviour - plus it would mean a slight delay for touch to
+            // focus (since onSingleTapConfirmed obviously has to wait to be sure this isn't a
+            // double tap).
+            if( takePhotoOnDoubleTap() ) {
+                // now safe to handle the single touch
+                boolean was_paused = !is_preview_started;
+                if( MyDebug.LOG )
+                    Log.d(TAG, "was_paused: " + was_paused);
+                return handleSingleTouch(e, was_paused);
+            }
+            return false;
+        }
+
+        @Override
         public boolean onDoubleTap(MotionEvent e) {
-            if (MyDebug.LOG)
-                Log.d(TAG, "onDoubleTap()");
+            if( MyDebug.LOG )
+                Log.d(TAG, "onDoubleTap");
             return Preview.this.onDoubleTap();
         }
     }
@@ -726,7 +882,10 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             return;
         }
         // don't cancelAutoFocus() here, otherwise we get sluggish zoom behaviour on Camera2 API
-        camera_controller.clearFocusAndMetering();
+        if( !camera_controller.isCameraExtension() ) {
+            // if using camera extensions, we could never have set focus and metering in the first place
+            camera_controller.clearFocusAndMetering();
+        }
         has_focus_area = false;
         focus_success = FOCUS_DONE;
         successfully_focused = false;
@@ -806,8 +965,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     }
 
     @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        if (MyDebug.LOG)
+    public void surfaceCreated(@NonNull SurfaceHolder holder) {
+        if( MyDebug.LOG )
             Log.d(TAG, "surfaceCreated()");
         // The Surface has been created, acquire the camera and tell it where
         // to draw.
@@ -816,8 +975,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     }
 
     @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        if (MyDebug.LOG)
+    public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
+        if( MyDebug.LOG )
             Log.d(TAG, "surfaceDestroyed()");
         // Surface will be destroyed when we return, so stop the preview.
         // Because the CameraDevice object is not a shared resource, it's very
@@ -826,8 +985,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     }
 
     @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
-        if (MyDebug.LOG)
+    public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int w, int h) {
+        if( MyDebug.LOG )
             Log.d(TAG, "surfaceChanged " + w + ", " + h);
         if (holder.getSurface() == null) {
             // preview surface does not exist
@@ -837,8 +996,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     }
 
     @Override
-    public void onSurfaceTextureAvailable(SurfaceTexture arg0, int width, int height) {
-        if (MyDebug.LOG)
+    public void onSurfaceTextureAvailable(@NonNull SurfaceTexture arg0, int width, int height) {
+        if( MyDebug.LOG )
             Log.d(TAG, "onSurfaceTextureAvailable()");
         this.set_textureview_size = true;
         this.textureview_w = width;
@@ -847,8 +1006,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     }
 
     @Override
-    public boolean onSurfaceTextureDestroyed(SurfaceTexture arg0) {
-        if (MyDebug.LOG)
+    public boolean onSurfaceTextureDestroyed(@NonNull SurfaceTexture arg0) {
+        if( MyDebug.LOG )
             Log.d(TAG, "onSurfaceTextureDestroyed()");
         this.set_textureview_size = false;
         this.textureview_w = 0;
@@ -858,8 +1017,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     }
 
     @Override
-    public void onSurfaceTextureSizeChanged(SurfaceTexture texture, int width, int height) {
-        if (MyDebug.LOG) {
+    public void onSurfaceTextureSizeChanged(@NonNull SurfaceTexture texture, int width, int height) {
+        if( MyDebug.LOG ) {
             Log.d(TAG, "onSurfaceTextureSizeChanged " + width + ", " + height);
             //Log.d(TAG, "surface texture is now: " + ((TextureView)cameraSurface).getSurfaceTexture());
         }
@@ -893,7 +1052,7 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     }
 
     @Override
-    public void onSurfaceTextureUpdated(SurfaceTexture arg0) {
+    public void onSurfaceTextureUpdated(@NonNull SurfaceTexture arg0) {
         refreshPreviewBitmap();
     }
 
@@ -907,13 +1066,13 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         }
         if (MyDebug.LOG)
             Log.d(TAG, "textureview size: " + textureview_w + ", " + textureview_h);
-        int rotation = getDisplayRotation();
+        int rotation = applicationInterface.getDisplayRotation();
         Matrix matrix = new Matrix();
         RectF viewRect = new RectF(0, 0, this.textureview_w, this.textureview_h);
         RectF bufferRect = new RectF(0, 0, this.preview_h, this.preview_w);
         float centerX = viewRect.centerX();
         float centerY = viewRect.centerY();
-        if (Surface.ROTATION_90 == rotation || Surface.ROTATION_270 == rotation) {
+        if( rotation == Surface.ROTATION_90 || rotation == Surface.ROTATION_270  ) {
             bufferRect.offset(centerX - bufferRect.centerX(), centerY - bufferRect.centerY());
             matrix.setRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.FILL);
             float scale = Math.max(
@@ -921,6 +1080,9 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                     (float) textureview_w / preview_w);
             matrix.postScale(scale, scale, centerX, centerY);
             matrix.postRotate(90 * (rotation - 2), centerX, centerY);
+        }
+        else if( rotation == Surface.ROTATION_180 ) {
+            matrix.postRotate(180, centerX, centerY);
         }
         cameraSurface.setTransform(matrix);
     }
@@ -967,9 +1129,12 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                 // stop() can throw a RuntimeException if stop is called too soon after start - this indicates the video file is corrupt, and should be deleted
                 if (MyDebug.LOG)
                     Log.d(TAG, "runtime exception when stopping video");
+                videoFileInfo.close();
                 applicationInterface.deleteUnusedVideo(videoFileInfo.video_method, videoFileInfo.video_uri, videoFileInfo.video_filename);
 
                 videoFileInfo = new VideoFileInfo();
+                if( nextVideoFileInfo != null )
+                    nextVideoFileInfo.close();
                 nextVideoFileInfo = null;
                 // if video recording is stopped quickly after starting, it's normal that we might not have saved a valid file, so no need to display a message
                 if (!video_start_time_set || System.currentTimeMillis() - video_start_time > 2000) {
@@ -992,11 +1157,15 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         video_recorder_is_paused = false;
         applicationInterface.cameraInOperation(false, true);
         reconnectCamera(false); // n.b., if something went wrong with video, then we reopen the camera - which may fail (or simply not reopen, e.g., if app is now paused)
+        videoFileInfo.close();
         applicationInterface.stoppedVideo(videoFileInfo.video_method, videoFileInfo.video_uri, videoFileInfo.video_filename);
         if (nextVideoFileInfo != null) {
             // if nextVideoFileInfo is not-null, it means we received MEDIA_RECORDER_INFO_MAX_FILESIZE_APPROACHING but not
             // MEDIA_RECORDER_INFO_NEXT_OUTPUT_FILE_STARTED, so it is the application responsibility to create the zero-size
             // video file that will have been created
+            if( MyDebug.LOG )
+                Log.d(TAG, "delete ununused next video file");
+            nextVideoFileInfo.close();
             applicationInterface.deleteUnusedVideo(nextVideoFileInfo.video_method, nextVideoFileInfo.video_uri, nextVideoFileInfo.video_filename);
         }
         videoFileInfo = new VideoFileInfo();
@@ -1007,8 +1176,7 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         return applicationInterface.getContext();
     }
 
-    /**
-     * Restart video - either due to hitting maximum filesize, or maximum duration.
+    /** Restart video - either due to hitting maximum filesize (for pre-Android 8 when not able to restart seamlessly), or maximum duration.
      */
     private void restartVideo(boolean due_to_max_filesize) {
         if (MyDebug.LOG)
@@ -1159,6 +1327,12 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         }
     }
 
+    /** Closes the camera.
+     * @param async Whether to close the camera on a background thread.
+     * @param closeCameraCallback If async is true, closeCameraCallback.onClosed() will be called,
+     *                            from the UI thread, once the camera is closed. If async is false,
+     *                            this field is ignored.
+     */
     private void closeCamera(boolean async, final CloseCameraCallback closeCameraCallback) {
         long debug_time = 0;
         if (MyDebug.LOG) {
@@ -1329,8 +1503,15 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             Log.d(TAG, "openCamera()");
             debug_time = System.currentTimeMillis();
         }
-        if (camera_open_state == CameraOpenState.CAMERAOPENSTATE_OPENING) {
-            if (MyDebug.LOG)
+        if( applicationInterface.isPreviewInBackground() ) {
+            if( MyDebug.LOG )
+                Log.d(TAG, "don't open camera as preview in background");
+            // note, even if the application never tries to reopen the camera in the background, we still need this check to avoid the camera
+            // opening from mySurfaceCreated()
+            return;
+        }
+        else if( camera_open_state == CameraOpenState.CAMERAOPENSTATE_OPENING ) {
+            if( MyDebug.LOG )
                 Log.d(TAG, "already opening camera in background thread");
             return;
         } else if (camera_open_state == CameraOpenState.CAMERAOPENSTATE_CLOSING) {
@@ -1418,9 +1599,9 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             }
             return;
         }
-        if (this.app_is_paused) {
-            if (MyDebug.LOG) {
-                Log.d(TAG, "don't open camera as app is paused");
+        if( this.is_paused ) {
+            if( MyDebug.LOG ) {
+                Log.d(TAG, "don't open camera as paused");
             }
             return;
         }
@@ -1800,6 +1981,47 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             this.switchVideo(true, false);
         }
 
+        // seems sensible to set extension mode (or not) first
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && this.supported_extensions != null && applicationInterface.isCameraExtensionPref() ) {
+            int extension = applicationInterface.getCameraExtensionPref();
+            if( this.supported_extensions.contains(extension) ) {
+                camera_controller.setCameraExtension(true, extension);
+
+                // also filter unsupported flash modes
+                if( supported_flash_values != null ) {
+                    if( MyDebug.LOG )
+                        Log.d(TAG, "restrict flash modes for extension session");
+                    List<String> new_supported_flash_values = new ArrayList<>();
+                    for(String supported_flash_value : supported_flash_values) {
+                        switch( supported_flash_value ) {
+                            case "flash_off":
+                            case "flash_frontscreen_torch":
+                                new_supported_flash_values.add(supported_flash_value);
+                                break;
+                        }
+                    }
+                    supported_flash_values = new_supported_flash_values;
+                }
+
+                // also disallow focus modes
+                if( supported_focus_values != null ) {
+                    if( MyDebug.LOG )
+                        Log.d(TAG, "restrict focus modes for extension session");
+                    supported_focus_values = null;
+                }
+
+                // and disable ae and awb lock (as normally we don't set this when stopping/starting preview)
+                camera_controller.setAutoExposureLock(false);
+                camera_controller.setAutoWhiteBalanceLock(false);
+            }
+            else {
+                camera_controller.setCameraExtension(false, 0);
+            }
+        }
+        else {
+            camera_controller.setCameraExtension(false, 0);
+        }
+
         setupCameraParameters();
 
         updateFlashForVideo();
@@ -1857,45 +2079,56 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
 
         setupBurstMode();
 
-        if (camera_controller.isBurstOrExpo()) {
-            if (MyDebug.LOG)
-                Log.d(TAG, "check photo resolution supports burst");
-            CameraController.Size current_size = getCurrentPictureSize();
-            if (MyDebug.LOG && current_size != null) {
-                Log.d(TAG, "current_size: " + current_size.width + " x " + current_size.height + " supports_burst? " + current_size.supports_burst);
-            }
-            if (current_size != null && !current_size.supports_burst) {
-                if (MyDebug.LOG)
-                    Log.d(TAG, "burst mode: current picture size doesn't support burst");
-                // set to next largest that supports burst
-                CameraController.Size new_size = null;
-                for (int i = 0; i < photo_sizes.size(); i++) {
-                    CameraController.Size size = photo_sizes.get(i);
-                    if (size.supports_burst && size.width * size.height <= current_size.width * current_size.height) {
-                        if (new_size == null || size.width * size.height > new_size.width * new_size.height) {
-                            current_size_index = i;
-                            new_size = size;
-                        }
-                    }
+        {
+            boolean is_burst = camera_controller.isBurstOrExpo();
+            boolean is_extension = camera_controller.isCameraExtension();
+            int extension = is_extension ? camera_controller.getCameraExtension() : -1;
+            if( is_burst || is_extension ) {
+                if( MyDebug.LOG ) {
+                    if( is_burst )
+                        Log.d(TAG, "check photo resolution supports burst");
+                    if( is_extension )
+                        Log.d(TAG, "check photo resolution supports extension: " + extension);
                 }
-                if (new_size == null) {
-                    Log.e(TAG, "can't find burst-supporting picture size smaller than the current picture size");
-                    // just find largest that supports burst
-                    for (int i = 0; i < photo_sizes.size(); i++) {
-                        CameraController.Size size = photo_sizes.get(i);
-                        if (size.supports_burst) {
-                            if (new_size == null || size.width * size.height > new_size.width * new_size.height) {
-                                current_size_index = i;
-                                new_size = size;
+                CameraController.Size current_size = getCurrentPictureSize();
+                if( current_size != null ) {
+                    if( MyDebug.LOG ) {
+                        Log.d(TAG, "current_size: " + current_size.width + " x " + current_size.height + " supports_burst? " + current_size.supports_burst);
+                    }
+                    if( !current_size.supportsRequirements(is_burst, is_extension, extension) ) {
+                        if( MyDebug.LOG )
+                            Log.d(TAG, "burst mode: current picture size doesn't support required burst and/or extension");
+                        // set to next largest that supports what we need
+                        CameraController.Size new_size = null;
+                        for(int i=0;i<photo_sizes.size();i++) {
+                            CameraController.Size size = photo_sizes.get(i);
+                            if( size.supportsRequirements(is_burst, is_extension, extension) && size.width*size.height <= current_size.width*current_size.height ) {
+                                if( new_size == null || size.width*size.height > new_size.width*new_size.height ) {
+                                    current_size_index = i;
+                                    new_size = size;
+                                }
                             }
                         }
-                    }
-                    if (new_size == null) {
-                        Log.e(TAG, "can't find burst-supporting picture size");
+                        if( new_size == null ) {
+                            Log.e(TAG, "can't find supporting picture size smaller than the current picture size");
+                            // just find largest that supports requirements
+                            for(int i=0;i<photo_sizes.size();i++) {
+                                CameraController.Size size = photo_sizes.get(i);
+                                if( size.supportsRequirements(is_burst, is_extension, extension) ) {
+                                    if( new_size == null || size.width*size.height > new_size.width*new_size.height ) {
+                                        current_size_index = i;
+                                        new_size = size;
+                                    }
+                                }
+                            }
+                            if( new_size == null ) {
+                                Log.e(TAG, "can't find supporting picture size");
+                            }
+                        }
+                        // if we set a new size, we don't save this to applicationinterface (so that if user switches to a burst mode or extension mode and back
+                        // when the original resolution doesn't support burst/extension we revert to the original resolution)
                     }
                 }
-                // if we set a new size, we don't save this to applicationinterface (so that if user switches to a burst mode and back
-                // when the original resolution doesn't support burst we revert to the original resolution)
             }
         }
 
@@ -1903,6 +2136,7 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
 
         // Must set preview size before starting camera preview
         // and must do it after setting photo vs video mode
+        // and after setting what camera extension we're using (if any)
         setPreviewSize(); // need to call this when we switch cameras, not just when we run for the first time
         if (MyDebug.LOG) {
             Log.d(TAG, "setupCamera: time after setting preview size: " + (System.currentTimeMillis() - debug_time));
@@ -1915,9 +2149,13 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
 
         // must be done after setting parameters, as this function may set parameters
         // also needs to be done after starting preview for some devices (e.g., Nexus 7)
-        if (this.has_zoom && applicationInterface.getZoomPref() != 0) {
-            zoomTo(applicationInterface.getZoomPref());
-            if (MyDebug.LOG) {
+        if( this.has_zoom ) {
+            int zoom_pref = applicationInterface.getZoomPref();
+            if( zoom_pref == -1 ) {
+                zoom_pref = find1xZoom();
+            }
+            zoomTo(zoom_pref);
+            if( MyDebug.LOG ) {
                 Log.d(TAG, "setupCamera: total time after zoomTo: " + (System.currentTimeMillis() - debug_time));
             }
         } else if (camera_controller_supports_zoom && !has_zoom) {
@@ -1925,7 +2163,7 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                 Log.d(TAG, "camera supports zoom but application disabled zoom, so reset zoom to default");
             // if the application switches zoom off via ApplicationInterface.allowZoom(), we need to support
             // resetting the zoom (in case the application called setupCamera() rather than reopening the camera).
-            camera_controller.setZoom(0);
+            camera_controller.resetZoom();
         }
 
 	    /*if( take_photo ) {
@@ -1974,6 +2212,15 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         if (MyDebug.LOG) {
             Log.d(TAG, "setupCamera: total time after setupCamera: " + (System.currentTimeMillis() - debug_time));
         }
+    }
+
+    private int find1xZoom() {
+        for(int i=0;i<zoom_ratios.size();i++) {
+            if( zoom_ratios.get(i) == 100 ) {
+                return i;
+            }
+        }
+        return 0; // shouldn't happen but just in case, choose smallest zoom value
     }
 
     public void setupBurstMode() {
@@ -2040,15 +2287,7 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             if (MyDebug.LOG)
                 Log.d(TAG, "grab info from parameters");
             CameraController.CameraFeatures camera_features = camera_controller.getCameraFeatures();
-            this.camera_controller_supports_zoom = camera_features.is_zoom_supported;
-            this.has_zoom = camera_features.is_zoom_supported && applicationInterface.allowZoom();
-            if (this.has_zoom) {
-                this.max_zoom_factor = camera_features.max_zoom;
-                this.zoom_ratios = camera_features.zoom_ratios;
-            } else {
-                this.max_zoom_factor = 0;
-                this.zoom_ratios = null;
-            }
+
             this.minimum_focus_distance = camera_features.minimum_focus_distance;
             this.supports_face_detection = camera_features.supports_face_detection;
             this.photo_sizes = camera_features.picture_sizes;
@@ -2099,6 +2338,22 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             this.video_quality_handler.setVideoSizes(camera_features.video_sizes);
             this.video_quality_handler.setVideoSizesHighSpeed(camera_features.video_sizes_high_speed);
             this.supported_preview_sizes = camera_features.preview_sizes;
+            this.supported_extensions = camera_features.supported_extensions;
+
+            // need to do zoom last, as applicationInterface.allowZoom() may depend on the supported
+            // camera features (e.g., zoom not supported with camera extensions, so we need to have first
+            // stored supported_extensions - otherwise starting up in an extension photo mode will still
+            // show zoom controls)
+            this.camera_controller_supports_zoom = camera_features.is_zoom_supported;
+            this.has_zoom = camera_features.is_zoom_supported && applicationInterface.allowZoom();
+            if( this.has_zoom ) {
+                this.max_zoom_factor = camera_features.max_zoom;
+                this.zoom_ratios = camera_features.zoom_ratios;
+            }
+            else {
+                this.max_zoom_factor = 0;
+                this.zoom_ratios = null;
+            }
         }
     }
 
@@ -2155,15 +2410,6 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                         Activity activity = (Activity) Preview.this.getContext();
                         activity.runOnUiThread(new Runnable() {
                             public void run() {
-                                // convert rects to preview screen space - also needs to be done on UI thread
-                                // (otherwise can have crashes if camera_controller becomes null in the meantime)
-                                final Matrix matrix = getCameraToPreviewMatrix();
-                                for (CameraController.Face face : faces) {
-                                    face_rect.set(face.rect);
-                                    matrix.mapRect(face_rect);
-                                    face_rect.round(face.rect);
-                                }
-
                                 reportFaces(faces);
 
                                 if (faces_detected == null || faces_detected.length != faces.length) {
@@ -2181,7 +2427,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                      */
                     private void reportFaces(CameraController.Face[] local_faces) {
                         // View.announceForAccessibility requires JELLY_BEAN
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && accessibility_manager.isEnabled() && accessibility_manager.isTouchExplorationEnabled()) {
+                        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
+                            ) {
                             int n_faces = local_faces.length;
                             FaceLocation face_location = FaceLocation.FACELOCATION_UNKNOWN;
                             if (n_faces > 0) {
@@ -2189,13 +2436,20 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                                 float avg_x = 0, avg_y = 0;
                                 final float bdry_frac_c = 0.35f;
                                 boolean all_centre = true;
-                                for (CameraController.Face face : local_faces) {
-                                    float face_x = face.rect.centerX();
-                                    float face_y = face.rect.centerY();
-                                    face_x /= (float) cameraSurface.getView().getWidth();
-                                    face_y /= (float) cameraSurface.getView().getHeight();
-                                    if (all_centre) {
-                                        if (face_x < bdry_frac_c || face_x > 1.0f - bdry_frac_c || face_y < bdry_frac_c || face_y > 1.0f - bdry_frac_c)
+                                final Matrix matrix = getCameraToPreviewMatrix();
+                                for(CameraController.Face face : local_faces) {
+                                    //float face_x = face.rect.centerX();
+                                    //float face_y = face.rect.centerY();
+                                    // convert to screen space coordinates
+                                    face_rect.set(face.rect);
+                                    matrix.mapRect(face_rect);
+                                    float face_x = face_rect.centerX();
+                                    float face_y = face_rect.centerY();
+
+                                    face_x /= (float)cameraSurface.getView().getWidth();
+                                    face_y /= (float)cameraSurface.getView().getHeight();
+                                    if( all_centre ) {
+                                        if( face_x < bdry_frac_c || face_x > 1.0f-bdry_frac_c || face_y < bdry_frac_c || face_y > 1.0f-bdry_frac_c )
                                             all_centre = false;
                                     }
                                     avg_x += face_x;
@@ -2296,6 +2550,9 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                     }
                 }
                 camera_controller.setFaceDetectionListener(new MyFaceDetectionListener());
+            }
+            else {
+                camera_controller.setFaceDetectionListener(null);
             }
         }
         if (MyDebug.LOG) {
@@ -2421,7 +2678,12 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         if (MyDebug.LOG)
             Log.d(TAG, "saved iso: " + value);
         boolean is_manual_iso = false;
-        if (supports_iso_range) {
+        boolean is_extension = camera_controller.isCameraExtension();
+        if( is_extension ) {
+            // manual ISO not supported for camera extensions
+            camera_controller.setManualISO(false, 0);
+        }
+        else if( supports_iso_range ) {
             // in this mode, we can set any ISO value from min to max
             this.isos = null; // if supports_iso_range==true, caller shouldn't be using getSupportedISOs()
 
@@ -2651,7 +2913,7 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             }
 
             // size set later in setPreviewSize()
-            // also note that we check for compatibility with burst (CameraController.Size.supports_burst) later on
+            // also note that we check for compatibility with burst (CameraController.Size.supports_burst) and extensions later on
         }
         if (MyDebug.LOG) {
             Log.d(TAG, "setupCameraParameters: time after picture sizes: " + (System.currentTimeMillis() - debug_time));
@@ -2813,7 +3075,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                         // if in manual ISO mode, we'll have restricted the available flash modes - so although we want to
                         // communicate this to the application, we don't want to save the new value we've chosen (otherwise
                         // if user goes to manual ISO and back, we might switch saved flash say from auto to off)
-                        updateFlash(0, !is_manual_iso);
+                        // similarly for camera extension modes
+                        updateFlash(0, !is_manual_iso && !is_extension );
                     }
                 } else {
                     if (MyDebug.LOG)
@@ -3516,8 +3779,16 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         for (CameraController.Size size : sizes) {
             if (MyDebug.LOG)
                 Log.d(TAG, "    supported preview size: " + size.width + ", " + size.height);
-            double ratio = (double) size.width / size.height;
-            if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE)
+            if( camera_controller.isCameraExtension() ) {
+                int extension = camera_controller.getCameraExtension();
+                if( !size.supportsExtension(extension) ) {
+                    if( MyDebug.LOG )
+                        Log.d(TAG, "        not supported by current extension: " + extension);
+                    continue;
+                }
+            }
+            double ratio = (double)size.width / size.height;
+            if( Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE )
                 continue;
             if (Math.abs(size.height - targetHeight) < minDiff) {
                 optimalSize = size;
@@ -3625,46 +3896,12 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         return aspect_ratio;
     }
 
-    /**
-     * Returns the ROTATION_* enum of the display relative to the natural device orientation.
-     */
-    public int getDisplayRotation() {
-        // gets the display rotation (as a Surface.ROTATION_* constant), taking into account the getRotatePreviewPreferenceKey() setting
-        Activity activity = (Activity) this.getContext();
-        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
-
-        String rotate_preview = applicationInterface.getPreviewRotationPref();
-        if (MyDebug.LOG)
-            Log.d(TAG, "    rotate_preview = " + rotate_preview);
-        if (rotate_preview.equals("180")) {
-            switch (rotation) {
-                case Surface.ROTATION_0:
-                    rotation = Surface.ROTATION_180;
-                    break;
-                case Surface.ROTATION_90:
-                    rotation = Surface.ROTATION_270;
-                    break;
-                case Surface.ROTATION_180:
-                    rotation = Surface.ROTATION_0;
-                    break;
-                case Surface.ROTATION_270:
-                    rotation = Surface.ROTATION_90;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        return rotation;
-    }
-
-    /**
-     * Returns the rotation in degrees of the display relative to the natural device orientation.
+    /** Returns the rotation in degrees of the display relative to the natural device orientation.
      */
     private int getDisplayRotationDegrees() {
         if (MyDebug.LOG)
             Log.d(TAG, "getDisplayRotationDegrees");
-        int rotation = getDisplayRotation();
+        int rotation = applicationInterface.getDisplayRotation();
         int degrees = 0;
         switch (rotation) {
             case Surface.ROTATION_0:
@@ -3805,9 +4042,9 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     public void draw(Canvas canvas) {
 		/*if( MyDebug.LOG )
 			Log.d(TAG, "draw()");*/
-        if (this.app_is_paused) {
+        if( this.is_paused ) {
     		/*if( MyDebug.LOG )
-    			Log.d(TAG, "draw(): app is paused");*/
+    			Log.d(TAG, "draw(): paused");*/
             return;
         }
 		/*if( true ) // test
@@ -3832,17 +4069,33 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             Log.d(TAG, "getScaledZoomFactor() " + scale_factor);
 
         int new_zoom_factor = 0;
-        if (this.camera_controller != null && this.has_zoom) {
-            int zoom_factor = camera_controller.getZoom();
-            float zoom_ratio = this.zoom_ratios.get(zoom_factor) / 100.0f;
+        if( this.camera_controller != null && this.has_zoom ) {
+            final int zoom_factor = camera_controller.getZoom();
+            float zoom_ratio;
+            if( has_smooth_zoom ) {
+                zoom_ratio = smooth_zoom;
+                if( MyDebug.LOG )
+                    Log.d(TAG, "    use smooth_zoom: " + smooth_zoom + " instead of: " + this.zoom_ratios.get(zoom_factor)/100.0f);
+            }
+            else {
+                zoom_ratio = this.zoom_ratios.get(zoom_factor)/100.0f;
+            }
             zoom_ratio *= scale_factor;
+            if( MyDebug.LOG )
+                Log.d(TAG, "    zoom_ratio: " + zoom_ratio);
 
             new_zoom_factor = zoom_factor;
-            if (zoom_ratio <= 1.0f) {
+            if( zoom_ratio <= zoom_ratios.get(0)/100.0f ) {
                 new_zoom_factor = 0;
-            } else if (zoom_ratio >= zoom_ratios.get(max_zoom_factor) / 100.0f) {
+                if( has_smooth_zoom )
+                    smooth_zoom = zoom_ratios.get(0)/100.0f;
+            }
+            else if( zoom_ratio >= zoom_ratios.get(max_zoom_factor)/100.0f ) {
                 new_zoom_factor = max_zoom_factor;
-            } else {
+                if( has_smooth_zoom )
+                    smooth_zoom = zoom_ratios.get(max_zoom_factor)/100.0f;
+            }
+            else {
                 // find the closest zoom level
                 if (scale_factor > 1.0f) {
                     // zooming in
@@ -3865,6 +4118,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                         }
                     }
                 }
+                if( has_smooth_zoom )
+                    smooth_zoom = zoom_ratio;
             }
             if (MyDebug.LOG) {
                 Log.d(TAG, "zoom_ratio is now " + zoom_ratio);
@@ -3886,6 +4141,9 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         }
     }
 
+    /** Zooms to the supplied index (within the zoom_ratios array).
+     * @param new_zoom_factor The index to zoom to.
+     */
     public void zoomTo(int new_zoom_factor) {
         if (MyDebug.LOG)
             Log.d(TAG, "ZoomTo(): " + new_zoom_factor);
@@ -4054,7 +4312,9 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     }
 
     public String getExposureTimeString(long exposure_time) {
-        double exposure_time_s = exposure_time / 1000000000.0;
+        /*if( MyDebug.LOG )
+            Log.d(TAG, "getExposureTimeString(): " + exposure_time);*/
+        double exposure_time_s = exposure_time/1000000000.0;
         String string;
         if (exposure_time > 100000000) {
             // show exposure times of more than 0.1s directly
@@ -4063,6 +4323,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             double exposure_time_r = 1.0 / exposure_time_s;
             string = " 1/" + (int) (exposure_time_r + 0.5) + getResources().getString(R.string.seconds_abbreviation);
         }
+        /*if( MyDebug.LOG )
+            Log.d(TAG, "getExposureTimeString() return: " + string);*/
         return string;
     }
 
@@ -4249,8 +4511,13 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                 Log.d(TAG, "fps_ranges not available");
             return;
         }
-        int[] selected_fps = null;
-        if (this.is_video) {
+        int [] selected_fps = null;
+        if( camera_controller.isCameraExtension() ) {
+            // don't set preview fps if using camera extension
+            // (important not to return here however - still want to call
+            // camera_controller.clearPreviewFpsRange() to clear a previously set fps)
+        }
+        else if( this.is_video ) {
             // For Nexus 5 and Nexus 6, we need to set the preview fps using matchPreviewFpsToVideo to avoid problem of dark preview in low light, as described above.
             // When the video recording starts, the preview automatically adjusts, but still good to avoid too-dark preview before the user starts recording.
             // However I'm wary of changing the behaviour for all devices at the moment, since some devices can be
@@ -4354,16 +4621,19 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                 updateFlashForVideo();
             }
 
-            if (!during_startup) {
-                String focus_value = current_focus_index != -1 ? supported_focus_values.get(current_focus_index) : null;
-                if (MyDebug.LOG)
+            if( !during_startup ) {
+                if( MyDebug.LOG ) {
+                    String focus_value = current_focus_index != -1 ? supported_focus_values.get(current_focus_index) : null;
                     Log.d(TAG, "focus_value is " + focus_value);
+                }
                 // Although in theory we only need to stop and start preview, which should be faster, reopening the camera allows that to
                 // run on the background thread, thus not freezing the UI
                 // Also workaround for bug on Nexus 6 at least where switching to video and back to photo mode causes continuous picture mode to stop -
                 // at the least, we need to reopen camera when: ( !is_video && focus_value != null && focus_value.equals("focus_mode_continuous_picture") ).
                 // Lastly, note that it's important to still call setupCamera() when switching between photo and video modes (see comment for setupCamera()).
                 // So if we ever allow stopping/starting the preview again, we still need to call setupCamera() again.
+                // Update: and even if we want to go back to just stopping/starting the preview, it's likely still a good idea to reopen the camera when
+                // switching from/to vendor camera extensions, otherwise risk of hangs/crashes on at least some devices (see note in MainActivity.updateForSettings)
                 this.reopenCamera();
             }
 
@@ -4413,7 +4683,11 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                 Log.d(TAG, "found no existing focus_value");
             // here we set the default values for focus mode
             // note if updating default focus value for photo mode, also update MainActivityTest.setToDefault()
-            updateFocus(is_video ? "focus_mode_continuous_video" : "focus_mode_continuous_picture", true, true, auto_focus);
+            if( !updateFocus(is_video ? "focus_mode_continuous_video" : "focus_mode_continuous_picture", true, true, auto_focus) ) {
+                if( MyDebug.LOG )
+                    Log.d(TAG, "continuous focus not supported, so fall back to first");
+                updateFocus(0, true, true, auto_focus);
+            }
         }
     }
 
@@ -4951,8 +5225,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             Log.d(TAG, "takePicturePressed exit");
     }
 
-    private void takePictureOnTimer(final long timer_delay, @SuppressWarnings("unused") boolean repeated) {
-        if (MyDebug.LOG) {
+    private void takePictureOnTimer(final long timer_delay, boolean repeated) {
+        if( MyDebug.LOG ) {
             Log.d(TAG, "takePictureOnTimer");
             Log.d(TAG, "timer_delay: " + timer_delay);
         }
@@ -5079,7 +5353,7 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                         try {
                             //if( true )
                             //	throw new IOException(); // test
-                            if (info.video_method == ApplicationInterface.VIDEOMETHOD_FILE) {
+                            if( info.video_method == ApplicationInterface.VideoMethod.FILE ) {
                                 video_recorder.setNextOutputFile(new File(info.video_filename));
                             } else {
                                 video_recorder.setNextOutputFile(info.video_pfd_saf.getFileDescriptor());
@@ -5091,6 +5365,7 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                         } catch (IOException e) {
                             Log.e(TAG, "failed to setNextOutputFile");
                             e.printStackTrace();
+                            info.close();
                         }
                     }
                 }
@@ -5102,7 +5377,10 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                 Log.d(TAG, "seamless restart with setNextOutputFile has now occurred");
             if (nextVideoFileInfo == null) {
                 Log.e(TAG, "received MEDIA_RECORDER_INFO_NEXT_OUTPUT_FILE_STARTED but nextVideoFileInfo is null");
-            } else {
+            }
+            else {
+                videoFileInfo.close();
+                video_time_last_maxfilesize_restart = getVideoTime(false);
                 applicationInterface.restartedVideo(videoFileInfo.video_method, videoFileInfo.video_uri, videoFileInfo.video_filename);
                 videoFileInfo = nextVideoFileInfo;
                 nextVideoFileInfo = null;
@@ -5232,14 +5510,15 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     private VideoFileInfo createVideoFile(String extension) {
         if (MyDebug.LOG)
             Log.d(TAG, "createVideoFile");
+        VideoFileInfo video_file_info = null;
+        ParcelFileDescriptor video_pfd_saf = null;
         try {
-            int method = applicationInterface.createOutputVideoMethod();
+            ApplicationInterface.VideoMethod method = applicationInterface.createOutputVideoMethod();
             Uri video_uri = null;
             String video_filename = null;
-            ParcelFileDescriptor video_pfd_saf = null;
-            if (MyDebug.LOG)
+            if( MyDebug.LOG )
                 Log.d(TAG, "method? " + method);
-            if (method == ApplicationInterface.VIDEOMETHOD_FILE) {
+            if( method == ApplicationInterface.VideoMethod.FILE ) {
     			/*if( true )
     				throw new IOException(); // test*/
                 File videoFile = applicationInterface.createOutputVideoFile(extension);
@@ -5248,9 +5527,13 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                     Log.d(TAG, "save to: " + video_filename);
             } else {
                 Uri uri;
-                if (method == ApplicationInterface.VIDEOMETHOD_SAF) {
+                if( method == ApplicationInterface.VideoMethod.SAF ) {
                     uri = applicationInterface.createOutputVideoSAF(extension);
-                } else {
+                }
+                else if( method == ApplicationInterface.VideoMethod.MEDIASTORE ) {
+                    uri = applicationInterface.createOutputVideoMediaStore(extension);
+                }
+                else {
                     uri = applicationInterface.createOutputVideoUri();
                 }
                 if (MyDebug.LOG)
@@ -5259,13 +5542,26 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                 video_uri = uri;
             }
 
-            return new VideoFileInfo(method, video_uri, video_filename, video_pfd_saf);
-        } catch (IOException e) {
-            if (MyDebug.LOG)
+            video_file_info = new VideoFileInfo(method, video_uri, video_filename, video_pfd_saf);
+        }
+        catch(IOException e) {
+            if( MyDebug.LOG )
                 Log.e(TAG, "Couldn't create media video file; check storage permissions?");
             e.printStackTrace();
         }
-        return null;
+        finally {
+            if( video_file_info == null && video_pfd_saf != null ) {
+                if( MyDebug.LOG )
+                    Log.d(TAG, "failed, so clean up video_pfd_saf");
+                try {
+                    video_pfd_saf.close();
+                }
+                catch(IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return video_file_info;
     }
 
     /**
@@ -5392,7 +5688,7 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                     Log.d(TAG, "actual video_max_duration: " + video_max_duration);
                 local_video_recorder.setMaxDuration((int) video_max_duration);
 
-                if (videoFileInfo.video_method == ApplicationInterface.VIDEOMETHOD_FILE) {
+                if( videoFileInfo.video_method == ApplicationInterface.VideoMethod.FILE ) {
                     local_video_recorder.setOutputFile(videoFileInfo.video_filename);
                 } else {
                     local_video_recorder.setOutputFile(videoFileInfo.video_pfd_saf.getFileDescriptor());
@@ -5407,14 +5703,33 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                 local_video_recorder.setOrientationHint(getImageVideoRotation());
                 if (MyDebug.LOG)
                     Log.d(TAG, "about to prepare video recorder");
+
                 local_video_recorder.prepare();
+                if( test_video_ioexception ) {
+                    if( MyDebug.LOG )
+                        Log.d(TAG, "test_video_ioexception is true");
+                    throw new IOException();
+                }
+
                 boolean want_photo_video_recording = supportsPhotoVideoRecording() && applicationInterface.usePhotoVideoRecording();
+
                 camera_controller.initVideoRecorderPostPrepare(local_video_recorder, want_photo_video_recording);
-                if (MyDebug.LOG)
+                if( test_video_cameracontrollerexception ) {
+                    if( MyDebug.LOG )
+                        Log.d(TAG, "test_video_cameracontrollerexception is true");
+                    throw new CameraControllerException();
+                }
+
+                if( MyDebug.LOG )
                     Log.d(TAG, "about to start video recorder");
 
                 try {
                     local_video_recorder.start();
+                    if( test_video_failure ) {
+                        if( MyDebug.LOG )
+                            Log.d(TAG, "test_video_failure is true");
+                        throw new RuntimeException();
+                    }
                     this.video_recorder = local_video_recorder;
                     videoRecordingStarted(max_filesize_restart);
                 } catch (RuntimeException e) {
@@ -5478,6 +5793,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                 video_recorder.release();
                 video_recorder = null;
                 video_recorder_is_paused = false;
+                applicationInterface.deleteUnusedVideo(videoFileInfo.video_method, videoFileInfo.video_uri, videoFileInfo.video_filename);
+                videoFileInfo = new VideoFileInfo();
                 applicationInterface.cameraInOperation(false, true);
                 this.reconnectCamera(true);
             } catch (CameraControllerException e) {
@@ -5501,6 +5818,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                 video_recorder.release();
                 video_recorder = null;
                 video_recorder_is_paused = false;
+                applicationInterface.deleteUnusedVideo(videoFileInfo.video_method, videoFileInfo.video_uri, videoFileInfo.video_filename);
+                videoFileInfo = new VideoFileInfo();
                 applicationInterface.cameraInOperation(false, true);
                 this.reconnectCamera(true);
                 this.showToast(null, R.string.video_no_free_space);
@@ -5521,13 +5840,9 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             faces_detected = null;
         }
 
-        if (test_video_failure) {
-            if (MyDebug.LOG)
-                Log.d(TAG, "test_video_failure is true");
-            throw new RuntimeException();
-        }
         video_start_time = System.currentTimeMillis();
         video_start_time_set = true;
+        video_time_last_maxfilesize_restart = max_filesize_restart ? video_accumulated_time : 0;
         applicationInterface.startedVideo();
         // Don't send intent for ACTION_MEDIA_SCANNER_SCAN_FILE yet - wait until finished, so we get completed file.
         // Don't do any further calls after applicationInterface.startedVideo() that might throw an error - instead video error
@@ -5621,6 +5936,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         video_recorder.release();
         video_recorder = null;
         video_recorder_is_paused = false;
+        applicationInterface.deleteUnusedVideo(videoFileInfo.video_method, videoFileInfo.video_uri, videoFileInfo.video_filename);
+        videoFileInfo = new VideoFileInfo();
         applicationInterface.cameraInOperation(false, true);
         this.reconnectCamera(true);
     }
@@ -6014,7 +6331,12 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             if (MyDebug.LOG)
                 Log.d(TAG, "enable_sound? " + enable_sound);
             camera_controller.enableShutterSound(enable_sound);
-            if (using_android_l) {
+            if( using_android_l ) {
+                boolean camera2_dummy_capture_hack = applicationInterface.useCamera2DummyCaptureHack();
+                if( MyDebug.LOG )
+                    Log.d(TAG, "camera2_dummy_capture_hack? " + camera2_dummy_capture_hack);
+                camera_controller.setDummyCaptureHack( camera2_dummy_capture_hack );
+
                 boolean use_camera2_fast_burst = applicationInterface.useCamera2FastBurst();
                 if (MyDebug.LOG)
                     Log.d(TAG, "use_camera2_fast_burst? " + use_camera2_fast_burst);
@@ -6195,6 +6517,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             String current_ui_focus_value = getCurrentFocusValue();
             if (current_ui_focus_value != null && !camera_controller.getFocusValue().equals(current_ui_focus_value) && camera_controller.getFocusValue().equals("focus_mode_auto")) {
                 camera_controller.cancelAutoFocus();
+                if( MyDebug.LOG )
+                    Log.d(TAG, "switch back to: " + current_ui_focus_value);
                 camera_controller.setFocusValue(current_ui_focus_value);
             } else {
                 if (MyDebug.LOG)
@@ -6823,6 +7147,18 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         return this.supports_burst;
     }
 
+    /** Whether the Camera vendor extension is supported (see
+     * https://developer.android.com/reference/android/hardware/camera2/CameraExtensionCharacteristics ).
+     */
+    public boolean supportsCameraExtension(int extension) {
+        if( extension == CameraExtensionCharacteristics.EXTENSION_HDR ) {
+            // blocked for now, as have yet to be able to test this (seems to have no effect on Galaxy S10e;
+            // not available on Pixel 6 Pro)
+            return false;
+        }
+        return this.supported_extensions != null && this.supported_extensions.contains(extension);
+    }
+
     public boolean supportsRaw() {
         return this.supports_raw;
     }
@@ -6920,24 +7256,27 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     }
 
     /**
-     * @param check_supported If true, and a burst mode is in use (fast burst, expo, HDR), and/or
-     *                        a constraint was set via getCameraResolutionPref(), then the returned
-     *                        list will be filtered to remove sizes that don't support burst and/or
-     *                        these constraints.
+     * @param check_supported If true, and a burst mode is in use (fast burst, expo, HDR), or
+     *                        a camera vendor extension mode, and/o a constraint was set via
+     *                        getCameraResolutionPref(), then the returned list will be filtered to
+     *                        remove sizes that don't support burst and/or these constraints.
      */
     public List<CameraController.Size> getSupportedPictureSizes(boolean check_supported) {
         if (MyDebug.LOG)
             Log.d(TAG, "getSupportedPictureSizes");
-        boolean is_burst = (camera_controller != null && camera_controller.isBurstOrExpo());
+        boolean is_burst = ( camera_controller != null && camera_controller.isBurstOrExpo() );
+        boolean is_extension = ( camera_controller != null && camera_controller.isCameraExtension() );
+        int extension = is_extension ? camera_controller.getCameraExtension() : -1;
         boolean has_constraints = photo_size_constraints != null && photo_size_constraints.hasConstraints();
-        if (check_supported && (is_burst || has_constraints)) {
-            if (MyDebug.LOG)
-                Log.d(TAG, "need to filter picture sizes for burst mode and/or constraints");
+        if( check_supported && ( is_burst || is_extension || has_constraints ) ) {
+            if( MyDebug.LOG )
+                Log.d(TAG, "need to filter picture sizes for burst mode and/or extension mode and/or constraints");
             List<CameraController.Size> filtered_sizes = new ArrayList<>();
-            for (CameraController.Size size : photo_sizes) {
-                if (is_burst && !size.supports_burst) {
-                    // burst mode not supported
-                } else if (!photo_size_constraints.satisfies(size)) {
+            for(CameraController.Size size : photo_sizes) {
+                if( !size.supportsRequirements(is_burst, is_extension, extension) ) {
+                    // burst or extension mode not supported
+                }
+                else if( !photo_size_constraints.satisfies(size) ) {
                     // doesn't satisfy imposed constraints
                 } else {
                     filtered_sizes.add(size);
@@ -7073,11 +7412,14 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         return camera_controller.getAPI();
     }
 
+    /** Call when activity is resumed.
+     */
     public void onResume() {
         if (MyDebug.LOG)
             Log.d(TAG, "onResume");
         recreatePreviewBitmap();
         this.app_is_paused = false;
+        this.is_paused = false;
         cameraSurface.onResume();
         if (canvasView != null)
             canvasView.onResume();
@@ -7097,12 +7439,25 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         }
     }
 
+    /** Call when activity is paused.
+     */
     public void onPause() {
-        if (MyDebug.LOG)
+        onPause(true);
+    }
+
+    /** Call when activity is paused, or the application wants to put the Preview into a paused
+     *  state (closing the camera etc).
+     * @param activity_is_pausing Set to true if this is called because the activity is being paused;
+     *                            set to false if the activity is not pausing.
+     */
+    public void onPause(boolean activity_is_pausing) {
+        if( MyDebug.LOG )
             Log.d(TAG, "onPause");
-        this.app_is_paused = true;
-        if (camera_open_state == CameraOpenState.CAMERAOPENSTATE_OPENING) {
-            if (MyDebug.LOG)
+        this.is_paused = true;
+        if( activity_is_pausing )
+            this.app_is_paused = true; // note, if activity_is_paused==false, we don't change app_is_paused, in case app was paused indicated via a separate call to onPause
+        if( camera_open_state == CameraOpenState.CAMERAOPENSTATE_OPENING ) {
+            if( MyDebug.LOG )
                 Log.d(TAG, "cancel open_camera_task");
             if (open_camera_task != null) { // just to be safe
                 this.open_camera_task.cancel(true);
@@ -7178,115 +7533,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             Log.d(TAG, "onSaveInstanceState");
     }
 
-    private class RotatedTextView extends View {
-        private String[] lines;
-        private int offset_y;
-        private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        private final Rect bounds = new Rect();
-        private final Rect sub_bounds = new Rect();
-        private final RectF rect = new RectF();
-        private final boolean style_outline; // if true, display text with outline rather than background
-
-        RotatedTextView(String text, int offset_y, boolean style_outline, Context context) {
-            super(context);
-
-            this.lines = text.split("\n");
-            this.offset_y = offset_y;
-            this.style_outline = style_outline;
-
-            if (style_outline) {
-                // outline style looks clearer when using bold text
-                this.paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-            }
-        }
-
-        void setText(String text) {
-            this.lines = text.split("\n");
-        }
-
-        void setOffsetY(int offset_y) {
-            this.offset_y = offset_y;
-        }
-
-        @SuppressLint("CanvasSize")
-        @Override
-        protected void onDraw(Canvas canvas) {
-            final float scale = Preview.this.getResources().getDisplayMetrics().density;
-            paint.setTextSize(14 * scale + 0.5f); // convert dps to pixels
-            if (!style_outline) {
-                paint.setShadowLayer(1, 0, 1, Color.BLACK);
-            }
-            //paint.getTextBounds(text, 0, text.length(), bounds);
-            boolean first_line = true;
-            for (String line : lines) {
-                paint.getTextBounds(line, 0, line.length(), sub_bounds);
-					/*if( MyDebug.LOG ) {
-						Log.d(TAG, "line: " + line + " sub_bounds: " + sub_bounds);
-					}*/
-                if (first_line) {
-                    bounds.set(sub_bounds);
-                    first_line = false;
-                } else {
-                    bounds.top = Math.min(sub_bounds.top, bounds.top);
-                    bounds.bottom = Math.max(sub_bounds.bottom, bounds.bottom);
-                    bounds.left = Math.min(sub_bounds.left, bounds.left);
-                    bounds.right = Math.max(sub_bounds.right, bounds.right);
-                }
-            }
-            // above we've worked out the maximum bounds of each line - this is useful for left/right, but for the top/bottom
-            // we would rather use a consistent height no matter what the text is (otherwise we have the problem of varying
-            // gap between lines, depending on what the characters are).
-            final String reference_text = "Ap";
-            paint.getTextBounds(reference_text, 0, reference_text.length(), sub_bounds);
-            bounds.top = sub_bounds.top;
-            bounds.bottom = sub_bounds.bottom;
-				/*if( MyDebug.LOG ) {
-					Log.d(TAG, "bounds: " + bounds);
-				}*/
-            int height = bounds.bottom - bounds.top; // height of each line
-            bounds.bottom += ((lines.length - 1) * height) / 2;
-            bounds.top -= ((lines.length - 1) * height) / 2;
-            final int padding = (int) (14 * scale + 0.5f); // padding for the shaded rectangle; convert dps to pixels
-            canvas.save();
-            canvas.rotate(ui_rotation, canvas.getWidth() / 2.0f, canvas.getHeight() / 2.0f);
-            float margin = 32.0f;
-
-            rect.left = canvas.getWidth() / 2.0f - bounds.width() / 2.0f + bounds.left - padding + margin;
-            rect.top = canvas.getHeight() / 2.0f + bounds.top - padding + offset_y;
-            rect.right = canvas.getWidth() / 2.0f - bounds.width() / 2.0f + bounds.right + padding + margin;
-            rect.bottom = canvas.getHeight() / 2.0f + bounds.bottom + padding + offset_y;
-
-            paint.setStyle(Paint.Style.FILL);
-            if (!style_outline) {
-                paint.setColor(Preview.this.getResources().getColor(R.color.color_toast_bg));
-                final float radius = (24 * scale + 0.5f); // convert dps to pixels
-                canvas.drawRoundRect(rect, radius, radius, paint);
-            }
-
-            paint.setColor(Color.WHITE);
-            int ypos = canvas.getHeight() / 2 + offset_y - ((lines.length - 1) * height) / 2;
-            for (String line : lines) {
-                canvas.drawText(line, canvas.getWidth() / 2.0f - bounds.width() / 2.0f + margin, ypos, paint);
-
-                if (style_outline) {
-                    // draw outline
-                    int current_color = paint.getColor();
-                    paint.setColor(Color.BLACK);
-                    paint.setStyle(Paint.Style.STROKE);
-                    paint.setStrokeWidth(1);
-                    canvas.drawText(line, canvas.getWidth() / 2.0f - bounds.width() / 2.0f + margin, ypos, paint);
-                    paint.setStyle(Paint.Style.FILL);
-                    paint.setColor(current_color);
-                }
-
-                ypos += height;
-            }
-            canvas.restore();
-        }
-    }
-
     private final Handler fake_toast_handler = new Handler();
-    private RotatedTextView active_fake_toast = null;
+    private TextView active_fake_toast = null;
 
     public void clearActiveFakeToast() {
         clearActiveFakeToast(false);
@@ -7391,6 +7639,10 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
 
                 final float scale = Preview.this.getResources().getDisplayMetrics().density;
                 final int offset_y = (int) (offset_y_dp * scale + 0.5f); // convert dps to pixels
+                float shadow_radius = (2.0f * scale + 0.5f); // convert pt to pixels
+                shadow_radius = Math.max(shadow_radius, 1.0f);
+                if( MyDebug.LOG )
+                    Log.d(TAG, "shadow_radius: " + shadow_radius);
 
                 if (use_fake_toast) {
                     if (active_fake_toast != null) {
@@ -7398,13 +7650,19 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                         if (MyDebug.LOG)
                             Log.d(TAG, "re-use fake toast: " + active_fake_toast);
                         active_fake_toast.setText(message);
-                        active_fake_toast.setOffsetY(offset_y);
+                        active_fake_toast.setPadding(0, offset_y, 0, 0);
                         active_fake_toast.invalidate(); // make sure the view is redrawn
-                    } else {
-                        active_fake_toast = new RotatedTextView(message, offset_y, true, activity);
-                        if (MyDebug.LOG)
-                            Log.d(TAG, "create new fake toast: " + active_fake_toast);
+                    }
+                    else {
                         Activity activity = (Activity) Preview.this.getContext();
+                        @SuppressLint("InflateParams") // we add the view a few lines below
+                        final View view = LayoutInflater.from(activity).inflate(R.layout.toast_textview, null);
+                        active_fake_toast = view.findViewById(R.id.text_view);
+                        active_fake_toast.setShadowLayer(shadow_radius, 0.0f, 0.0f, Color.BLACK);
+                        active_fake_toast.setPadding(0, offset_y, 0, 0);
+                        active_fake_toast.setText(message);
+                        if( MyDebug.LOG )
+                            Log.d(TAG, "create new fake toast: " + active_fake_toast);
                         final FrameLayout rootLayout = activity.findViewById(android.R.id.content);
                         rootLayout.addView(active_fake_toast);
                     }
@@ -7449,9 +7707,9 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                         Log.d(TAG, "reuse last toast: " + last_toast);
                     toast = clear_toast.toast;
                     // for performance, important to reuse the same view, instead of creating a new one (otherwise we get jerky preview update e.g. for changing manual focus slider)
-                    RotatedTextView view = (RotatedTextView) toast.getView();
+                    TextView view = (TextView)toast.getView();
                     view.setText(message);
-                    view.setOffsetY(offset_y);
+                    view.setPadding(0, offset_y, 0, 0);
                     view.invalidate(); // make sure the toast is redrawn
                     toast.setView(view);
                 } else {
@@ -7465,8 +7723,14 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                         Log.d(TAG, "created new toast: " + toast);
                     if (clear_toast != null)
                         clear_toast.toast = toast;
-                    View text = new RotatedTextView(message, offset_y, false, activity);
+                    @SuppressLint("InflateParams") // we add the view to the toast
+                    final View view = LayoutInflater.from(activity).inflate(R.layout.toast_textview, null);
+                    TextView text = view.findViewById(R.id.text_view);
+                    text.setShadowLayer(shadow_radius, 0.0f, 0.0f, Color.BLACK);
+                    text.setText(message);
+                    view.setPadding(0, offset_y, 0, 0);
                     toast.setView(text);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     last_toast_time_ms = time_now;
                 }
                 toast.setDuration(Toast.LENGTH_SHORT);
@@ -7483,8 +7747,8 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     }
 
     public void setUIRotation(int ui_rotation) {
-        if (MyDebug.LOG)
-            Log.d(TAG, "setUIRotation");
+        if( MyDebug.LOG )
+            Log.d(TAG, "setUIRotation: " + ui_rotation);
         this.ui_rotation = ui_rotation;
     }
 
@@ -7591,8 +7855,11 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     }
 
     private void recreatePreviewBitmap() {
-        if (MyDebug.LOG)
+        if( MyDebug.LOG ) {
             Log.d(TAG, "recreatePreviewBitmap");
+            Log.d(TAG, "textureview_w: " + textureview_w);
+            Log.d(TAG, "textureview_h: " + textureview_h);
+        }
         freePreviewBitmap();
 
         if (want_preview_bitmap) {
@@ -7966,7 +8233,7 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
                     // of the device
                     int rotation_degrees = preview.getDisplayRotationDegrees();
 					/*if( MyDebug.LOG ) {
-						Log.d(TAG, "orientation of display relative to natural orientaton: " + rotation_degrees);
+						Log.d(TAG, "orientation of display relative to natural orientation: " + rotation_degrees);
 					}*/
                     if (MyDebug.LOG)
                         Log.d(TAG, "time before creating new_zebra_stripes_bitmap: " + (System.currentTimeMillis() - debug_time));
@@ -8111,10 +8378,10 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         final int refresh_histogram_rate_ms = 200;
         final long refresh_time = (want_zebra_stripes || want_focus_peaking) ? 40 : refresh_histogram_rate_ms;
         long time_now = System.currentTimeMillis();
-        if (want_preview_bitmap && preview_bitmap != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
-                !app_is_paused && !applicationInterface.isPreviewInBackground() &&
-                !refreshPreviewBitmapTaskIsRunning() && time_now > last_preview_bitmap_time_ms + refresh_time) {
-            if (MyDebug.LOG)
+        if( want_preview_bitmap && preview_bitmap != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                !is_paused && !applicationInterface.isPreviewInBackground() &&
+                !refreshPreviewBitmapTaskIsRunning() && time_now > last_preview_bitmap_time_ms + refresh_time ) {
+            if( MyDebug.LOG )
                 Log.d(TAG, "refreshPreviewBitmap");
             // even if we're running the background task at a faster rate (due to zebra stripes etc), we still update the histogram
             // at the standard rate
@@ -8158,12 +8425,17 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         return isVideoRecording() && video_recorder_is_paused;
     }
 
-    public long getVideoTime() {
-        if (this.isVideoRecordingPaused()) {
-            return video_accumulated_time;
+    /** Returns the time of the current video.
+     *  In case of restarting due to max filesize (whether on Android 8+ or not), this includes the
+     *  total time of all the previous video files too, unless this_file_only==true;
+     */
+    public long getVideoTime(boolean this_file_only) {
+        long offset = this_file_only ? video_time_last_maxfilesize_restart : 0;
+        if( this.isVideoRecordingPaused() ) {
+            return video_accumulated_time - offset;
         }
         long time_now = System.currentTimeMillis();
-        return time_now - video_start_time + video_accumulated_time;
+        return time_now - video_start_time + video_accumulated_time - offset;
     }
 
     public long getVideoAccumulatedTime() {
@@ -8251,7 +8523,12 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
     }
 
     public Pair<Integer, Integer> getFocusPos() {
-        return new Pair<>(focus_screen_x, focus_screen_y);
+        // note, we don't store the screen coordinates, as they may become out of date in the
+        // screen orientation changes (if MainActivity.lock_to_landscape==false)
+        float [] coords = {focus_camera_x, focus_camera_y};
+        final Matrix matrix = getCameraToPreviewMatrix();
+        matrix.mapPoints(coords);
+        return new Pair<>((int)coords[0], (int)coords[1]);
     }
 
     public int getMaxNumFocusAreas() {
@@ -8303,7 +8580,20 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         return this.successfully_focused && System.currentTimeMillis() < this.successfully_focused_time + 5000;
     }
 
-    public CameraController.Face[] getFacesDetected() {
+    /** If non-null, this returned array will stored the currently detected faces (if face recognition
+     *  is enabled). The face.temp rect will store the face rectangle in screen coordinates.
+     */
+    public CameraController.Face [] getFacesDetected() {
+        if( faces_detected != null && faces_detected.length > 0 ) {
+            // note, we don't store the screen coordinates, as they may become out of date in the
+            // screen orientation changes (if MainActivity.lock_to_landscape==false)
+            final Matrix matrix = getCameraToPreviewMatrix();
+            for(CameraController.Face face : faces_detected) {
+                face_rect.set(face.rect);
+                matrix.mapRect(face_rect);
+                face_rect.round(face.temp);
+            }
+        }
         // FindBugs warns about returning the array directly, but in fact we need to return direct access rather than copying, so that the on-screen display of faces rectangles updates
         return this.faces_detected;
     }
@@ -8316,5 +8606,23 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             return 1.0f;
         int zoom_factor = camera_controller.getZoom();
         return this.zoom_ratios.get(zoom_factor) / 100.0f;
+    }
+
+    public float getZoomRatio(int index) {
+        if( zoom_ratios == null )
+            return 1.0f;
+        return this.zoom_ratios.get(index)/100.0f;
+    }
+
+    public float getMinZoomRatio() {
+        if( zoom_ratios == null )
+            return 1.0f;
+        return this.zoom_ratios.get(0)/100.0f;
+    }
+
+    public float getMaxZoomRatio() {
+        if( zoom_ratios == null )
+            return 1.0f;
+        return this.zoom_ratios.get(max_zoom_factor)/100.0f;
     }
 }

@@ -142,7 +142,7 @@ public class PreferenceKeys {
 
     public static final String StampGPSFormatPreferenceKey = "preference_stamp_gpsformat";
 
-    public static final String StampGeoAddressPreferenceKey = "preference_stamp_geo_address";
+    //public static final String StampGeoAddressPreferenceKey = "preference_stamp_geo_address";
 
     public static final String UnitsDistancePreferenceKey = "preference_units_distance";
 
@@ -169,6 +169,8 @@ public class PreferenceKeys {
     //public static final String BackgroundPhotoSavingPreferenceKey = "preference_background_photo_saving";
 
     public static final String Camera2FakeFlashPreferenceKey = "preference_camera2_fake_flash";
+
+    public static final String Camera2DummyCaptureHackPreferenceKey = "preference_camera2_dummy_capture_hack";
 
     public static final String Camera2FastBurstPreferenceKey = "preference_camera2_fast_burst";
 
@@ -203,6 +205,10 @@ public class PreferenceKeys {
     public static final String SaveLocationPreferenceKey = "preference_save_location";
 
     public static final String SaveLocationSAFPreferenceKey = "preference_save_location_saf";
+
+    public static final String SaveLocationHistoryBasePreferenceKey = "save_location_history";
+
+    public static final String SaveLocationHistorySAFBasePreferenceKey = "save_location_history_saf";
 
     public static final String SavePhotoPrefixPreferenceKey = "preference_save_photo_prefix";
 
@@ -350,5 +356,6 @@ public class PreferenceKeys {
 
     public static final String ShutterSoundPreferenceKey = "preference_shutter_sound";
 
+    public static final String ImmersiveModePreferenceKey = "preference_immersive_mode";
     public static final String AddYPRToComments="preference_comment_ypr";
 }

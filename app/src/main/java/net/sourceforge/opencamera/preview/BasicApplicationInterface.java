@@ -3,11 +3,15 @@ package net.sourceforge.opencamera.preview;
 import java.util.Date;
 import java.util.List;
 
+import android.app.Activity;
 import android.graphics.Canvas;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Pair;
 import android.view.MotionEvent;
+
+import androidx.annotation.RequiresApi;
 
 import net.sourceforge.opencamera.cameracontroller.CameraController;
 import net.sourceforge.opencamera.cameracontroller.RawImage;
@@ -189,11 +193,6 @@ public abstract class BasicApplicationInterface implements ApplicationInterface 
     }
 
     @Override
-    public String getPreviewRotationPref() {
-        return "0";
-    }
-
-    @Override
     public String getLockOrientationPref() {
         return "none";
     }
@@ -270,7 +269,7 @@ public abstract class BasicApplicationInterface implements ApplicationInterface 
 
     @Override
     public int getZoomPref() {
-        return 0;
+        return -1;
     }
 
     @Override
@@ -286,6 +285,12 @@ public abstract class BasicApplicationInterface implements ApplicationInterface 
     @Override
     public boolean imageQueueWouldBlock(int n_raw, int n_jpegs) {
         return false;
+    }
+
+    @Override
+    public int getDisplayRotation() {
+        Activity activity = (Activity)this.getContext();
+        return activity.getWindowManager().getDefaultDisplay().getRotation();
     }
 
     @Override
@@ -349,6 +354,17 @@ public abstract class BasicApplicationInterface implements ApplicationInterface 
     }
 
     @Override
+    public boolean isCameraExtensionPref() {
+        return false;
+    }
+
+    @Override
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    public int getCameraExtensionPref() {
+        return 0;
+    }
+
+    @Override
     public float getAperturePref() {
         return -1.0f;
     }
@@ -366,6 +382,11 @@ public abstract class BasicApplicationInterface implements ApplicationInterface 
     @Override
     public int getMaxRawImages() {
         return 2;
+    }
+
+    @Override
+    public boolean useCamera2DummyCaptureHack() {
+        return false;
     }
 
     @Override
@@ -424,16 +445,16 @@ public abstract class BasicApplicationInterface implements ApplicationInterface 
     }
 
     @Override
-    public void stoppedVideo(int video_method, Uri uri, String filename) {
+    public void stoppedVideo(VideoMethod video_method, Uri uri, String filename) {
 
     }
 
     @Override
-    public void restartedVideo(final int video_method, final Uri uri, final String filename) {
+    public void restartedVideo(final VideoMethod video_method, final Uri uri, final String filename) {
     }
 
     @Override
-    public void deleteUnusedVideo(final int video_method, final Uri uri, final String filename) {
+    public void deleteUnusedVideo(final VideoMethod video_method, final Uri uri, final String filename) {
     }
 
     @Override
@@ -509,6 +530,10 @@ public abstract class BasicApplicationInterface implements ApplicationInterface 
     @Override
     public void multitouchZoom(int new_zoom) {
 
+    }
+
+    @Override
+    public void requestTakePhoto() {
     }
 
     @Override

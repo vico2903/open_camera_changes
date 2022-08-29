@@ -112,7 +112,6 @@
     <string name="preference_audio_noise_control_sensitivity_summary">Hangvezérlés zajszintérzékenysége</string>
     <string name="preference_save_location">Mentés helye</string>
     <string name="preference_save_location_summary">Fotók, videofájlok mentésének könyvtára</string>
-    <string name="preference_using_saf">Storage Access Framework használata</string>
     <string name="preference_using_saf_summary">Használja-e az Storage Access Frameworkjét a fotók és videók mentéséhez</string>
     <string name="preference_save_photo_prefix">Fotó fájlnév előtag</string>
     <string name="preference_save_photo_prefix_summary">A fényképek mentésekor használt fájlnév előtag</string>
@@ -274,7 +273,7 @@
     <string name="speech_recognizer_started">Mondd, hogy „csíííz”</string>
     <string name="audio_listener_started">Csinálj hangos zajt</string>
     <string name="auto_stabilise_info">Az auto-stabilizálás automatikusan elforgatja a fotókat, hogy szintben legyenek.\n\nNe felejtsd el, hogy a képek így kicsit kisebb felbontásúak lesznek (a forgatás és vágás miatt).</string>
-    <string name="raw_info">A DNG fájlok a kamera teljes, tömörítetlen és feldolgozatlan adatait tartalmazzák.\n\nA legtöbb galéria alkalmazás nem ismeri a DNG formátumot, érdemes helyette specializált alkalmazást használni, mint például a Snapseed vagy a Lightroom.\n\nMegjegyzendő, hogy az utófeldolgozó beállítások, mint a „Fotók feliratozása” és „Auto-stabilizálás” csak a JPEG képekre kerülnek rá, a DNG-re nem.\n\nA DNG fájlok sokkal több helyet foglalnak; egy fájlkezelő alkalmazás hasznos lehet a másolásukhoz, törlésükhöz.\n\nDNG fájlok csak Normál és DRO fotómódban mentődnek.</string>
+    <string name="raw_info">A DNG fájlok a kamera teljes, tömörítetlen és feldolgozatlan adatait tartalmazzák.\n\nA legtöbb galéria alkalmazás nem ismeri a DNG formátumot, érdemes helyette specializált alkalmazást használni.\n\nMegjegyzendő, hogy az utófeldolgozó beállítások, mint a „Fotók feliratozása” és „Auto-stabilizálás” csak a JPEG képekre kerülnek rá, a DNG-re nem.\n\nA DNG fájlok sokkal több helyet foglalnak; egy fájlkezelő alkalmazás hasznos lehet a másolásukhoz, törlésükhöz.\n\nDNG fájlok csak Normál és DRO fotómódban mentődnek.</string>
     <string name="hdr_info">A HDR mód változó fényerejű felvételek készítésénél hasznos. Úgy működik, hogy több felvételt kész különböző expozíciós idővel, és ezeket összekombinálva hozza létre a végleges képet.\n\nMegjegyzendő, hogy a HDR nem alkalmas gyorsan mozgó tárgyak fotózására, mert kevésbé pontos színvisszaadást eredményez.\n\nA HDR fotók készítése lassabb.</string>
     <string name="dont_show_again">Ne jelenjen meg újra</string>
     <string name="photo_mode">Fotómód</string>
@@ -291,9 +290,7 @@
     <string name="no_permission">ENGEDÉLY NEM ELÉRHETŐ</string>
     <string name="permission_rationale_title">Engedély szükséges</string>
     <string name="permission_rationale_camera">A kamera eléréséhez „kamera engedély” szükséges</string>
-    <string name="permission_rationale_storage">A fotók mentéséhez írási/olvasási engedély szükséges</string>
-    <string name="permission_rationale_record_audio">Hangos videofelvétel készítéséhez mikrofon engedély szükséges</string>
-    <string name="permission_rationale_location">Geotaggeléshez helymeghatározás engedély szükséges</string>
+
     <string name="preference_category_photo_debugging">Hibakeresési lehetőségek</string>
     <string name="preference_category_video_debugging">Hibakeresési lehetőségek</string>
     <string name="preference_camera2_fake_flash">Alternatív vakukezelés használata</string>
@@ -481,6 +478,9 @@
     <string name="preference_immersive_mode_navigation">Csak a virtuális navigációs gombok elrejtése</string>
     <string name="preference_immersive_mode_gui">Kezelőfelület elrejtése</string>
     <string name="preference_immersive_mode_everything">Minden elrejtése</string>
-    <string name="next">Következő</string>
-    <string name="aperture">Rekesz</string>
+
+    <string name="preference_audio_control_none">Nincs</string>
+    <string name="preference_audio_control_noise">Hangos zaj</string>
+    <string name="preference_audio_control_voice">Hangutasítás: \"csíííz\"</string> <!-- note that cheese shouldn't be translated, as we listen for this no matter what language is being used -->
+
 </resources>

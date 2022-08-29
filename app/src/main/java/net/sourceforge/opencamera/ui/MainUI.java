@@ -31,6 +31,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import net.sourceforge.opencamera.MainActivity;
 import net.sourceforge.opencamera.MyApplicationInterface;
 import net.sourceforge.opencamera.MyDebug;
@@ -71,7 +73,9 @@ public class MainUI {
     private UIPlacement ui_placement = UIPlacement.UIPLACEMENT_RIGHT;
     private View top_icon = null;
     private boolean view_rotate_animation;
+    private float view_rotate_animation_start; // for MainActivity.lock_to_landscape==false
     private final static int view_rotate_animation_duration = 100; // duration in ms of the icon rotation animation
+    public final static int privacy_indicator_gap_dp = 24;
 
     private boolean immersive_mode;
     private boolean show_gui_photo = true; // result of call to showGUI() - false means a "reduced" GUI is displayed, whilst taking photo or video
@@ -153,6 +157,12 @@ public class MainUI {
         if (!view_rotate_animation) {
             view.setRotation(ui_rotation);
         }
+        if( !MainActivity.lock_to_landscape ) {
+            float start_rotation = view_rotate_animation_start + ui_rotation;
+            if( start_rotation >= 360.0f )
+                start_rotation -= 360.0f;
+            view.setRotation(start_rotation);
+        }
         float rotate_by = ui_rotation - view.getRotation();
         if (rotate_by > 181.0f)
             rotate_by -= 360.0f;
@@ -160,11 +170,29 @@ public class MainUI {
             rotate_by += 360.0f;
         // view.animate() modifies the view's rotation attribute, so it ends up equivalent to view.setRotation()
         // we use rotationBy() instead of rotation(), so we get the minimal rotation for clockwise vs anti-clockwise
-        view.animate().rotationBy(rotate_by).setDuration(view_rotate_animation_duration).setInterpolator(new AccelerateDecelerateInterpolator()).start();
+        if( main_activity.is_test && Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2 ) {
+            // We randomly get a java.lang.ArrayIndexOutOfBoundsException crash when running MainTests suite
+            // on Android emulator with Android 4.3, from deep below ViewPropertyAnimator.start().
+            // Unclear why this is - I haven't seen this on real devices and can't find out info about it.
+            view.setRotation(ui_rotation);
+        }
+        else {
+            view.animate().rotationBy(rotate_by).setDuration(view_rotate_animation_duration).setInterpolator(new AccelerateDecelerateInterpolator()).start();
+        }
     }
 
     public void layoutUI() {
         layoutUI(false);
+    }
+
+    public void layoutUIWithRotation(float view_rotate_animation_start) {
+        if( MyDebug.LOG )
+            Log.d(TAG, "layoutUIWithRotation: " + view_rotate_animation_start);
+        this.view_rotate_animation = true;
+        this.view_rotate_animation_start = view_rotate_animation_start;
+        layoutUI();
+        view_rotate_animation = false;
+        this.view_rotate_animation_start = 0.0f;
     }
 
     private UIPlacement computeUIPlacement() {
@@ -178,88 +206,146 @@ public class MainUI {
             debug_time = System.currentTimeMillis();
         }
 
+        MainActivity.SystemOrientation system_orientation = main_activity.getSystemOrientation();
+        boolean system_orientation_portrait = system_orientation == MainActivity.SystemOrientation.PORTRAIT;
+        boolean system_orientation_reversed_landscape = system_orientation == MainActivity.SystemOrientation.REVERSE_LANDSCAPE;
+        if( MyDebug.LOG ) {
+            Log.d(TAG, "    system_orientation = " + system_orientation);
+            Log.d(TAG, "    system_orientation_portrait? " + system_orientation_portrait);
+        }
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(main_activity);
         // we cache the preference_ui_placement to save having to check it in the draw() method
         this.ui_placement = computeUIPlacement();
         if (MyDebug.LOG)
             Log.d(TAG, "ui_placement: " + ui_placement);
-        // new code for orientation fixed to landscape
-        // the display orientation should be locked to landscape, but how many degrees is that?
-        int rotation = main_activity.getWindowManager().getDefaultDisplay().getRotation();
-        int degrees = 0;
-        switch (rotation) {
-            case Surface.ROTATION_0:
-                degrees = 0;
-                break;
-            case Surface.ROTATION_90:
-                degrees = 90;
-                break;
-            case Surface.ROTATION_180:
-                degrees = 180;
-                break;
-            case Surface.ROTATION_270:
-                degrees = 270;
-                break;
-            default:
-                break;
+        int relative_orientation;
+        if( MainActivity.lock_to_landscape ) {
+            // new code for orientation fixed to landscape
+            // the display orientation should be locked to landscape, but how many degrees is that?
+            int rotation = main_activity.getWindowManager().getDefaultDisplay().getRotation();
+            int degrees = 0;
+            switch (rotation) {
+                case Surface.ROTATION_0: degrees = 0; break;
+                case Surface.ROTATION_90: degrees = 90; break;
+                case Surface.ROTATION_180: degrees = 180; break;
+                case Surface.ROTATION_270: degrees = 270; break;
+                default:
+                    break;
+            }
+            // getRotation is anti-clockwise, but current_orientation is clockwise, so we add rather than subtract
+            // relative_orientation is clockwise from landscape-left
+            //int relative_orientation = (current_orientation + 360 - degrees) % 360;
+            relative_orientation = (current_orientation + degrees) % 360;
+            if( MyDebug.LOG ) {
+                Log.d(TAG, "    current_orientation = " + current_orientation);
+                Log.d(TAG, "    degrees = " + degrees);
+                Log.d(TAG, "    relative_orientation = " + relative_orientation);
+            }
         }
-        // getRotation is anti-clockwise, but current_orientation is clockwise, so we add rather than subtract
-        // relative_orientation is clockwise from landscape-left
-        //int relative_orientation = (current_orientation + 360 - degrees) % 360;
-        int relative_orientation = (current_orientation + degrees) % 360;
-        if (MyDebug.LOG) {
-            Log.d(TAG, "    current_orientation = " + current_orientation);
-            Log.d(TAG, "    degrees = " + degrees);
-            Log.d(TAG, "    relative_orientation = " + relative_orientation);
+        else {
+            relative_orientation = 0;
         }
         final int ui_rotation = (360 - relative_orientation) % 360;
         main_activity.getPreview().setUIRotation(ui_rotation);
-        int align_left = RelativeLayout.ALIGN_LEFT;
-        int align_right = RelativeLayout.ALIGN_RIGHT;
-        //int align_top = RelativeLayout.ALIGN_TOP;
-        //int align_bottom = RelativeLayout.ALIGN_BOTTOM;
-        int left_of = RelativeLayout.LEFT_OF;
-        int right_of = RelativeLayout.RIGHT_OF;
+        // naming convention for variables is for system_orientation==LANDSCAPE, right-handed UI
+        int align_left = system_orientation_portrait ? RelativeLayout.ALIGN_TOP : RelativeLayout.ALIGN_LEFT;
+        int align_right = system_orientation_portrait ? RelativeLayout.ALIGN_BOTTOM : RelativeLayout.ALIGN_RIGHT;
+        int align_top = system_orientation_portrait ? RelativeLayout.ALIGN_RIGHT : RelativeLayout.ALIGN_TOP;
+        int align_bottom = system_orientation_portrait ? RelativeLayout.ALIGN_LEFT : RelativeLayout.ALIGN_BOTTOM;
+        int left_of = system_orientation_portrait ? RelativeLayout.ABOVE : RelativeLayout.LEFT_OF;
+        int right_of = system_orientation_portrait ? RelativeLayout.BELOW : RelativeLayout.RIGHT_OF;
+        int above = system_orientation_portrait ? RelativeLayout.RIGHT_OF : RelativeLayout.ABOVE;
+        int below = system_orientation_portrait ? RelativeLayout.LEFT_OF : RelativeLayout.BELOW;
+        int ui_independent_left_of = left_of;
+        int ui_independent_right_of = right_of;
+        int ui_independent_above = above;
+        int ui_independent_below = below;
+        int align_parent_left = system_orientation_portrait ? RelativeLayout.ALIGN_PARENT_TOP : RelativeLayout.ALIGN_PARENT_LEFT;
+        int align_parent_right = system_orientation_portrait ? RelativeLayout.ALIGN_PARENT_BOTTOM : RelativeLayout.ALIGN_PARENT_RIGHT;
+        int align_parent_top = system_orientation_portrait ? RelativeLayout.ALIGN_PARENT_RIGHT : RelativeLayout.ALIGN_PARENT_TOP;
+        int align_parent_bottom = system_orientation_portrait ? RelativeLayout.ALIGN_PARENT_LEFT : RelativeLayout.ALIGN_PARENT_BOTTOM;
+        int center_horizontal = system_orientation_portrait ? RelativeLayout.CENTER_VERTICAL : RelativeLayout.CENTER_HORIZONTAL;
+        int center_vertical = system_orientation_portrait ? RelativeLayout.CENTER_HORIZONTAL : RelativeLayout.CENTER_VERTICAL;
+
         int iconpanel_left_of = left_of;
         int iconpanel_right_of = right_of;
-        int above = RelativeLayout.ABOVE;
-        int below = RelativeLayout.BELOW;
         int iconpanel_above = above;
         int iconpanel_below = below;
-        int align_parent_left = RelativeLayout.ALIGN_PARENT_LEFT;
-        int align_parent_right = RelativeLayout.ALIGN_PARENT_RIGHT;
         int iconpanel_align_parent_left = align_parent_left;
         int iconpanel_align_parent_right = align_parent_right;
-        int align_parent_top = RelativeLayout.ALIGN_PARENT_TOP;
-        int align_parent_bottom = RelativeLayout.ALIGN_PARENT_BOTTOM;
         int iconpanel_align_parent_top = align_parent_top;
         int iconpanel_align_parent_bottom = align_parent_bottom;
-        if (ui_placement == UIPlacement.UIPLACEMENT_LEFT) {
-            above = RelativeLayout.BELOW;
-            below = RelativeLayout.ABOVE;
-            align_parent_top = RelativeLayout.ALIGN_PARENT_BOTTOM;
-            align_parent_bottom = RelativeLayout.ALIGN_PARENT_TOP;
+
+        if( system_orientation_reversed_landscape ) {
+            int temp = align_left;
+            align_left = align_right;
+            align_right = temp;
+            temp  = align_top;
+            align_top = align_bottom;
+            align_bottom = temp;
+            temp = left_of;
+            left_of = right_of;
+            right_of = temp;
+            temp = above;
+            above = below;
+            below = temp;
+
+            ui_independent_left_of = left_of;
+            ui_independent_right_of = right_of;
+            ui_independent_above = above;
+            ui_independent_below = below;
+
+            temp = align_parent_left;
+            align_parent_left = align_parent_right;
+            align_parent_right = temp;
+            temp = align_parent_top;
+            align_parent_top = align_parent_bottom;
+            align_parent_bottom = temp;
+
+            iconpanel_left_of = left_of;
+            iconpanel_right_of = right_of;
+            iconpanel_above = above;
+            iconpanel_below = below;
+            iconpanel_align_parent_left = align_parent_left;
+            iconpanel_align_parent_right = align_parent_right;
             iconpanel_align_parent_top = align_parent_top;
             iconpanel_align_parent_bottom = align_parent_bottom;
-        } else if (ui_placement == UIPlacement.UIPLACEMENT_TOP) {
-            iconpanel_left_of = RelativeLayout.BELOW;
-            iconpanel_right_of = RelativeLayout.ABOVE;
-            iconpanel_above = RelativeLayout.LEFT_OF;
-            iconpanel_below = RelativeLayout.RIGHT_OF;
+        }
+
+        if( ui_placement == UIPlacement.UIPLACEMENT_LEFT ) {
+            int temp = above;
+            above = below;
+            below = temp;
+            temp = align_parent_top;
+            align_parent_top = align_parent_bottom;
+            align_parent_bottom = temp;
+            iconpanel_align_parent_top = align_parent_top;
+            iconpanel_align_parent_bottom = align_parent_bottom;
+        }
+        else if( ui_placement == UIPlacement.UIPLACEMENT_TOP ) {
+            iconpanel_left_of = below;
+            iconpanel_right_of = above;
+            iconpanel_above = left_of;
+            iconpanel_below = right_of;
             //noinspection SuspiciousNameCombination
-            iconpanel_align_parent_left = RelativeLayout.ALIGN_PARENT_BOTTOM;
+            iconpanel_align_parent_left = align_parent_bottom;
             //noinspection SuspiciousNameCombination
-            iconpanel_align_parent_right = RelativeLayout.ALIGN_PARENT_TOP;
+            iconpanel_align_parent_right = align_parent_top;
             //noinspection SuspiciousNameCombination
-            iconpanel_align_parent_top = RelativeLayout.ALIGN_PARENT_LEFT;
+            iconpanel_align_parent_top = align_parent_left;
             //noinspection SuspiciousNameCombination
-            iconpanel_align_parent_bottom = RelativeLayout.ALIGN_PARENT_RIGHT;
+            iconpanel_align_parent_bottom = align_parent_right;
         }
 
         Point display_size = new Point();
         Display display = main_activity.getWindowManager().getDefaultDisplay();
         display.getSize(display_size);
         final int display_height = Math.min(display_size.x, display_size.y);
+
+        final float scale = main_activity.getResources().getDisplayMetrics().density;
+        if( MyDebug.LOG )
+            Log.d(TAG, "scale: " + scale);
 
         /*int navigation_gap = 0;
 		if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 ) {
@@ -275,9 +361,34 @@ public class MainUI {
             }
         }*/
         int navigation_gap = main_activity.getNavigationGap();
+        int gallery_navigation_gap = navigation_gap;
+
+        int gallery_top_gap = 0;
+        {
+            // Leave space for the Android 12+ camera privacy indicator, as gallery icon would
+            // otherwise overlap when in landscape orientation.
+            // In theory we should use WindowInsets.getPrivacyIndicatorBounds() for this, but it seems
+            // to give a much larger value when required (leaving to a much larger gap), as well as
+            // obviously changing depending on orientation - but whilst this is only an issue for
+            // landscape orientation, it looks better to keep the position consistent for any
+            // orientation (otherwise the icons jump about when changing orientation, which looks
+            // especially bad for UIPLACEMENT_RIGHT.
+            // Not needed for UIPLACEMENT_LEFT - although still adjust the right hand side margin
+            // for consistency.
+            // We do for all Android versions for consistency (avoids testing overhead due to
+            // different behaviour on different Android versions).
+            if( ui_placement != UIPlacement.UIPLACEMENT_LEFT ) {
+                // if we did want to do this for UIPLACEMENT_LEFT for consistency, it'd be the
+                // "bottom" margin we need to change.
+                gallery_top_gap = (int) (privacy_indicator_gap_dp * scale + 0.5f); // convert dps to pixels
+            }
+            int privacy_indicator_gap = (int) (privacy_indicator_gap_dp * scale + 0.5f); // convert dps to pixels
+            gallery_navigation_gap += privacy_indicator_gap;
+        }
         test_navigation_gap = navigation_gap;
         if (MyDebug.LOG) {
             Log.d(TAG, "navigation_gap: " + navigation_gap);
+            Log.d(TAG, "gallery_navigation_gap: " + gallery_navigation_gap);
         }
 
         if (!popup_container_only) {
@@ -408,7 +519,9 @@ public class MainUI {
                             // is displayed (when taking a photo) if it is still shown left-most, rather than centred; also
                             // needed for "pause preview" trash/icons to be shown properly (test by rotating the phone to update
                             // the layout)
-                            layoutParams.setMargins(0, this_view == first_visible_view ? topMargin : margin / 2, 0, this_view == last_visible_view ? topMargin : margin / 2);
+                            int margin_first = this_view==first_visible_view ? topMargin : margin/2;
+                            int margin_last = this_view==last_visible_view ? topMargin : margin/2;
+                            setMarginsForSystemUI(layoutParams, 0, margin_first, 0, margin_last);
                             layoutParams.width = button_size;
                             layoutParams.height = button_size;
                             this_view.setLayoutParams(layoutParams);
@@ -423,12 +536,20 @@ public class MainUI {
                 }
             } else {
                 // need to reset size/margins to their default
-                for (View this_view : buttons_permanent) {
-                    layoutParams = (RelativeLayout.LayoutParams) this_view.getLayoutParams();
-                    layoutParams.setMargins(0, 0, 0, 0);
-                    layoutParams.width = button_size;
-                    layoutParams.height = button_size;
-                    this_view.setLayoutParams(layoutParams);
+                // except for gallery, which still needs its margins set for navigation gap! (and we
+                // shouldn't change it's size, which isn't necessarily button_size)
+                view = main_activity.findViewById(R.id.gallery);
+                layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                setMarginsForSystemUI(layoutParams, 0, gallery_top_gap, gallery_navigation_gap, 0);
+                view.setLayoutParams(layoutParams);
+                for(View this_view : buttons_permanent) {
+                    if( this_view != view ) {
+                        layoutParams = (RelativeLayout.LayoutParams)this_view.getLayoutParams();
+                        layoutParams.setMargins(0, 0, 0, 0);
+                        layoutParams.width = button_size;
+                        layoutParams.height = button_size;
+                        this_view.setLayoutParams(layoutParams);
+                    }
                 }
             }
 
@@ -481,8 +602,12 @@ public class MainUI {
             layoutParams.addRule(align_right, 0);
             // layoutParams.addRule(left_of, R.id.zoom_seekbar);
             layoutParams.addRule(right_of, 0);
+            layoutParams.addRule(above, 0);
+            layoutParams.addRule(below, 0);
             layoutParams.addRule(align_parent_top, 0);
             layoutParams.addRule(align_parent_bottom, RelativeLayout.TRUE);
+            layoutParams.addRule(align_parent_left, 0);
+            layoutParams.addRule(align_parent_right, 0);
             view.setLayoutParams(layoutParams);
 
             view = main_activity.findViewById(R.id.focus_bracketing_target_seekbar);
@@ -494,12 +619,14 @@ public class MainUI {
             layoutParams.addRule(above, R.id.focus_seekbar);
             layoutParams.addRule(below, 0);
             view.setLayoutParams(layoutParams);
+
+            setFocusSeekbarsRotation();
         }
 
         if (!popup_container_only) {
             // set seekbar info
             int width_dp;
-            if (ui_rotation == 0 || ui_rotation == 180) {
+            if( !system_orientation_portrait && (ui_rotation == 0 || ui_rotation == 180) ) {
                 // landscape
                 width_dp = 350;
             } else {
@@ -513,7 +640,6 @@ public class MainUI {
             if (MyDebug.LOG)
                 Log.d(TAG, "width_dp: " + width_dp);
             int height_dp = 50;
-            final float scale = main_activity.getResources().getDisplayMetrics().density;
             int width_pixels = (int) (width_dp * scale + 0.5f); // convert dps to pixels
             int height_pixels = (int) (height_dp * scale + 0.5f); // convert dps to pixels
 
@@ -522,10 +648,14 @@ public class MainUI {
             view.setTranslationX(0.0f);
             view.setTranslationY(0.0f);
 
-            if (ui_rotation == 90 || ui_rotation == 270) {
+            if( system_orientation_portrait || ui_rotation == 90 || ui_rotation == 270 ) {
                 // portrait
-                view.setTranslationX(2 * height_pixels);
-            } else if (ui_rotation == 0) {
+                if( system_orientation_portrait )
+                    view.setTranslationY(2*height_pixels);
+                else
+                    view.setTranslationX(2*height_pixels);
+            }
+            else if( ui_rotation == 0 ) {
                 // landscape
                 view.setTranslationY(height_pixels);
             } else {
@@ -536,9 +666,12 @@ public class MainUI {
             /*
             // align sliders_container
             RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams)view.getLayoutParams();
-            if( ui_rotation == 90 || ui_rotation == 270 ) {
+            if( system_orientation_portrait || ui_rotation == 90 || ui_rotation == 270 ) {
                 // portrait
-                view.setTranslationX(2*height_pixels);
+                if( system_orientation_portrait )
+                    view.setTranslationY(2*height_pixels);
+                else
+                    view.setTranslationX(2*height_pixels);
                 lp.addRule(left_of, 0);
                 lp.addRule(right_of, 0);
                 lp.addRule(above, 0);
@@ -615,20 +748,35 @@ public class MainUI {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
             if (ui_placement == UIPlacement.UIPLACEMENT_TOP) {
                 layoutParams.addRule(align_right, 0);
+                layoutParams.addRule(align_bottom, 0);
+                layoutParams.addRule(align_left, 0);
+                layoutParams.addRule(align_top, 0);
                 layoutParams.addRule(above, 0);
                 layoutParams.addRule(below, 0);
                 layoutParams.addRule(left_of, 0);
                 layoutParams.addRule(right_of, R.id.top_bg);
-                layoutParams.addRule(align_parent_top, RelativeLayout.TRUE);
-                layoutParams.addRule(align_parent_bottom, RelativeLayout.TRUE);
-            } else {
+                layoutParams.addRule(align_parent_top, system_orientation_portrait ? 0 : RelativeLayout.TRUE);
+                layoutParams.addRule(align_parent_bottom, system_orientation_portrait ? 0 : RelativeLayout.TRUE);
+                layoutParams.addRule(align_parent_left, 0);
+                layoutParams.addRule(align_parent_right, 0);
+            }
+            else {
                 layoutParams.addRule(align_right, R.id.top_bg);
+                layoutParams.addRule(align_bottom, 0);
+                layoutParams.addRule(align_left, 0);
+                layoutParams.addRule(align_top, 0);
                 layoutParams.addRule(above, 0);
                 layoutParams.addRule(below, R.id.top_bg);
                 layoutParams.addRule(left_of, 0);
                 layoutParams.addRule(right_of, 0);
                 layoutParams.addRule(align_parent_top, 0);
-                layoutParams.addRule(align_parent_bottom, RelativeLayout.TRUE);
+                layoutParams.addRule(align_parent_bottom, system_orientation_portrait ? 0 : RelativeLayout.TRUE);
+                layoutParams.addRule(align_parent_left, 0);
+                layoutParams.addRule(align_parent_right, 0);
+            }
+            if( system_orientation_portrait ) {
+                // limit height so doesn't take up full height of screen
+                layoutParams.height = display_height;
             }
             view.setLayoutParams(layoutParams);
 
@@ -666,6 +814,57 @@ public class MainUI {
         if (MyDebug.LOG) {
             Log.d(TAG, "layoutUI: total time: " + (System.currentTimeMillis() - debug_time));
         }
+    }
+
+    /** Wrapper for layoutParams.setMargins, but where the margins are supplied for landscape orientation,
+     *  and if in portrait these are automatically rotated.
+     */
+    void setMarginsForSystemUI(RelativeLayout.LayoutParams layoutParams, int left, int top, int right, int bottom) {
+        MainActivity.SystemOrientation system_orientation = main_activity.getSystemOrientation();
+        if( system_orientation == MainActivity.SystemOrientation.PORTRAIT ) {
+            layoutParams.setMargins(bottom, left, top, right);
+        }
+        else if( system_orientation == MainActivity.SystemOrientation.REVERSE_LANDSCAPE ) {
+            layoutParams.setMargins(right, bottom, left, top);
+        }
+        else {
+            layoutParams.setMargins(left, top, right, bottom);
+        }
+    }
+
+    /** Some views (e.g. seekbars and zoom controls) are ones where we want to have a fixed
+     *  orientation as if in landscape mode, even if the system UI is portrait. So this method
+     *  sets a rotation so that the view appears as if in landscape orentation, and also sets
+     *  margins.
+     *  Note that Android has poor support for a rotated seekbar - we use view.setRotation(), but
+     *  this doesn't affect the bounds of the view! So as a hack, we modify the margins so the
+     *  view is positioned correctly. For this to work, the view must have a specified width
+     *  (which can be computed programmatically), rather than having both left and right sides being
+     *  aligned to another view.
+     *  The left/top/right/bottom margins should be supply for landscape orientation - these will
+     *  be automatically rotated if we're actually in portrait orientation.
+     */
+    private void setFixedRotation(View view, int left, int top, int right, int bottom) {
+        MainActivity.SystemOrientation system_orientation = main_activity.getSystemOrientation();
+        int rotation = (360 - MainActivity.getRotationFromSystemOrientation(system_orientation)) % 360;
+        view.setRotation(rotation);
+        // set margins due to rotation
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)view.getLayoutParams();
+        if( system_orientation == MainActivity.SystemOrientation.PORTRAIT ) {
+            int diff = (layoutParams.width-layoutParams.height)/2;
+            if( MyDebug.LOG )
+                Log.d(TAG, "diff: " + diff);
+            setMarginsForSystemUI(layoutParams, +diff+left, -diff+top, +diff+right, -diff+bottom);
+        }
+        else {
+            setMarginsForSystemUI(layoutParams, left, top, right, bottom);
+        }
+        view.setLayoutParams(layoutParams);
+    }
+
+    void setFocusSeekbarsRotation() {
+        setFixedRotation(main_activity.findViewById(R.id.focus_seekbar), 0, 0, 0, 0);
+        setFixedRotation(main_activity.findViewById(R.id.focus_bracketing_target_seekbar), 0, 0, 0, 0);
     }
 
     private void setPopupViewRotation(int ui_rotation, int display_height) {
@@ -871,13 +1070,19 @@ public class MainUI {
 
     }
 
-    public void onOrientationChanged(int orientation) {
+    // ParameterCanBeLocal warning suppressed as it's incorrect here! (Or
+    // possibly it's due to effect of MainActivity.lock_to_landscape always
+    // being false.)
+    public void onOrientationChanged(@SuppressWarnings("ParameterCanBeLocal") int orientation) {
 		/*if( MyDebug.LOG ) {
 			Log.d(TAG, "onOrientationChanged()");
 			Log.d(TAG, "orientation: " + orientation);
 			Log.d(TAG, "current_orientation: " + current_orientation);
 		}*/
-        if (orientation == OrientationEventListener.ORIENTATION_UNKNOWN)
+        if( !MainActivity.lock_to_landscape )
+            return;
+        // if locked to landscape, we need to handle the orientation change ourselves
+        if( orientation == OrientationEventListener.ORIENTATION_UNKNOWN )
             return;
         int diff = Math.abs(orientation - current_orientation);
         if (diff > 180)
@@ -924,6 +1129,10 @@ public class MainUI {
     public boolean showExposureLockIcon() {
         if (!main_activity.getPreview().supportsExposureLock())
             return false;
+        if( main_activity.getApplicationInterface().isCameraExtensionPref() ) {
+            // not supported for camera extensions
+            return false;
+        }
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(main_activity);
         return sharedPreferences.getBoolean(PreferenceKeys.ShowExposureLockPreferenceKey, true);
     }
@@ -931,6 +1140,10 @@ public class MainUI {
     public boolean showWhiteBalanceLockIcon() {
         if (!main_activity.getPreview().supportsWhiteBalanceLock())
             return false;
+        if( main_activity.getApplicationInterface().isCameraExtensionPref() ) {
+            // not supported for camera extensions
+            return false;
+        }
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(main_activity);
         return sharedPreferences.getBoolean(PreferenceKeys.ShowWhiteBalanceLockPreferenceKey, false);
     }
@@ -1014,8 +1227,10 @@ public class MainUI {
                 View settingsButton = main_activity.findViewById(R.id.settings);
                 View zoomControls = main_activity.findViewById(R.id.zoom);
                 View zoomSeekBar = main_activity.findViewById(R.id.zoom_seekbar);
+                View focusSeekBar = main_activity.findViewById(R.id.focus_seekbar);
+                View focusBracketingTargetSeekBar = main_activity.findViewById(R.id.focus_bracketing_target_seekbar);
                 View zoomSeekbarIcon = main_activity.findViewById(R.id.zoom_seekbar_icon);
-                if (main_activity.getPreview().getCameraControllerManager().getNumberOfCameras() > 1)
+                if( main_activity.getPreview().getCameraControllerManager().getNumberOfCameras() > 1 )
                     switchCameraButton.setVisibility(visibility);
                 if (main_activity.showSwitchMultiCamIcon())
                     switchMultiCameraButton.setVisibility(visibility);
@@ -1054,6 +1269,29 @@ public class MainUI {
                 if (main_activity.getPreview().supportsZoom() && sharedPreferences.getBoolean(PreferenceKeys.ShowZoomSliderControlsPreferenceKey, false)) {
                     zoomSeekBar.setVisibility(visibility);
                     zoomSeekbarIcon.setVisibility(visibility);
+                }
+                if( main_activity.showManualFocusSeekbar(false) )
+                    focusSeekBar.setVisibility(visibility);
+                if( main_activity.showManualFocusSeekbar(true) )
+                    focusBracketingTargetSeekBar.setVisibility(visibility);
+                String pref_immersive_mode = sharedPreferences.getString(PreferenceKeys.ImmersiveModePreferenceKey, "immersive_mode_low_profile");
+                if( pref_immersive_mode.equals("immersive_mode_everything") ) {
+                    if( sharedPreferences.getBoolean(PreferenceKeys.ShowTakePhotoPreferenceKey, true) ) {
+                        View takePhotoButton = main_activity.findViewById(R.id.take_photo);
+                        takePhotoButton.setVisibility(visibility);
+                    }
+                    if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && main_activity.getPreview().isVideoRecording() ) {
+                        View pauseVideoButton = main_activity.findViewById(R.id.pause_video);
+                        pauseVideoButton.setVisibility(visibility);
+                    }
+                    if( main_activity.getPreview().supportsPhotoVideoRecording() && main_activity.getApplicationInterface().usePhotoVideoRecording() && main_activity.getPreview().isVideoRecording() ) {
+                        View takePhotoVideoButton = main_activity.findViewById(R.id.take_photo_when_video_recording);
+                        takePhotoVideoButton.setVisibility(visibility);
+                    }
+                    if( main_activity.getApplicationInterface().getGyroSensor().isRecording() ) {
+                        View cancelPanoramaButton = main_activity.findViewById(R.id.cancel_panorama);
+                        cancelPanoramaButton.setVisibility(visibility);
+                    }
                 }
                 if (!immersive_mode) {
                     // make sure the GUI is set up as expected
@@ -1309,7 +1547,8 @@ public class MainUI {
         mSelectingExposureUIElement = false;
         if (isExposureUIOpen()) {
             closeExposureUI();
-        } else if (main_activity.getPreview().getCameraController() != null) {
+        }
+        else if( main_activity.getPreview().getCameraController() != null && main_activity.supportsExposureButton() ) {
             setupExposureUI();
             if (main_activity.getBluetoothRemoteControl().remoteEnabled()) {
                 initRemoteControlForExposureUI();
@@ -1496,23 +1735,23 @@ public class MainUI {
         int count = iso_buttons.size();
         int step = previous ? -1 : 1;
         boolean found = false;
-        for (int i = 0; i < count; i++) {
-            Button button = (Button) iso_buttons.get(i);
+        for(int i = 0; i < count; i++) {
+            Button button = (Button)iso_buttons.get(i);
             String button_text = "" + button.getText();
-            if (button_text.contains(current_iso)) {
+            if( ISOTextEquals(button_text, current_iso) ) {
                 found = true;
                 // Select next one, unless it's "Manual", which we skip since
                 // it's not practical in remote mode.
                 Button nextButton = (Button) iso_buttons.get((i + count + step) % count);
                 String nextButton_text = "" + nextButton.getText();
-                if (nextButton_text.contains("m")) {
-                    nextButton = (Button) iso_buttons.get((i + count + 2 * step) % count);
+                if( nextButton_text.contains("m") ) {
+                    nextButton = (Button) iso_buttons.get((i+count+ 2*step)%count);
                 }
                 nextButton.callOnClick();
                 break;
             }
         }
-        if (!found) {
+        if( !found ) {
             // For instance, we are in ISO manual mode and "M" is selected. default
             // back to "Auto" to avoid being stuck since we're with a remote control
             iso_buttons.get(0).callOnClick();
@@ -1530,11 +1769,11 @@ public class MainUI {
     private void selectExposureUILine() {
         if (MyDebug.LOG)
             Log.d(TAG, "selectExposureUILine");
-        if (!isExposureUIOpen()) { // Safety check
+        if( !isExposureUIOpen() ) { // Safety check
             return;
         }
 
-        if (mExposureLine == 0) { // ISO presets
+        if( mExposureLine == 0 ) { // ISO presets
             ViewGroup iso_buttons_container = main_activity.findViewById(R.id.iso_buttons);
             iso_buttons_container.setBackgroundColor(highlightColorExposureUIElement);
             //iso_buttons_container.setAlpha(1f);
@@ -1546,45 +1785,50 @@ public class MainUI {
             for (View view : iso_buttons) {
                 Button button = (Button) view;
                 String button_text = "" + button.getText();
-                if (button_text.contains(current_iso)) {
+                if( ISOTextEquals(button_text, current_iso) ) {
                     PopupView.setButtonSelected(button, true);
                     //button.setBackgroundColor(highlightColorExposureUIElement);
                     //button.setAlpha(0.3f);
                     found = true;
-                } else {
-                    if (button_text.contains("m")) {
+                }
+                else {
+                    if( button_text.contains("m") ) {
                         manualButton = button;
                     }
                     PopupView.setButtonSelected(button, false);
                     button.setBackgroundColor(Color.TRANSPARENT);
                 }
             }
-            if (!found && manualButton != null) {
+            if( !found && manualButton != null ) {
                 // We are in manual ISO, highlight the "M" button
                 PopupView.setButtonSelected(manualButton, true);
                 manualButton.setBackgroundColor(highlightColorExposureUIElement);
                 //manualButton.setAlpha(0.3f);
             }
             mSelectingExposureUIElement = true;
-        } else if (mExposureLine == 1) {
+        }
+        else if( mExposureLine == 1 ) {
             // ISO seek bar - change color
             View seek_bar = main_activity.findViewById(R.id.iso_seekbar);
             //seek_bar.setAlpha(0.1f);
             seek_bar.setBackgroundColor(highlightColorExposureUIElement);
             mSelectingExposureUIElement = true;
-        } else if (mExposureLine == 2) {
+        }
+        else if( mExposureLine == 2 ) {
             // ISO seek bar - change color
             View seek_bar = main_activity.findViewById(R.id.exposure_time_seekbar);
             //seek_bar.setAlpha(0.1f);
             seek_bar.setBackgroundColor(highlightColorExposureUIElement);
             mSelectingExposureUIElement = true;
-        } else if (mExposureLine == 3) {
+        }
+        else if ( mExposureLine == 3 ) {
             // Exposure compensation
             View container = main_activity.findViewById(R.id.exposure_container);
             //container.setAlpha(0.1f);
             container.setBackgroundColor(highlightColorExposureUIElement);
             mSelectingExposureUIElement = true;
-        } else if (mExposureLine == 4) {
+        }
+        else if( mExposureLine == 4 ) {
             // Manual white balance
             View container = main_activity.findViewById(R.id.white_balance_seekbar);
             //container.setAlpha(0.1f);
@@ -1713,14 +1957,14 @@ public class MainUI {
             values.add(CameraController.ISO_DEFAULT);
             values.add(manual_iso_value);
             iso_button_manual_index = 1; // must match where we place the manual button!
-            int[] iso_values = {50, 100, 200, 400, 800, 1600, 3200, 6400};
-            values.add("" + min_iso);
-            for (int iso_value : iso_values) {
-                if (iso_value > min_iso && iso_value < max_iso) {
-                    values.add("" + iso_value);
+            int [] iso_values = {50, 100, 200, 400, 800, 1600, 3200, 6400};
+            values.add(ISOToButtonText(min_iso));
+            for(int iso_value : iso_values) {
+                if( iso_value > min_iso && iso_value < max_iso ) {
+                    values.add(ISOToButtonText(iso_value));
                 }
             }
-            values.add("" + max_iso);
+            values.add(ISOToButtonText(max_iso));
             supported_isos = values;
         } else {
             supported_isos = preview.getSupportedISOs();
@@ -1760,9 +2004,10 @@ public class MainUI {
                         editor.putLong(PreferenceKeys.ExposureTimePreferenceKey, CameraController.EXPOSURE_TIME_DEFAULT);
                         editor.apply();
                         preview.showToast("ISO: " + toast_option, 0, true); // supply offset_y_dp to be consistent with preview.setExposure(), preview.setISO()
-                        main_activity.updateForSettings(""); // already showed the toast, so block from showing again
-                    } else if (old_iso.equals(CameraController.ISO_DEFAULT)) {
-                        if (MyDebug.LOG)
+                        main_activity.updateForSettings(true, ""); // already showed the toast, so block from showing again
+                    }
+                    else if( old_iso.equals(CameraController.ISO_DEFAULT) ) {
+                        if( MyDebug.LOG )
                             Log.d(TAG, "switched from auto to manual iso");
                         if (option.equals("m")) {
                             // if we used the generic "manual", then instead try to preserve the current iso if it exists
@@ -1795,9 +2040,10 @@ public class MainUI {
 
                         editor.apply();
                         preview.showToast("ISO: " + toast_option, 0, true); // supply offset_y_dp to be consistent with preview.setExposure(), preview.setISO()
-                        main_activity.updateForSettings(""); // already showed the toast, so block from showing again
-                    } else {
-                        if (MyDebug.LOG)
+                        main_activity.updateForSettings(true, ""); // already showed the toast, so block from showing again
+                    }
+                    else {
+                        if( MyDebug.LOG )
                             Log.d(TAG, "changed manual iso");
                         if (option.equals("m")) {
                             // if user selected the generic "manual", then just keep the previous non-ISO option
@@ -1876,9 +2122,30 @@ public class MainUI {
         //layoutUI(); // needed to update alignment of exposure UI
     }
 
-    /**
-     * If the exposure panel is open, updates the selected ISO button to match the current ISO value,
-     * if a continuous range of ISO values are supported by the camera.
+    /** Returns whether the ISO button with the supplied text is a match for the supplied iso.
+     *  Should only be used for Preview.supportsISORange()==true (i.e., full manual ISO).
+     */
+    public static boolean ISOTextEquals(String button_text, String iso) {
+        // Can't use equals(), due to the \n that Popupview.getButtonOptionString() inserts, and
+        // also good to make this general in case in future we support other text formats.
+        // We really want to check that iso is the last word in button_text.
+        if( button_text.endsWith(iso) ) {
+            return button_text.length()==iso.length() || Character.isWhitespace( button_text.charAt(button_text.length()-iso.length()-1) );
+        }
+        return false;
+    }
+
+    /** Returns the ISO button text for the supplied iso.
+     *  Should only be used for Preview.supportsISORange()==true (i.e., full manual ISO).
+     */
+    public static String ISOToButtonText(int iso) {
+        // n.b., if we change how the ISO is converted to a string for the button, will also need
+        // to update updateSelectedISOButton()
+        return "" + iso;
+    }
+
+    /** If the exposure panel is open, updates the selected ISO button to match the current ISO value,
+     *  if a continuous range of ISO values are supported by the camera.
      */
     public void updateSelectedISOButton() {
         if (MyDebug.LOG)
@@ -1896,7 +2163,7 @@ public class MainUI {
                 if (MyDebug.LOG)
                     Log.d(TAG, "button: " + button.getText());
                 String button_text = "" + button.getText();
-                if (button_text.contains(current_iso)) {
+                if( ISOTextEquals(button_text, current_iso) ) {
                     PopupView.setButtonSelected(button, true);
                     found = true;
                 } else {
@@ -2259,25 +2526,52 @@ public class MainUI {
                         }
 
                         UIPlacement ui_placement = computeUIPlacement();
+                        MainActivity.SystemOrientation system_orientation = main_activity.getSystemOrientation();
                         float pivot_x;
                         float pivot_y;
                         switch (ui_placement) {
                             case UIPLACEMENT_TOP:
-                                if (main_activity.getPreview().getUIRotation() == 270) {
+                                if( main_activity.getPreview().getUIRotation() == 270 ) {
+                                    // portrait (when not locked)
                                     pivot_x = 0.0f;
                                     pivot_y = 1.0f;
-                                } else {
+                                }
+                                else if( system_orientation == MainActivity.SystemOrientation.REVERSE_LANDSCAPE ) {
+                                    pivot_x = 1.0f;
+                                    pivot_y = 1.0f;
+                                }
+                                else {
                                     pivot_x = 0.0f;
                                     pivot_y = 0.0f;
                                 }
                                 break;
                             case UIPLACEMENT_LEFT:
-                                pivot_x = 1.0f;
-                                pivot_y = 1.0f;
+                                if( system_orientation == MainActivity.SystemOrientation.PORTRAIT ) {
+                                    pivot_x = 0.0f;
+                                    pivot_y = 1.0f;
+                                }
+                                else if( system_orientation == MainActivity.SystemOrientation.REVERSE_LANDSCAPE ) {
+                                    pivot_x = 0.0f;
+                                    pivot_y = 0.0f;
+                                }
+                                else {
+                                    pivot_x = 1.0f;
+                                    pivot_y = 1.0f;
+                                }
                                 break;
                             default:
-                                pivot_x = 1.0f;
-                                pivot_y = 0.0f;
+                                if( system_orientation == MainActivity.SystemOrientation.PORTRAIT ) {
+                                    pivot_x = 1.0f;
+                                    pivot_y = 1.0f;
+                                }
+                                else if( system_orientation == MainActivity.SystemOrientation.REVERSE_LANDSCAPE ) {
+                                    pivot_x = 0.0f;
+                                    pivot_y = 1.0f;
+                                }
+                                else {
+                                    pivot_x = 1.0f;
+                                    pivot_y = 0.0f;
+                                }
                                 break;
                         }
                         ScaleAnimation animation = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, pivot_x, Animation.RELATIVE_TO_SELF, pivot_y);
@@ -2403,17 +2697,18 @@ public class MainUI {
                         if (main_activity.getPreview().getCameraController() != null) {
                             String value = sharedPreferences.getString(PreferenceKeys.ISOPreferenceKey, CameraController.ISO_DEFAULT);
                             boolean manual_iso = !value.equals(CameraController.ISO_DEFAULT);
-                            if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-                                if (manual_iso) {
-                                    if (main_activity.getPreview().supportsISORange())
-                                        main_activity.changeISO(1);
-                                } else
+                            if(keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+                                if(manual_iso) {
+                                    main_activity.changeISO(1);
+                                }
+                                else
                                     main_activity.changeExposure(1);
-                            } else {
-                                if (manual_iso) {
-                                    if (main_activity.getPreview().supportsISORange())
-                                        main_activity.changeISO(-1);
-                                } else
+                            }
+                            else {
+                                if(manual_iso) {
+                                    main_activity.changeISO(-1);
+                                }
+                                else
                                     main_activity.changeExposure(-1);
                             }
                         }

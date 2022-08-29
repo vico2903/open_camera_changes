@@ -4,7 +4,9 @@ import net.sourceforge.opencamera.cameracontroller.CameraController;
 import net.sourceforge.opencamera.preview.Preview;
 import net.sourceforge.opencamera.ui.ArraySeekBarPreference;
 import net.sourceforge.opencamera.ui.FolderChooserDialog;
+import net.sourceforge.opencamera.ui.MyEditTextPreference;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
@@ -35,6 +37,7 @@ import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.TwoStatePreference;
 import androidx.annotation.Nullable;
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -113,6 +116,13 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
         final boolean using_android_l = bundle.getBoolean("using_android_l");
         if( MyDebug.LOG )
             Log.d(TAG, "using_android_l: " + using_android_l);
+
+        final int camera_orientation = bundle.getInt("camera_orientation");
+        if( MyDebug.LOG )
+            Log.d(TAG, "camera_orientation: " + camera_orientation);
+
+        final float min_zoom_factor = bundle.getFloat("min_zoom_factor");
+        final float max_zoom_factor = bundle.getFloat("max_zoom_factor");
 
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
 
@@ -290,9 +300,9 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                 entries[i] = "" + (i+1) + "%";
                 values[i] = "" + (i+1);
             }
-            ListPreference lp = (ListPreference)findPreference("preference_quality");
-            lp.setEntries(entries);
-            lp.setEntryValues(values);
+            ArraySeekBarPreference sp = (ArraySeekBarPreference)findPreference("preference_quality");
+            sp.setEntries(entries);
+            sp.setEntryValues(values);
         }
 
         {
@@ -643,20 +653,8 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
             pg.removePreference(pref);
         }
 
-        if( Build.VERSION.SDK_INT < Build.VERSION_CODES.N ) {
-            // the required ExifInterface tags requires Android N or greater
-            Preference pref = findPreference("preference_category_exif_tags");
-            PreferenceGroup pg = (PreferenceGroup)this.findPreference("preference_screen_photo_settings");
-            pg.removePreference(pref);
-
-            pref = findPreference("preference_comment_ypr");
-            pg = (PreferenceGroup)this.findPreference("preference_screen_location_settings");
-            pg.removePreference(pref);
-        }
-        else {
-            setSummary("preference_exif_artist");
-            setSummary("preference_exif_copyright");
-        }
+        setSummary("preference_exif_artist");
+        setSummary("preference_exif_copyright");
 
         setSummary("preference_save_photo_prefix");
         setSummary("preference_save_video_prefix");
@@ -701,6 +699,10 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
         if( !using_android_l ) {
             Preference pref = findPreference("preference_camera2_fake_flash");
             PreferenceGroup pg = (PreferenceGroup)this.findPreference("preference_category_photo_debugging");
+            pg.removePreference(pref);
+
+            pref = findPreference("preference_camera2_dummy_capture_hack");
+            pg = (PreferenceGroup)this.findPreference("preference_category_photo_debugging");
             pg.removePreference(pref);
 
             pref = findPreference("preference_camera2_fast_burst");
@@ -862,6 +864,24 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                     MainActivity main_activity = (MainActivity)MyPreferenceFragment.this.getActivity();
                     if( main_activity.getStorageUtils().isUsingSAF() ) {
                         main_activity.openFolderChooserDialogSAF(true);
+                        return true;
+                    }
+                    else if( MainActivity.useScopedStorage() ) {
+                        // we can't use an EditTextPreference (or MyEditTextPreference) due to having to support non-scoped-storage, or when SAF is enabled...
+                        // anyhow, this means we can share code when called from gallery long-press anyway
+                        AlertDialog.Builder alertDialog = main_activity.createSaveFolderDialog();
+                        final AlertDialog alert = alertDialog.create();
+                        // AlertDialog.Builder.setOnDismissListener() requires API level 17, so do it this way instead
+                        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface arg0) {
+                                if( MyDebug.LOG )
+                                    Log.d(TAG, "save folder dialog dismissed");
+                                dialogs.remove(alert);
+                            }
+                        });
+                        alert.show();
+                        dialogs.add(alert);
                         return true;
                     }
                     else {
@@ -1073,6 +1093,8 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                         about_string.append(is_multi_cam);
                         about_string.append("\nCamera API: ");
                         about_string.append(camera_api);
+                        about_string.append("\nCamera orientation: ");
+                        about_string.append(camera_orientation);
                         about_string.append("\nPhoto mode: ");
                         about_string.append(photo_mode_string==null ? "UNKNOWN" : photo_mode_string);
                         {
@@ -1082,6 +1104,10 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                                 about_string.append(last_video_error);
                             }
                         }
+                        about_string.append("\nMin zoom factor: ");
+                        about_string.append(min_zoom_factor);
+                        about_string.append("\nMax zoom factor: ");
+                        about_string.append(max_zoom_factor);
                         if( preview_widths != null && preview_heights != null ) {
                             about_string.append("\nPreview resolutions: ");
                             for(int i=0;i<preview_widths.length;i++) {
@@ -1330,17 +1356,14 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
 
                         // clickable text is only supported if we call setMovementMethod on the TextView - which means we need to create
                         // our own for the AlertDialog!
-                        final float scale = getActivity().getResources().getDisplayMetrics().density;
-                        TextView textView = new TextView(getActivity());
+                        @SuppressLint("InflateParams") // we add the view to the alert dialog in addTextViewForAlertDialog()
+                        final View dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.alertdialog_textview, null);
+                        final TextView textView = dialog_view.findViewById(R.id.text_view);
+
                         textView.setText(span);
                         textView.setMovementMethod(LinkMovementMethod.getInstance());
                         textView.setTextAppearance(getActivity(), android.R.style.TextAppearance_Medium);
-                        ScrollView scrollView = new ScrollView(getActivity());
-                        scrollView.addView(textView);
-                        // padding values from /sdk/platforms/android-18/data/res/layout/alert_dialog.xml
-                        textView.setPadding((int)(5*scale+0.5f), (int)(5*scale+0.5f), (int)(5*scale+0.5f), (int)(5*scale+0.5f));
-                        scrollView.setPadding((int)(14*scale+0.5f), (int)(2*scale+0.5f), (int)(10*scale+0.5f), (int)(12*scale+0.5f));
-                        alertDialog.setView(scrollView);
+                        addTextViewForAlertDialog(alertDialog, textView);
                         //alertDialog.setMessage(about_string);
 
                         alertDialog.setPositiveButton(android.R.string.ok, null);
@@ -1399,8 +1422,14 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MyPreferenceFragment.this.getActivity());
                         alertDialog.setTitle(R.string.preference_save_settings_filename);
 
-                        final EditText editText = new EditText(getActivity());
-                        alertDialog.setView(editText);
+                        final View dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.alertdialog_edittext, null);
+                        final EditText editText = dialog_view.findViewById(R.id.edit_text);
+
+                        editText.setSingleLine();
+                        // set hint instead of content description for EditText, see https://support.google.com/accessibility/android/answer/6378120
+                        editText.setHint(getResources().getString(R.string.preference_save_settings_filename));
+
+                        alertDialog.setView(dialog_view);
 
                         final MainActivity main_activity = (MainActivity)MyPreferenceFragment.this.getActivity();
                         try {
@@ -1521,8 +1550,21 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
         return inflater.inflate(R.layout.custom_preference_list, container, false);
     }
 
+    /** Adds a TextView to an AlertDialog builder, placing it inside a scrollview and adding appropriate padding.
+     */
+    private void addTextViewForAlertDialog(AlertDialog.Builder alertDialog, TextView textView) {
+        final float scale = getActivity().getResources().getDisplayMetrics().density;
+        ScrollView scrollView = new ScrollView(getActivity());
+        scrollView.addView(textView);
+        // padding values from /sdk/platforms/android-18/data/res/layout/alert_dialog.xml
+        textView.setPadding((int)(5*scale+0.5f), (int)(5*scale+0.5f), (int)(5*scale+0.5f), (int)(5*scale+0.5f));
+        scrollView.setPadding((int)(14*scale+0.5f), (int)(2*scale+0.5f), (int)(10*scale+0.5f), (int)(12*scale+0.5f));
+        alertDialog.setView(scrollView);
+    }
+
     /** Programmatically set up dependencies for preference types (e.g., ListPreference) that don't
-     *  support this in xml (such as SwitchPreference and CheckBoxPreference).
+     *  support this in xml (such as SwitchPreference and CheckBoxPreference), or where this depends
+     *  on the device (e.g., Android version).
      */
     private void setupDependencies() {
         // set up dependency for preference_audio_noise_control_sensitivity on preference_audio_control
@@ -1551,6 +1593,14 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                 }
             });
             setVideoProfileGammaDependency(pref.getValue()); // ensure dependency is enabled/disabled as required for initial value
+        }
+
+        if( !MyApplicationInterface.mediastoreSupportsVideoSubtitles() ) {
+            // video subtitles only supported with SAF on Android 11+
+            pref = (ListPreference)findPreference("preference_video_subtitle");
+            if( pref != null ) {
+                pref.setDependency("preference_using_saf");
+            }
         }
     }
 
@@ -1722,7 +1772,15 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
      */
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
         if( MyDebug.LOG )
-            Log.d(TAG, "onSharedPreferenceChanged");
+            Log.d(TAG, "onSharedPreferenceChanged: " + key);
+
+        if( key == null ) {
+            // On Android 11+, when targetting Android 11+, this method is called with key==null
+            // if preferences are cleared. Unclear if this happens here in practice, but return
+            // just in case.
+            return;
+        }
+
         Preference pref = findPreference(key);
         if( pref instanceof TwoStatePreference ) {
             TwoStatePreference twoStatePref = (TwoStatePreference)pref;
@@ -1741,7 +1799,20 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
      */
     private void setSummary(String key) {
         Preference pref = findPreference(key);
+
+        //noinspection DuplicateCondition
         if( pref instanceof EditTextPreference ) {
+            /* We have a runtime check for using EditTextPreference - we don't want these due to importance of
+             * supporting the Google Play emoji policy (see comment in MyEditTextPreference.java) - and this
+             * helps guard against the risk of accidentally adding more EditTextPreferences in future.
+             * Once we've switched to using Android X Preference library, and hence safe to use EditTextPreference
+             * again, this code can be removed.
+             */
+            throw new RuntimeException("detected an EditTextPreference: " + key + " pref: " + pref);
+        }
+
+        //noinspection DuplicateCondition
+        if( pref instanceof EditTextPreference || pref instanceof MyEditTextPreference) {
             // %s only supported for ListPreference
             // we also display the usual summary if no preference value is set
             if( pref.getKey().equals("preference_exif_artist") ||
@@ -1755,8 +1826,18 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                     default_value = "IMG_";
                 else if( pref.getKey().equals("preference_save_video_prefix") )
                     default_value = "VID_";
-                EditTextPreference editTextPref = (EditTextPreference)pref;
-                if( editTextPref.getText().equals(default_value) ) {
+
+                String current_value;
+                if( pref instanceof EditTextPreference ) {
+                    EditTextPreference editTextPref = (EditTextPreference)pref;
+                    current_value = editTextPref.getText();
+                }
+                else {
+                    MyEditTextPreference editTextPref = (MyEditTextPreference)pref;
+                    current_value = editTextPref.getText();
+                }
+
+                if( current_value.equals(default_value) ) {
                     switch (pref.getKey()) {
                         case "preference_exif_artist":
                             pref.setSummary(R.string.preference_exif_artist_summary);
@@ -1777,7 +1858,7 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                 }
                 else {
                     // non-default value, so display the current value
-                    pref.setSummary(editTextPref.getText());
+                    pref.setSummary(current_value);
                 }
             }
         }
@@ -1806,6 +1887,10 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                     fragment.setModeFolder(false);
                     fragment.setExtension(".xml");
                     fragment.setStartFolder(main_activity.getStorageUtils().getSettingsFolder());
+                    if( MainActivity.useScopedStorage() ) {
+                        // since we use File API to load, don't allow going outside of the application's folder, as we won't be able to read those files!
+                        fragment.setMaxParent(main_activity.getExternalFilesDir(null));
+                    }
                     fragment.show(getFragmentManager(), "FOLDER_FRAGMENT");
                 }
             }
