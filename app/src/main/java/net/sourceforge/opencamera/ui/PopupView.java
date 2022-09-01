@@ -44,6 +44,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ImageView.ScaleType;
 
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.SwitchCompat;
 
 /** This defines the UI for the "popup" button, that provides quick access to a
@@ -1844,8 +1845,8 @@ public class PopupView extends LinearLayout {
             @SuppressLint("InflateParams")
             final View ll2 = LayoutInflater.from(this.getContext()).inflate(R.layout.popupview_arrayoptions, null);
             final TextView text_view = ll2.findViewById(R.id.text_view);
-            final ImageButton prev_button = ll2.findViewById(R.id.button_left);
-            final ImageButton next_button = ll2.findViewById(R.id.button_right);
+            final AppCompatImageButton prev_button = ll2.findViewById(R.id.button_left);
+            final AppCompatImageButton next_button = ll2.findViewById(R.id.button_right);
 
             setArrayOptionsText(supported_options, title, text_view, title_in_options, title_in_options_first_only, current_index);
             //text_view.setBackgroundColor(Color.GRAY); // debug
@@ -1861,8 +1862,6 @@ public class PopupView extends LinearLayout {
 
             final float scale = getResources().getDisplayMetrics().density;
             final int padding = (int) (0 * scale + 0.5f); // convert dps to pixels
-            prev_button.setBackgroundColor(Color.TRANSPARENT); // workaround for Android 6 crash!
-            prev_button.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_arrow_left));
             prev_button.setPadding(padding, padding, padding, padding);
             ViewGroup.LayoutParams vg_params = prev_button.getLayoutParams();
             vg_params.width = arrow_button_w;
@@ -1875,8 +1874,6 @@ public class PopupView extends LinearLayout {
             //ll2.addView(text_view);
             main_activity.getMainUI().getTestUIButtonsMap().put(test_key, text_view);
 
-            next_button.setBackgroundColor(Color.TRANSPARENT); // workaround for Android 6 crash!
-            next_button.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_arrow_right));
             next_button.setPadding(padding, padding, padding, padding);
             vg_params = next_button.getLayoutParams();
             vg_params.width = arrow_button_w;
