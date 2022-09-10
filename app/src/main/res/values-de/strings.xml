@@ -871,7 +871,7 @@
     <string name="preference_audio_control_voice">Sprachkommando: \"cheese\"</string>
     <!-- note that cheese shouldn't be translated, as we listen for this no matter what language is being used -->
     <string name="permission_rationale_storage">Für das Speichern von Dateien wie Fotos oder Videos ist eine Lese-/Schreibberechtigung erforderlich</string>
-    <string name="permission_rationale_record_audio">Die Berechtigung zur Nutzung des Mikrofons ist erforderlich, um Videos mit Ton aufzunehmen oder die Optionen der \"Audiosteuerung\" zu nutzen</string>
+    <string name="permission_rationale_record_audio">Die Berechtigung zur Nutzung des Mikrofons ist erforderlich, um Videos mit Ton aufzunehmen oder die Optionen der „Audiosteuerung“ zu nutzen</string>
     <string name="preference_edge_mode_summary">Der Algorithmus, den der Kameratreiber für Kantenglättung verwenden sollte. Kantenglättung verbessert die Schärfe und die Details des aufgenommenen Bildes. (Diese Einstellung wird im Fotomodus NR ignoriert.)
 \n%s</string>
 </resources>
