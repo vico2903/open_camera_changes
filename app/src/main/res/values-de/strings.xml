@@ -768,7 +768,7 @@
     <string name="preference_preview">Kamera-Vorschau…</string>
     <string name="cycle_flash">Blitz-Optionen</string>
     <string name="preference_show_cycle_flash">Zeige Blitz-Icon</string>
-    <string name="preference_show_cycle_flash_summary">Anzeigen eines Symbols für die Blitz-Optionen-Auswahl direkt auf dem Bildschirm, anstelle der Auswahl per Popup-Menü</string>
+    <string name="preference_show_cycle_flash_summary">Anzeigen eines Symbols für die Blitz-Optionen-Auswahl direkt auf dem Bildschirm, anstelle der Auswahl per Popup-Menü. Bedenke, dass die Taschenlampe mit diesem Symbol nicht verfügbar ist.</string>
     <string name="preference_raw_expo_bracketing">RAW für Belichtungsreihe</string>
     <string name="preference_raw_expo_bracketing_summary">Speichert die Fotos von Belichtungsreihen (Expo {}) auch im RAW-Format (oder für HDR-Modus, wenn \"Speichere alle Fotos für HDR-Modus\" gewählt ist). Ist die Option \"RAW für Belichtungsreihe\" nicht ausgewählt, werden in diesen Modi nur JPEGs gespeichert.</string>
     <string name="preference_raw_focus_bracketing">RAW für Fokus-Reihe</string>
