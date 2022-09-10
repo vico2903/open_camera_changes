@@ -768,7 +768,7 @@
     <string name="preference_preview">Kamera-Vorschau…</string>
     <string name="cycle_flash">Blitz-Optionen</string>
     <string name="preference_show_cycle_flash">Zeige Blitz-Icon</string>
-    <string name="preference_show_cycle_flash_summary">Anzeigen eines Symbols für die Blitz-Optionen-Auswahl direkt auf dem Bildschirm, anstelle der Auswahl per Popup-Menü. Bedenke, dass die Taschenlampe mit diesem Symbol nicht verfügbar ist.</string>
+    <string name="preference_show_cycle_flash_summary">Anzeigen eines Symbols für die Blitz-Optionen-Auswahl direkt auf dem Bildschirm, anstelle der Auswahl per Popup-Menü. Beachte, dass die Taschenlampe nicht verfügbar ist, wenn dieses Symbol aktiviert ist.</string>
     <string name="preference_raw_expo_bracketing">RAW für Belichtungsreihe</string>
     <string name="preference_raw_expo_bracketing_summary">Speichert die Fotos von Belichtungsreihen (Expo {}) auch im RAW-Format (oder für HDR-Modus, wenn \"Speichere alle Fotos für HDR-Modus\" gewählt ist). Ist die Option \"RAW für Belichtungsreihe\" nicht ausgewählt, werden in diesen Modi nur JPEGs gespeichert.</string>
     <string name="preference_raw_focus_bracketing">RAW für Fokus-Reihe</string>
@@ -799,23 +799,19 @@
     <string name="exposure_compensation_seekbar">Suchfeld zur Änderung der Belichtungskorrektur</string>
     <string name="preference_image_format_summary">Wähle das Dateiformat zum Speichern der Fotos. Das wirkt sich nur auf \"Standard-\" (nicht RAW-) Fotos aus. Merke: Das PNG-Format ist nicht verlustlos, es wird aus einem JPEG mit 100%%iger Qualität konvertiert.\n%s</string>
     <string name="preference_camera_api">Camera-API</string>
-    <string name="preference_camera_api_summary">Wähle das Camera2-API um extra Features wie manuelle Modi für Belichtung, Fokus, Weißabgleich sowie RAW-Format (falls vom Gerät unterstützt) zu nutzen. Die Änderung des API verursacht einen Neustart der App.\n%s</string>
-    <string name="preference_camera_api_old">Original Camera-API</string>
+    <string name="preference_camera_api_summary">Wähle die Kamera2-API, um extra Funktionen wie manuelle Modi für Belichtung, Fokus, Weißabgleich sowie RAW-Format (falls vom Gerät unterstützt) zu nutzen. Die Änderung der API wird einen Neustart der App auslösen.
+\n%s</string>
+    <string name="preference_camera_api_old">Originale Kamera-API</string>
     <string name="preference_camera_api_camera2">Camera2-API</string>
     <string name="preference_audio_control_summary">Foto/Video aufnehmen, wenn ein Geräusch erkannt wird.
         Wenn aktiviert, nutze die Mikrofon-Taste auf dem Bildschirm, um die Erkennung zu starten/stoppen.
         \n%s</string>
     <!-- beware of string being too long to display! -->
-    <string name="preference_stamp_geo_address_summary">Wenn möglich, nutze eine Adresse bei der Speicherung des GPS Standorts.
-        Diese Option erfordert, dass Ihr Gerät Standortdaten über das Internet an einen Dritten überträgt,
-        um GPS in eine Adresse umzuwandeln. Siehe https://developer.android.com/reference/android/location/Geocoder .
-        Gibt keine Garantien für Verfügbarkeit oder Genauigkeit. Es wird nicht garantiert, dass die Ergebnisse aussagekräftig oder korrekt sind.
-        \n%s</string>
-    <string name="intro_text">Zum Fokussieren berühren und blaue Kamerataste drücken, um Bilder aufzunehmen.
-        \n\nUm die maximale Bildschirmhelligkeit zu deaktivieren, siehe Einstellungen/Benutzeroberfläche/\"Maximale Helligkeit erzwingen\".
-        Zur Speicherung auf der SD-Karte auf Android 5+, siehe Einstellungen/Mehr Kamera-Einstellungen…/\"Storage Access Framework\".
-        Für weitere Hilfe, klicke auf  \"Online-Hilfe\" in den Einstellungen.
-    </string>
+    <string name="preference_stamp_geo_address_summary">Wenn möglich, nutze eine Adresse bei der Speicherung des GPS Standorts. Diese Option erfordert, dass Ihr Gerät Standortdaten über das Internet an einen Dritten überträgt, um GPS-Koordinaten in eine Adresse umzuwandeln. Siehe https://developer.android.com/reference/android/location/Geocoder. Es gibt keine Garantien für Verfügbarkeit oder Genauigkeit. Es wird nicht garantiert, dass die Ergebnisse aussagekräftig oder korrekt sind.
+\n%s</string>
+    <string name="intro_text">Zum Fokussieren berühren, und die weiße Kamerataste drücken, um Bilder aufzunehmen.
+\n
+\nUm die maximale Bildschirmhelligkeit zu deaktivieren, siehe Einstellungen/Benutzeroberfläche/„Maximale Helligkeit erzwingen“. Zur Speicherung auf der SD-Karte auf Android 5+, siehe Einstellungen/Mehr Kamera-Einstellungen…/„Storage Access Framework“. Für weitere Hilfe tippe auf „Online-Hilfe“ in den Einstellungen.</string>
     <string name="preference_select_remote">Wähle eine Fernsteuerung</string>
     <string name="preference_video_rec709">REC709</string>
     <string name="preference_video_srgb">sRGB</string>
@@ -874,4 +870,28 @@
     <string name="permission_rationale_record_audio">Die Berechtigung zur Nutzung des Mikrofons ist erforderlich, um Videos mit Ton aufzunehmen oder die Optionen der „Audiosteuerung“ zu nutzen</string>
     <string name="preference_edge_mode_summary">Der Algorithmus, den der Kameratreiber für Kantenglättung verwenden sollte. Kantenglättung verbessert die Schärfe und die Details des aufgenommenen Bildes. (Diese Einstellung wird im NR Fotomodus ignoriert.)
 \n%s</string>
+    <string name="skip_button_label">Überspringen</string>
+    <string name="next_button_label">Weiter</string>
+    <string name="back_button_label">Zurück</string>
+    <string name="preferences_service_terms">Nutzungsbedingungen</string>
+    <string name="preferences_app_info_title">Information über Kamera</string>
+    <string name="photo_mode_x_beauty_full">Erweiterung: Gesichtsverschönerung</string>
+    <string name="photo_mode_x_beauty">X-Bty</string>
+    <string name="photo_mode_x_bokeh_full">Erweiterung: Bokeh</string>
+    <string name="photo_mode_x_bokeh">X-Bokeh</string>
+    <string name="photo_mode_x_night_full">Erweiterung: Nacht</string>
+    <string name="photo_mode_x_night">X-Nacht</string>
+    <string name="photo_mode_x_hdr_full">Erweiterung: HDR</string>
+    <string name="photo_mode_x_hdr">X-HDR</string>
+    <string name="photo_mode_x_auto_full">Erweiterung: Auto</string>
+    <string name="photo_mode_x_auto">X-Auto</string>
+    <string name="permission_rationale_bluetooth_scan_connect">Bluetooth Suche- und Verbindungsberechtigungen sind notwendig, damit Bluetooth LE-Fernbedienungen gefunden und verbunden werden können.</string>
+    <string name="preference_edge_mode">Kantenglättung-Algorithmus</string>
+    <string name="preferences_authors">Autoren</string>
+    <string name="preferences_about_app">Kamera ist eine Abänderung von OpenCamera</string>
+    <string name="preferences_build_version">Build-Version</string>
+    <string name="preference_licence_google_icons">Material-Design-Symbole von Google</string>
+    <string name="preference_licence_open_camera_text">Kamera © 2013–2019 Mark Harman, veröffentlicht unter GPL v3 oder später. Tippe hier für den vollständigen Lizenztext.</string>
+    <string name="preference_licence_open_camera">Kamera</string>
+    <string name="preference_screen_licences">Open-Source-Lizenzen</string>
 </resources>
