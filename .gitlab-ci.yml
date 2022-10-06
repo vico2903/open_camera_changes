@@ -46,6 +46,7 @@ build:
     - git clone $CI_PROJECT_SSH_URL $CI_PROJECT_DIR
     - cd $CI_PROJECT_DIR
   script:
+    - git config http.sslverify false
     # update $UPSTREAM_BRANCH & tags
     - git fetch origin
     - git checkout $UPSTREAM_BRANCH
