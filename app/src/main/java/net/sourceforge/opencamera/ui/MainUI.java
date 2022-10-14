@@ -2499,7 +2499,7 @@ public class MainUI {
         if (MyDebug.LOG)
             Log.d(TAG, "flash_value: " + flash_value);
         if (main_activity.getMainUI().showCycleFlashIcon()) {
-            popup.setImageResource(lineageos.platform.R.drawable.ic_menu);
+            popup.setImageResource(R.drawable.ic_more);
         } else if (flash_value != null && flash_value.equals("flash_off")) {
             popup.setImageResource(R.drawable.popup_camera_flash_off);
         } else if (flash_value != null && (flash_value.equals("flash_torch") || flash_value.equals("flash_frontscreen_torch"))) {
@@ -2511,7 +2511,7 @@ public class MainUI {
         } else if (flash_value != null && flash_value.equals("flash_red_eye")) {
             popup.setImageResource(R.drawable.popup_camera_flash_red_eye);
         } else {
-            popup.setImageResource(lineageos.platform.R.drawable.ic_menu);
+            popup.setImageResource(R.drawable.ic_more);
         }
     }
 
