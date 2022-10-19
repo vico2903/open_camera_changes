@@ -721,7 +721,6 @@
     <string name="preference_water_type">Использовать Saltwater для более точных вычислений</string>
     <string name="preference_water_type_summary">При размещении под водой улучшает точность, если выбран правильный тип воды.</string>
     <string name="remote_connected">Удаленное устройство подключено</string>
-
     <string name="preference_stamp_geo_address">Использовать адреса</string>
     <!-- preference_stamp_geo_address_summary defined below -->
     <string name="preference_stamp_geo_address_both">По возможности показывать адреса вместе с GPS-координатами</string>
@@ -808,7 +807,6 @@
     <string name="preference_audio_control_summary">Снимать фото/видео при обнаружении шума или по голосовой команде.
         Если включено, используйте экранную кнопку микрофона для запуска/остановки слушания.
         \n%s</string>
-
     <!-- beware of string being too long to display! -->
     <string name="preference_stamp_geo_address_summary">По возможности использовать адрес при штамповании геолокации по GPS.
         Если включено ваше устройство будет передавать данные геолокации сторонним лицам для преобразования GPS в адрес (developer.android.com/reference/android/location/Geocoder).
@@ -818,11 +816,9 @@
 \n
 \nДля отключения максимальной яркости экрана перейдите в Настройки/Экранный интерфейс…/\"Максимальная яркость\". Для сохранения на SD-карту на Android 5+ перейдите в Настройки/Дополнительные настройки…/\"Использовать Storage Access Framework\". Для получения подробностей нажмите \"Помощь в Интернете\" в меню Настройки.</string>
     <string name="preference_select_remote">Выбрать удаленное устройство</string>
-
     <string name="preference_video_rec709">REC709</string>
     <string name="preference_video_srgb">sRGB</string>
     <string name="preference_video_gamma">Гамма</string>
-
     <string name="preference_video_profile_gamma">Значение гаммы видео</string>
     <string name="preference_video_profile_gamma_summary">Значение гаммы для видео при заданном профиле \"Гамма\"\n%s</string>
     <string name="preference_video_profile_gamma_1_6">1.6</string>
@@ -835,54 +831,64 @@
     <string name="preference_video_profile_gamma_2_4">2.4</string>
     <string name="preference_video_profile_gamma_2_6">2.6</string>
     <string name="preference_video_profile_gamma_2_8">2.8</string>
-
     <string name="preference_immersive_mode_off">Выключить</string>
     <string name="preference_immersive_mode_low_profile">Только приглушить кнопки навигации</string>
     <string name="preference_immersive_mode_navigation">Скрыть кнопки навигации</string>
     <string name="preference_immersive_mode_gui">Скрыть интерфейс</string>
     <string name="preference_immersive_mode_everything">Скрыть все</string>
-
     <string name="preference_ghost_image_alpha">Непрозрачность призрачного изображения</string>
     <string name="preference_ghost_image_alpha_summary">Значение альфа для призрачных изображений. Чем ниже значение, тем более прозрачным будет изображение, чем выше - тем более непрозрачным.\n%s</string>
-
     <string name="preference_zebra_stripes_foreground_color">Цвет полос зебры на переднем плане</string>
     <string name="preference_zebra_stripes_foreground_color_summary">Цвет на переднем плане при отображении полос зебры.\n%s</string>
     <string name="preference_zebra_stripes_background_color">Цвет полос зебры на заднем плане</string>
     <string name="preference_zebra_stripes_background_color_summary">Цвет на заднем плане при отображении полос зебры.\n%s</string>
-
     <string name="preference_zebra_stripes_color_black">Черный</string>
     <string name="preference_zebra_stripes_color_red">Красный</string>
     <string name="preference_zebra_stripes_color_orange">Оранжевый</string>
     <string name="preference_zebra_stripes_color_transparent">Прозрачный</string>
     <string name="preference_zebra_stripes_color_white">Белый</string>
-
     <string name="external_camera">Внешняя камера</string>
     <string name="ultrawide">Ультраширокая камера</string>
-
     <string name="switch_to_external_camera">Переключиться на внешнюю камеру</string>
     <string name="switch_to_unknown_camera">Переключить камеру</string>
     <string name="switch_multi_camera">Переключаться между несколькими камерами</string>
     <string name="preference_multi_cam_button">Значок нескольких камер</string>
     <string name="preference_multi_cam_button_summary">Если включено, использовать отдельные кнопки для переключения между фронтальной/задней камерами и между несколькими фронтальными/задними камерами. Если отключено, значок \"Переключить камеру\" будет циклически переключать все камеры.</string>
-
     <string name="preference_show_camera_id">Показать ID камеры</string>
     <string name="preference_show_camera_id_summary">Показывать номер ID текущей камеры на экране</string>
-
     <string name="preference_allow_long_press">Разрешать действия при долгом нажатии</string>
     <string name="preference_allow_long_press_summary">При возможности разрешать действия при долгом нажатии (например, долгое нажатие на галерею для изменения пути сохранения).</string>
-
     <string name="aperture">Апертура</string>
-
     <string name="error_features_4k">4K UHD</string>
     <string name="error_features_bitrate">Битрейт</string>
     <string name="error_features_frame_rate">Частота кадров</string>
     <string name="error_features_slow_motion">Замедление времени</string>
-
     <string name="preference_comment_ypr">Сохранять связанную систему координат</string>
     <string name="preference_comment_ypr_summary">Сохранять связанную систему координат устройства в EXIF фото в комментарии пользователя (только для формата JPEG)</string>
-
     <string name="preference_audio_control_none">Нет</string>
     <string name="preference_audio_control_noise">Громкий шум</string>
-    <string name="preference_audio_control_voice">Голосовая команда: \"cheese\"</string> <!-- note that cheese shouldn't be translated, as we listen for this no matter what language is being used -->
-
+    <string name="preference_audio_control_voice">Голосовая команда: \"cheese\"</string>
+    <!-- note that cheese shouldn't be translated, as we listen for this no matter what language is being used -->
+    <string name="preference_licence_google_icons_text">Камера использует набор иконок из Material Design от Google (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) под лицензией Apache версии 2.0. Некоторые значки включают модификации. Нажмите здесь для получения полного текста лицензии.</string>
+    <string name="preference_licence_google_icons">Значки Google Material Design</string>
+    <string name="preference_licence_open_camera_text">Камера © 2013-2019 Марк Харман, выпущена под лицензией GPL v3 или более поздней. Нажмите здесь для получения полного текста лицензии.</string>
+    <string name="preference_licence_open_camera">Камера</string>
+    <string name="preference_screen_licences">Open Source лицензии</string>
+    <string name="photo_mode_x_beauty_full">Расширение: Украшательства / Ретушь лица</string>
+    <string name="photo_mode_x_beauty">X-Укрошательства</string>
+    <string name="photo_mode_x_bokeh_full">Расширение: Боке</string>
+    <string name="photo_mode_x_bokeh">X-Боке</string>
+    <string name="photo_mode_x_night_full">Расширение: Ночь</string>
+    <string name="photo_mode_x_night">X-Ночь</string>
+    <string name="photo_mode_x_hdr_full">Расширение: HDR</string>
+    <string name="photo_mode_x_hdr">X-HDR</string>
+    <string name="photo_mode_x_auto_full">Расширение: Auto</string>
+    <string name="photo_mode_x_auto">X-Auto</string>
+    <string name="unknown_device_no_permission">Неизвестное устройство (разрешение на подключение Bluetooth недоступно)</string>
+    <string name="permission_rationale_bluetooth_scan_connect">Разрешения на сканирование/подключение Bluetooth необходимы для обнаружения и подключения к устройствам дистанционного управления работающим по Bluetooth LE.</string>
+    <string name="preference_camera2_dummy_capture_hack_summary">Попробуйте включить эту опцию, если у вашего устройства возникают проблемы при съемке фотографий в режимах HDR или Expo-фото (если Expo-изображения получаются с одинаковой экспозицией). Актуально только в том случае, если также включена опция быстрого HDR/Expo ниже.</string>
+    <string name="preference_camera2_dummy_capture_hack">Включить фиктивный захват HDR/expo fix</string>
+    <string name="array_seekbar_preference_seekbar">Панель поиска для изменения текущего значения предпочтения</string>
+    <string name="permission_rationale_record_audio">Доступ к микрофону требуется для записи видео со звуком, а также для использования опций \"Управление звуком\"</string>
+    <string name="permission_rationale_storage">Для сохранения результирующих файлов, таких как фотографии или видео, требуется разрешение на чтение/запись из хранилища</string>
 </resources>
