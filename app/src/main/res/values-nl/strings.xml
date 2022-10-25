@@ -269,7 +269,7 @@
 \n%s</string>
     <string name="preference_crop_guide">Toon hulplijnen voor bijsnijden</string>
     <string name="preference_free_memory_summary">Toon de resterende opslag ruimte van het toestel op het scherm</string>
-    <string name="preference_show_iso_summary">Geeft de huidige ISO waarde weer. In auto flits modus, een flits symbool zal ook aangeven wanneer de flits zal af gaan. (Vereist Camera2 API)</string>
+    <string name="preference_show_iso_summary">Geeft de huidige ISO waarde weer. (Vereist Camera2 API)</string>
     <string name="preference_show_zoom_slider_controls_summary">Toon de slider om de zoom te regelen</string>
     <string name="preference_show_zoom_slider_controls">Toon zoom slider</string>
     <string name="preference_show_zoom_controls_summary">Geeft -/+ knoppen om de zoom te regelen weer</string>
@@ -278,7 +278,7 @@
     <string name="preference_rotate_preview_summary">Optie om de voorbeeld weergave te draaien (heeft geen invloed op het resultaat van de opname)
 \n%s</string>
     <string name="preference_startup_focus_summary">Automatisch scherpstellen bij het opstarten van de app. Wanneer je een probleem hebt waardoor de flits ongevraagd aan gaat bij het starten, schakel je deze optie uit</string>
-    <string name="preference_using_saf_summary">Maak gebruik van Storage Access Framework om foto\'s en video\'s op te slaan. Vink dit aan (vanaf Android 5) om te kunnen opslaan op externe SD-cards.</string>
+    <string name="preference_using_saf_summary">Maak gebruik van Storage Access Framework om foto\'s en video\'s op te slaan. Vink dit aan (vanaf Android 5) om te kunnen opslaan op externe SD-cards. Vanaf android 10 moet dit ingeschakeld staan om bestanden op te slaan buiten de DCIM map.</string>
     <string name="preference_audio_noise_control_sensitivity_summary">Geluidniveau gevoeligheid voor harde geluiden</string>
     <string name="preference_zebra_stripes_100pc">100%</string>
     <string name="preference_burst_mode_40x">40x</string>
@@ -310,7 +310,7 @@
     <string name="bluetooth_current_remote">Huidige afstandbediening:</string>
     <string name="preference_show_cycle_raw_summary">Geeft een icoon weer op het scherm om de verschillende RAW modi te kunnen selecteren</string>
     <string name="preference_show_cycle_raw">Toon RAW icoon</string>
-    <string name="preference_show_cycle_flash_summary">Geeft een icoon weer op het scherm om de verschillende flash opties te kunnen selecteren, in plaats van flash opties in het pop-up menu</string>
+    <string name="preference_show_cycle_flash_summary">Geeft een icoon weer op het scherm om de verschillende flash opties te kunnen selecteren, in plaats van flash opties in het pop-up menu. De zaklamp is wel niet beschikbaar wanneer je dit icoon gebruikt.</string>
     <string name="preference_show_cycle_flash">Toon flash icoon</string>
     <string name="preference_preview">Camera preview…</string>
     <string name="remaining">Resterende</string>
@@ -662,7 +662,7 @@
     <string name="preference_camera2_fake_flash">Gebruik alternatieve flash methode</string>
     <string name="preference_category_video_debugging">Debugging opties</string>
     <string name="preference_category_photo_debugging">Debugging opties</string>
-    <string name="permission_rationale_location">Locatie toegang is vereist voor geo­tag­ging (Opslaan van locatie data in foto\'s en video\'s).</string>
+    <string name="permission_rationale_location">Locatie toegang is vereist voor geotag­ging (Opslaan van locatie data in foto\'s en video\'s, inclusief stempel en ondertitel opties). Locatie toegang is ook vereist (voor Android 11 en oudere versies) om te verbinden met Bluetooth LE afstandsbedieningen.</string>
     <string name="permission_rationale_storage">Opslag lees/schrijf toestemming is vereist om foto\'s op te slagen</string>
     <string name="permission_rationale_camera">Camera toestemming is vereist om de camera te activeren</string>
     <string name="preference_hdr_save_expo_summary">Wanneer ingeschakeld, dan zullen in HDR modus de drie basis-belichting afbeelding samen met de uiteindelijke HDR foto opgeslagen worden. Merk op dat het opslagen langer duurt, zeker in combinatie met opties zoals \"Foto Stempel\" of \"Auto-level\".</string>
@@ -673,7 +673,7 @@
 \nFoto\'s nemen in HDR modus gaat langzamer.</string>
     <string name="raw_info">DNG bestanden bevatten de volledige informatie van je camera, zonder compressie of bewerking.
 \n
-\nMerk op dat niet elke galerij app DNG bestanden herkent. DNG afbeeldingen kunnen gebruikt worden bij gespecialiseerde foto editors zoals Snapseed of Lightroom.
+\nMerk op dat niet elke galerij app DNG bestanden herkent. DNG afbeeldingen kunnen gebruikt worden bij gespecialiseerde foto editors.
 \n
 \nMerk op dat verschillende bewerking opties, waaronder Stempel foto\'s en Auto-level, enkel beschikbaar zijn bij niet-DNG (JPEG/enz) afbeeldingen.</string>
     <string name="parent_folder">Bovenliggende map</string>
@@ -721,7 +721,7 @@
     <string name="preference_camera2_photo_video_recording">Sta foto\'s toe tijdens video opname</string>
     <string name="preferences_app_info_title">Informatie over Camera</string>
     <string name="preference_screen_licences">Open Source licenties</string>
-    <string name="preference_image_format_summary">Selecteer het bestandsformaat om foto\'s op te slagen. Dit is van toepassing op \"standaard\" (niet RAW) foto\'s. Merk op dat het PNG niet werkelijk lossless is, maar in plaats daarvan geconverteerd is van JPEG aan 100%% kwaliteit.
+    <string name="preference_image_format_summary">Selecteer het bestandsformaat om foto\'s op te slagen. Dit is van toepassing op \"standaard\" (niet RAW) foto\'s. Opslag van Exif metadata wordt enkel bij JPEG bestanden ondersteund. Merk op dat het PNG niet werkelijk lossless is, maar in plaats daarvan geconverteerd vanuit JPEG aan 100%% kwaliteit.
 \n%s</string>
     <string name="aperture">Diafragma</string>
     <string name="preferences_about_app">Camera is gebaseerd op OpenCamera</string>
