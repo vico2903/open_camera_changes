@@ -863,7 +863,7 @@ public class MainActivity extends AppCompatActivity {
     void setDeviceDefaults() {
         if( MyDebug.LOG )
             Log.d(TAG, "setDeviceDefaults");
-        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         //boolean is_samsung = Build.MANUFACTURER.toLowerCase(Locale.US).contains("samsung");
         //boolean is_oneplus = Build.MANUFACTURER.toLowerCase(Locale.US).contains("oneplus");
         //boolean is_nexus = Build.MODEL.toLowerCase(Locale.US).contains("nexus");
@@ -878,6 +878,13 @@ public class MainActivity extends AppCompatActivity {
             //Log.d(TAG, "is_pixel_phone? " + is_pixel_phone);
             //Log.d(TAG, "is_pixel_xl_phone? " + is_pixel_xl_phone);
         }*/
+        if ( DeviceSettings.deviceUsingFakeFlash() ) {
+            if( MyDebug.LOG )
+                Log.d(TAG, "set fake flash for camera2");
+            final SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(PreferenceKeys.Camera2FakeFlashPreferenceKey, true);
+            editor.apply();
+        }
         /*if( is_samsung || is_oneplus ) {
             // The problems we used to have on Samsung Galaxy devices are now fixed, by setting
             // TEMPLATE_PREVIEW for the precaptureBuilder in CameraController2. This also fixes the

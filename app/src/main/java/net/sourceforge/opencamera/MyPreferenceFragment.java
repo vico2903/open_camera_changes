@@ -211,6 +211,18 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
             pg.removePreference(pref);
         }
 
+        if ( DeviceSettings.deviceUsingFakeFlash() ) {
+            if( MyDebug.LOG )
+                Log.d(TAG, "set fake flash for camera2");
+            Preference pref = findPreference(PreferenceKeys.Camera2FakeFlashPreferenceKey);
+            pref.setDefaultValue(true);
+            pref.setEnabled(false);
+
+            final SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(PreferenceKeys.Camera2FakeFlashPreferenceKey, true);
+            editor.apply();
+        }
+
         if( Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2 ) {
             // BluetoothLeService requires Android 4.3+
             Preference pref = findPreference("preference_screen_remote_control");
