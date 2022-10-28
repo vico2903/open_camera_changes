@@ -4033,6 +4033,13 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
             if (MyDebug.LOG)
                 Log.d(TAG, "getImageVideoRotation() lock to portrait, returns " + result);
             return result;
+        } else {
+            int cameraRotationOffset = camera_controller.getCameraOrientation();
+            boolean isFrontFacing = camera_controller.getFacing() == CameraController.Facing.FACING_FRONT;
+            int rotation = isFrontFacing ? cameraRotationOffset + getDisplayRotationDegrees() :
+                    cameraRotationOffset - getDisplayRotationDegrees();
+
+            current_rotation = (360 + rotation) % 360;
         }
         if (MyDebug.LOG)
             Log.d(TAG, "getImageVideoRotation() returns current_rotation " + current_rotation);
