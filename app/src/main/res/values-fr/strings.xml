@@ -303,7 +303,6 @@
         utilisent beaucoup d\'espace disque, un explorateur de fichiers peut être utilise pour faire le ménage.\n\nLes
         fichiers DNG ne sont enregistrés que dans le mode photo standard.
     </string>
-
     <string name="duration_unlimited">Illimité</string>
     <string name="duration_3s">3 secondes</string>
     <string name="duration_5s">5 secondes</string>
@@ -860,9 +859,8 @@
     <string name="preference_immersive_mode_navigation">Masquer uniquement les boutons de navigation virtuelle de l\'écran</string>
     <string name="preference_immersive_mode_gui">Masquer l\'interface graphique</string>
     <string name="preference_immersive_mode_everything">Tout masquer</string>
-
     <string name="preference_audio_control_none">Aucun</string>
     <string name="preference_audio_control_noise">Bruit fort</string>
-    <string name="preference_audio_control_voice">Commande vocale : « cheese »</string> <!-- note that cheese shouldn't be translated, as we listen for this no matter what language is being used -->
-
+    <string name="preference_audio_control_voice">Commande vocale : « cheese »</string>
+    <!-- note that cheese shouldn't be translated, as we listen for this no matter what language is being used -->
 </resources>
