@@ -341,7 +341,7 @@
     <string name="preference_show_geo_direction_lines">Zeige Kompass-Richtungslinien</string>
     <string name="preference_show_geo_direction_lines_summary">Zeige Kompass Richtungslinien</string>
     <string name="preference_video_subtitle">Video Untertitel</string>
-    <string name="preference_video_subtitle_summary">Erzeuge eine Untertiteldatei (.SRT) mit Datum und Uhrzeit sowie mit GPS-Daten, sofern GPS aktiviert ist. Für Android 11+ erfordert diese Option weitere aktivierbare Kamerasteuerungen/ Speicherzugriffssteuerungen
+    <string name="preference_video_subtitle_summary">Erzeuge eine Untertiteldatei (.SRT) mit Datum und Uhrzeit sowie mit GPS-Daten, sofern GPS aktiviert ist. (Für Android 11+ erfordert diese Option weitere aktivierbare Kamerasteuerungen/ Speicherzugriffssteuerungen)
 \n%s</string>
     <string name="duration_unlimited">Unbegrenzt</string>
     <string name="duration_3s">3 Sekunden</string>
@@ -900,4 +900,5 @@
     <string name="preference_licence_google_icons_text">Kamera verwendet Symbole von Googles Material Design-Icons (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) unter der Apache Lizenz Version 2.0. Einige Symbole wurden verändert. Tippe hier für den vollständigen Lizenztext.</string>
     <string name="unknown_device_no_permission">Unbekanntes Gerät (Bluetooth-Verbindungserlaubnis nicht verfügbar)</string>
     <string name="array_seekbar_preference_seekbar">Suchleiste zum Ändern des aktuellen Präferenzwertes</string>
+    <string name="preference_camera2_dummy_capture_hack">Dummy-HDR-Aufnahme/Expositionsberichtigung aktivieren</string>
 </resources>
