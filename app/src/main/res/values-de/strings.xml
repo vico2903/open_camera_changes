@@ -341,7 +341,8 @@
     <string name="preference_show_geo_direction_lines">Zeige Kompass-Richtungslinien</string>
     <string name="preference_show_geo_direction_lines_summary">Zeige Kompass Richtungslinien</string>
     <string name="preference_video_subtitle">Video Untertitel</string>
-    <string name="preference_video_subtitle_summary">Erzeuge eine Untertiteldatei (.SRT) mit Datum und Uhrzeit sowie mit GPS-Daten, sofern GPS aktiviert ist\n%s</string>
+    <string name="preference_video_subtitle_summary">Erzeuge eine Untertiteldatei (.SRT) mit Datum und Uhrzeit sowie mit GPS-Daten, sofern GPS aktiviert ist. Für Android 11+ erfordert diese Option weitere aktivierbare Kamerasteuerungen/ Speicherzugriffssteuerungen
+\n%s</string>
     <string name="duration_unlimited">Unbegrenzt</string>
     <string name="duration_3s">3 Sekunden</string>
     <string name="duration_5s">5 Sekunden</string>
