@@ -621,7 +621,7 @@
     <string name="stamp_disable">Désactiver l\'incrustation sur les photos</string>
     <string name="stamp_enable">Activer l\'incrustation sur les photos</string>
     <string name="preference_show_stamp_summary">Afficher ou non à l\'écran une icône permettant d\'activer ou de désactiver l\'incrustation sur les photos</string>
-    <string name="preference_show_stamp">Afficher l\'icône d\'incrustation photo</string>
+    <string name="preference_show_stamp">Afficher l\'icône d\'incrustation</string>
     <string name="preference_units_distance_summary">Utilisé pour l\'altitude GPS dans l\'incrustation sur les photos et dans les sous-titres vidéo
 \n%s</string>
     <string name="face_detection_disabled">Reconnaissance des visages désactivée</string>
