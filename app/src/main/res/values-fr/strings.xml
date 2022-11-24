@@ -860,4 +860,9 @@
     <string name="preference_audio_control_noise">Bruit fort</string>
     <string name="preference_audio_control_voice">Commande vocale : « cheese »</string>
     <!-- note that cheese shouldn't be translated, as we listen for this no matter what language is being used -->
+    <string name="preference_zebra_stripes_99pc">99%</string>
+    <string name="preference_zebra_stripes_98pc">98%</string>
+    <string name="preference_zebra_stripes_97pc">97%</string>
+    <string name="preference_zebra_stripes_95pc">95%</string>
+    <string name="preference_zebra_stripes_93pc">93%</string>
 </resources>
