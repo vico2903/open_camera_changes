@@ -67,7 +67,7 @@
     <string name="free_memory">Libre</string>
     <string name="screen_lock_message_1">[VERROUILLÉ :</string>
     <string name="screen_lock_message_2">Balayez pour déverrouiller]</string>
-    <string name="failed_to_stamp">Impossible d\'incruster les informations dans la photo</string>
+    <string name="failed_to_stamp">Impossible d\'insérer les informations dans la photo</string>
     <string name="metres_abbreviation">m</string>
     <!-- symbol short for metres -->
     <string name="preference_category_camera_effects">Effets photo</string>
@@ -87,7 +87,7 @@
     <string name="preference_lock_orientation_summary">Si elle est définie, l\'orientation de l\'appareil sera ignorée, et l\'orientation de la photo/vidéo sera l\'orientation spécifiée\n%s</string>
     <string name="preference_face_detection">Détection des visages</string>
     <string name="preference_face_detection_summary">Utiliser la détection des visages au lieu des zones de focus</string>
-    <string name="preference_category_camera_controls">Commandes de la caméra</string>
+    <string name="preference_category_camera_controls">Options de l\'appareil photo</string>
     <string name="preference_timer">Retardateur</string>
     <string name="preference_timer_beep">Bip du retardateur</string>
     <string name="preference_timer_beep_summary">Émet des bips pour le retardateur ou le délai du mode répétition</string>
@@ -95,7 +95,7 @@
     <string name="preference_timer_speak_summary">Énonce le compte à rebours pour le retardateur ou le délai du mode répétition (à partir de 60s)</string>
     <string name="preference_burst_mode">Mode répétition</string>
     <string name="preference_burst_interval">Intervalle du mode répétition</string>
-    <string name="preference_screen_camera_controls_more">Plus de contrôles de caméra…</string>
+    <string name="preference_screen_camera_controls_more">Options supplémentaires de l\'appareil photo…</string>
     <string name="preference_touch_capture">Toucher pour photographier</string>
     <string name="preference_touch_capture_summary">Prendre une photo en touchant ou en double-cliquant sur l\'aperçu</string>
     <string name="preference_pause_preview">Mettre en pause après la prise de photo</string>
@@ -108,7 +108,7 @@
     <string name="preference_audio_noise_control_sensitivity_summary">Niveau de la sensibilité sonore pour l\'option contrôle audio (bruit fort)</string>
     <string name="preference_save_location">Dossier de stockage</string>
     <string name="preference_save_location_summary">Dossier où sont stockés les fichiers photo/vidéo</string>
-    <string name="preference_using_saf_summary">Utilise le Storage Access Framework pour enregistrer les photos et vidéos</string>
+    <string name="preference_using_saf_summary">Utilise la Structure d\'accès au stockage pour enregistrer les photos et vidéos. Cela devrait être activé pour permettre la sauvegarde sur des cartes SD externes. Sur Android 10+, cette option doit être activée si vous voulez sauvegarder vos prises dans un dossier différent de DCIM.</string>
     <string name="preference_save_photo_prefix">Préfixe du nom de photo</string>
     <string name="preference_save_photo_prefix_summary">Le préfixe est utilisé pour le nom de fichier des photos</string>
     <string name="preference_save_video_prefix">Préfixe du nom de la vidéo</string>
@@ -133,7 +133,7 @@
     <string name="preference_show_zoom_slider_controls">Afficher le curseur de zoom</string>
     <string name="preference_show_zoom_slider_controls_summary">Affiche le curseur pour modifier le niveau de zoom</string>
     <string name="preference_show_iso">Afficher les ISO</string>
-    <string name="preference_show_iso_summary">Affiche le niveau actuel de l\'ISO. En mode flash auto, un symbole de flash indiquera également quand le flash se déclenchera. (Nécessite l\'API Camera2.)</string>
+    <string name="preference_show_iso_summary">Affiche le niveau actuel de l\'ISO (Nécessite l\'API Camera2.)</string>
     <string name="preference_free_memory">Afficher le stockage disponible</string>
     <string name="preference_free_memory_summary">Affiche à l\'écran l\'espace de stockage restant sur l\'appareil</string>
     <string name="preference_show_angle">Afficher l\'angle</string>
@@ -178,14 +178,14 @@
     <string name="preference_gps_direction_summary">Enregistre la direction GPS de la boussole dans les photos (format JPEG seulement)</string>
     <string name="preference_require_location">Exiger des données de localisation</string>
     <string name="preference_require_location_summary">Si les données de localisation sont activées, ne prendre une photo/vidéo que si les données de localisation sont disponibles</string>
-    <string name="preference_stamp">Incrustation photo</string>
-    <string name="preference_stamp_summary">Tamponner les photos avec la date et l\'heure ; et aussi les informations GPS si les données de localisation/direction sont activées
+    <string name="preference_stamp">Insérer des données dans les photos</string>
+    <string name="preference_stamp_summary">Incruster des données sur les photos : date et heure ainsi que les coordonnées GPS si les données de localisation/direction sont activées
 \n%s</string>
     <string name="preference_stamp_dateformat">Format de la date</string>
-    <string name="preference_stamp_timeformat">Format de l\'horodatage</string>
-    <string name="preference_stamp_gpsformat">Format GPS</string>
+    <string name="preference_stamp_timeformat">Format de l\'heure</string>
+    <string name="preference_stamp_gpsformat">Format des données GPS</string>
     <string name="preference_textstamp">Texte personnalisé</string>
-    <string name="preference_textstamp_summary">Incruste un texte personnalisé sur la photo</string>
+    <string name="preference_textstamp_summary">Incruster un texte personnalisé sur la photo</string>
     <string name="preference_stamp_fontsize">Taille de la police</string>
     <string name="preference_stamp_fontsize_summary">Taille de la police utilisée lors de l\'incrustation de texte sur les photos</string>
     <string name="preference_stamp_font_color">Couleur de la police</string>
@@ -257,7 +257,7 @@
     <string name="failed_create_folder">Impossible de créer le dossier</string>
     <string name="folder_exists">Dossier déjà existant</string>
     <string name="saf_select_save_location">Sélectionnez un emplacement pour les enregistrements</string>
-    <string name="saf_cancelled">Storage Access Framework annulé</string>
+    <string name="saf_cancelled">Structure d\'accès au stockage (SAF) annulée</string>
     <!-- the permission names such as Microphone should match what Android calls them in the App permission settings -->
     <string name="permission_record_audio_not_available">Permission «\u00A0Microphone\u00A0» non disponible</string>
     <string name="permission_location_not_available">Permission «\u00A0Position\u00A0» non disponible</string>
@@ -293,16 +293,14 @@
     </string>
     <string name="preference_category_stamp">Incrustation photo</string>
     <string name="preference_hdr_save_expo">Enregistrer images du mode HDR</string>
-    <string name="preference_hdr_save_expo_summary">Si activé, en mode photo HDR les trois images utilisées seront enregistrées en supplément de la photo finale HDR. Notez que ceci ralentira l\'enregistrement, plus particulièrement si les options « Incrustation photo » ou « Auto-stabilisateur » sont aussi utilisées.</string>
+    <string name="preference_hdr_save_expo_summary">Si activé, en mode photo HDR les trois images utilisées seront enregistrées en supplément de la photo finale HDR. Notez que ceci ralentira l\'enregistrement, plus particulièrement si les options « Incrustation photo » ou « Auto-stabilisateur » sont également activées.</string>
     <string name="preference_raw">RAW</string>
     <string name="preference_save_zulu_time">Format de l\'heure pour le nom de fichier</string>
-    <string name="raw_info">Les fichiers DNG contiennent toutes les informations non compressées ni traitées de votre
-        caméra.\n\nLa plupart des applications d\'affichage d\'image ne reconnaissent pas le DNG. Vous devrez utiliser une app
-        spécialisée\n\nNotez que certaines options comme «\u00A0Incrustation photo\u00A0» ou
-        «\u00A0Auto-stabilisateur\u00A0» ne s\'appliquent que pour des images JPEG et pas DNG.\n\nLes fichiers DNG
-        utilisent beaucoup d\'espace disque, un explorateur de fichiers peut être utilise pour faire le ménage.\n\nLes
-        fichiers DNG ne sont enregistrés que dans le mode photo standard.
-    </string>
+    <string name="raw_info">Les fichiers DNG contiennent toutes les informations non compressées et non traitées de votre appareil photo.
+\n
+\nN.B. : la plupart des applications d\'affichage d\'image ne reconnaissent pas le format DNG. Vous aurez besoin d\'un éditeur d\'images spécialisé pour exploiter les images dans ce format.
+\n
+\nCertaines options de traitement comme l\'« Incrustation photo » ou l\'« Auto-stabilisateur » ne s\'appliquent que pour les images qui sont dans un format différent de DNG (JPEG, etc.).</string>
     <string name="duration_unlimited">Illimité</string>
     <string name="duration_3s">3 secondes</string>
     <string name="duration_5s">5 secondes</string>
@@ -450,15 +448,14 @@
     <string name="whats_new_text"> whether a setting is turned on, e.g., \"Auto-stabilise: On\" </string>
     <string name="preference_licence_google_icons_text">Camera utilise des icônes du Material Design de Google (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) qui sont sous licence Apache version 2.0. Certaines icônes ont été modifiées. Appuyez ici pour la licence complète.</string>
     <string name="preference_privacy_policy_text"> whether a setting is turned on, e.g., \"Auto-stabilise: On\" </string>
-    <string name="intro_text">Touchez pour faire la mise au point, et appuyez sur le bouton d\'appareil photo bleu pour prendre des photos.
+    <string name="intro_text">Touchez pour faire la mise au point, et appuyez sur le bouton d\'appareil photo blanc pour prendre des photos.
 \n
-\nPour désactiver la luminosité maximale de l\'écran, voir Paramètres/Interface graphique à l\'écran/\"Forcer la luminosité maximale\". Pour enregistrer sur des cartes SD sous Android 5+, voir Paramètres/Plus de contrôles de caméra/\"Utiliser le Storage Access Framework\". Pour plus d\'aide, cliquez sur \"Aide en ligne\" depuis Paramètres.</string>
-    <string name="preference_audio_control_summary">Prendre une photo/vidéo lorsqu\'un bruit est détecté, ou sur commande vocale. Lorsque cette fonction est activée, utilisez le bouton du microphone à l\'écran pour démarrer/arrêter l\'écoute. Notez que l\'option de commande vocale utilise le service de reconnaissance vocale Android : lorsque vous utilisez cette option, les données audio sont probablement envoyées à des serveurs distants pour effectuer la reconnaissance vocale.
-
+\nPour désactiver la luminosité maximale de l\'écran, aller dans Paramètres/Interface à l\'écran/\"Forcer la luminosité maximale\". Pour enregistrer sur une carte SD sous Android 5+, aller dans Paramètres &gt; Options supplémentaires de l\'appareil photo… &gt; \"Structure d\'accès au stockage (SAF)\". Pour plus d\'aide, cliquez sur \"Aide en ligne\" dans les Paramètres.</string>
+    <string name="preference_audio_control_summary">Prendre une photo/vidéo lorsque un son est détecté. Quand cette option est activée, utilisez le bouton du microphone à l\'écran pour démarrer/arrêter l\'écoute.
 \n%s</string>
     <string name="preference_camera_api_summary">Sélectionner l\'API Camera2 pour activer des fonctions supplémentaires telles que les modes manuels d\'exposition, de mise au point, de balance des blancs, ainsi que le mode RAW (s\'il est pris en charge par l\'appareil). La modification de l\'API entraînera un redémarrage.
 \n%s</string>
-    <string name="preference_image_format_summary">Sélectionner le format de fichier utilisé pour l\'enregistrement des photos. Cela concerne les photos \"standard\" (pas RAW). Notez que le format PNG n\'est pas vraiment sans perte, il est plutôt converti à partir d\'un JPEG avec une qualité de 100 %%.
+    <string name="preference_image_format_summary">Sélectionnez le format de fichier utilisé pour l\'enregistrement des photos. Cela concerne les photos \"standard\" (pas RAW). Seul le format JPEG permet de sauvegarder les métadonnées Exif. N.B : le format PNG ne permet pas d\'éviter véritablement les pertes, en effet il est converti à partir d\'un JPEG de qualité 100 %.
 \n%s</string>
     <string name="preference_panorama_save_all_plus_debug">Enregistrer les images d\'origine ainsi que le rapport XML</string>
     <string name="preference_panorama_save_summary">Enregistrer ou non les images originales en mode panoramique. Notez que cela ralentira l\'enregistrement des photos panoramiques. Permet aussi la possibilité d\'enregistrer un fichier XML qui peut être utile pour signaler des problèmes de panorama.
@@ -472,7 +469,7 @@
     <string name="preference_raw_expo_bracketing">Autorise RAW pour bracketing d\'expo</string>
     <string name="preference_raw_focus_bracketing">Autoriser RAW pour bracketing mise au point</string>
     <string name="preference_raw_expo_bracketing_summary">Choisir si l\'option RAW doit ou non également s\'appliquer au mode bracketing d\'exposition (ou au mode HDR lorsque \"Enregistrer toutes les images pour le mode HDR\" est activé). Si cette option est désactivée, seuls les JPEG seront enregistrés dans ces modes photo.</string>
-    <string name="preference_show_cycle_flash_summary">Afficher ou non une icône à l\'écran pour faire défiler les options flash, au lieu d\'afficher les options flash dans le menu contextuel</string>
+    <string name="preference_show_cycle_flash_summary">Afficher ou non une icône à l\'écran pour faire défiler les options flash, au lieu d\'afficher les options flash dans le menu contextuel. N.B. : la lampe torche ne fonctionne pas si cette icône est utilisée.</string>
     <string name="preference_focus_peaking_color">Couleur soulignage mise au point</string>
     <string name="preference_focus_peaking_summary">Si cette option est activée, des surbrillances seront affichées sur les bords (contours) au point. Cette option est principalement utile pour la mise au point manuelle, et peut être utilisée pour aider à déterminer quelles régions de l\'image sont au point.
 \n%s</string>
@@ -555,7 +552,7 @@
     <string name="preference_expo_bracketing_n_images_summary">Nombre d\'images pour le mode bracketing d\'exposition
 \n%s</string>
     <string name="preference_camera2_fake_flash">Utiliser méthode de flash alternative</string>
-    <string name="permission_rationale_location">La permission d\'accès à la localisation est requise pour ajouter une étiquette de position (stockage de données de localisation dans les photos et vidéos). Cette permission est également requise pour la connexion à des télécommandes Bluetooth LE.</string>
+    <string name="permission_rationale_location">La permission d\'accès à la localisation est requise pour géolocaliser vos photos (stockage des données de localisation dans les photos et vidéos, incrustation et sous-titres inclus). Cette permission est également requise (du moins pour Android 11 et précédents) pour se connecter à des télécommandes Bluetooth LE.</string>
     <string name="photo_mode_noise_reduction">NR</string>
     <string name="photo_mode_fast_burst">[]]]</string>
     <string name="preference_licence_online_text">Veuillez cliquer ici pour obtenir des informations complètes sur les licences en ligne (s\'ouvre dans votre navigateur).</string>
@@ -620,12 +617,12 @@
     <string name="preference_show_textstamp_summary">Afficher ou non à l\'écran une icône permettant de définir le texte de l\'incrustation photo personnalisée</string>
     <string name="preference_show_textstamp">Afficher l\'icône d\'incrustation photo personnalisée</string>
     <string name="stamp_disabled">Incrustation photo désactivée</string>
-    <string name="stamp_enabled">Incrustation photo activée</string>
-    <string name="stamp_disable">Désactiver l\'incrustation photo</string>
-    <string name="stamp_enable">Activer l\'incrustation photo</string>
-    <string name="preference_show_stamp_summary">Afficher ou non à l\'écran une icône permettant d\'activer ou de désactiver l\'incrustation photo</string>
+    <string name="stamp_enabled">Incrustation sur les photos activée</string>
+    <string name="stamp_disable">Désactiver l\'incrustation sur les photos</string>
+    <string name="stamp_enable">Activer l\'incrustation sur les photos</string>
+    <string name="preference_show_stamp_summary">Afficher ou non à l\'écran une icône permettant d\'activer ou de désactiver l\'incrustation sur les photos</string>
     <string name="preference_show_stamp">Afficher l\'icône d\'incrustation photo</string>
-    <string name="preference_units_distance_summary">Utilisé pour l\'altitude GPS pour l\'incrustation photo et les sous-titres vidéo
+    <string name="preference_units_distance_summary">Utilisé pour l\'altitude GPS dans l\'incrustation sur les photos et dans les sous-titres vidéo
 \n%s</string>
     <string name="face_detection_disabled">Reconnaissance des visages désactivée</string>
     <string name="face_detection_enabled">Reconnaissance des visages activée</string>
@@ -765,7 +762,7 @@
     <string name="video_pause">Vidéo mise en pause</string>
     <string name="preference_show_take_photo_summary">Affiche l\'icône pour prendre des photos et enregistrer des vidéos. Décochez si vous préférez prendre des photos avec une autre méthode (par ex., si votre appareil a un bouton déclencheur matériel, ou en utilisant les boutons de volume).</string>
     <string name="preference_show_take_photo">Afficher l\'icône « Prendre la photo »</string>
-    <string name="preference_video_subtitle_summary">Créer un fichier de sous-titres (.SRT) enregistrant la date et l\'heure, ainsi que les coordonnées GPS si la localisation/direction est active
+    <string name="preference_video_subtitle_summary">Créer un fichier de sous-titres (.SRT) enregistrant la date et l\'heure, ainsi que les coordonnées GPS si la localisation/direction est activée (sur Android 11+, cette option nécessite que l\'option \"Options supplémentaires de l\'appareil photo &gt; Structure d\'accès au stockage (SAF)\" soit activée).
 \n%s</string>
     <string name="photo_mode_dro">DRO</string>
     <string name="preference_calibrate_level_calibration_reset">Étalonnage du niveau réinitialisé</string>
@@ -846,7 +843,7 @@
     <string name="preference_category_video_debugging">Options de débogage</string>
     <string name="preference_category_photo_debugging">Options de débogage</string>
     <string name="permission_rationale_record_audio">La permission d\'utiliser le microphone est requise pour enregistrer des vidéos avec audio ainsi que pour utiliser les options de « Contrôle audio »</string>
-    <string name="permission_rationale_storage">La permission de lire/écrire dans le stockage est requise pour sauvegarder des photos</string>
+    <string name="permission_rationale_storage">La permission de lire/écrire dans le stockage est requise pour sauvegarder les fichiers créés comme les photos et vidéos.</string>
     <string name="permission_rationale_camera">La permission d\'accès à l\'appareil photo est requise pour activer la camera</string>
     <string name="permission_rationale_title">Permission requise</string>
     <string name="no_permission">PAS DE PERMISSIONS</string>
