@@ -445,7 +445,7 @@
     <string name="selfie">Selfie</string>
     <string name="color_effect_aqua">Aqua</string>
     <string name="preference_video_log_fine">Log (Fin)</string>
-    <string name="whats_new_text"> whether a setting is turned on, e.g., \"Auto-stabilise: On\" </string>
+    <string name="whats_new_text"> <small>Cette pop-up apparaît quand Camera a été mise à jour. Vous pouvez désactiver cette option en allant dans Paramètres &gt; Interface à l\'écran &gt; Afficher les nouveautés</small> </string>
     <string name="preference_licence_google_icons_text">Camera utilise des icônes du Material Design de Google (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) qui sont sous licence Apache version 2.0. Certaines icônes ont été modifiées. Appuyez ici pour la licence complète.</string>
     <string name="preference_privacy_policy_text"> whether a setting is turned on, e.g., \"Auto-stabilise: On\" </string>
     <string name="intro_text">Touchez pour faire la mise au point, et appuyez sur le bouton d\'appareil photo blanc pour prendre des photos.
