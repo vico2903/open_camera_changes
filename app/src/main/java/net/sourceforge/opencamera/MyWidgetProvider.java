@@ -1,9 +1,5 @@
 package net.sourceforge.opencamera;
 
-import net.sourceforge.opencamera.MyDebug;
-import net.sourceforge.opencamera.MainActivity;
-import foundation.e.camera.R;
-
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -12,6 +8,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 import android.widget.RemoteViews;
+
+import foundation.e.camera.R;
 
 /** Handles the Open Camera lock screen widget. Lock screen widgets are no
  *  longer supported in Android 5 onwards (instead Open Camera can be launched

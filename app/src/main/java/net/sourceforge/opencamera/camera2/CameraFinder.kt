@@ -5,7 +5,6 @@ import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.hardware.camera2.CameraMetadata
 import android.os.Build
-import android.util.Size
 import net.sourceforge.opencamera.camera2.model.Camera2ApiProperties
 import net.sourceforge.opencamera.camera2.model.CameraModel
 import net.sourceforge.opencamera.camera2.model.DerivedProperties

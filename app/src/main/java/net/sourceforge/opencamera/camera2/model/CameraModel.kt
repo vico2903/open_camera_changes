@@ -1,6 +1,6 @@
 package net.sourceforge.opencamera.camera2.model
 
-import java.util.Locale
+import java.util.*
 import kotlin.math.roundToInt
 
 class CameraModel(val id: Int) {

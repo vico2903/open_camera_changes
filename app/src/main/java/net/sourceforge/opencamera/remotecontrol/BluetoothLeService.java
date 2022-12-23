@@ -1,7 +1,5 @@
 package net.sourceforge.opencamera.remotecontrol;
 
-import net.sourceforge.opencamera.MyDebug;
-
 import android.Manifest;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
@@ -20,10 +18,12 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
+
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
-import android.util.Log;
+import net.sourceforge.opencamera.MyDebug;
 
 import java.util.ArrayList;
 import java.util.Collections;

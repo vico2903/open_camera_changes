@@ -1,11 +1,12 @@
 package net.sourceforge.opencamera.preview;
 
-import net.sourceforge.opencamera.MyDebug;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+
+import net.sourceforge.opencamera.MyDebug;
 
 /** Overlay for the Preview - this just redirects to Preview.onDraw to do the
  *  work. Only used if using a MyTextureView (if using MySurfaceView, then that

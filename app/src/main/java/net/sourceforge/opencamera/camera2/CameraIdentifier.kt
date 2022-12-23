@@ -4,10 +4,8 @@ import android.hardware.camera2.CameraCharacteristics
 import net.sourceforge.opencamera.camera2.model.Camera2ApiProperties
 import net.sourceforge.opencamera.camera2.model.CameraModel
 import net.sourceforge.opencamera.camera2.model.CameraType
-import java.util.TreeSet
+import java.util.*
 import java.util.function.Consumer
-import kotlin.Comparator
-import kotlin.collections.ArrayList
 
 class CameraIdentifier(cameraModels: ArrayList<CameraModel>) :
     CameraIdentifierAbstract<ArrayList<CameraModel>>(cameraModels) {

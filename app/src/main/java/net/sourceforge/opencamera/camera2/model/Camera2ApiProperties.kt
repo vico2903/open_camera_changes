@@ -2,7 +2,7 @@ package net.sourceforge.opencamera.camera2.model
 
 import android.util.Size
 import android.util.SizeF
-import java.util.Objects
+import java.util.*
 
 class Camera2ApiProperties(val id: Int) {
     var facing = 0

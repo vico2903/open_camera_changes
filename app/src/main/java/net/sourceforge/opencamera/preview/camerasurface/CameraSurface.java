@@ -1,10 +1,10 @@
 package net.sourceforge.opencamera.preview.camerasurface;
 
-import net.sourceforge.opencamera.cameracontroller.CameraController;
-
 import android.graphics.Matrix;
 import android.media.MediaRecorder;
 import android.view.View;
+
+import net.sourceforge.opencamera.cameracontroller.CameraController;
 
 /** Provides support for the surface used for the preview - this can either be
  *  a SurfaceView or a TextureView.

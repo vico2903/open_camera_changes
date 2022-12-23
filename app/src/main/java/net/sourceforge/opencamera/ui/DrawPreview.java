@@ -1,26 +1,5 @@
 package net.sourceforge.opencamera.ui;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
-
-import net.sourceforge.opencamera.GyroSensor;
-import net.sourceforge.opencamera.ImageSaver;
-import net.sourceforge.opencamera.LocationSupplier;
-import net.sourceforge.opencamera.MainActivity;
-import net.sourceforge.opencamera.MyApplicationInterface;
-import net.sourceforge.opencamera.MyDebug;
-import net.sourceforge.opencamera.PreferenceKeys;
-import net.sourceforge.opencamera.preview.ApplicationInterface;
-import foundation.e.camera.R;
-import net.sourceforge.opencamera.cameracontroller.CameraController;
-import net.sourceforge.opencamera.preview.Preview;
-
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -49,9 +28,30 @@ import android.util.Pair;
 import android.view.Display;
 import android.view.Surface;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+
+import net.sourceforge.opencamera.GyroSensor;
+import net.sourceforge.opencamera.ImageSaver;
+import net.sourceforge.opencamera.LocationSupplier;
+import net.sourceforge.opencamera.MainActivity;
+import net.sourceforge.opencamera.MyApplicationInterface;
+import net.sourceforge.opencamera.MyDebug;
+import net.sourceforge.opencamera.PreferenceKeys;
+import net.sourceforge.opencamera.cameracontroller.CameraController;
+import net.sourceforge.opencamera.preview.ApplicationInterface;
+import net.sourceforge.opencamera.preview.Preview;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+
+import foundation.e.camera.R;
 
 public class DrawPreview {
     private static final String TAG = "DrawPreview";
