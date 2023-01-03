@@ -56,7 +56,7 @@
     <string name="white_balance">Баланс белого</string>
     <string name="angle">Угол</string>
     <string name="direction">Направление</string>
-    <string name="failed_to_open_camera_1">Не удалось открыть камеру</string>
+    <string name="failed_to_open_camera_1">Не удалось открыть камеру.</string>
     <string name="failed_to_open_camera_2">Камера может быть использована</string>
     <string name="failed_to_open_camera_3">другим приложением?</string>
     <string name="iso">ISO</string>
@@ -106,7 +106,7 @@
     <string name="preference_save_location">Папка сохранения</string>
     <string name="preference_save_location_summary">Имя папки для сохранения фото и видео (также может быть полный путь)</string>
     <string name="preference_using_saf">Использовать Storage Access Framework</string>
-    <string name="preference_using_saf_summary">Использовать Storage Access Framework для сохранения фото и видео.</string>
+    <string name="preference_using_saf_summary">Использовать Storage Access Framework для сохранения фото и видео. Эта опция должна быть включена, чтобы разрешить сохранение на внешние SD-карты. На Android 10+ эта опция должна быть включена, если вы хотите сохранять в папке вне DCIM.</string>
     <string name="preference_save_photo_prefix">Префикс для фото</string>
     <string name="preference_save_photo_prefix_summary">Префикс имен файлов для сохраняемых фото</string>
     <string name="preference_save_video_prefix">Префикс для видео</string>
@@ -270,7 +270,7 @@
     <string name="auto_stabilise_info">Автоматическая стабилизация будет поворачивать фотографии для их выравнивания.\n\nВажно: разрешение полученных фото слегка уменьшится из-за поворота и обрезки.</string>
     <string name="raw_info">Файлы DNG содержат несжатую и необработанную информацию с вашей камеры.
 \n
-\nБольшинство программ для просмотра изображений не поддерживают DNG. Их нужно открывать специальными программами наподобие Snapseed или Lightroom.
+\nБольшинство программ для просмотра изображений не поддерживают DNG. Их нужно открывать специальными программами.
 \n
 \nВажно: различные опции наподобие Штамп на фото или Автоматическая стабилизация работают только для изображений формата JPEG, а не DNG. Файлы DNG имеют большой объем. Для их копирования или удаления может быть полезен файловый менеджер. Файлы DNG сохраняются только в режиме фото Стандарт.</string>
     <string name="hdr_info">Режим HDR полезен для фото с большой разницей яркости. В нем делается несколько фото с различной экспозицией, которые объединяются в окончательное фото.\n\nВажно: HDR не рекомендуется для съемки кадров с быстрым движением, это может привести к менее корректной цветопередаче.\n\nСъемка фото в режиме HDR будет гораздо медленнее, чем в обычном режиме.</string>
@@ -291,8 +291,7 @@
     <string name="no_permission">РАЗРЕШЕНИЯ НЕ ДОСТУПНЫ</string>
     <string name="permission_rationale_title">Требуется разрешение</string>
     <string name="permission_rationale_camera">Требуется разрешение на доступ к камере для ее включения</string>
-    <string name="permission_rationale_location">Требуется разрешение на определение местоположения для геотеггинга (хранение информации о местоположении
-        внутри фото и видео). Разрешение на определение местоположения также требуется для подключения к устройствам удаленного управления по Bluetooth LE.</string>
+    <string name="permission_rationale_location">Требуется разрешение на определение местоположения для геотеггинга (хранение информации о местоположении внутри фото и видео, включая опции штампа и субтитров). Разрешение на определение местоположения также требуется (по крайней мере, для Android 11 и более ранних версий) для подключения к устройствам удаленного управления по Bluetooth LE.</string>
     <string name="preference_category_photo_debugging">Настройки отладки</string>
     <string name="preference_category_video_debugging">Настройки отладки</string>
     <string name="preference_camera2_fake_flash">Использовать альтернативный способ вспышки</string>
@@ -338,7 +337,8 @@
     <string name="preference_show_geo_direction_lines">Отображать линии направления компаса</string>
     <string name="preference_show_geo_direction_lines_summary">Отображать линии направления компаса на экране</string>
     <string name="preference_video_subtitle">Субтитры видео</string>
-    <string name="preference_video_subtitle_summary">Создавать файл субтитров (.SRT) с датой и временем записи, а также информацией GPS при включенных данных геолокации/направления\n%s</string>
+    <string name="preference_video_subtitle_summary">Создавать файл субтитров (.SRT) с датой и временем записи, а также информацией GPS при включенных данных геолокации/направления. На Android 11+ эта опция требует включения функции More camera controls/Storage Access Framework).
+\n%s</string>
     <string name="duration_unlimited">Без ограничений</string>
     <string name="duration_3s">3 секунды</string>
     <string name="duration_5s">5 секунд</string>
@@ -770,7 +770,7 @@
     <string name="preference_preview">Предпросмотр камеры…</string>
     <string name="cycle_flash">Переключать вспышку</string>
     <string name="preference_show_cycle_flash">Показывать ярлык вспышки</string>
-    <string name="preference_show_cycle_flash_summary">Показывать на экране ярлык для задания цикла вспышки вместо отображения настроек вспышки во всплывающем меню</string>
+    <string name="preference_show_cycle_flash_summary">Показывать на экране ярлык для задания цикла вспышки вместо отображения настроек вспышки во всплывающем меню. Обратите внимание, что вспышка недоступна при использовании этого значка.</string>
     <string name="preference_raw_expo_bracketing">Разрешать RAW для брэкетинга экспозиции</string>
     <string name="preference_raw_expo_bracketing_summary">Настройка также предназначена для применения RAW для режима брэкетинга экспозиции фото (или для режима HDR, когда включена настройка \"Сохранять все изображения для режима HDR\"). Если данная настройка отключена, в данных режимах фото будут сохранены только в формате JPEG.</string>
     <string name="preference_raw_focus_bracketing">Разрешать RAW для фокус-брэкетинга</string>
@@ -799,7 +799,8 @@
     <string name="camera_id">ID</string>
     <!-- ID as in camera ID -->
     <string name="exposure_compensation_seekbar">Шкала для изменения компенсации экспозиции</string>
-    <string name="preference_image_format_summary">Выберите формат файла для сохранения фото. Это влияет на \"обычные\" (не RAW) фото. Важно: формат PNG не является настоящим форматом "без потерь", вместо этого он конвертируется из JPEG со 100%% качеством.\n%s</string>
+    <string name="preference_image_format_summary">Выберите формат файла для сохранения фото. Это влияет на \"обычные\" (не RAW) фото. Только JPEG поддерживает сохранение метаданных Exif. Важно: формат PNG не является настоящим форматом без потерь, вместо этого он конвертируется из JPEG со 100%% качеством.
+\n%s</string>
     <string name="preference_camera_api">Camera API</string>
     <string name="preference_camera_api_summary">Выберите Camera2 API, чтобы включить дополнительные возможности, например ручные режимы экспозиции, фокус, баланс белого, вместе с форматом RAW (если поддерживается устройством). При изменении API потребуется перезапуск.\n%s</string>
     <string name="preference_camera_api_old">Оригинальный API камеры</string>
@@ -814,7 +815,7 @@
         \n%s</string>
     <string name="intro_text">Коснитесь для фокуса и нажмите синюю кнопку камеры, чтобы сделать фото.
 \n
-\nДля отключения максимальной яркости экрана перейдите в Настройки/Экранный интерфейс…/\"Максимальная яркость\". Для сохранения на SD-карту на Android 5+ перейдите в Настройки/Дополнительные настройки…/\"Использовать Storage Access Framework\". Для получения подробностей нажмите \"Помощь в Интернете\" в меню Настройки.</string>
+\nДля отключения максимальной яркости экрана перейдите в Настройки/Экранный интерфейс…/\"Максимальная яркость\". Для сохранения на SD-карту на Android 5+ перейдите в Настройки/Дополнительные настройки…/\"Storage Access Framework\". Для получения подробностей нажмите \"Помощь в Интернете\" в меню Настройки.</string>
     <string name="preference_select_remote">Выбрать удаленное устройство</string>
     <string name="preference_video_rec709">REC709</string>
     <string name="preference_video_srgb">sRGB</string>
@@ -891,4 +892,25 @@
     <string name="array_seekbar_preference_seekbar">Панель поиска для изменения текущего значения предпочтения</string>
     <string name="permission_rationale_record_audio">Доступ к микрофону требуется для записи видео со звуком, а также для использования опций \"Управление звуком\"</string>
     <string name="permission_rationale_storage">Для сохранения результирующих файлов, таких как фотографии или видео, требуется разрешение на чтение/запись из хранилища</string>
+    <string name="whats_new_text"> <small>[Этот диалог отображается при обновлении камеры. You can disable it under Settings/On screen GUI/Show What\'s New dialog.]</small>
+\n
+\n<b>v1.50:</b>
+\n <ul> <li>Поддержка расширений камеры. Некоторые устройства Android 12 теперь имеют фоторежимы, такие как «Ночь», «Боке», «Красота». Требуется, чтобы в настройках/\"Camera API\" было установлено значение Camera2 API.
+\n</li> <li>Разрешить доступ к сверхширокоугольным камерам с помощью зума, например. на Pixel 5/6 (при использовании Camera2 API).
+\n</li> <li>Удалены опции \"использовать адреса\" и \"говорить сыр\". Извините, но это связано с новыми требованиями к конфиденциальности данных.
+\n</li> <li>Исправлен HDR на устройствах Samsung, начиная с Android 12.
+\n</li> <li>Исправлены проблемы со вспышкой в Camera2 API.
+\n</li> <li>Различные улучшения для Android 12.
+\n</li> </ul> </string>
+    <string name="switch_multi_camera_lens">ОБЪЕКТИВ</string>
+    <string name="skip_button_label">Пропустить</string>
+    <string name="next_button_label">Вперёд</string>
+    <string name="back_button_label">Назад</string>
+    <string name="preferences_service_terms">Условия предоставления услуг</string>
+    <string name="preferences_app_info_title">Информация о приложении Камера</string>
+    <string name="preferences_licence">Лицензия</string>
+    <string name="preferences_source_code">Исходный код</string>
+    <string name="preferences_authors">Авторы</string>
+    <string name="preferences_about_app">Камера является форком OpenCamera</string>
+    <string name="preferences_build_version">Версия сборки</string>
 </resources>
