@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Camera</string>
-    <string name="action_settings">Préférences</string>
+    <string name="action_settings">Paramètres</string>
     <string name="action_popup">Fenêtre de paramètres</string>
     <string name="intro_ok">OK (Ce message ne s\'affichera plus)</string>
     <string name="on">Activé</string>
