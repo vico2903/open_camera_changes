@@ -1,44 +1,5 @@
 package net.sourceforge.opencamera.preview;
 
-import net.sourceforge.opencamera.MainActivity;
-import net.sourceforge.opencamera.PropertyUtility;
-import net.sourceforge.opencamera.cameracontroller.RawImage;
-import net.sourceforge.opencamera.MyDebug;
-
-import foundation.e.camera.R;
-
-import net.sourceforge.opencamera.ScriptC_histogram_compute;
-import net.sourceforge.opencamera.TakePhoto;
-import net.sourceforge.opencamera.ToastBoxer;
-import net.sourceforge.opencamera.cameracontroller.CameraController;
-import net.sourceforge.opencamera.cameracontroller.CameraController1;
-import net.sourceforge.opencamera.cameracontroller.CameraController2;
-import net.sourceforge.opencamera.cameracontroller.CameraControllerException;
-import net.sourceforge.opencamera.cameracontroller.CameraControllerManager;
-import net.sourceforge.opencamera.cameracontroller.CameraControllerManager1;
-import net.sourceforge.opencamera.cameracontroller.CameraControllerManager2;
-import net.sourceforge.opencamera.preview.ApplicationInterface.NoFreeStorageException;
-import net.sourceforge.opencamera.preview.camerasurface.CameraSurface;
-import net.sourceforge.opencamera.preview.camerasurface.MySurfaceView;
-import net.sourceforge.opencamera.preview.camerasurface.MyTextureView;
-
-import java.io.File;
-//import java.io.FileOutputStream;
-import java.io.IOException;
-//import java.io.OutputStream;
-import java.lang.ref.WeakReference;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -68,7 +29,6 @@ import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
-//import android.os.Environment;
 import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.renderscript.Allocation;
@@ -76,10 +36,6 @@ import android.renderscript.Element;
 import android.renderscript.RSInvalidStateException;
 import android.renderscript.RenderScript;
 import android.renderscript.Type;
-import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Display;
@@ -93,13 +49,53 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.TextureView;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
-import android.view.View.MeasureSpec;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
+
+import net.sourceforge.opencamera.MainActivity;
+import net.sourceforge.opencamera.MyDebug;
+import net.sourceforge.opencamera.PropertyUtility;
+import net.sourceforge.opencamera.ScriptC_histogram_compute;
+import net.sourceforge.opencamera.TakePhoto;
+import net.sourceforge.opencamera.ToastBoxer;
+import net.sourceforge.opencamera.cameracontroller.CameraController;
+import net.sourceforge.opencamera.cameracontroller.CameraController1;
+import net.sourceforge.opencamera.cameracontroller.CameraController2;
+import net.sourceforge.opencamera.cameracontroller.CameraControllerException;
+import net.sourceforge.opencamera.cameracontroller.CameraControllerManager;
+import net.sourceforge.opencamera.cameracontroller.CameraControllerManager1;
+import net.sourceforge.opencamera.cameracontroller.CameraControllerManager2;
+import net.sourceforge.opencamera.cameracontroller.RawImage;
+import net.sourceforge.opencamera.preview.ApplicationInterface.NoFreeStorageException;
+import net.sourceforge.opencamera.preview.camerasurface.CameraSurface;
+import net.sourceforge.opencamera.preview.camerasurface.MySurfaceView;
+import net.sourceforge.opencamera.preview.camerasurface.MyTextureView;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import foundation.e.camera.R;
 
 /** This class was originally named due to encapsulating the camera preview,
  *  but in practice it's grown to more than this, and includes most of the
@@ -2214,9 +2210,13 @@ public class Preview implements SurfaceHolder.Callback, TextureView.SurfaceTextu
         }
     }
 
-    private int find1xZoom() {
+    public int find1xZoom() {
+        return findNxZoom(1.0f);
+    }
+
+    public int findNxZoom(float zoom) {
         for(int i=0;i<zoom_ratios.size();i++) {
-            if( zoom_ratios.get(i) == 100 ) {
+            if( zoom_ratios.get(i) == zoom * 100 ) {
                 return i;
             }
         }

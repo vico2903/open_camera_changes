@@ -1,10 +1,10 @@
 package net.sourceforge.opencamera;
 
-import java.util.ArrayList;
-
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 /** Handles a history of save locations.
  */

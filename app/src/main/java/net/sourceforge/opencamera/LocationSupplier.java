@@ -11,10 +11,10 @@ import android.location.LocationProvider;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import android.util.Log;
 
 /** Handles listening for GPS location (both coarse and fine).
  */

@@ -1,13 +1,5 @@
 package net.sourceforge.opencamera.cameracontroller;
 
-import net.sourceforge.opencamera.MyDebug;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import android.graphics.Rect;
 import android.location.Location;
 import android.media.MediaRecorder;
@@ -16,6 +8,14 @@ import android.view.SurfaceHolder;
 import android.view.TextureView;
 
 import androidx.annotation.NonNull;
+
+import net.sourceforge.opencamera.MyDebug;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /** CameraController is an abstract class that wraps up the access/control to
  *  the Android camera, so that the rest of the application doesn't have to

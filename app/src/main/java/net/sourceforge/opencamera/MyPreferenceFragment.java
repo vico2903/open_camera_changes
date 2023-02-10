@@ -1,11 +1,5 @@
 package net.sourceforge.opencamera;
 
-import net.sourceforge.opencamera.cameracontroller.CameraController;
-import net.sourceforge.opencamera.preview.Preview;
-import net.sourceforge.opencamera.ui.ArraySeekBarPreference;
-import net.sourceforge.opencamera.ui.FolderChooserDialog;
-import net.sourceforge.opencamera.ui.MyEditTextPreference;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -16,7 +10,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageInfo;
@@ -24,7 +17,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
@@ -36,8 +28,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.TwoStatePreference;
-import androidx.annotation.Nullable;
-import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -52,6 +42,14 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+
+import net.sourceforge.opencamera.cameracontroller.CameraController;
+import net.sourceforge.opencamera.preview.Preview;
+import net.sourceforge.opencamera.ui.ArraySeekBarPreference;
+import net.sourceforge.opencamera.ui.FolderChooserDialog;
+import net.sourceforge.opencamera.ui.MyEditTextPreference;
 
 import java.io.File;
 import java.io.IOException;

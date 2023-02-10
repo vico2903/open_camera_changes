@@ -1,22 +1,11 @@
 package net.sourceforge.opencamera.ui;
 
-import net.sourceforge.opencamera.MyDebug;
-import foundation.e.camera.R;
-import net.sourceforge.opencamera.StorageUtils;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
-import androidx.annotation.NonNull;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.util.Log;
@@ -30,6 +19,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
+import net.sourceforge.opencamera.MyDebug;
+import net.sourceforge.opencamera.StorageUtils;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+
+import foundation.e.camera.R;
 
 /** Dialog to pick a folder or file. Also allows creating new folders. Used when not
  *  using the Storage Access Framework.

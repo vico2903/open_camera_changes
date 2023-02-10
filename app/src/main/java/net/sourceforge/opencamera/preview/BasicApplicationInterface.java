@@ -1,8 +1,5 @@
 package net.sourceforge.opencamera.preview;
 
-import java.util.Date;
-import java.util.List;
-
 import android.app.Activity;
 import android.graphics.Canvas;
 import android.location.Location;
@@ -15,6 +12,9 @@ import androidx.annotation.RequiresApi;
 
 import net.sourceforge.opencamera.cameracontroller.CameraController;
 import net.sourceforge.opencamera.cameracontroller.RawImage;
+
+import java.util.Date;
+import java.util.List;
 
 /** A partial implementation of ApplicationInterface that provides "default" implementations. So
  *  sub-classing this is easier than implementing ApplicationInterface directly - you only have to

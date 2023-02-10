@@ -1,10 +1,5 @@
 package net.sourceforge.opencamera.preview;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.location.Location;
@@ -19,6 +14,11 @@ import androidx.annotation.RequiresApi;
 import net.sourceforge.opencamera.MyDebug;
 import net.sourceforge.opencamera.cameracontroller.CameraController;
 import net.sourceforge.opencamera.cameracontroller.RawImage;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 /** Provides communication between the Preview and the rest of the application
  *  - so in theory one can drop the Preview/ (and CameraController/) classes

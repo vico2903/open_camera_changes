@@ -1,8 +1,5 @@
 package net.sourceforge.opencamera.cameracontroller;
 
-import net.sourceforge.opencamera.MyDebug;
-import foundation.e.camera.R;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Rect;
@@ -12,6 +9,10 @@ import android.hardware.camera2.CameraMetadata;
 import android.os.Build;
 import android.util.Log;
 import android.util.SizeF;
+
+import net.sourceforge.opencamera.MyDebug;
+
+import foundation.e.camera.R;
 
 /** Provides support using Android 5's Camera 2 API
  *  android.hardware.camera2.*.

@@ -1,10 +1,5 @@
 package net.sourceforge.opencamera.preview.camerasurface;
 
-import net.sourceforge.opencamera.MyDebug;
-import net.sourceforge.opencamera.cameracontroller.CameraController;
-import net.sourceforge.opencamera.cameracontroller.CameraControllerException;
-import net.sourceforge.opencamera.preview.Preview;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -15,6 +10,11 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
+
+import net.sourceforge.opencamera.MyDebug;
+import net.sourceforge.opencamera.cameracontroller.CameraController;
+import net.sourceforge.opencamera.cameracontroller.CameraControllerException;
+import net.sourceforge.opencamera.preview.Preview;
 
 /** Provides support for the surface used for the preview, using a SurfaceView.
  */

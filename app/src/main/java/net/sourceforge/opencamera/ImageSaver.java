@@ -1,7 +1,40 @@
 package net.sourceforge.opencamera;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Paint.Align;
+import android.location.Location;
+import android.net.Uri;
+import android.os.Build;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
+import android.renderscript.Allocation;
+import android.util.Log;
+import android.util.TypedValue;
+import android.util.Xml;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.exifinterface.media.ExifInterface;
+
 import net.sourceforge.opencamera.cameracontroller.CameraController;
 import net.sourceforge.opencamera.cameracontroller.RawImage;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlSerializer;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -23,41 +56,6 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.ContentValues;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Paint.Align;
-//import android.location.Address; // don't use until we have info for data privacy!
-//import android.location.Geocoder; // don't use until we have info for data privacy!
-import android.location.Location;
-import androidx.exifinterface.media.ExifInterface;
-import android.net.Uri;
-import android.os.Build;
-import android.os.ParcelFileDescriptor;
-import android.provider.MediaStore;
-import android.renderscript.Allocation;
-import androidx.annotation.RequiresApi;
-import android.util.Log;
-import android.util.TypedValue;
-import android.util.Xml;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlSerializer;
 
 import foundation.e.camera.R;
 

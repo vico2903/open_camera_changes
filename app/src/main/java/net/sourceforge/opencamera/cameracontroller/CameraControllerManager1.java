@@ -1,10 +1,10 @@
 package net.sourceforge.opencamera.cameracontroller;
 
-import foundation.e.camera.R;
-
 import android.content.Context;
 import android.hardware.Camera;
 import android.util.Log;
+
+import foundation.e.camera.R;
 
 /** Provides support using Android's original camera API
  *  android.hardware.Camera.
