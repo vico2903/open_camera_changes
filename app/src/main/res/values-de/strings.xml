@@ -901,4 +901,5 @@
     <string name="unknown_device_no_permission">Unbekanntes Gerät (Bluetooth-Verbindungserlaubnis nicht verfügbar)</string>
     <string name="array_seekbar_preference_seekbar">Suchleiste zum Ändern des aktuellen Präferenzwertes</string>
     <string name="preference_camera2_dummy_capture_hack">Dummy-HDR-Aufnahme/Expositionsberichtigung aktivieren</string>
+    <string name="switch_multi_camera_lens">LINSEN</string>
 </resources>
