@@ -133,7 +133,7 @@
     <string name="switch_to_front_camera">Wissel naar voorste camera</string>
     <string name="flash_mode">Flash Modus</string>
     <string name="focus_mode">Focus Modus</string>
-    <string name="take_photo">Neem Foto</string>
+    <string name="take_photo">Neem foto</string>
     <string name="preference_reset_question">Ben je zeker dat je alle Camera instellingen wil resetten\?</string>
     <string name="preference_reset_summary">Reset alle Camera instellingen naar de standaard waarden</string>
     <string name="preference_about_summary">App en debug info</string>
@@ -630,7 +630,7 @@
     <string name="duration_5s">5 seconden</string>
     <string name="duration_3s">3 seconden</string>
     <string name="duration_unlimited">Onbeperkt</string>
-    <string name="preference_video_subtitle_summary">Maak een ondertitel (.SRT) bestand dat de datum en tijd bevat; en ook GSP info indien locatie/kompas data is ingeschakeld
+    <string name="preference_video_subtitle_summary">Maak een ondertitel (.SRT) bestand dat de datum en tijd bevat; en ook GPS info indien locatie/kompas data is ingeschakeld. (Vanaf Android 11+ moet hiervoor de optie \"Meer camera instellingen/Storage Access Framework ingeschakeld zijn).
 \n%s</string>
     <string name="preference_video_subtitle">Video ondertitels</string>
     <string name="preference_show_geo_direction_lines_summary">Toon kompas richting lijnen</string>
@@ -738,7 +738,7 @@
 \n*Apps/services zoals cloud services kunnen de foto\'s en video\'s op je toestel automatisch uploaden. </string>
     <string name="preference_camera2_fake_flash_summary">Schakel dit in als je apparaat onvolmaakt flits gedrag heeft met Camera2 API</string>
     <string name="permission_rationale_record_audio">Toegang tot de microfoon is vereist om video met geluid op te nemen alsook om de \"Audio beheer\" opties te kunnen gebruiken</string>
-    <string name="photo_mode_expo_bracketing_full">Blootstelling Bracketing</string>
+    <string name="photo_mode_expo_bracketing_full">Belichting Bracketing</string>
     <string name="auto_stabilise_info">Auto-level zal automatisch foto\'s roteren, zodat ze waterpas staan.
 \n
 \nLet op dat dit betekent dat foto\'s een kleinere resolutie zullen hebben (door het roteren en bijsnijden dat benodigd is).</string>
@@ -775,4 +775,61 @@
     <string name="preference_ghost_image_last">Laatste foto genomen</string>
     <string name="preference_select_remote">Selecteer afstandsbediening</string>
     <string name="preference_video_log">Video beeld profielen</string>
+    <string name="preference_stamp_geo_address_summary">Wanneer mogelijk, haal het adres op met de GPS locatie (voor foto stempel of video ondertitels). Merk op dat, wanneer ingeschakeld, het vereist is dat je toestel locatie data via het internet verstuurd naar een derde partij die GPS data omzet naar een adres. Ref: https://developer.android.com/reference/android/location/Geocoder . Deze functie voorziet geen garantie voor accuraatheid en beschikbaarheid. De resultaten zijn een schatting en niet gegarandeerd relevant of correct.
+\n%s</string>
+    <string name="preference_audio_control_summary">Neem een foto/video wanneer een geluid is gedetecteerd. Als dit is ingeschakeld, gebruik de microfoon knop op het scherm om te starten/stoppen detecteren.
+\n%s</string>
+    <string name="preference_camera_api_summary">Selecteer Camera2 API om extra functies in te schakelen zoals manuele belichting, focus, wit balans en RAW (indien ondersteund door jouw toestel). De API wijzigen zal de app doen herstarten.
+\n%s</string>
+    <string name="exposure_compensation_seekbar">Zoekbalk om belichting compensatie te wijzigen</string>
+    <string name="panorama_info">Om een panorama foto te nemen, houdt uw toestel vast voor een portret opname en klik om de panorama foto te starten. Draai daarna te toestel naar links of rechts totdat de witte cirkel in het midden overlapt met de blauwe cirkel. Nadat een nieuwe afbeelding is opgenomen, draai je jouw toestel verder tot je een nieuwe blauwe cirkel overlapt.
+\n
+\nTik op het vinkje om de panorama op te slaan, of het kruisje om te annuleren.
+\n
+\nMerk op dat panorama foto\'s tijd kunnen kosten om te verwerken en op te slaan.</string>
+    <string name="cycle_flash">Flash modi</string>
+    <string name="video_log">Log profiel</string>
+    <string name="preference_video_log_extra_strong">Log (Extra sterk)</string>
+    <string name="preference_video_log_strong">Log (Sterk)</string>
+    <string name="preference_video_log_medium">Log (Medium)</string>
+    <string name="preference_video_log_low">Log (Laag)</string>
+    <string name="preference_video_log_fine">Log (Fijn)</string>
+    <string name="preference_panorama_crop_summary">Voor de panorama modus, verwijder de golvende randen
+\n%s</string>
+    <string name="preference_stamp_style_background">Tekst met schaduw achtergrond</string>
+    <string name="preference_stamp_style_plain">Gewone tekst</string>
+    <string name="preference_stamp_style_shadowed">Tekst met schaduw</string>
+    <string name="preference_nr_mode_low_light_message">Lage belichting modus: hou a.u.b. de camera zo stil mogelijk</string>
+    <string name="exposure_unlock">Deblokkeer belichting</string>
+    <string name="preference_show_exposure_lock_summary">Geeft een icoon weer om de automatische belichting te vergrendelen</string>
+    <string name="preference_show_exposure_lock">Toon auto belichting vergrendeling icoon</string>
+    <string name="auto_level_disable">Uitschakelen auto-uitlijnen</string>
+    <string name="auto_level_enable">Inschakelen auto-uitlijnen</string>
+    <string name="preference_show_auto_level_summary">Geeft een icoon weer om automatisch uitlijnen in/uit te schakelen. Wanneer dit is ingeschakeld, zullen foto\'s automatisch gedraaid worden om gelijk te lopen met de horizon.</string>
+    <string name="preference_show_auto_level">Toon auto-uitlijn icoon</string>
+    <string name="cancelled_focus_bracketing">Focus bracketing geannuleerd</string>
+    <string name="preference_focus_assist_summary">Zoom in wanneer de manuele focus afstand wordt aangepast
+\n%s</string>
+    <string name="preference_edge_mode">Edge mode algoritme</string>
+    <string name="preference_show_whats_new_summary">Toon informatie over nieuwe functies en verbeteringen wanneer de applicatie is bijgewerkt</string>
+    <string name="preference_show_whats_new">Toon nieuwigheden</string>
+    <string name="focus_bracketing_add_infinity">Voeg oneindige afstand toe</string>
+    <string name="focus_bracketing_target_distance">Focus bracketing doel afstand</string>
+    <string name="focus_bracketing_source_distance">Focus bracketing bron afstand</string>
+    <string name="photo_mode_focus_bracketing_full">Focus Bracketing</string>
+    <string name="photo_mode_focus_bracketing">Focus {}</string>
+    <string name="preference_record_audio_src_unprocessed">Onbewerkt</string>
+    <string name="preference_record_audio_src_voice_recognition">Geoptimaliseerd voor spraakherkenning</string>
+    <string name="preference_record_audio_src_voice_communication">Geoptimaliseerd voor spraakgesprekken</string>
+    <string name="preference_record_audio_src_camcorder">Camcorder</string>
+    <string name="preference_camera2_photo_video_recording_summary">Staat toe foto\'s te nemen tijdens video opnames. Deactiveer dit als er problemen zijn met video opnames terwijl Camera2 API is ingeschakeld op je toestel.</string>
+    <string name="preference_ghost_image_selected">Geselecteerde afbeelding</string>
+    <string name="preference_ghost_image_summary">Overlap een afbeelding om te helpen met uitlijnen.
+\n%s</string>
+    <string name="preference_ghost_image">Nabeeld</string>
+    <string name="preference_expo_bracketing_stops_summary">Aantal stops die worden opgeteld/afgetrokken voor de lichtste/donkerste afbeelding
+\n%s</string>
+    <string name="preference_expo_bracketing_stops">Belichtingsreeks stops</string>
+    <string name="preference_expo_bracketing_n_images_summary">Aantal beelden voor belichtingsreeks
+\n%s</string>
 </resources>
