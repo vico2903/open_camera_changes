@@ -886,7 +886,7 @@
     <string name="preferences_source_code">Codice sorgente</string>
     <string name="preferences_authors">Autori</string>
     <string name="preferences_about_app">Camera è un fork di OpenCamera</string>
-    <string name="preferences_build_version">Versione buid</string>
+    <string name="preferences_build_version">Versione build</string>
     <string name="whats_new_text"> <small>[This dialog is shown when Camera is updated. You can disable it under Settings/On screen GUI/Show What\'s New dialog.]</small>
 \n
 \n<b>v1.50:</b>
