@@ -902,4 +902,5 @@
     <string name="array_seekbar_preference_seekbar">Suchleiste zum Ändern des aktuellen Präferenzwertes</string>
     <string name="preference_camera2_dummy_capture_hack">Dummy-HDR-Aufnahme/Expositionsberichtigung aktivieren</string>
     <string name="switch_multi_camera_lens">LINSEN</string>
+    <string name="preference_camera2_dummy_capture_hack_summary">Wenn dein Gerät Probleme bei der Aufnahme von HDR oder Expo-Foto-Modi hat (wenn Expo-Bilder mit derselben Belichtung herauskommen), versuche, diese Option zu aktivieren. Dies funktioniert nur, wenn die schnelle HDR/Expo-Option unterhalb auch aktiviert ist.</string>
 </resources>
