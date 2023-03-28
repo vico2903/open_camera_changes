@@ -101,7 +101,7 @@
     <string name="preference_burst_interval">Intervalo de modo de repeticion</string>
     <string name="preference_screen_camera_controls_more">Más controles de cámara…</string>
     <string name="preference_touch_capture">Tocar para capturar</string>
-    <string name="preference_touch_capture_summary">Toma una foto simplemente tocando o tocando dos veces la pantalla</string>
+    <string name="preference_touch_capture_summary">Toma una foto simplemente tocando una o dos veces en la pantalla</string>
     <string name="preference_pause_preview">Pausar después de tomar foto</string>
     <string name="preference_pause_preview_summary">Pause la pantalla después de tomar una foto, con la opción de compartir o eliminar la foto</string>
     <string name="preference_shutter_sound">Sonido del obturador</string>
@@ -112,7 +112,7 @@
     <string name="preference_audio_noise_control_sensitivity_summary">Sensibilidad al nivel de ruido para la opción de audio (ruido fuerte)</string>
     <string name="preference_save_location">Carpeta de almacenamiento</string>
     <string name="preference_save_location_summary">Carpeta para guardar los archivos de foto/video</string>
-    <string name="preference_using_saf_summary">Utilice el Framework de Acceso del Almacenamiento para guardar fotos y videos</string>
+    <string name="preference_using_saf_summary">Si se debe usar Storage Access Framework para guardar fotos y vídeos. Esto debe estar activado para permitir guardar en tarjetas SD externas. En Android 10+ esta opción debe estar activa si deseas guardar en una carpeta fuera de DCIM.</string>
     <string name="preference_save_photo_prefix">Prefijo de foto</string>
     <string name="preference_save_photo_prefix_summary">Prefijo utilizado para el nombre de las fotos</string>
     <string name="preference_save_video_prefix">Prefijo de video</string>
@@ -157,8 +157,8 @@
     <!-- short form of Show a grid -->
     <string name="preference_crop_guide">Mostrar guía de recorte</string>
     <string name="preference_crop_guide_summary">Una guía de recorte muestra un rectángulo que indica la relación de aspecto especificada, útil si planea recortar la foto/video posteriormente con una relación de aspecto diferente. Requiere modo de foto WYSIWYG, o estar en modo de video\n%s</string>
-    <string name="preference_show_toasts">Mostrar mensajes \"toast\"</string>
-    <string name="preference_show_toasts_summary">Muestra mensajes emergentes \"toast\"</string>
+    <string name="preference_show_toasts">Mostrar mensajes en pantalla</string>
+    <string name="preference_show_toasts_summary">Si se mostrarán mensajes de información temporales en pantalla</string>
     <string name="preference_thumbnail_animation">Mostrar animación en miniatura</string>
     <string name="preference_thumbnail_animation_summary">Muestra la animación en miniatura en movimiento al tomar una foto</string>
     <string name="preference_take_photo_border">Mostrar borde cuando se toma una foto</string>
@@ -201,7 +201,7 @@
     <string name="video_quality">Resolución de video</string>
     <string name="preference_force_video_4k">Forzar 4K UHD vídeo (experimental)</string>
     <string name="preference_force_video_4k_summary">Activa la resolución 3840x2160 para la grabación de vídeos en la cámara trasera - esto solo funcionara si tu dispositivo lo soporta</string>
-    <string name="preference_video_stabilization">Activar Estabilización de Vídeo</string>
+    <string name="preference_video_stabilization">Activar estabilización de Vídeo digital</string>
     <string name="preference_video_stabilization_summary">La estabilización de vídeo reduce las vibraciones</string>
     <string name="preference_video_bitrate">Tasa de bits del video (aprox)</string>
     <string name="preference_video_bitrate_summary">Establece la tasa de bits aproximada de los videos (mayor tasa significa una mejor calidad, pero ocupa más espacio en disco, puede causar que la grabación del video falle si la tasa de bits no es compatible)\n%s</string>
