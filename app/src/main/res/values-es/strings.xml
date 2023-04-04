@@ -202,11 +202,12 @@
     <string name="preference_force_video_4k">Forzar 4K UHD vídeo (experimental)</string>
     <string name="preference_force_video_4k_summary">Activa la resolución 3840x2160 para la grabación de vídeos en la cámara trasera - esto solo funcionara si tu dispositivo lo soporta</string>
     <string name="preference_video_stabilization">Activar estabilización de Vídeo digital</string>
-    <string name="preference_video_stabilization_summary">La estabilización de vídeo reduce las vibraciones</string>
+    <string name="preference_video_stabilization_summary">La estabilización de vídeo reduce las sacudidas debidas al movimiento de la cámara tanto en la vista previa como en los vídeos grabados. Esto puede ser innecesario si tu dispositivo es compatible con estabilización óptica de imagen (OIS).</string>
     <string name="preference_video_bitrate">Tasa de bits del video (aprox)</string>
     <string name="preference_video_bitrate_summary">Establece la tasa de bits aproximada de los videos (mayor tasa significa una mejor calidad, pero ocupa más espacio en disco, puede causar que la grabación del video falle si la tasa de bits no es compatible)\n%s</string>
     <string name="preference_video_fps">Frecuencia de fotogramas del vídeo (aprox.)</string>
-    <string name="preference_video_fps_summary">Establece la velocidad de fotogramas (FPS) de los videos (puede ser aproximada, no hay garantía que se logre, puede causar que la grabación del video falle si la velocidad de fotogramas no es compatible)\n%s</string>
+    <string name="preference_video_fps_summary">Ajusta la velocidad de cuadros por segundo (FPS) de los vídeos (puede ser aproximada, no se garantiza que se alcance y puede hacer que falle la grabación de vídeo si no se admite la velocidad de cuadros por segundo). Comprueba los vídeos resultantes para conocer la frecuencia de imagen real utilizada. Ten en cuenta que este ajuste se ignora en los vídeos a cámara lenta.
+\n%s</string>
     <string name="preference_video_max_duration">Máxima duración de un video</string>
     <string name="preference_video_max_duration_summary">La grabación de video se detendrá después de la duración especificada\n%s</string>
     <string name="preference_video_restart">Reiniciar el vídeo después de la duración máxima</string>
@@ -218,7 +219,8 @@
     <string name="preference_record_audio">Grabar audio</string>
     <string name="preference_record_audio_summary">Grabe audio durante la grabación del video</string>
     <string name="preference_record_audio_src">Fuente del audio</string>
-    <string name="preference_record_audio_src_summary">Micrófono a utilizar para grabar audio\n%s</string>
+    <string name="preference_record_audio_src_summary">Micrófono que se utilizará para grabar audio. Ten en cuenta que el comportamiento exacto de las opciones depende de cómo esté implementada la opción en tu dispositivo.
+\n%s</string>
     <string name="preference_record_audio_channels">Canales de audio</string>
     <string name="preference_record_audio_channels_summary">Especifique mono o estéreo para grabar audio (estéreo sólo es admitido en algunos dispositivos)</string>
     <string name="preference_video_flash">Flash durante la grabación de video</string>
@@ -339,7 +341,8 @@
     <string name="preference_show_geo_direction_lines">Mostrar líneas de dirección</string>
     <string name="preference_show_geo_direction_lines_summary">Muestra líneas de dirección de la brújula</string>
     <string name="preference_video_subtitle">Subtítulos en video</string>
-    <string name="preference_video_subtitle_summary">Cree un archivo de subtítulos (.SRT) almacenando la fecha y la hora; y también información del GPS si los datos de la ubicación/dirección están permitidos\n%s</string>
+    <string name="preference_video_subtitle_summary">Crea un archivo de subtítulos (.SRT) que almacena la fecha, hora y también información GPS si los datos de ubicación/dirección están activados. (En Android 11+, esta opción requiere más controles de cámara y acceso al almacenamiento habilitados).
+\n%s</string>
     <string name="duration_unlimited">Ilimitado</string>
     <string name="duration_3s">3 segundos</string>
     <string name="duration_5s">5 segundos</string>
@@ -593,4 +596,11 @@
     <string name="preference_focus_bracketing_n_images">Número de fotos</string>
     <string name="preference_category_exif_tags">Etiquetas EXIF personalizadas</string>
     <string name="preference_video_fps_default">Por defecto</string>
+    <string name="preference_camera2_photo_video_recording_summary">Permite hacer fotos mientras se graban vídeos. Desactiva esta opción si hay problemas con la grabación de vídeo con API Camera2 activado en tu dispositivo.</string>
+    <string name="open_files_saf_exception_ghost">No se encontró ningún diálogo de archivo en este dispositivo, la opción de imagen Ghost no es compatible</string>
+    <string name="preference_ghost_image_last">Última foto tomada</string>
+    <string name="preference_ghost_image_off">Desactivado</string>
+    <string name="preference_ghost_image">Imagen Ghost</string>
+    <string name="permission_rationale_record_audio">Acceso al micrófono es requerido para grabar vídeo con audio, así como para utilizar las opciones de \"Control de audio\"</string>
+    <string name="permission_rationale_storage">Permiso de lectura/escritura requerido para guardar los archivos resultantes, como fotos o vídeos</string>
 </resources>
