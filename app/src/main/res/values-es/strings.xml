@@ -567,4 +567,30 @@
     <string name="focus_bracketing_target_distance">Distancia objetivo del horquillado de enfoque</string>
     <string name="focus_bracketing_source_distance">Horquillado de enfoque distancia de la fuenta</string>
     <string name="permission_rationale_location">El permiso de ubicación es necesario para el geoetiquetado (almacenamiento de datos de ubicación en fotos y vídeos, incluidas las opciones de sello y subtítulos). El permiso de ubicación también es necesario (al menos para Android 11 y anteriores) para conectarse a dispositivos de control remoto Bluetooth LE.</string>
+    <string name="preference_video_log">Perfiles de imagen de vídeo</string>
+    <string name="preference_camera2_photo_video_recording">Permitir fotos mientras se graba vídeo</string>
+    <string name="saf_permission_failed_open_image">No se puede abrir esta imagen</string>
+    <string name="preference_ghost_image_selected">Imagen seleccionada</string>
+    <string name="preference_ghost_image_summary">Superponer una imagen, para ayudar con la alineación
+\n%s</string>
+    <string name="preference_focus_bracketing_n_images_entries_200">200</string>
+    <string name="preference_focus_bracketing_n_images_entries_150">150</string>
+    <string name="preference_focus_bracketing_n_images_entries_100">100</string>
+    <string name="preference_focus_bracketing_n_images_entries_50">50</string>
+    <string name="preference_focus_bracketing_n_images_entries_40">40</string>
+    <string name="preference_focus_bracketing_n_images_entries_30">30</string>
+    <string name="preference_focus_bracketing_n_images_entries_25">25</string>
+    <string name="preference_focus_bracketing_n_images_entries_20">20</string>
+    <string name="preference_focus_bracketing_n_images_entries_15">15</string>
+    <string name="preference_focus_bracketing_n_images_entries_12">12</string>
+    <string name="preference_focus_bracketing_n_images_entries_10">10</string>
+    <string name="preference_focus_bracketing_n_images_entries_8">8</string>
+    <string name="preference_focus_bracketing_n_images_entries_6">6</string>
+    <string name="preference_focus_bracketing_n_images_entries_5">5</string>
+    <string name="preference_focus_bracketing_n_images_entries_4">4</string>
+    <string name="preference_focus_bracketing_n_images_entries_3">3</string>
+    <string name="preference_focus_bracketing_n_images_entries_2">2</string>
+    <string name="preference_focus_bracketing_n_images">Número de fotos</string>
+    <string name="preference_category_exif_tags">Etiquetas EXIF personalizadas</string>
+    <string name="preference_video_fps_default">Por defecto</string>
 </resources>
