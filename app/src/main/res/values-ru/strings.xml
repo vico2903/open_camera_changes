@@ -892,16 +892,6 @@
     <string name="array_seekbar_preference_seekbar">Панель поиска для изменения текущего значения предпочтения</string>
     <string name="permission_rationale_record_audio">Доступ к микрофону требуется для записи видео со звуком, а также для использования опций \"Управление звуком\"</string>
     <string name="permission_rationale_storage">Для сохранения результирующих файлов, таких как фотографии или видео, требуется разрешение на чтение/запись из хранилища</string>
-    <string name="whats_new_text"> <small>[Этот диалог отображается при обновлении камеры. You can disable it under Settings/On screen GUI/Show What\'s New dialog.]</small>
-\n
-\n<b>v1.50:</b>
-\n <ul> <li>Поддержка расширений камеры. Некоторые устройства Android 12 теперь имеют фоторежимы, такие как «Ночь», «Боке», «Красота». Требуется, чтобы в настройках/\"Camera API\" было установлено значение Camera2 API.
-\n</li> <li>Разрешить доступ к сверхширокоугольным камерам с помощью зума, например. на Pixel 5/6 (при использовании Camera2 API).
-\n</li> <li>Удалены опции \"использовать адреса\" и \"говорить сыр\". Извините, но это связано с новыми требованиями к конфиденциальности данных.
-\n</li> <li>Исправлен HDR на устройствах Samsung, начиная с Android 12.
-\n</li> <li>Исправлены проблемы со вспышкой в Camera2 API.
-\n</li> <li>Различные улучшения для Android 12.
-\n</li> </ul> </string>
     <string name="switch_multi_camera_lens">ОБЪЕКТИВ</string>
     <string name="skip_button_label">Пропустить</string>
     <string name="next_button_label">Вперёд</string>
