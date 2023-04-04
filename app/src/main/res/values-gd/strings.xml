@@ -855,20 +855,6 @@
     <string name="preference_show_cycle_raw_summary">Co-dhiù an dèid ìomhaigheag a shealltainn air an sgrìn gus nach dèid airson cuairteachadh tro na modhan RAW</string>
     <string name="preference_raw_focus_bracketing_summary">Co-dhiù am bi roghainn HDR an sàs air modh bracketing an fhòcais gus nach bi. Ma tha an roghainn seo à comas, cha dèid ach faidhlichean JPEG a shàbhaladh ann am modhan deilbh bracketing an fhòcais.</string>
     <string name="preference_raw_expo_bracketing_summary">Co-dhiù am bi roghainn HDR an sàs air modh bracketing an deisearais (no dhan mhodh HDR nuair a bhios “Sàbhail gach dealbh airson modh HDR” an comas) gus nach bi. Ma tha an roghainn seo à comas, cha dèid ach faidhlichean JPEG a shàbhaladh sna modhan deilbh sin.</string>
-    <string name="whats_new_text"> <small>[Thèid an còmhradh seo a shealltainn nuair a bhios an camara ’ga ùrachadh. ’S urrainn dhut a chur à comas fo “Roghainnean”/“Eadar-aghaidh air an sgrìn”/“Seall còmhradh mu na tha ùr”.]</small>
-\n
-\n<b>v1.48:</b>
-\n <ul> <li>Ìomhaigheag ùr airson iomadh camara. Ma tha iomadh camara beòil/cùil aig an uidheam agad, gearraidh an ìomhaigheag a bha ann mu thràth leum eadar an camara beòil is cùil; nì an ìomhaigheag ùr cuairteachadh eadar iomadh camara beòil is cùil ’na àite. Nam b’ fheàrr leat an seann-ghiùlan, cuir à comas “Roghainnean”/“Eadar-aghaidh air an sgrìn”/“Ìomhaigheag iomadh camara”. (Thoir an aire nach eil seo ri fhaighinn ach do dh’uidheaman a nochdas iomadh camara do dh’aplacaidean treas-phàrtaidhean.)
-\n</li> <li>Seallaidh gleus a’ chòmhnardachaidh fhèin-obrachail ceart-cheàrnach air an sgrìn a-nis airson frèam an deilbh a gheibh thu às a shealltainn.
-\n</li> <li>Stiùireadh an deisearais do dh’uidheaman a bheir taic dha. (API Camera2 a-mhàin.)
-\n</li> <li>Barrachd pròifilean video gnàthaichte.
-\n</li> <li>Roghainn ùr do luach alpha dhan roghainn deilbh taibhse.
-\n</li> <li>Roghainnean airson dathan stiallan sìobra.
-\n</li> <li>Roghainn airson claonadh,/pids/roiligeadh làithreach an uidheim a ghlèidheadh ann am beachd cleachdaiche Exif.
-\n</li> <li>Roghainn airson gnìomhan brùthaidh fhaide a chur à comas.
-\n</li> <li>Piseach air cleachdadh na làn-sgrìn airson co-mheasan deilbh leathann air uidheaman le putanan seòladaireachd air an sgrìn.
-\n</li> <li>Càradh air bugaichean is pisich air an eadar-aghaidh.
-\n</li> </ul> </string>
     <string name="preference_screen_licences">Ceadachasan bun-tùis fhosgailte</string>
     <string name="preference_comment_ypr_summary">Glèidh claonadh, pids is roiligeadh an uidheim ann am beachd cleachdaiche Exif an deilbh (fòrmat JPEG a-mhàin)</string>
     <string name="preference_comment_ypr">Glèidh an claonadh, a’ phids is an roiligeadh</string>

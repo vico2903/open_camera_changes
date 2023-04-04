@@ -887,16 +887,6 @@
     <string name="preferences_authors">Autori</string>
     <string name="preferences_about_app">Camera è un fork di OpenCamera</string>
     <string name="preferences_build_version">Versione build</string>
-    <string name="whats_new_text"> <small>[This dialog is shown when Camera is updated. You can disable it under Settings/On screen GUI/Show What\'s New dialog.]</small>
-\n
-\n<b>v1.50:</b>
-\n <ul> <li>Support for Camera Extensions. Selected Android 12 devices now have photo modes such as Night, Bokeh, Beauty. Requires Settings/\"Camera API\" to be set to Camera2 API.
-\n</li> <li>Allow accessing ultra-wide cameras via zoom e.g. on Pixel 5/6 (when using Camera2 API).
-\n</li> <li>Removed \"use addresses\" and \"say cheese\" options. Sorry about that, but this is due to new data privacy requirements.
-\n</li> <li>Fixed HDR on Samsung devices since Android 12.
-\n</li> <li>Fixes for flash on Camera2 API.
-\n</li> <li>Various improvements for Android 12.
-\n</li> </ul> </string>
     <string name="preference_licence_google_icons_text">Camera utilizza le icone Material Design di Google (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) sotto la licenza Apache versione 2.0. Alcune icone includono modifiche. Tocca qui per il testo completo della licenza.</string>
     <string name="preference_licence_google_icons">Icone Material Design di Google</string>
     <string name="preference_licence_open_camera_text">Camera è © 2013-2019 Mark Harman, rilasciata sotto licenza GPL v3 o successiva. Tocca qui per il testo completo della licenza.</string>

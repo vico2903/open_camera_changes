@@ -769,20 +769,6 @@
     <string name="duration_8m">8 minutos</string>
     <string name="preferences_app_info_title">Información da cámara</string>
     <string name="preferences_about_app">Cámara está bifurcada de OpenCamara</string>
-    <string name="whats_new_text"> <small> [Este diálogo móstrase cando se actualiza a cámara. Podes desactivalo en Configuración / GUI na pantalla / Mostrar o diálogo Novidades.] </small>
-\n
-\n<b> v1.48: </b>
-\n <ul> <li> Nova icona para varias cámaras. Se o dispositivo ten varias cámaras dianteiras/traseiras, a icona existente para cambiar de cámara cambiará entre a cámara frontal e a traseira; a nova icona circulará entre as múltiples cámaras dianteiras ou traseiras. Se prefires o comportamento anterior, desactiva Configuración / GUI en pantalla / \"Icona de varias cámaras\". (Nota, só é compatible con dispositivos que expoñen varias cámaras a aplicativos de terceiros.)
-\n</li> <li> A función de nivel automático agora mostra un rectángulo en pantalla para amosar o marco da foto resultante.
-\n</li> <li> Control de apertura, para dispositivos que soportan isto. (Só API Camera2).
-\n</li> <li> Máis perfís de vídeo personalizados.
-\n</li> <li> Nova opción para o valor alfa para a imaxe fantasma.
-\n</li> <li> Opcións para as cores da raia cebra.
-\n</li> <li> Opción para almacenar o desvío/ton/roll actual do dispositivo no comentario do usuario Exif.
-\n</li> <li> Opción para desactivar as accións de premer longo.
-\n</li> <li> Mellor uso da pantalla completa con amplas relacións de aspecto en dispositivos con botóns de navegación en pantalla.
-\n</li> <li> Corrección de erros e melloras na interface de usuario.
-\n</li> </ul> </string>
     <string name="preference_licence_google_icons_text">A cámara usa iconas das iconas de Material Design de Google (https://developer.android.com/design/downloads/index.html, https://design.google.com/icons/, https://github.com/google/ material-design-icons /, https://google.github.io/material-design-icons/) baixo a licenza Apache versión 2.0. Algúns iconas inclúen modificacións. Preme aquí para ver o texto completo da licenza.</string>
     <string name="preference_licence_google_icons">Iconas de Material Design de Google</string>
     <string name="preference_licence_open_camera_text">A cámara é © 2013–2019 Mark Harman, publicada baixo a GPL v3 ou posterior. Preme aquí para ver o texto completo da licenza.</string>
