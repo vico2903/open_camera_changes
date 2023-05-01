@@ -581,4 +581,55 @@
     <string name="face_detection_disable">Gera greiningu andlita óvirka</string>
     <string name="face_detection_enabled">Greining andlita virk</string>
     <string name="face_detection_disabled">Greining andlita óvirk</string>
+    <string name="preference_record_audio_src_camcorder">Myndbandstökuvél</string>
+    <string name="action_popup">Stillingar sprettglugga</string>
+    <string name="repeats_to_go">endurtekningar eftir</string>
+    <string name="failed_to_reconnect_camera">Gat ekki endurtengst myndavél</string>
+    <string name="video_may_be_corrupted">Villa, myndskeiðsskráin gæti verið skemmd</string>
+    <string name="video_error_unknown">Óþekkt villa, myndskeið stöðvaðist</string>
+    <string name="video_error_server_died">Þjónninn dó, myndskeið stöðvaðist</string>
+    <string name="auto_stabilise_not_supported">Því miður, sjálfvirk aðlögun litatíðni
+\ner ekki studd á þessu tæki</string>
+    <string name="preference_auto_stabilise">Sjálfvirk aðlögun litatíðni</string>
+    <string name="preference_show_iso_summary">Birta fyrirliggjandi ISO-ljósnæmni. (Krefst notkunar Camera2 API.)</string>
+    <string name="preference_show_angle_line_summary">Birta lárétta jafnvægislínu</string>
+    <string name="preference_angle_highlight_color_summary">Litur á áherslulitun þegar myndavél er nálægt því lárétt</string>
+    <string name="preference_stamp">Stimpla ljósmyndir</string>
+    <string name="preference_stamp_dateformat">Snið dagsetningarmerkis</string>
+    <string name="preference_category_stamp">Stimpla mynd</string>
+    <string name="video_power_critical">Myndskeið stöðvað
+\nVarhugavert lág hleðsla rafhlöðu</string>
+    <string name="preference_calibrate_level_calibrated">Litatíðni kvörðuð</string>
+    <string name="preference_calibrate_level_calibration_reset">Litatíðnikvörðun endurstillt</string>
+    <string name="preference_units_distance_summary">Notað í GPS-hæðarmælingar fyrir stimplun í myndir og skjátexta myndskeiða
+\n%s</string>
+    <string name="preference_show_auto_level">Birta tákn fyrir sjálfvirka aðlögun litatíðni</string>
+    <string name="auto_level_enable">Virkja sjálfvirka aðlögun litatíðni</string>
+    <string name="stamp_enable">Virkja myndstimpil</string>
+    <string name="stamp_disable">Gera myndstimpil óvirkan</string>
+    <string name="stamp_enabled">Myndstimpill virkur</string>
+    <string name="stamp_disabled">Myndstimpill óvirkur</string>
+    <string name="preference_show_textstamp">Birta tákn fyrir stimplun sérsniðins texta á mynd</string>
+    <string name="preference_stamp_geo_address_both">Nota heimilisföng ef mögulegt er auk GPS-hnita</string>
+    <string name="video_max_duration">Tímalengd myndskeiðs náði hámarki</string>
+    <string name="video_max_filesize">Skráarstærð myndskeiðs náði hámarki</string>
+    <string name="exposure_locked">Lýsingartími læstur</string>
+    <string name="exposure_unlocked">Lýsingartími ólæstur</string>
+    <string name="cancelled_timer">Hætt við niðurteljara</string>
+    <string name="cancelled_repeat_mode">Hætt við endurtekningarham</string>
+    <string name="started_timer">Ræsti niðurteljara</string>
+    <string name="failed_to_save_video">Mistókst að vista myndskeiðsskrá</string>
+    <string name="failed_to_record_video">Mistókst að taka upp myndskeið</string>
+    <string name="started_recording_video">Byrjaði upptöku myndskeiðs</string>
+    <string name="failed_to_auto_stabilise">Mistókst að aðlaga litatíðni sjálfvirkt</string>
+    <string name="preference_stamp_summary">Stimplaðu ljósmyndir með dagsetningu og tíma og einnig GPS-upplýsingum ef staðsetning/stefnugögn eru virk
+\n%s</string>
+    <string name="preference_stamp_timeformat">Snið tímamerkis</string>
+    <string name="preference_stamp_gpsformat">Snið GPS-merkis</string>
+    <string name="preference_textstamp_summary">Stimplaðu ljósmyndir með sérsniðnum texta</string>
+    <string name="preference_stamp_fontsize_summary">Stærð leturs þegar texti er stimplaður á myndir</string>
+    <string name="preference_stamp_font_color_summary">Litur leturs þegar texti er stimplaður á myndir</string>
+    <string name="preference_stamp_style_summary">Stíll sem á að nota þegar texti er stimplaður á myndir</string>
+    <string name="auto_level_disable">Gera sjálfvirka aðlögun litatíðni óvirka</string>
+    <string name="preference_show_stamp">Birta \"Stimpla mynd\" tákn</string>
 </resources>
