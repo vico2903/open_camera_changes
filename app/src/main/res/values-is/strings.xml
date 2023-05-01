@@ -33,7 +33,7 @@
     <string name="color_effect_none">Ekkert</string>
     <string name="color_effect_posterize">Þrykkja</string>
     <string name="color_effect_sepia">Sepía</string>
-    <string name="whats_new">Nýtt á döfinni í</string>
+    <string name="whats_new">Nýtt á döfinni:</string>
     <string name="face_detected">andlit</string>
     <string name="preference_video_fps_default">Sjálfgefið</string>
     <string name="preference_exif_copyright">Höfundarréttur</string>
@@ -545,7 +545,7 @@
 \n%s</string>
     <string name="preference_raw_focus_bracketing">Leyfa RAW í misskerptum myndaröðum</string>
     <string name="failed_to_open_camera_2">MYNDAVÉL GÆTI VERIÐ Í NOTKUN</string>
-    <string name="failed_to_open_camera_3">AF ÖÐRU FORRITI</string>
+    <string name="failed_to_open_camera_3">AF ÖÐRU FORRITI\?</string>
     <string name="failed_to_stamp">Mistókst að stimpla upplýsingar á mynd</string>
     <string name="preference_category_camera_effects">Myndavélabrellur</string>
     <string name="preference_color_effect">Virkja litáhrif</string>
@@ -629,7 +629,8 @@
     <string name="preference_textstamp_summary">Stimplaðu ljósmyndir með sérsniðnum texta</string>
     <string name="preference_stamp_fontsize_summary">Stærð leturs þegar texti er stimplaður á myndir</string>
     <string name="preference_stamp_font_color_summary">Litur leturs þegar texti er stimplaður á myndir</string>
-    <string name="preference_stamp_style_summary">Stíll sem á að nota þegar texti er stimplaður á myndir</string>
+    <string name="preference_stamp_style_summary">Stíll sem á að nota þegar texti er stimplaður á myndir
+\n%s</string>
     <string name="auto_level_disable">Gera sjálfvirka aðlögun litatíðni óvirka</string>
     <string name="preference_show_stamp">Birta \"Stimpla mynd\" tákn</string>
     <string name="flash_frontscreen_auto">Sjálfvirkt leifturljós af skjá</string>
@@ -637,10 +638,10 @@
     <string name="preference_ghost_image_summary">Leggðu yfir aðra mynd, til aðstoðar við hliðrun.
 \n%s</string>
     <string name="preference_lock_orientation">Læsa stefnu ljósmynda/myndskeiða</string>
-    <string name="preference_category_camera_controls">Myndavélarstýringar…</string>
+    <string name="preference_category_camera_controls">Myndavélarstýringar</string>
     <string name="scene_mode">Myndsviðshamur</string>
     <string name="preference_scene_mode">Beita myndsviðsham</string>
-    <string name="preference_scene_mode_summary">"Bestaðu myndina miðað við ólík  myndsvið (senur)"</string>
+    <string name="preference_scene_mode_summary">Bestaðu myndina miðað við ólík myndsvið (senur)</string>
     <string name="preference_white_balance">Stilltu hvítvægi</string>
     <string name="preference_exposure">Stilltu jöfnun á lýsingartíma</string>
     <string name="preference_location">Geyma staðsetningargögn</string>
@@ -680,4 +681,17 @@
     <string name="preference_expo_bracketing_n_images">Mislýst myndaröð</string>
     <string name="preference_expo_bracketing_n_images_summary">Fjöldi mynda í mislýstum myndaröðum
 \n%s</string>
+    <string name="preference_show_zoom_slider_controls">Sýna aðdráttarsleða</string>
+    <string name="preference_show_zoom_slider_controls_summary">Birta sleða til að stýra aðdrætti</string>
+    <string name="preference_show_geo_direction">Birta stefnu áttavita</string>
+    <string name="preference_show_time_summary">Birta núverandi tíma á skjánum</string>
+    <string name="preference_background_photo_saving">Nota bakgrunnsþráð</string>
+    <string name="preference_force_video_4k">Þvinga 4K UHD myndmerki (virkar bara á sumum tækjum)</string>
+    <string name="preference_video_stabilization">Virkja stafræna stöðugleikajöfnun myndmerkis</string>
+    <string name="preference_video_fps">Rammahraði myndmerkis (áætlaður)</string>
+    <string name="preference_video_max_duration">Hámarks tímalengd myndskeiðs</string>
+    <string name="preference_video_max_filesize">Hámarks skráarstærð myndskeiðs</string>
+    <string name="preference_video_restart_max_filesize">Endurræsa eftir að hámarksstærð er náð</string>
+    <string name="preference_video_flash">Blikka á meðan upptöku myndskeiðs stendur</string>
+    <string name="preference_video_restart">Endurræsa myndskeið eftir að hámarkslengd er náð</string>
 </resources>
