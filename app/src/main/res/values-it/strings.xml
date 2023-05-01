@@ -111,7 +111,7 @@
     <string name="preference_audio_noise_control_sensitivity_summary">Opzione per sensibilità del livello di rumore per il controllo audio (forte rumore)</string>
     <string name="preference_save_location">Posizione di salvataggio</string>
     <string name="preference_save_location_summary">Cartella in cui salvare foto e video</string>
-    <string name="preference_using_saf_summary">Utilizza Storage Access Framework per il salvataggio di foto e video</string>
+    <string name="preference_using_saf_summary">Se utilizzare Storage Access Framework per il salvataggio di foto e video. Da abilitare per consentire di salvare su memorie SD esterne. A partire da Android 10, deve essere abilitato per consentire di salvare su cartelle diverse da DCIM.</string>
     <string name="preference_save_photo_prefix">Salva prefisso per foto</string>
     <string name="preference_save_photo_prefix_summary">Prefisso da usare per il nome file di salvataggio delle foto</string>
     <string name="preference_save_video_prefix">Salva prefisso per video</string>
@@ -200,7 +200,7 @@
     <string name="preference_force_video_4k">Forza video a 4K UHD (disponibile solo su alcuni dispositivi)</string>
     <string name="preference_force_video_4k_summary">Abilita la risoluzione 3840x2160 per i video dalla fotocamera posteriore - funziona solo se il tuo dispositivo è tecnicamente in grado di registrare in 4K. In ogni caso potrebbe non funzionare, provalo prima di usarlo sul campo.</string>
     <string name="preference_video_stabilization">Abilita stabilizzazione video</string>
-    <string name="preference_video_stabilization_summary">La stabilizzazione video riduce i tremolii durante il movimento della videocamera sia per l\'anteprima che per i video registrati. Potrebbe non essere necessario se il tuo dispositivo dispone della funzione di stabilizzazione ottica dell\'immagine (OIS)</string>
+    <string name="preference_video_stabilization_summary">La stabilizzazione video riduce i tremolii durante il movimento della videocamera sia per l\'anteprima che per i video registrati. Potrebbe non essere necessario se il tuo dispositivo dispone della funzione di stabilizzazione ottica dell\'immagine (OIS).</string>
     <string name="preference_video_bitrate">Video bitrate</string>
     <string name="preference_video_bitrate_summary">Imposta il bitrate approssimativo per i video (più alto significa migliore qualità, ma file più grandi; inoltre la registrazione del video potrebbe fallire se un certo bitrate non è supportato dal dispositivo)\n%s</string>
     <string name="preference_video_fps">Video frame rate (approx)</string>
@@ -296,7 +296,7 @@
     <string name="no_permission">PERMESSO NON DISPONIBILE</string>
     <string name="permission_rationale_title">Richiesto permesso</string>
     <string name="permission_rationale_camera">Il permesso di utilizzo della fotocamera è necessario per abilitare la fotocamera</string>
-    <string name="permission_rationale_location">Per utilizzare il geotagging è richiesto il permesso di rilevamento della posizione (Android 11 or earlier: necessario anche per collegarsi a dispositivi di controllo Bluetooth LE)</string>
+    <string name="permission_rationale_location">Per utilizzare il geotagging (conservare dati su foto e video compresi timbri e sottotitoli) è richiesto il permesso a geolocalizzarti. Lo stesso permesso (su Android 11 o precedenti) è richiesto per collegare telecomandi Bluetooth LE.</string>
     <string name="preference_category_photo_debugging">Opzioni di debugging</string>
     <string name="preference_category_video_debugging">Opzioni di debugging</string>
     <string name="preference_camera2_fake_flash">Usa metodo flash alternativo</string>
@@ -330,7 +330,7 @@
     <string name="preference_front_camera_mirror">Specchio camera frontale</string>
     <string name="preference_front_camera_mirror_summary">Determina se riflettere a specchio le immagini usando la fotocamera frontale\n%s</string>
     <string name="preference_calibrate_level">Calibra livello angolo</string>
-    <string name="preference_calibrate_level_summary">Questa opzione calibra l\'accelerometro del dispositivo, in modo che sia il livello automatico che le opzioni livello/angolo su schermo funzionino correttamente.</string>
+    <string name="preference_calibrate_level_summary">Questa scelta calibra l\'accelerometro del dispositivo, in modo che sia il livellamento automatico che le opzioni livello/angolo su schermo funzionino correttamente</string>
     <string name="preference_calibrate_level_dialog">Sistema il tuo dispositivo su un piano orizzontale in modo che sia perfettamente a livello (è indifferente se con orientamento verticale o orizzontale), e poi seleziona Calibra.\n\nPremi Reset se vuoi rimuovere la calibrazione dal dispotivo.\n\nPremi il bottone Indietro per annullare.</string>
     <string name="preference_calibrate_level_calibrate">Calibra</string>
     <string name="preference_calibrate_level_reset">Reset</string>
@@ -781,7 +781,7 @@
     <string name="preference_raw_focus_bracketing_summary">Determina se l\'opzione RAW va anche applicata alla modalità focus bracketing per le foto. Se questa opzione è disattivata, solo i formati JPEG saranno salvati in questa modalità.</string>
     <string name="cycle_raw">Commuta modalità RAW</string>
     <string name="preference_show_cycle_raw">Mostra icona RAW</string>
-    <string name="preference_show_cycle_raw_summary">Determina se mostrare su schermo l\'icona per commutare tra le modalità RAW.</string>
+    <string name="preference_show_cycle_raw_summary">Se mostrare o no sullo schermo l\'icona per commutare tra le modalità RAW</string>
     <string name="bluetooth_current_remote">Dispositivo remoto attuale:</string>
     <string name="bluetooth_scan">Scansione</string>
     <string name="preference_stamp_style_shadowed">Testo ombreggiato</string>
@@ -869,7 +869,7 @@
     <string name="error_features_4k">4K UHD</string>
     <string name="error_features_bitrate">Bitrate</string>
     <string name="error_features_frame_rate">Frame rate</string>
-    <string name="error_features_slow_motion">Slow motion</string>
+    <string name="error_features_slow_motion">Rallentatore</string>
     <string name="preference_comment_ypr">Salva imbardata, beccheggio e rollio</string>
     <string name="preference_comment_ypr_summary">Salva imbardata, beccheggio e rollio del dispositivo nei commenti utente dei metadati Exif delle foto (solo formato JPEG)</string>
     <string name="array_seekbar_preference_seekbar">Barra per cambiare il valore attuale di preferenza</string>
@@ -907,5 +907,6 @@
     <string name="preference_camera2_dummy_capture_hack">Abilita la cattura fittizia per correggere HDR/expo</string>
     <string name="preference_camera2_dummy_capture_hack_summary">Prova ad attivarlo se il dispositivo ha problemi quando si scattano foto in modalità HDR o Expo (quando le immagini expo escono con le stesse esposizioni). Rilevante solo se è attivata anche l\'opzione HDR/expo veloce di cui sotto.</string>
     <string name="permission_rationale_record_audio">E\' richiesto il consenso all\'utilizzo del Microfono per registrare video con audio, così come anche per usare le scelte di \"controllo Audio\"</string>
-    <string name="permission_rationale_storage">"E\' richiesto il permesso di leggere/scrivere  file per salvare i risultati come foto o video"</string>
+    <string name="permission_rationale_storage">E\' richiesto il permesso di leggere/scrivere file per salvare i risultati come foto o video</string>
+    <string name="switch_multi_camera_lens">LENTI</string>
 </resources>
