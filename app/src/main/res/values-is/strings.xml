@@ -632,4 +632,52 @@
     <string name="preference_stamp_style_summary">Stíll sem á að nota þegar texti er stimplaður á myndir</string>
     <string name="auto_level_disable">Gera sjálfvirka aðlögun litatíðni óvirka</string>
     <string name="preference_show_stamp">Birta \"Stimpla mynd\" tákn</string>
+    <string name="flash_frontscreen_auto">Sjálfvirkt leifturljós af skjá</string>
+    <string name="flash_frontscreen_on">Leifturljós af skjá virkt</string>
+    <string name="preference_ghost_image_summary">Leggðu yfir aðra mynd, til aðstoðar við hliðrun.
+\n%s</string>
+    <string name="preference_lock_orientation">Læsa stefnu ljósmynda/myndskeiða</string>
+    <string name="preference_category_camera_controls">Myndavélarstýringar…</string>
+    <string name="scene_mode">Myndsviðshamur</string>
+    <string name="preference_scene_mode">Beita myndsviðsham</string>
+    <string name="preference_scene_mode_summary">"Bestaðu myndina miðað við ólík  myndsvið (senur)"</string>
+    <string name="preference_white_balance">Stilltu hvítvægi</string>
+    <string name="preference_exposure">Stilltu jöfnun á lýsingartíma</string>
+    <string name="preference_location">Geyma staðsetningargögn</string>
+    <string name="preference_gps_direction">Geyma stefnu áttavita</string>
+    <string name="preference_require_location">Krefjast staðsetningargagna</string>
+    <string name="preference_reset_summary">Setja allar stillingar myndavélar á sjálfgefin gildi</string>
+    <string name="preference_reset_question">Ertu viss um að þú viljir endursetja allar stillingar myndavélar á sjálfgefin gildi\?</string>
+    <string name="flash_mode">Leifturljóshamur</string>
+    <string name="switch_to_front_camera">Skipta yfir á frammyndavél</string>
+    <string name="switch_to_back_camera">Skipta yfir á bakmyndavél</string>
+    <string name="switch_to_video">Skipta yfir í myndskeiðsham</string>
+    <string name="switch_to_photo">Skipta yfir í ljósmyndaham</string>
+    <string name="trash">Eyða síðustu mynd</string>
+    <string name="share">Deila mynd</string>
+    <string name="saf_permission_failed">Get ekki vistað í þessa möppu</string>
+    <string name="permission_location_not_available">Heimild fyrir staðsetningar er ekki tiltæk</string>
+    <string name="photo_mode_expo_bracketing">Mislýs {}</string>
+    <string name="photo_mode_expo_bracketing_full">Mislýst myndaröð</string>
+    <string name="capturing">Tek upp…</string>
+    <string name="preference_raw_expo_bracketing">Leyfa RAW í mislýstum myndaröðum</string>
+    <string name="preference_expo_bracketing_stops">Mislýst myndaröð stöðvast</string>
+    <string name="preference_expo_bracketing_stops_summary">Hve mörg ljósop á að draga frá eða bæta við dekkstu/ljósustu mynd
+\n%s</string>
+    <string name="preference_nr_save_no">Ekki vista upprunalegar myndir</string>
+    <string name="preference_nr_save_single">Vista staka upprunalega mynd</string>
+    <string name="preference_nr_save_all">Vista allar upprunalegar myndir (hægvirkt)</string>
+    <string name="video_no_free_space">Ekki nægilegt pláss til að taka upp myndskeið</string>
+    <string name="preference_video_low_power_check">Athugun á hættulega lágri hleðslu</string>
+    <string name="camera_error">Alvarleg villa í myndavél</string>
+    <string name="no_gallery_app">Ekkert myndasafnsforrit er tiltækt</string>
+    <string name="permission_record_audio_not_available">Heimild fyrir hljóðnema er ekki tiltæk</string>
+    <string name="start_video">Hefja upptöku myndskeiðs</string>
+    <string name="stop_video">Stöðva upptöku myndskeiðs</string>
+    <string name="photo_mode_fast_burst_full">Hröð runa</string>
+    <string name="preference_hdr_save_expo">Vista allar myndir fyrir HDR-ham</string>
+    <string name="no_permission">HEIMILD EKKI TILTÆK</string>
+    <string name="preference_expo_bracketing_n_images">Mislýst myndaröð</string>
+    <string name="preference_expo_bracketing_n_images_summary">Fjöldi mynda í mislýstum myndaröðum
+\n%s</string>
 </resources>
