@@ -469,4 +469,19 @@
     <string name="photo_mode_x_bokeh_full">Viðauki: Bokeh</string>
     <string name="photo_mode_x_beauty_full">Viðauki: Beauty / Face Retouch</string>
     <string name="preference_screen_licences">Open Source notkunarleyfi</string>
+    <string name="stopped_recording_video">Stöðvaði upptöku myndskeiðs</string>
+    <string name="not_supported">ekki stutt á tækinu þínu</string>
+    <string name="exposure_compensation">Jöfnun lýsingartíma</string>
+    <string name="failed_to_save_photo">Mistókst að vista mynd</string>
+    <string name="failed_to_save_photo_raw">Mistókst að vista RAW-mynd</string>
+    <string name="failed_to_start_camera_preview">Tókst ekki að ræsa forskoðun myndavélar</string>
+    <string name="choose_save_location">Veldu staðsetningu vistunar:</string>
+    <string name="clear_folder_history">Hreinsa feril möppu</string>
+    <string name="clear_folder_history_question">Hreinsa feril möppu\?</string>
+    <string name="choose_another_folder">Veldu aðra möppu</string>
+    <string name="changed_save_location">Breytti staðsetningu vistunar í:</string>
+    <string name="max_duration">Hámarkstímalengd</string>
+    <string name="screen_is_locked">Skjárinn er læstur
+\nstrjúktu eftir skjánum til að aflæsa</string>
+    <string name="audio_disabled">Hljóð óvirkt</string>
 </resources>
