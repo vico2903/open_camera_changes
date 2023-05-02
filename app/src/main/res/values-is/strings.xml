@@ -746,4 +746,33 @@
     <string name="preference_comment_ypr">Geyma snúning, dýfu og veltu</string>
     <string name="preference_comment_ypr_summary">Geyma snúning, dýfu og veltu (yaw, pitch, roll) í athugasemdum EXIF-lýsigagna mynda á tækinu (einungis JPEG-snið)</string>
     <string name="array_seekbar_preference_seekbar">Leitarstika til að breyta kjörstillingu</string>
+    <string name="preference_antibanding">Útrýming ráka</string>
+    <string name="preference_camera2_photo_video_recording">Leyfa ljósmyndir á meðan upptöku myndskeiðs stendur</string>
+    <string name="preference_video_log">Myndasnið myndskeiða</string>
+    <string name="preference_show_whats_new">Birta \'Nýtt á döfinni\' glugga</string>
+    <string name="preference_edge_mode">Reiknirit fyrir brúnir</string>
+    <string name="preference_screen_processing_settings">Vinnslustillingar…</string>
+    <string name="preference_iso_summary">Hærra gildi þýðir meiri ljósnæmni (virkar mögulega ekki á sumum tækjum)</string>
+    <string name="preference_exposure_summary">Settu á 0 fyrir sjálfgefna jöfnun á lýsingartíma</string>
+    <string name="preference_white_balance_summary">Veldu stillingu til að aðlaga hvítvægi (white balance)</string>
+    <string name="preference_touch_capture_summary">Taktu ljósmynd einfaldlega með því að snerta eða tvíbanka á forskoðunina</string>
+    <string name="preference_pause_preview_summary">Setja skjáinn í bið eftir að mynd er tekin, með valkostum um að deila eða eyða myndinni</string>
+    <string name="preference_audio_noise_control_sensitivity_summary">Valkostur varðandi næmi á styrk truflana í hljóði (hávaða)</string>
+    <string name="preference_rotate_preview_summary">Valkostur um að snúa forskoðuninni (hefur ekki áhrif á teknar myndir/myndskeið)
+\n%s</string>
+    <string name="preference_free_memory_summary">Birta á skjánum plássið sem eftir er í geymslurými tækis</string>
+    <string name="preference_show_angle_summary">Birta núverandi stefnuhorn tækis á skjánum</string>
+    <string name="preference_angle_highlight_color">Litur á áherslulitun horns/hæðar</string>
+    <string name="preference_show_geo_direction_summary">Birta stefnu áttavitans í tækinu á skjánum</string>
+    <string name="saf_cancelled">Hætt við aðgengi geymslukerfis</string>
+    <string name="permission_rationale_camera">Krafist er heimilda til að nota myndavél svo hún virki</string>
+    <string name="permission_rationale_storage">Heimild til aðgangs að gagnageymslu er nauðsynleg til að vista skrár sem verða til, eins og ljósmyndir eða myndskeið</string>
+    <string name="permission_rationale_record_audio">Heimild þarf fyrir aðgang að hljóðnema til að taka upp myndskeið með hljóði, og eins ef nota á valkosti hljóðstýringar</string>
+    <string name="preference_camera2_fast_burst">Virkja hraðar runur við HDR/mislýsingu</string>
+    <string name="preference_show_pitch_lines">Sýna línur fyrir dýfu</string>
+    <string name="preference_show_pitch_lines_summary">Birta lárétta dýfulínur</string>
+    <string name="preference_show_geo_direction_lines">Birta stefnulínur áttavita</string>
+    <string name="preference_show_geo_direction_lines_summary">Birta stefnulínur í áttavita</string>
+    <string name="audio_listener_failed">Mistókst að setja af stað hlustun eftir hljóði</string>
+    <string name="permission_rationale_bluetooth_scan_connect">Heimildir þarf fyrir skönnun/tengingu á Bluetooth til að finna og tengja Bluetooth LE (BLE) fjarstýringartæki.</string>
 </resources>
