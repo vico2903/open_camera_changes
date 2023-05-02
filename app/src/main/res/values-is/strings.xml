@@ -419,7 +419,7 @@
     <string name="preference_focus_assist">Aðstoð við fókus</string>
     <string name="preference_histogram_intensity">Litstyrkur (meðaltal)</string>
     <string name="preference_histogram_lightness">Ljósleiki (meðaltal lág-hámarks)</string>
-    <string name="preference_zebra_stripes">Birta sebrarendur</string>
+    <string name="preference_zebra_stripes">Birta litrendur</string>
     <string name="focus_distance">Fjarlægð brennipunkts</string>
     <string name="taking_photo">Tek ljósmynd</string>
     <string name="failed_to_take_picture">Mistókst að taka mynd</string>
@@ -775,4 +775,24 @@
     <string name="preference_show_geo_direction_lines_summary">Birta stefnulínur í áttavita</string>
     <string name="audio_listener_failed">Mistókst að setja af stað hlustun eftir hljóði</string>
     <string name="permission_rationale_bluetooth_scan_connect">Heimildir þarf fyrir skönnun/tengingu á Bluetooth til að finna og tengja Bluetooth LE (BLE) fjarstýringartæki.</string>
+    <string name="preference_zebra_stripes_summary">Sé þetta valið, verða litrendur teiknaðar á skjáinn sem sýna á forskoðuninni hvar myndin verði yfirlýst.
+\n%s</string>
+    <string name="preference_camera_api_summary">Veldu Camera2 API til að virkja aukaeiginleika á borð við handvirka hami á lýsingartíma, skerpu, hvítvægi, auk RAW-mynda (ef tækið styður slíkt). Breyting á API-kerfisviðmóti hefur endurræsingu í för með sér.
+\n%s</string>
+    <string name="preference_video_profile_gamma_summary">Litrófsgildi til notkunar fyrir myndskeið ef myndmerkissnið er stillt á Litróf
+\n%s</string>
+    <string name="preference_immersive_mode_low_profile">Einungis dimma stjórnhnappa á skjá</string>
+    <string name="preference_immersive_mode_navigation">Fela sýndarstjórnhnappa á skjá</string>
+    <string name="preference_ghost_image_alpha_summary">Alfa-gegnsæisgildi fyrir draugamyndir. Lægra gildi þýðir meira gegnsæi, hærra þýðir meira ógegnsæi.
+\n%s</string>
+    <string name="preference_zebra_stripes_foreground_color_summary">Litur sem á að nota í forgrunnsrendur þegar litrendur eru birtar.
+\n%s</string>
+    <string name="preference_zebra_stripes_background_color_summary">Litur sem á að nota í bakgrunnsrendur þegar litrendur eru birtar.
+\n%s</string>
+    <string name="preference_show_camera_id_summary">Birta auðkennisnúmer núverandi myndavélar á skjánum</string>
+    <string name="preference_immersive_mode">Umlykjandi hamur (immersive)</string>
+    <string name="preference_panorama_crop_summary">Í víðmyndarham, hvort eigi að fjarlægja bylgjóttu jaðrana
+\n%s</string>
+    <string name="preference_audio_control_summary">Taka ljósmynd/myndskeið þegar hávaði greinist. Þegar þetta er virkt, skaltu nota hljóðnematáknið á skjánum til að byrja/hætta hlustun.
+\n%s</string>
 </resources>
