@@ -104,7 +104,7 @@
     <string name="preference_video_bitrate_100000000">100Mbps</string>
     <string name="preference_video_bitrate_150000000">150Mbps</string>
     <string name="preference_video_bitrate_200000000">200Mbps</string>
-    <string name="photo_mode_focus_bracketing">Fókus {}</string>
+    <string name="photo_mode_focus_bracketing">Skerpa {}</string>
     <string name="magnetic_accuracy_title">Stefna áttavita</string>
     <string name="preference_units_distance">Eining fyrir vegalengdir</string>
     <string name="feet_abbreviation">ft</string>
@@ -182,7 +182,7 @@
     <string name="preference_show_time">Birta tíma</string>
     <string name="app_name">Myndavél</string>
     <string name="action_settings">Stillingar</string>
-    <string name="on">Kveikt</string>
+    <string name="on">Á</string>
     <string name="off">Af</string>
     <string name="fps">RSEK</string>
     <string name="infinite">Óendanlegt</string>
@@ -206,7 +206,7 @@
     <string name="preference_shutter_sound">Hljóð lokara</string>
     <string name="preference_volume_keys">Hljóðstyrkshnappar</string>
     <string name="preference_screen_photo_settings">Stillingar ljósmynda…</string>
-    <string name="preference_screen_video_settings">Myndstillingar…</string>
+    <string name="preference_screen_video_settings">Stillingar myndskeiða…</string>
     <string name="preference_screen_location_settings">Stillingar staðsetningar…</string>
     <string name="preference_quality">Myndgæði</string>
     <string name="preference_raw">RAW</string>
@@ -298,7 +298,7 @@
     <string name="photo_mode_x_bokeh">X-Bokeh</string>
     <string name="photo_mode_x_beauty">X-Bty</string>
     <string name="preference_licence_open_camera">Myndavél</string>
-    <string name="preferences_build_version">Útgáfa smíðar</string>
+    <string name="preferences_build_version">Byggingarútgáfa</string>
     <string name="preferences_authors">Höfundar</string>
     <string name="preferences_source_code">Grunnkóði</string>
     <string name="preferences_licence">Leyfi</string>
@@ -349,7 +349,7 @@
     <string name="preference_show_zoom_controls">Birta -/+ aðdráttarstýringar</string>
     <string name="preference_show_zoom_controls_summary">Birta -/+ hnappa til að stýra aðdrætti</string>
     <string name="preference_show_battery">Sýna rafhlöðu</string>
-    <string name="preference_grid">Birta rúður</string>
+    <string name="preference_grid">Birta reiti</string>
     <string name="grid">Rúður</string>
     <string name="preference_resolution">Upplausn myndavélar</string>
     <string name="preference_textstamp">Sérsniðinn texti</string>
@@ -416,11 +416,11 @@
     <string name="top_of_screen">efst á skjánum</string>
     <string name="bottom_of_screen">neðst á skjánum</string>
     <string name="centre_of_screen">á miðjunni</string>
-    <string name="preference_focus_assist">Aðstoð við fókus</string>
+    <string name="preference_focus_assist">Aðstoð við skerpu</string>
     <string name="preference_histogram_intensity">Litstyrkur (meðaltal)</string>
     <string name="preference_histogram_lightness">Ljósleiki (meðaltal lág-hámarks)</string>
     <string name="preference_zebra_stripes">Birta litrendur</string>
-    <string name="focus_distance">Fjarlægð brennipunkts</string>
+    <string name="focus_distance">Fjarlægð skerpupunkts</string>
     <string name="taking_photo">Tek ljósmynd</string>
     <string name="failed_to_take_picture">Mistókst að taka mynd</string>
     <string name="preference_record_audio_channels">Hljóðrásir</string>
@@ -588,9 +588,9 @@
     <string name="video_may_be_corrupted">Villa, myndskeiðsskráin gæti verið skemmd</string>
     <string name="video_error_unknown">Óþekkt villa, myndskeið stöðvaðist</string>
     <string name="video_error_server_died">Þjónninn dó, myndskeið stöðvaðist</string>
-    <string name="auto_stabilise_not_supported">Því miður, sjálfvirk aðlögun litatíðni
+    <string name="auto_stabilise_not_supported">Því miður, sjálfvirk aðlögun á halla
 \ner ekki studd á þessu tæki</string>
-    <string name="preference_auto_stabilise">Sjálfvirk aðlögun litatíðni</string>
+    <string name="preference_auto_stabilise">Sjálfvirk aðlögun halla</string>
     <string name="preference_show_iso_summary">Birta fyrirliggjandi ISO-ljósnæmni. (Krefst notkunar Camera2 API.)</string>
     <string name="preference_show_angle_line_summary">Birta lárétta jafnvægislínu</string>
     <string name="preference_angle_highlight_color_summary">Litur á áherslulitun þegar myndavél er nálægt því lárétt</string>
@@ -599,12 +599,12 @@
     <string name="preference_category_stamp">Stimpla mynd</string>
     <string name="video_power_critical">Myndskeið stöðvað
 \nVarhugavert lág hleðsla rafhlöðu</string>
-    <string name="preference_calibrate_level_calibrated">Litatíðni kvörðuð</string>
-    <string name="preference_calibrate_level_calibration_reset">Litatíðnikvörðun endurstillt</string>
+    <string name="preference_calibrate_level_calibrated">Halli kvarðaður</string>
+    <string name="preference_calibrate_level_calibration_reset">Hallakvörðun endurstillt</string>
     <string name="preference_units_distance_summary">Notað í GPS-hæðarmælingar fyrir stimplun í myndir og skjátexta myndskeiða
 \n%s</string>
-    <string name="preference_show_auto_level">Birta tákn fyrir sjálfvirka aðlögun litatíðni</string>
-    <string name="auto_level_enable">Virkja sjálfvirka aðlögun litatíðni</string>
+    <string name="preference_show_auto_level">Birta tákn fyrir sjálfvirka aðlögun halla</string>
+    <string name="auto_level_enable">Virkja sjálfvirka aðlögun halla</string>
     <string name="stamp_enable">Virkja myndstimpil</string>
     <string name="stamp_disable">Gera myndstimpil óvirkan</string>
     <string name="stamp_enabled">Myndstimpill virkur</string>
@@ -621,7 +621,7 @@
     <string name="failed_to_save_video">Mistókst að vista myndskeiðsskrá</string>
     <string name="failed_to_record_video">Mistókst að taka upp myndskeið</string>
     <string name="started_recording_video">Byrjaði upptöku myndskeiðs</string>
-    <string name="failed_to_auto_stabilise">Mistókst að aðlaga litatíðni sjálfvirkt</string>
+    <string name="failed_to_auto_stabilise">Mistókst að aðlaga halla sjálfvirkt</string>
     <string name="preference_stamp_summary">Stimplaðu ljósmyndir með dagsetningu og tíma og einnig GPS-upplýsingum ef staðsetning/stefnugögn eru virk
 \n%s</string>
     <string name="preference_stamp_timeformat">Snið tímamerkis</string>
@@ -631,7 +631,7 @@
     <string name="preference_stamp_font_color_summary">Litur leturs þegar texti er stimplaður á myndir</string>
     <string name="preference_stamp_style_summary">Stíll sem á að nota þegar texti er stimplaður á myndir
 \n%s</string>
-    <string name="auto_level_disable">Gera sjálfvirka aðlögun litatíðni óvirka</string>
+    <string name="auto_level_disable">Gera sjálfvirka aðlögun halla óvirka</string>
     <string name="preference_show_stamp">Birta \"Stimpla mynd\" tákn</string>
     <string name="flash_frontscreen_auto">Sjálfvirkt leifturljós af skjá</string>
     <string name="flash_frontscreen_on">Leifturljós af skjá virkt</string>
@@ -697,8 +697,8 @@
     <string name="preference_camera_api">Camera API</string>
     <string name="preference_camera_api_old">Upprunalegt Camera API</string>
     <string name="preference_ghost_image_alpha">Ógegnsæi draugamyndar</string>
-    <string name="preference_zebra_stripes_foreground_color">Forgrunnslitur sebraranda</string>
-    <string name="preference_zebra_stripes_background_color">Bakgrunnslitur sebraranda</string>
+    <string name="preference_zebra_stripes_foreground_color">Forgrunnslitur litranda</string>
+    <string name="preference_zebra_stripes_background_color">Bakgrunnslitur litranda</string>
     <string name="preference_multi_cam_button">Tákn fyrir margar myndavélar</string>
     <string name="preference_show_zoom_summary">Birta fyrirliggjandi aðdráttarstig á skjánum (þegar rennt er að)</string>
     <string name="preference_gps_direction_summary">Geyma stefnu áttavita í myndum (einungis JPEG-snið)</string>
