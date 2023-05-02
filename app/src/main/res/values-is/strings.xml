@@ -719,7 +719,7 @@
     <string name="preference_preview">Forskoðun myndavélar…</string>
     <string name="cycle_flash">Fletta í gegnum leifturljós</string>
     <string name="preference_show_cycle_flash">Birta tákn fyrir leifturljós</string>
-    <string name="bluetooth_current_remote">Fyrirliggjandi fjarstýring</string>
+    <string name="bluetooth_current_remote">Fyrirliggjandi fjarstýring:</string>
     <string name="failed_to_process_panorama">Mistókst að búa til víðmynd</string>
     <string name="preference_panorama_save">Upprunalegar myndir víðmyndar</string>
     <string name="preference_panorama_save_no">Ekki vista upprunalegar myndir</string>
@@ -730,4 +730,20 @@
     <string name="unknown_device_no_permission">Óþekkt tæki (heimild fyrir bluetooth-tengingar er ekki til staðar)</string>
     <string name="preference_licence_open_camera_text">Myndavél/Camera er © 2013–2019 Mark Harman, gefið út með GPL útg.3 eða síðari. Ýttu hér til að sjá allan texta notkunarleyfisins.</string>
     <string name="preference_licence_google_icons_text">Myndavél/Camera notar táknmyndir úr Material-hönnun Google (https://developer.android.com/design/downloads/index.html , https://design.google.com/icons/ , https://github.com/google/material-design-icons/ , https://google.github.io/material-design-icons/) samkvæmt Apache notkunarleyfi útgáfu 2.0. Sumum táknmyndum hefur verið breytt. Ýttu hér til að sjá allan texta notkunarleyfisins.</string>
+    <string name="slow_motion_enabled">Hægtaka virk</string>
+    <string name="slow_motion_disabled">Hægtaka óvirk</string>
+    <string name="preference_show_face_detection_summary">Hvort eigi að sýna táknmynd á skjánum þar sem hægt er að virkja eða gera greiningu andlita óvirka</string>
+    <string name="preference_show_stamp_summary">Hvort eigi að sýna táknmynd á skjánum þar sem hægt er að virkja eða gera stimplun mynda óvirka</string>
+    <string name="preference_show_textstamp_summary">Hvort eigi að sýna táknmynd á skjánum þar sem hægt er að tilgreina sérsniðinn texta til að stimpla á myndina</string>
+    <string name="preference_show_white_balance_lock_summary">Hvort eigi að sýna táknmynd á skjánum þar sem hægt er að læsa eða aflæsa sjálfvirku hvítvægi</string>
+    <string name="preference_show_exposure_lock_summary">Hvort eigi að sýna táknmynd á skjánum þar sem hægt er að læsa eða aflæsa lýsingartíma</string>
+    <string name="preference_show_store_location_summary">Hvort eigi að sýna táknmynd á skjánum þar sem hægt er að virkja eða gera staðsetningargögn óvirk (geotagging)</string>
+    <string name="preference_show_cycle_raw_summary">Hvort eigi að sýna táknmynd á skjánum þar sem hægt er að fletta í gegnum RAW-hami</string>
+    <string name="preference_image_format_summary">Veldu skráasniðið sem notað verður til að vista myndir. Þetta hefur áhrif á \"venjulegar\" (ekki RAW) ljósmyndir. Einungis JPEG styður að vista með EXIF-lýsigögn. Athugaðu að PNG-snið er ekki fullkomlega taplaust, heldur er því umbreytt úr JPEG með 100%% myndgæðum.
+\n%s</string>
+    <string name="preference_allow_long_press_summary">Hvort eigi að leyfa aðgerðir þar sem ýtt er lengi (t.d. ýta lengi á myndasafn til að breyta staðsetningu vistunar).</string>
+    <string name="error_features_slow_motion">Hægtaka (slow-motion)</string>
+    <string name="preference_comment_ypr">Geyma snúning, dýfu og veltu</string>
+    <string name="preference_comment_ypr_summary">Geyma snúning, dýfu og veltu (yaw, pitch, roll) í athugasemdum EXIF-lýsigagna mynda á tækinu (einungis JPEG-snið)</string>
+    <string name="array_seekbar_preference_seekbar">Leitarstika til að breyta kjörstillingu</string>
 </resources>
