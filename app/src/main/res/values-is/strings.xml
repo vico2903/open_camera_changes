@@ -808,4 +808,13 @@
     <string name="preference_show_exposure_lock">Birta tákn fyrir sjálfvirka lýsingu</string>
     <string name="preference_remote_disconnect_screen_dim_summary">Ábending: Settu sjálfgefin birtuskil á lágmarksgildi áður en myndavélarforritið er gangsett..</string>
     <string name="preference_front_camera_mirror">Spegla frammyndavél</string>
+    <string name="preference_take_photo_border_summary">Birta jaðar á skjánum sem gefur til kynna hvenær mynd er tekin</string>
+    <string name="preference_video_max_duration_summary">Upptaka myndskeiðs mun hætta eftir tiltekinn tíma
+\n%s</string>
+    <string name="preference_record_audio_channels_summary">Tiltaktu einóma eða víðóma upptöku á hljóði (víðómur er aðeins studdur á sumum tækjum)</string>
+    <string name="preference_use_camera2_summary">Virkjar aukaeiginleika á borð við handvirka hami á lýsingu, skerpu, hvítvægi, auk RAW-mynda (ef tækið styður slíkt), en er ekki víst að virki á öllum tækjum (hefur endurræsingu í för með sér)</string>
+    <string name="preference_camera2_fake_flash">Nota aðra aðferð fyrir leifturljós</string>
+    <string name="preference_camera2_fake_flash_summary">Virkjaðu þetta ef leifturljós tækisins þín hegðar sér skringilega þegar notað er Camera2 API</string>
+    <string name="preference_front_camera_mirror_summary">Hvort eigi að spegla tekinni mynd þegar frammyndavélin er notuð
+\n%s</string>
 </resources>
