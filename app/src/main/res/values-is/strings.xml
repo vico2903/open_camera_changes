@@ -360,7 +360,7 @@
     <string name="about_copy_to_clipboard">Afrita á klippispjald</string>
     <string name="take_photo">Taka mynd</string>
     <string name="gallery">Myndasafn</string>
-    <string name="exposure">Lýsingartími</string>
+    <string name="exposure">Lýsing</string>
     <string name="photo_mode_standard_full">Staðlað</string>
     <string name="photo_mode_noise_reduction">TS</string>
     <string name="preference_category_photo_debugging">Valkostir villukembingar</string>
@@ -434,7 +434,7 @@
     <string name="white_balance_unlock">Aflæsa hvítvægi</string>
     <string name="white_balance_locked">Hvítvægi læst</string>
     <string name="white_balance_unlocked">Hvítvægi aflæst</string>
-    <string name="exposure_unlock">Aflæsa lýsingartíma</string>
+    <string name="exposure_unlock">Aflæsa lýsingu</string>
     <string name="preference_screen_remote_control">Bluetooth LE fjarstýring…</string>
     <string name="preference_enable_remote">Virkja Bluetooth LE fjarstýringu</string>
     <string name="preference_enable_remote_summary">Virkja Bluetooth LE (BLE) fjarstýringartæki</string>
@@ -453,7 +453,7 @@
     <string name="preference_panorama_crop">Sjálfvirkur utanskurður víðmyndar</string>
     <string name="location_not_available">GPS-staðsetning ekki tiltæk</string>
     <string name="photo_deleted">Mynd var eytt</string>
-    <string name="exposure_lock">Læsa lýsingartíma</string>
+    <string name="exposure_lock">Læsa lýsingu</string>
     <string name="cant_write_folder">Gat ekki skrifað í þessa möppu</string>
     <string name="cant_access_folder">Gat ekki opnað þessa möppu</string>
     <string name="enter_new_folder">Settu inn heiti á nýrri möppu</string>
@@ -471,7 +471,7 @@
     <string name="preference_screen_licences">Open Source notkunarleyfi</string>
     <string name="stopped_recording_video">Stöðvaði upptöku myndskeiðs</string>
     <string name="not_supported">ekki stutt á tækinu þínu</string>
-    <string name="exposure_compensation">Jöfnun lýsingartíma</string>
+    <string name="exposure_compensation">Jöfnun lýsingar</string>
     <string name="failed_to_save_photo">Mistókst að vista mynd</string>
     <string name="failed_to_save_photo_raw">Mistókst að vista RAW-mynd</string>
     <string name="failed_to_start_camera_preview">Tókst ekki að ræsa forskoðun myndavélar</string>
@@ -613,8 +613,8 @@
     <string name="preference_stamp_geo_address_both">Nota heimilisföng ef mögulegt er auk GPS-hnita</string>
     <string name="video_max_duration">Tímalengd myndskeiðs náði hámarki</string>
     <string name="video_max_filesize">Skráarstærð myndskeiðs náði hámarki</string>
-    <string name="exposure_locked">Lýsingartími læstur</string>
-    <string name="exposure_unlocked">Lýsingartími ólæstur</string>
+    <string name="exposure_locked">Lýsing læst</string>
+    <string name="exposure_unlocked">Lýsing ólæst</string>
     <string name="cancelled_timer">Hætt við niðurteljara</string>
     <string name="cancelled_repeat_mode">Hætt við endurtekningarham</string>
     <string name="started_timer">Ræsti niðurteljara</string>
@@ -643,7 +643,7 @@
     <string name="preference_scene_mode">Beita myndsviðsham</string>
     <string name="preference_scene_mode_summary">Bestaðu myndina miðað við ólík myndsvið (senur)</string>
     <string name="preference_white_balance">Stilltu hvítvægi</string>
-    <string name="preference_exposure">Stilltu jöfnun á lýsingartíma</string>
+    <string name="preference_exposure">Stilltu jöfnun á lýsingu</string>
     <string name="preference_location">Geyma staðsetningargögn</string>
     <string name="preference_gps_direction">Geyma stefnu áttavita</string>
     <string name="preference_require_location">Krefjast staðsetningargagna</string>
@@ -723,7 +723,7 @@
     <string name="failed_to_process_panorama">Mistókst að búa til víðmynd</string>
     <string name="preference_panorama_save">Upprunalegar myndir víðmyndar</string>
     <string name="preference_panorama_save_no">Ekki vista upprunalegar myndir</string>
-    <string name="exposure_compensation_seekbar">Leitarstika til að aðlaga jöfnun lýsingartíma</string>
+    <string name="exposure_compensation_seekbar">Leitarstika til að aðlaga jöfnun lýsingar</string>
     <string name="preference_panorama_save_all_plus_debug">Vista upprunalegar myndir ásamt XML-aflúsun</string>
     <string name="preference_camera_api_camera2">Camera2 API</string>
     <string name="preference_select_remote">Veldu fjartengt tæki</string>
@@ -736,7 +736,7 @@
     <string name="preference_show_stamp_summary">Hvort eigi að sýna táknmynd á skjánum þar sem hægt er að virkja eða gera stimplun mynda óvirka</string>
     <string name="preference_show_textstamp_summary">Hvort eigi að sýna táknmynd á skjánum þar sem hægt er að tilgreina sérsniðinn texta til að stimpla á myndina</string>
     <string name="preference_show_white_balance_lock_summary">Hvort eigi að sýna táknmynd á skjánum þar sem hægt er að læsa eða aflæsa sjálfvirku hvítvægi</string>
-    <string name="preference_show_exposure_lock_summary">Hvort eigi að sýna táknmynd á skjánum þar sem hægt er að læsa eða aflæsa lýsingartíma</string>
+    <string name="preference_show_exposure_lock_summary">Hvort eigi að sýna táknmynd á skjánum þar sem hægt er að læsa eða aflæsa lýsingu</string>
     <string name="preference_show_store_location_summary">Hvort eigi að sýna táknmynd á skjánum þar sem hægt er að virkja eða gera staðsetningargögn óvirk (geotagging)</string>
     <string name="preference_show_cycle_raw_summary">Hvort eigi að sýna táknmynd á skjánum þar sem hægt er að fletta í gegnum RAW-hami</string>
     <string name="preference_image_format_summary">Veldu skráasniðið sem notað verður til að vista myndir. Þetta hefur áhrif á \"venjulegar\" (ekki RAW) ljósmyndir. Einungis JPEG styður að vista með EXIF-lýsigögn. Athugaðu að PNG-snið er ekki fullkomlega taplaust, heldur er því umbreytt úr JPEG með 100%% myndgæðum.
@@ -753,7 +753,7 @@
     <string name="preference_edge_mode">Reiknirit fyrir brúnir</string>
     <string name="preference_screen_processing_settings">Vinnslustillingar…</string>
     <string name="preference_iso_summary">Hærra gildi þýðir meiri ljósnæmni (virkar mögulega ekki á sumum tækjum)</string>
-    <string name="preference_exposure_summary">Settu á 0 fyrir sjálfgefna jöfnun á lýsingartíma</string>
+    <string name="preference_exposure_summary">Settu á 0 fyrir sjálfgefna jöfnun á lýsingu</string>
     <string name="preference_white_balance_summary">Veldu stillingu til að aðlaga hvítvægi (white balance)</string>
     <string name="preference_touch_capture_summary">Taktu ljósmynd einfaldlega með því að snerta eða tvíbanka á forskoðunina</string>
     <string name="preference_pause_preview_summary">Setja skjáinn í bið eftir að mynd er tekin, með valkostum um að deila eða eyða myndinni</string>
@@ -777,7 +777,7 @@
     <string name="permission_rationale_bluetooth_scan_connect">Heimildir þarf fyrir skönnun/tengingu á Bluetooth til að finna og tengja Bluetooth LE (BLE) fjarstýringartæki.</string>
     <string name="preference_zebra_stripes_summary">Sé þetta valið, verða litrendur teiknaðar á skjáinn sem sýna á forskoðuninni hvar myndin verði yfirlýst.
 \n%s</string>
-    <string name="preference_camera_api_summary">Veldu Camera2 API til að virkja aukaeiginleika á borð við handvirka hami á lýsingartíma, skerpu, hvítvægi, auk RAW-mynda (ef tækið styður slíkt). Breyting á API-kerfisviðmóti hefur endurræsingu í för með sér.
+    <string name="preference_camera_api_summary">Veldu Camera2 API til að virkja aukaeiginleika á borð við handvirka hami á lýsingu, skerpu, hvítvægi, auk RAW-mynda (ef tækið styður slíkt). Breyting á API-kerfisviðmóti hefur endurræsingu í för með sér.
 \n%s</string>
     <string name="preference_video_profile_gamma_summary">Litrófsgildi til notkunar fyrir myndskeið ef myndmerkissnið er stillt á Litróf
 \n%s</string>
@@ -795,4 +795,17 @@
 \n%s</string>
     <string name="preference_audio_control_summary">Taka ljósmynd/myndskeið þegar hávaði greinist. Þegar þetta er virkt, skaltu nota hljóðnematáknið á skjánum til að byrja/hætta hlustun.
 \n%s</string>
+    <string name="exposure_compensation_zoom">Auka eða minnka jöfnun lýsingar</string>
+    <string name="preference_timer_speak">Niðurtalning með rödd</string>
+    <string name="preference_record_audio_summary">Taka upp hljóð með upptöku myndskeiðs</string>
+    <string name="preference_nr_save">Upprunalegar myndir truflanasíu</string>
+    <string name="preference_save_settings_summary">Vistar allar stillingar myndavélar í skrá</string>
+    <string name="preference_save_settings_filename">Heiti á vistuðum stillingum</string>
+    <string name="preference_video_output_format_summary">Skráasnið og kóðunarlyklar mynda og hljóðs
+\n%s</string>
+    <string name="preference_screen_settings_manager">Stillingastjórnun</string>
+    <string name="preference_show_white_balance_lock">Birta tákn fyrir læsingu á hvítvægi</string>
+    <string name="preference_show_exposure_lock">Birta tákn fyrir sjálfvirka lýsingu</string>
+    <string name="preference_remote_disconnect_screen_dim_summary">Ábending: Settu sjálfgefin birtuskil á lágmarksgildi áður en myndavélarforritið er gangsett..</string>
+    <string name="preference_front_camera_mirror">Spegla frammyndavél</string>
 </resources>
