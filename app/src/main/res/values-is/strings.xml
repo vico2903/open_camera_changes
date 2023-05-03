@@ -748,7 +748,7 @@
     <string name="array_seekbar_preference_seekbar">Leitarstika til að breyta kjörstillingu</string>
     <string name="preference_antibanding">Útrýming ráka</string>
     <string name="preference_camera2_photo_video_recording">Leyfa ljósmyndir á meðan upptöku myndskeiðs stendur</string>
-    <string name="preference_video_log">Myndasnið myndskeiða</string>
+    <string name="preference_video_log">Litasnið myndskeiða</string>
     <string name="preference_show_whats_new">Birta \'Nýtt á döfinni\' glugga</string>
     <string name="preference_edge_mode">Reiknirit fyrir brúnir</string>
     <string name="preference_screen_processing_settings">Vinnslustillingar…</string>
@@ -817,4 +817,12 @@
     <string name="preference_camera2_fake_flash_summary">Virkjaðu þetta ef leifturljós tækisins þín hegðar sér skringilega þegar notað er Camera2 API</string>
     <string name="preference_front_camera_mirror_summary">Hvort eigi að spegla tekinni mynd þegar frammyndavélin er notuð
 \n%s</string>
+    <string name="preference_video_log_low">Log (Lítið)</string>
+    <string name="preference_video_log_medium">Log (Miðlungs)</string>
+    <string name="preference_video_log_summary">Settu staðlað eða flatt litasnið fyrir myndskeiðsham
+\n%s</string>
+    <string name="preference_video_log_fine">Log (Fínt)</string>
+    <string name="preference_video_log_strong">Log (Sterkt)</string>
+    <string name="preference_video_log_extra_strong">Log (Mjög sterkt)</string>
+    <string name="video_log">Log-snið</string>
 </resources>
