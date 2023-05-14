@@ -203,7 +203,7 @@
     <string name="preference_video_stabilization_summary">La stabilizzazione video riduce i tremolii durante il movimento della videocamera sia per l\'anteprima che per i video registrati. Potrebbe non essere necessario se il tuo dispositivo dispone della funzione di stabilizzazione ottica dell\'immagine (OIS).</string>
     <string name="preference_video_bitrate">Video bitrate</string>
     <string name="preference_video_bitrate_summary">Imposta il bitrate approssimativo per i video (più alto significa migliore qualità, ma file più grandi; inoltre la registrazione del video potrebbe fallire se un certo bitrate non è supportato dal dispositivo)\n%s</string>
-    <string name="preference_video_fps">Video frame rate (approx)</string>
+    <string name="preference_video_fps">Frame rate Video(circa)</string>
     <string name="preference_video_fps_summary">Imposta il frame rate (FPS) per i video (può essere approssimativo e non è garantito raggiungerlo, inoltre la registrazione potrebbe fallire se il frame rate non è supportato). Controlla i video risultanti per capire quale frame rate è stata utilizzata. Nota che questa impostazione viene ignorata per i video in slow motion.\n%s</string>
     <string name="preference_video_max_duration">Durata massima dei video</string>
     <string name="preference_video_max_duration_summary">La registrazione del video sarà interrotta ad una durata specifica\n%s</string>
@@ -283,7 +283,7 @@
     <string name="photo_mode_standard_full">Standard</string>
     <string name="photo_mode_hdr">HDR</string>
     <!-- keep short, as this shows in the popup menu -->
-    <string name="photo_mode_expo_bracketing">Expo {}</string>
+    <string name="photo_mode_expo_bracketing">{} Esposizione</string>
     <!-- keep short, as this shows in the popup menu -->
     <string name="photo_mode_expo_bracketing_full">Bracketing (esposizione)</string>
     <string name="photo_mode_fast_burst_full">Scatto rapido</string>
@@ -434,9 +434,9 @@
     <string name="preference_raw_yes">Standard e DNG (RAW)</string>
     <string name="preference_raw_only">Solo DNG (RAW)</string>
     <string name="preference_stamp_dateformat_default">Default</string>
-    <string name="preference_stamp_dateformat_yyyymmdd">yyyy-mm-dd (ISO 8601)</string>
-    <string name="preference_stamp_dateformat_ddmmyyyy">dd/mm/yyyy</string>
-    <string name="preference_stamp_dateformat_mmddyyyy">mm/dd/yyyy</string>
+    <string name="preference_stamp_dateformat_yyyymmdd">aaaa-mm-gg (ISO 8601)</string>
+    <string name="preference_stamp_dateformat_ddmmyyyy">gg/mm/aaaa</string>
+    <string name="preference_stamp_dateformat_mmddyyyy">mm/gg/aaaa</string>
     <string name="preference_stamp_dateformat_none">Nessuno</string>
     <string name="preference_fast_burst_n_images">Numero di foto</string>
     <string name="preference_fast_burst_n_images_entries_2">2</string>
@@ -539,7 +539,7 @@
     <!-- string for burst mode not being supported for a resolution -->
     <string name="preference_show_video_max_amp">Mostra indicatore livello audio</string>
     <string name="preference_show_video_max_amp_summary">Determina se mostrare l\'indicatore del livello audio sullo schermo durante la registrazione video</string>
-    <string name="photo_mode_focus_bracketing">Focus {}</string>
+    <string name="photo_mode_focus_bracketing">{} Focus</string>
     <!-- keep short, as this shows in the popup menu -->
     <string name="photo_mode_focus_bracketing_full">Focus bracketing</string>
     <string name="focus_bracketing_source_distance">Distanza origine focus bracketing</string>
@@ -855,7 +855,7 @@
     <string name="preference_zebra_stripes_color_transparent">Trasparente</string>
     <string name="preference_zebra_stripes_color_white">Bianco</string>
     <string name="external_camera">Fotocamera esterna</string>
-    <string name="ultrawide">Ultra-wide</string>
+    <string name="ultrawide">Grandanolo</string>
     <string name="switch_to_external_camera">Passa alla fotocamera esterna</string>
     <string name="switch_to_unknown_camera">Commuta fotocamera</string>
     <string name="switch_multi_camera">Commuta tra fotocamere multiple</string>
@@ -863,8 +863,8 @@
     <string name="preference_multi_cam_button_summary">Se abilitato, usa pulsanti separati per passare dalla fotocamera anteriore a quella posteriore e per passare dalla fotocamere multiple anteriori o posteriori. Se disabilitato, l\'icona \"Commuta fotocamera\" commuta ciclicamente tra le telecamere disponibili.</string>
     <string name="preference_show_camera_id">Mostra ID fotocamera</string>
     <string name="preference_show_camera_id_summary">Visualizza sullo schermo il numero ID della fotocamera attualmente in uso</string>
-    <string name="preference_allow_long_press">Allow long press actions</string>
-    <string name="preference_allow_long_press_summary">Whether to allow long press actions (e.g., long press on gallery to change save location).</string>
+    <string name="preference_allow_long_press">Permetti long press actions</string>
+    <string name="preference_allow_long_press_summary">Se permettere o meno le long press actions (ad esempio, premi a lungo su Galleria per modificare dove salvare le foto).</string>
     <string name="aperture">Apertura</string>
     <string name="error_features_4k">4K UHD</string>
     <string name="error_features_bitrate">Bitrate</string>
