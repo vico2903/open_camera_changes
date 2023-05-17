@@ -301,7 +301,7 @@
     <string name="preferences_build_version">Byggingarútgáfa</string>
     <string name="preferences_authors">Höfundar</string>
     <string name="preferences_source_code">Grunnkóði</string>
-    <string name="preferences_licence">Notkunarleyfi</string>
+    <string name="preferences_licence">Leyfi</string>
     <string name="preferences_service_terms">Þjónustuskilmálar</string>
     <string name="back_button_label">Til baka</string>
     <string name="next_button_label">Næsta</string>
@@ -825,4 +825,13 @@
     <string name="preference_video_log_strong">Log (Sterkt)</string>
     <string name="preference_video_log_extra_strong">Log (Mjög sterkt)</string>
     <string name="video_log">Log-snið</string>
+    <string name="preference_antibanding_summary">Reiknirit sem hjálpa við að útrýma ljósflökti.
+\n%s</string>
+    <string name="preference_camera2_photo_video_recording_summary">Leyfir töku ljósmynda á meðan upptöku myndskeiðs stendur. Gerðu þetta óvirkt ef upp koma vandamál við upptöku myndskeiða þegar Camera2 API-kerfisviðmótið er virkt á tækinu.</string>
+    <string name="preference_auto_stabilise_summary">Myndum verður snúið þannig að þær séu sjálfkrafa láréttar (aðeins ljósmyndir - myndataka verður hægvirkari og gæti misheppnast á tækjum með of lítið minni)</string>
+    <string name="preference_keep_display_on_summary">Ef þetta er virkt, mun skjárinn ekki slökkva á sér á meðan aðalviðmót myndavélarinnar er í gangi</string>
+    <string name="preference_show_toasts_summary">Hvort eigi að birta tímabundin skilaboð með upplýsingum á skjánum</string>
+    <string name="preference_thumbnail_animation_summary">Birta hreyfandi smámynd þegar mynd er tekin</string>
+    <string name="preference_about_summary">Upplýsingar um forrit og villuboð</string>
+    <string name="preference_background_photo_saving_summary">Hvort vista eigi myndir í bakgrunnsþræði (til að hraða aðgerðum)</string>
 </resources>
