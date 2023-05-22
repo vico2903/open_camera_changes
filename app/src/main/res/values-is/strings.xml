@@ -855,4 +855,12 @@
 \n%s</string>
     <string name="preference_video_flash_summary">Ef þetta er virkt, mun vera kveikt/slökkt á leifturljósinu þegar tekið er upp myndskeið (er hægt að nota til að sjá í fjarlægð hvort myndavél sé enn að taka upp)</string>
     <string name="preference_donate_summary">Ef þér líkar þetta forrit, ættirðu að íhuga að styrkja þróun þess. Þú getur gert það með því að kaupa gjafaforritið mitt - smelltu á þennan tengil til að opna síðuna fyrir gjafaforritið. Kærar þakkir!</string>
+    <string name="preference_lock_video_summary">Þegar verið er að taka upp myndskeið, verður viðmótinu læst til að koma í veg fyrir að upptakan stöðvist fyrir slysni. Strjúktu yfir skjáinn til að aflæsa. Athugaðu að upptaka myndskeiða stðvast alltaf ef forritið hverfur í bakgrunn eða ef skjárinn tæmist.</string>
+    <string name="preference_crop_guide_summary">Stoðlínur fyrir utanskurð birtast sem fehyrningur sem sýnir hvernig tilgreind stærðarhlutföll líti út - nýtist vel ef ætlunin er að sníða til ljósmynd/myndskeið eftirá yfir í önnur stærðarhlutföll. Krefst þess að vera í WYSIWYG raunljósmyndunarham, eða vera í myndskeiðstökuham.
+\n%s</string>
+    <string name="raw_info">DNG-skrár innihalda fullar óþjappaðar og óunnar myndupplýsingar beint frá myndavélinni.
+\n
+\nAthugaðu að sum myndasafnaforrit þekkja ekki DNG-skrár. DNG-myndir er hægt að vinna með í ýmsum sérhæfðum myndvinnsluforritum.
+\n
+\nAthugaðu að ýmsar vinnsluaðferðir á borð við stimplun á myndir og sjálfvirkur halli virka ekki á DNG-myndir, heldur á önnur myndsnið (JPEG/PNG/o.s.frv.).</string>
 </resources>
