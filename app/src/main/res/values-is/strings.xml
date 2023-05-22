@@ -834,4 +834,10 @@
     <string name="preference_thumbnail_animation_summary">Birta hreyfandi smámynd þegar mynd er tekin</string>
     <string name="preference_about_summary">Upplýsingar um forrit og villuboð</string>
     <string name="preference_background_photo_saving_summary">Hvort vista eigi myndir í bakgrunnsþræði (til að hraða aðgerðum)</string>
+    <string name="preference_lock_orientation_summary">Ef þetta er stillt, verður halli tækisins hunsaður og stefna myndar/myndskeiðs mun miðast við tilgreinda stefnu
+\n%s</string>
+    <string name="preference_timer_beep_summary">Gefur hljóðmerki þegar niðurteljari telur niður eða við töf við endurtekna myndatöku</string>
+    <string name="preference_timer_speak_summary">Talaðu inn niðurtalningu eða töf við endurtekna myndatöku (frá 60 sekúndum)</string>
+    <string name="preference_using_saf_summary">Hvort nota eigi aðgengi geymslukerfis (Storage Access Framework) til að vista ljósmyndir og myndskeið. Þetta ætti að virkja svo hægt sé að vista á utanáliggjandi SD-minniskort. Á Android 10+ verður að virkja þetta til að geta vistað í möppur utan DCIM-möppunnar.</string>
+    <string name="preference_show_when_locked_summary">Ef þetta er virkt, mun myndavélarviðmótið sjóst ofan á hverskyns læsiskjám (þú getur eftir sem áður komist í Stillingar, Myndasafn, o.s.frv.)</string>
 </resources>
