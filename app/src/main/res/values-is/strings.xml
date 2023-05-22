@@ -840,4 +840,12 @@
     <string name="preference_timer_speak_summary">Talaðu inn niðurtalningu eða töf við endurtekna myndatöku (frá 60 sekúndum)</string>
     <string name="preference_using_saf_summary">Hvort nota eigi aðgengi geymslukerfis (Storage Access Framework) til að vista ljósmyndir og myndskeið. Þetta ætti að virkja svo hægt sé að vista á utanáliggjandi SD-minniskort. Á Android 10+ verður að virkja þetta til að geta vistað í möppur utan DCIM-möppunnar.</string>
     <string name="preference_show_when_locked_summary">Ef þetta er virkt, mun myndavélarviðmótið sjóst ofan á hverskyns læsiskjám (þú getur eftir sem áður komist í Stillingar, Myndasafn, o.s.frv.)</string>
+    <string name="preference_max_brightness_summary">Þvinga skjáinn á hámarks birtustig, fremur en það sem sjálfgefið er í tækinu</string>
+    <string name="preference_location_summary">Geyma staðsetningargögn í ljósmyndum/myndskeiðum (ljósmyndir gerta aðeins geymt staðsetningargögn í JPEG og DNG-sniðum)</string>
+    <string name="preference_require_location_summary">Ef staðsetningargögn eru virkjuð, þá aðeins taka mynd ef staðsetningargögn eru tiltæk</string>
+    <string name="preference_nr_save_summary">Hvort eigi að vista upprunalegar myndir þegar verið er í truflanasíuham. Athugaðu að þetta getur gert vistun mynda mun hægvirkari.
+\n%s</string>
+    <string name="preference_video_low_power_check_summary">Stöðvar upptöku myndskeiða ef mjög lítil hleðsla er á rafhlöðu. Þetta minnkar hættuna á að myndskeið skemmist ef tækið þitt slekkur skyndilega á sér þegar hleðsla er við það að klárast.</string>
+    <string name="preference_panorama_save_summary">Hvort eigi að vista upprunalegar myndir þegar verið er í víðmyndaham. Athugaðu að þetta getur gert vistun víðmynda mun hægvirkari. Býður einnig upp á að vista XML-skrá sem getur nýst við að tilkynna vandamál varðandi víðmyndatökur.
+\n%s</string>
 </resources>
