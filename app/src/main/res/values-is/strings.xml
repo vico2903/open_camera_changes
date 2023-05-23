@@ -874,4 +874,13 @@
 \n%s</string>
     <string name="preference_video_subtitle_summary">Útbýr skjátextaskrá (.SRT) sem geymir dagsetningu og tíma ásamt GPS-upplýsingar ef staðsetningar/stefnugögn eru virkjuð. (Á Android 11+ krefst þessi kostur þess að heimildir séu veittar fyrir \'Fleiri myndavélastýringar\' og \'Aðgengi geymslukerfis\'.)
 \n%s</string>
+    <string name="preference_show_whats_new_summary">Hvort birta eigi upplýsingar um nýja eiginleika og betrumbætur eftir að forritið hefur verið uppfært</string>
+    <string name="preference_edge_mode_summary">Reikniritið sem myndavélarrekillinn ætti að nota við að bæta brúnir í myndum. Bæting brúna eykur skerpu og fínleg atriði í teknum myndum. (Þessi stilling er hunsuð í truflanasíuham.)
+\n%s</string>
+    <string name="preference_noise_reduction_mode_summary">Reikniritið sem myndavélarrekillinn ætti að nota við að minnka truflanir og suð. Truflanasíu-útreikningurinn leitast við að bæta myndgæði með því að fjarlægja umframsuð sem verður til við myndatöku, sérstaklega þar sem birta er lítil. (Athugaðu að þetta er ekki það sem er kallað truflanasíuhamur og í rauninni er þessi stilling hunsuð í truflanasíuham.)
+\n%s</string>
+    <string name="preference_show_take_photo_summary">Birtir táknmynd til að taka ljósmyndir og myndskeið. Afmerktu þetta ef þú vilt frekar taka myndir með öðrum aðferðum, eins og t.d. ef tækið þitt er með sérstakan myndatökuhnapp, eða ef þú vilt frekar nota hljóðstyrkshnappana.</string>
+    <string name="magnetic_accuracy_info">Kvarða þarf áttavita tækisins til að bæta nákvæmni hans. Þetta er hægt að gera með því að hreyfa tækið í feril sem líkist tölunni 8.
+\n
+\nFyrirliggjandi nákvæmni:</string>
 </resources>
