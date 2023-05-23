@@ -870,4 +870,8 @@
     <string name="preference_video_fps_summary">Stillir áætlaða rammatíðni (FPS) myndskeiða (má vera nálgun, er ekki víst að náist, og getur einnig valdið því að upptaka mistakist ef tækið styður ekki viðkomandi rammatíðni). Skoðaðu í raunverulegum myndskeiðum hvaða endanlega rammatíðni er notuð. Athugaðu að þessi stilling hefur engin áhrif í hægmyndatöku.
 \n%s</string>
     <string name="preference_video_restart_max_filesize_summary">Hvort eigi sjálfkrafa að endurræsa þegar hámarksstærð skráa er náð (hvort sem er skilgreindri af tækinu eða notandanum)</string>
+    <string name="preference_video_restart_summary">Ef myndskeið hefur stöðvast eftir að hámarkslengd er náð (ef það er stillt), lætur þessi kostur upptökuna byrja aftur, eins oft og skilgreint er
+\n%s</string>
+    <string name="preference_video_subtitle_summary">Útbýr skjátextaskrá (.SRT) sem geymir dagsetningu og tíma ásamt GPS-upplýsingar ef staðsetningar/stefnugögn eru virkjuð. (Á Android 11+ krefst þessi kostur þess að heimildir séu veittar fyrir \'Fleiri myndavélastýringar\' og \'Aðgengi geymslukerfis\'.)
+\n%s</string>
 </resources>
