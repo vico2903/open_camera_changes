@@ -688,7 +688,7 @@
     <string name="preference_background_photo_saving">Nota bakgrunnsþráð</string>
     <string name="preference_force_video_4k">Þvinga 4K UHD myndmerki (virkar bara á sumum tækjum)</string>
     <string name="preference_video_stabilization">Virkja stafræna stöðugleikajöfnun myndmerkis</string>
-    <string name="preference_video_fps">Rammahraði myndmerkis (áætlaður)</string>
+    <string name="preference_video_fps">Rammatíðni myndmerkis (áætlaður)</string>
     <string name="preference_video_max_duration">Hámarks tímalengd myndskeiðs</string>
     <string name="preference_video_max_filesize">Hámarks skráarstærð myndskeiðs</string>
     <string name="preference_video_restart_max_filesize">Endurræsa eftir að hámarksstærð er náð</string>
@@ -863,4 +863,11 @@
 \nAthugaðu að sum myndasafnaforrit þekkja ekki DNG-skrár. DNG-myndir er hægt að vinna með í ýmsum sérhæfðum myndvinnsluforritum.
 \n
 \nAthugaðu að ýmsar vinnsluaðferðir á borð við stimplun á myndir og sjálfvirkur halli virka ekki á DNG-myndir, heldur á önnur myndsnið (JPEG/PNG/o.s.frv.).</string>
+    <string name="preference_force_video_4k_summary">Virkjar 3840x2160 upplausn fyrir upptöku myndskeiða í bakmyndavél - þessi kostur er redding sem gæti nýst 4K tækjum í 4K myndavélum sem ekki bjóða þennan valkost til utanaðkomandi myndavélaforrita. Það er ekkert víst að þetta virki, endilega prófa áður en farið er að nota þetta.</string>
+    <string name="preference_video_stabilization_summary">Stafræn stöðugleikajöfnun myndmerkis minnkar óvæntar hreyfingar og titring bæði í forskoðun og upptöku myndskeiða. Þetta gæti verið óþarft ef tækið þitt styður optíska stöðugleikajöfnun (OIS).</string>
+    <string name="preference_video_bitrate_summary">Stillir áætlaðan bitahraða myndskeiða (hærra gildi þýðir betri gæði, en tekur líka meira geymslupláss; getur einnig valdið því að upptaka mistakist ef tækið styður ekki viðkomandi bitahraða)
+\n%s</string>
+    <string name="preference_video_fps_summary">Stillir áætlaða rammatíðni (FPS) myndskeiða (má vera nálgun, er ekki víst að náist, og getur einnig valdið því að upptaka mistakist ef tækið styður ekki viðkomandi rammatíðni). Skoðaðu í raunverulegum myndskeiðum hvaða endanlega rammatíðni er notuð. Athugaðu að þessi stilling hefur engin áhrif í hægmyndatöku.
+\n%s</string>
+    <string name="preference_video_restart_max_filesize_summary">Hvort eigi sjálfkrafa að endurræsa þegar hámarksstærð skráa er náð (hvort sem er skilgreindri af tækinu eða notandanum)</string>
 </resources>
