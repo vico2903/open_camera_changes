@@ -883,4 +883,13 @@
     <string name="magnetic_accuracy_info">Kvarða þarf áttavita tækisins til að bæta nákvæmni hans. Þetta er hægt að gera með því að hreyfa tækið í feril sem líkist tölunni 8.
 \n
 \nFyrirliggjandi nákvæmni:</string>
+    <string name="preference_hdr_save_expo_summary">Ef þetta er virkt í HDR-tökuham, verða mislýstu grunnmyndirnar þrjár vistaðar samhliða HDR-lokamyndinni. Athugaðu að þetta gerir vistun hægvirkari, sérstaklega ef einnig er verið að nota \"Stimpla myndir\" eða sjálfvirka aðlögun halla.</string>
+    <string name="preference_camera2_fast_burst_summary">Gerir kleift að taka hraðari HDR/mislýstar ljósmyndarunur. Gerðu þetta óvirkt ef tækið þitt á í vandræðum með að taka myndir í HDR- eða mislýsingarham (Expo).</string>
+    <string name="preference_restore_settings_question">Þessi valkostur gerir þér kleift að velja eina af stillingaskránum sem þú hefur vistað. Hafðu í huga að sé slík skrá valin mun hún skrifa yfir allar fyrirliggjandi stillingar!</string>
+    <string name="preference_water_type_summary">Fyrir vatnsheldar myndavélahýsingar, bætir nákvæmni ef rétt gerð vatns er valin.</string>
+    <string name="panorama_info">Til að taka víðmynd (panorama), skaltu halda tækinu þínu í lóðréttri stöðu (portrait) og taka mynd til að hefja víðmyndatökuna. Snúðu tækinu síðan til hægri eða vinstri þannig að hvíti hringur miðjunnar færist yfir á bláa punktinn. Eftir hverja nýja mynd er tækinu snúið áfram þar til blái punkturinn birtist aftur.
+\n
+\nÝttu á hakmerkið til að vista víðmyndina eða á krossinn til að hætta við.
+\n
+\nAthugaðu að það getur tekið nokkurn tíma að vinna víðmyndir og vista þær.</string>
 </resources>
