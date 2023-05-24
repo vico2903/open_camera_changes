@@ -170,7 +170,7 @@
     <string name="preference_audio_noise_control_sensitivity_m1">-1</string>
     <string name="preference_audio_noise_control_sensitivity_m2">-2</string>
     <string name="preference_audio_noise_control_sensitivity_m3">-3 (lítil næmni)</string>
-    <string name="preference_hdr_contrast_enhancement_smart">Snjall</string>
+    <string name="preference_hdr_contrast_enhancement_smart">Snjallt</string>
     <string name="preference_video_output_format">Snið myndmerkis</string>
     <string name="preference_video_output_format_mpeg4_h264">MPEG4 H264</string>
     <string name="skip_button_label">Sleppa</string>
@@ -488,7 +488,7 @@
     <string name="color_effect_whiteboard">Hvítt spjald</string>
     <string name="preference_exif_artist_summary">Upplýsingar um höfund/ljósmyndara til að skrá í lýsigögn myndar (einungis JPEG-snið). (Skilja eftir autt til að sleppa)</string>
     <string name="preference_exif_copyright_summary">Upplýsingar um höfundarrétt til að skrá í lýsigögn myndar (einungis JPEG-snið). (Skilja eftir autt til að sleppa)</string>
-    <string name="flash_frontscreen_torch">Skjálýsing</string>
+    <string name="flash_frontscreen_torch">Ljóskastari af skjá</string>
     <string name="preference_ghost_image">Draugamynd</string>
     <string name="preference_ghost_image_last">Síðasta mynd tekin</string>
     <string name="preference_ghost_image_selected">Valin mynd</string>
@@ -892,4 +892,18 @@
 \nÝttu á hakmerkið til að vista víðmyndina eða á krossinn til að hætta við.
 \n
 \nAthugaðu að það getur tekið nokkurn tíma að vinna víðmyndir og vista þær.</string>
+    <string name="preference_video_max_filesize_summary">Upptaka myndskeiðs mun stöðvast og/eða endurræsast (sjá valkost fyrir neðan) þegar (um það bil) hámarksskráarstærð er nað. Athugaðu að mörg Android-tæki eru með hámarksstærð fyrir myndskeið (oft í kringum 2GB eða 4GB), en þessi valkostur gerir kleift að stilla tiltekið gildi. Athugaðu að þennan valkost er ekki hægt að nota til að auka innbyggða hámarksstærð tækisins.
+\n%s</string>
+    <string name="hdr_info">HDR-hamur nýtist vel fyrir myndir með miklum mun á birtustigi. Það virkar þannig að teknar eru margar myndir með mismunandi lýsingu, síðan eru þær sameinaðar til að útbúa lokamyndina.
+\n
+\nAthugaðu að HDR hentar ekki fyrir viðfangsefni sem hreyfast hratt og getur að auki leitt til ónákvæmni í litum.
+\n
+\nMyndataka í HDR-ham verður hægvirkari.</string>
+    <string name="permission_rationale_location">Heimild þarf fyrir aðgang að staðsetningu til að hnattstaðsetja myndir (geyma staðsetningargögn í ljósmyndum og myndskeiðum, þar með talið í stimplum og skjátextaskrám). Heimild fyrir aðgang að staðsetningu er einnig nauðsynleg (a.m.k. á Android 11 og eldri) til að tengjast Bluetooth LE fjarstýringum.</string>
+    <string name="photo_mode_dro">DRO</string>
+    <string name="preference_hdr_contrast_enhancement_summary">Hvenær eigi að nota reiknirit fyrir bætingu birtuskila í HDR (Dynamic Range Optimizer - DRO). Þetta getur bætt myndir þegar þær eru teknar við aðstæður með mjög miklum breytileika í ljósmagni og gefur líka lokamyndinni meira HDR-útlit.
+\n%s</string>
+    <string name="preference_show_cycle_flash_summary">Hvort birta eigi táknmynd á skjánum þar sem flett er í gegnum valkosti fyrir leifturljós, í stað þess að valkostirnir birtist í valmynd. Athugaðu að ljóskastari er ekki tiltækur ef þessi valkostur er valinn.</string>
+    <string name="preference_raw_expo_bracketing_summary">Hvort RAW-valkosturinn eigi einnig að gilda við tökur á mislýstum myndaröðum (eða í HDR-ham þegar \"Vista allar myndir fyrir HDR-ham\" er virkt). Ef þetta er óvirkt, verða einungis JPEG-myndir vistaðar í þessum tökuhömum.</string>
+    <string name="preference_raw_focus_bracketing_summary">Hvort RAW-valkosturinn eigi einnig að gilda við tökur á misskerptum myndaröðum. Ef þetta er óvirkt, verða einungis JPEG-myndir vistaðar í þessum tökuham.</string>
 </resources>
