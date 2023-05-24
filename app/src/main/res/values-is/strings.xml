@@ -906,4 +906,10 @@
     <string name="preference_show_cycle_flash_summary">Hvort birta eigi táknmynd á skjánum þar sem flett er í gegnum valkosti fyrir leifturljós, í stað þess að valkostirnir birtist í valmynd. Athugaðu að ljóskastari er ekki tiltækur ef þessi valkostur er valinn.</string>
     <string name="preference_raw_expo_bracketing_summary">Hvort RAW-valkosturinn eigi einnig að gilda við tökur á mislýstum myndaröðum (eða í HDR-ham þegar \"Vista allar myndir fyrir HDR-ham\" er virkt). Ef þetta er óvirkt, verða einungis JPEG-myndir vistaðar í þessum tökuhömum.</string>
     <string name="preference_raw_focus_bracketing_summary">Hvort RAW-valkosturinn eigi einnig að gilda við tökur á misskerptum myndaröðum. Ef þetta er óvirkt, verða einungis JPEG-myndir vistaðar í þessum tökuham.</string>
+    <string name="intro_text">Snertu til að skerpa og ýttu á hvíta hnappinn til að taka myndir.
+\n
+\nTil að gera hámarksbirtustig skjás óvirkt, skaltu skoða Stillingar/Viðmót á skjánum/\"Þvinga hámarks birtustig\". Til að vista á SD-minniskort á Android 5+, skaltu skoða Stillingar/Fleiri myndavélarstýringar/\"Aðgengi geymslukerfis\". Til að sjá ítarlegri leiðbeiningar skaltu smella á \"Hjálp á netinu\" í stillingunum.</string>
+    <string name="preference_multi_cam_button_summary">Ef þetta er virkt, skal nota aðskilda hnappa til að skipta á milli bak-/frammyndavéla og til að skipta á milli margra bak-/frammyndavéla. Ef þetta er óvirkt, mun táknið til að skipta milli myndavéla fletta í gegnum allar tiltækar myndavélar.</string>
+    <string name="preference_stamp_geo_address_summary">Ef slíkt er mögulegt, verður náð í heimilisfang eða staðarheiti út frá GPS-hnitum (fyrir myndastimpil eða skjátexta myndskeiðs). Athugaðu að ef þetta er virkt krefst það þess að staðsetning þín sé send um internetið yfir til utanaðkomandi aðila til að umbreyta GPS-hnitum yfir í staðarheiti/heimilisfang. Skoðaðu https://developer.android.com/reference/android/location/Geocoder . Þessi eiginleiki tryggir á engan hátt að slík gögn séu tiltæk eða nákvæm. Niðurstöðurnar eru bara bestu tiltækar ágiskanir, án ábyrgðar á því hvort þær séu marktækar.
+\n%s</string>
 </resources>
