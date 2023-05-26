@@ -354,6 +354,16 @@ public class MainActivity extends AppCompatActivity {
         if( MyDebug.LOG )
             Log.d(TAG, "onCreate: time after updating folder history: " + (System.currentTimeMillis() - debug_time));
 
+        boolean isFirstTimeSaveLocation = sharedPreferences.getBoolean("isFirstTimeSaveLocation", true);
+        String save_location = sharedPreferences.getString(PreferenceKeys.SaveLocationPreferenceKey, "Camera");
+
+        if (isFirstTimeSaveLocation && save_location.equals("OpenCamera")) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(PreferenceKeys.SaveLocationPreferenceKey, "Camera");
+            editor.putBoolean("isFirstTimeSaveLocation", false);
+            editor.apply();
+        }
+
         // set up sensors
         mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 
@@ -1108,7 +1118,7 @@ public class MainActivity extends AppCompatActivity {
                 String new_folder;
                 if( res.alt == null ) {
                     // no alternative, fall back to default
-                    new_folder = "OpenCamera";
+                    new_folder = "Camera";
                 }
                 else {
                     // replace with the alternative
@@ -4710,7 +4720,7 @@ public class MainActivity extends AppCompatActivity {
         editText.setHint(getResources().getString(R.string.preference_save_location));
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        editText.setText(sharedPreferences.getString(PreferenceKeys.SaveLocationPreferenceKey, "OpenCamera"));
+        editText.setText(sharedPreferences.getString(PreferenceKeys.SaveLocationPreferenceKey, "Camera"));
         InputFilter filter = new InputFilter() {
             // whilst Android seems to allow any characters on internal memory, SD cards are typically formatted with FAT32
             final String disallowed = "|\\?*<\":>";
