@@ -157,4 +157,26 @@
     <string name="preferences_authors">Upphovsmän</string>
     <string name="preferences_service_terms">Användarvillkor</string>
     <string name="preferences_build_version">Programversion</string>
+    <string name="preference_max_brightness_summary">Tvinga skärmen till maximal ljusstyrka istället för enhetens standardinställning</string>
+    <string name="preference_quality_summary">Ställ in bildkvalitéten för sparade JPEG- eller WebP-bilder (standardvärdet är 90%%). Har ingen effekt på PNG-bildformatet.
+\n%s</string>
+    <string name="preference_location_summary">Lagra GPS-position i foton/videos (för foton kan endast position lagras i formaten JPEG och DNG)</string>
+    <string name="preference_gps_direction">Lagra kompassriktning</string>
+    <string name="preference_gps_direction_summary">Lagra GPS-ens kompassriktning i foton (endast JPEG-formatet)</string>
+    <string name="preference_stamp_dateformat">Format för datumstämpel</string>
+    <string name="preference_stamp_timeformat">Format för tidsstämpel</string>
+    <string name="preference_stamp_gpsformat">Format för GPS-stämpel</string>
+    <string name="preference_textstamp">Anpassad text</string>
+    <string name="preference_textstamp_summary">Stämpla foton med en anpassad text</string>
+    <string name="preference_stamp_fontsize">Typssnittsstorlek</string>
+    <string name="preference_stamp_fontsize_summary">Typssnittsstorlek som används vid stämpling av text på foton</string>
+    <string name="preference_stamp_font_color">Typsnittsfärg</string>
+    <string name="preference_stamp_font_color_summary">Typssnittsfärg som används vid stämpling av text på foton</string>
+    <string name="preference_stamp_style">Textstil</string>
+    <string name="preference_stamp_style_summary">Stil som används vid stämpling av text på foton
+\n%s</string>
+    <string name="preference_background_photo_saving">Använd bakgrundstråd</string>
+    <string name="preference_stamp">Stämpla foton</string>
+    <string name="preference_max_brightness">Tvinga maximal ljusstyrka</string>
+    <string name="preference_category_camera_quality">Foto- och videoinställningar</string>
 </resources>
