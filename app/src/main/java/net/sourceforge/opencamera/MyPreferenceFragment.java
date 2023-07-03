@@ -771,7 +771,7 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
             Log.d(TAG, "supports_camera2: " + supports_camera2);
         if( supports_camera2 ) {
             final Preference pref = findPreference("preference_use_camera2");
-            pref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            /*pref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference arg0) {
                     if( pref.getKey().equals("preference_use_camera2") ) {
@@ -783,7 +783,7 @@ public class MyPreferenceFragment extends PreferenceFragment implements OnShared
                     }
                     return false;
                 }
-            });
+            }); */
         }
         else {
             Preference pref = findPreference("preference_use_camera2");
