@@ -258,7 +258,7 @@ public class MyApplicationInterface extends BasicApplicationInterface {
     }
 
     @Override
-    public boolean useCamera2() {
+   /* public boolean useCamera2() {
         if( main_activity.supportsCamera2() ) {
             String camera_api = sharedPreferences.getString(PreferenceKeys.CameraAPIPreferenceKey, PreferenceKeys.CameraAPIPreferenceDefault);
             if( "preference_camera_api_camera2".equals(camera_api) ) {
@@ -267,7 +267,13 @@ public class MyApplicationInterface extends BasicApplicationInterface {
         }
         return false;
     }
-
+*/
+    public boolean useCamera2() {
+        if( main_activity.supportsCamera2() ) {
+            return true;
+        }
+        return false;
+    }
     /** If adding extra calls to this, consider whether explicit user permission is required, and whether
      *  privacy policy or data privacy section needs updating.
      *  Returns null if location not available.
